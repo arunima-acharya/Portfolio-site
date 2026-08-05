@@ -1,0 +1,340 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --gutter: 4.5vw;
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --gutter: 9vw;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --gutter: 13.5vw;
+    }
+  }
+
+  :root {
+    --bg-primary: #2a2a2a;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #111111;
+    --bg-card: #141414;
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-default: rgba(255, 255, 255, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #52525b;
+    --glow-white: rgba(255, 255, 255, 0.08);
+    --glow-accent: rgba(255, 255, 255, 0.04);
+  }
+
+  html.light {
+    --bg-primary: #efefef;
+    --bg-secondary: #f5f5f5;
+    --bg-tertiary: #ebebeb;
+    --bg-card: #f0f0f0;
+    --border-subtle: rgba(0, 0, 0, 0.06);
+    --border-default: rgba(0, 0, 0, 0.12);
+    --text-primary: #111111;
+    --text-secondary: #444444;
+    --text-muted: #888888;
+    --glow-white: rgba(0, 0, 0, 0.04);
+    --glow-accent: rgba(0, 0, 0, 0.02);
+  }
+
+  html.light body {
+    color: #111111;
+  }
+
+  html.light .text-white:not(.keep-white) {
+    color: #111111 !important;
+  }
+
+  /* Research pieces are always dark, so their white text must stay white
+     even when the site-wide toggle is set to light. */
+  html.light .research-dark .text-white {
+    color: #ffffff !important;
+  }
+
+  html.dark body {
+    color: #ffffff;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    cursor: none !important;
+  }
+
+  canvas {
+    cursor: auto !important;
+  }
+
+  @media (max-width: 768px) {
+    * {
+      cursor: auto !important;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-weight: 400;
+  }
+
+  ::selection {
+    background-color: rgba(232, 81, 10, 0.25);
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid #e8510a;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a3a3a;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/*
+ * Global responsive safety net.
+ * Most of this codebase sets layout via inline `style={{...}}` rather than
+ * CSS classes, so component-by-component breakpoints aren't feasible to add
+ * everywhere. These rules target the inline `style` attribute directly
+ * (matching on its rendered string) to collapse multi-column CSS grids on
+ * narrow viewports without having to touch every component.
+ */
+@media (max-width: 640px) {
+  [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* A child with an explicit `grid-column: span N` forces the grid to
+     create implicit extra columns even when the parent above is forced
+     to a single column — collapse those spans too so it doesn't reopen
+     multiple columns via implicit grid tracks. */
+  [style*="grid-column"] {
+    grid-column: span 1 !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns:repeat(4"],
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns:repeat(3"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* Sticky center-phone 3-column layouts (labels | 280px phone | content)
+     get too cramped at tablet widths — collapse to one column instead. */
+  [style*="1fr 280px 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Same implicit-track issue as the mobile rule above: a `grid-column: span 3`
+     child forces a 3rd implicit column even after the parent is downgraded
+     to repeat(2, 1fr) here, so clamp spans to 2 in this range too. */
+  [style*="grid-column"] {
+    grid-column: span 2 !important;
+  }
+}
+
+/* Jack portfolio gradient heading */
+.hero-heading {
+  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-sm {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  }
+
+  .glow-md {
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-hover {
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .noise-overlay {
+    position: relative;
+  }
+
+  .noise-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+  }
+
+  .fluid-text-sm {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+  }
+
+  .fluid-text-base {
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+  }
+
+  .fluid-text-lg {
+    font-size: clamp(1.125rem, 3vw, 1.5rem);
+  }
+
+  .fluid-text-xl {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+  }
+
+  .fluid-text-2xl {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .fluid-text-3xl {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .fluid-text-4xl {
+    font-size: clamp(3rem, 10vw, 7.5rem);
+  }
+}
+
+/* Animated gradient background */
+@keyframes gradient-shift {
+  0% {
+    transform: translate(-10%, -10%) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(10%, -15%) rotate(120deg) scale(1.1);
+  }
+  66% {
+    transform: translate(-5%, 10%) rotate(240deg) scale(0.95);
+  }
+  100% {
+    transform: translate(-10%, -10%) rotate(360deg) scale(1);
+  }
+}
+
+@keyframes gradient-shift-reverse {
+  0% {
+    transform: translate(10%, 10%) rotate(0deg) scale(1.05);
+  }
+  33% {
+    transform: translate(-15%, 5%) rotate(-120deg) scale(0.95);
+  }
+  66% {
+    transform: translate(5%, -10%) rotate(-240deg) scale(1.1);
+  }
+  100% {
+    transform: translate(10%, 10%) rotate(-360deg) scale(1.05);
+  }
+}
+
+.animate-gradient-1 {
+  animation: gradient-shift 20s ease-in-out infinite;
+}
+
+.animate-gradient-2 {
+  animation: gradient-shift-reverse 25s ease-in-out infinite;
+}
+
+.animate-gradient-3 {
+  animation: gradient-shift 30s ease-in-out infinite reverse;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Scroll indicator */
+@keyframes scroll-indicator {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.animate-scroll-indicator {
+  animation: scroll-indicator 1.5s ease-in-out infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

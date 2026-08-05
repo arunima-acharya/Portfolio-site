@@ -1,0 +1,472 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import VariableProximity from "@/components/ui/VariableProximity";
+import CurvedLoop from "@/components/ui/CurvedLoop";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import dynamic from "next/dynamic";
+
+const Lanyard = dynamic(() => import("@/components/Lanyard"), { ssr: false });
+
+const HERO_MARQUEE_TEXT =
+  "Product Design • UX Research • Design Systems • Interaction Design • Prototyping • User Testing • Design Strategy • Visual Design • Information Architecture •";
+const HERO_RIBBON_TEXT =
+  "Founding Product Designer • 3+ Years Experience • 0→1 B2B SaaS & AI Products •";
+
+// Hand-authored path (a single Q-curve can't loop back on itself): a gentle
+// diagonal S-curve rising left-to-right, for the bold ribbon band.
+const HERO_RIBBON_PATH =
+  "M-150,160 C250,420 650,80 1050,20 C1300,-20 1500,40 1700,-5";
+
+const SENSITIVITY = 0.8;
+const LERP = 0.06;
+const MAX_OFFSET = 22;
+const FLOAT_LERP = 0.08;
+const INTRO_HEADING = "Designing instinctive user experiences for ambitious product teams.";
+
+/* ── Word-by-word scroll reveal (identical logic to HomeIntro) ─── */
+function WordSpan({ word, progress, start, end }: { word: string; progress: MotionValue<number>; start: number; end: number }) {
+  const color = useTransform(progress, [start, end], ["#aaaaaa", "#111111"]);
+  return (
+    <motion.span style={{ color, display: "inline-block", whiteSpace: "nowrap", marginRight: "0.28em" }}>
+      {word}
+    </motion.span>
+  );
+}
+
+function IntroAnimatedHeading({ progress, isMobile }: { progress: MotionValue<number>; isMobile: boolean }) {
+  const words = INTRO_HEADING.split(" ");
+  const total = words.length;
+  const windowSize = 2 / total;
+  return (
+    <h2 style={{ fontSize: isMobile ? "28px" : "44px", fontWeight: 400, lineHeight: 1, letterSpacing: 0, fontFamily: "var(--font-playfair-display), 'Playfair Display', serif", margin: "0 0 24px" }}>
+      {words.map((word, i) => {
+        const start = (i / total) * 0.75;
+        const end = Math.min(start + windowSize, 0.85);
+        return <WordSpan key={i} word={word} progress={progress} start={start} end={end} />;
+      })}
+    </h2>
+  );
+}
+
+export default function MainframeHero({
+  hideText,
+  showHey,
+  hideVideo,
+  showIntroText,
+}: {
+  hideText?: boolean;
+  showHey?: boolean;
+  hideVideo?: boolean;
+  showIntroText?: boolean;
+} = {}) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+
+  const prevX = useRef<number | null>(null);
+  const targetTime = useRef(0);
+  const seeking = useRef(false);
+  const mouse = useRef({ x: 0, y: 0 });
+  const current = useRef({ x: 0, y: 0 });
+  const rafId = useRef<number | null>(null);
+  const floatTarget = useRef({ x: 0.5, y: 0.5 });
+  const floatCurrent = useRef({ x: 0.5, y: 0.5 });
+
+  // When showIntroText, target the tall scroll container so progress spans 200vh
+  const { scrollYProgress } = useScroll({
+    target: showIntroText ? scrollContainerRef : sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const onSeeked = () => {
+      seeking.current = false;
+      if (Math.abs(video.currentTime - targetTime.current) > 0.01) {
+        seeking.current = true;
+        video.currentTime = targetTime.current;
+      }
+    };
+
+    const onMove = (e: MouseEvent) => {
+      const section = sectionRef.current;
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        floatTarget.current.x = (e.clientX - rect.left) / rect.width;
+        floatTarget.current.y = (e.clientY - rect.top) / rect.height;
+      }
+      if (video.duration) {
+        const currentX = e.clientX;
+        if (prevX.current !== null) {
+          const delta = currentX - prevX.current;
+          const offset = (delta / window.innerWidth) * SENSITIVITY * video.duration;
+          targetTime.current = Math.min(video.duration, Math.max(0, targetTime.current + offset));
+          if (!seeking.current) {
+            seeking.current = true;
+            video.currentTime = targetTime.current;
+          }
+        }
+        prevX.current = currentX;
+      }
+      mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = (e.clientY / window.innerHeight) * 2 - 1;
+    };
+
+    const tick = () => {
+      const c = current.current;
+      const m = mouse.current;
+      c.x += (m.x * MAX_OFFSET - c.x) * LERP;
+      c.y += (m.y * MAX_OFFSET - c.y) * LERP;
+
+      const fc = floatCurrent.current;
+      const ft = floatTarget.current;
+      fc.x += (ft.x - fc.x) * FLOAT_LERP;
+      fc.y += (ft.y - fc.y) * FLOAT_LERP;
+
+      if (wrapRef.current) {
+        if (hideText) {
+          const section = sectionRef.current;
+          if (section) {
+            const vw = 340;
+            const vh = 340;
+            const maxX = section.offsetWidth - vw;
+            const maxY = section.offsetHeight - vh;
+            wrapRef.current.style.transform = `translate(${fc.x * maxX}px, ${fc.y * maxY}px)`;
+          }
+        } else {
+          wrapRef.current.style.transform = `translate(${c.x}px, ${c.y}px)`;
+        }
+      }
+      rafId.current = requestAnimationFrame(tick);
+    };
+
+    video.addEventListener("seeked", onSeeked);
+    window.addEventListener("mousemove", onMove);
+    rafId.current = requestAnimationFrame(tick);
+
+    return () => {
+      video.removeEventListener("seeked", onSeeked);
+      window.removeEventListener("mousemove", onMove);
+      if (rafId.current !== null) cancelAnimationFrame(rafId.current);
+    };
+  }, [hideText]);
+
+  const sectionJSX = (
+    <section
+      ref={sectionRef}
+      style={{
+        position: showIntroText ? "sticky" : "relative",
+        top: showIntroText ? 0 : undefined,
+        height: isMobile && !showIntroText ? "auto" : "100vh",
+        minHeight: isMobile && !showIntroText ? "100vh" : undefined,
+        width: "100%",
+        overflow: "hidden",
+        zIndex: 1,
+        background: "#fff",
+        display: "flex",
+        flexDirection: isMobile && !showIntroText ? "column" : "row",
+        alignItems: isMobile && !showIntroText ? "stretch" : "center",
+        paddingTop: isMobile && !showIntroText ? "72px" : "5vh",
+        paddingBottom: isMobile && !showIntroText ? "32px" : undefined,
+        paddingLeft: isMobile ? "6%" : "5%",
+        paddingRight: isMobile ? "6%" : "5%",
+      }}
+    >
+
+      {/* Curved marquee — decorative background layer, sits behind everything else.
+          Large full-bleed faint arc, plus the bold black ribbon on a diagonal S-curve. */}
+      {!hideText && !showIntroText && !isMobile && (
+        <div style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
+          <div style={{ position: "absolute", inset: 0, transform: "translateY(-5%) rotate(9deg) scale(1.56)" }}>
+            <CurvedLoop marqueeText={HERO_MARQUEE_TEXT} speed={1.6} curveAmount={560} direction="right" interactive={false} className="!fill-[#e8510a]/10" />
+          </div>
+          <div style={{ position: "absolute", inset: "auto 0 4% 0", height: "45%" }}>
+            <CurvedLoop
+              marqueeText={HERO_RIBBON_TEXT}
+              speed={1}
+              interactive={false}
+              pathD={HERO_RIBBON_PATH}
+              ribbon
+              ribbonColor="#0a0a0a"
+              ribbonWidth={64}
+              textColor="#fff"
+              className="text-[1.5rem]"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Full-bleed parallax video (first section) */}
+      {!hideVideo && !hideText && (
+        <div
+          ref={wrapRef}
+          style={{
+            position: "absolute",
+            inset: 0,
+            margin: `-${MAX_OFFSET * 2}px`,
+            willChange: "transform",
+          }}
+        >
+          <video
+            ref={videoRef}
+            src="/assets/header/Hero.mp4"
+            muted
+            playsInline
+            preload="auto"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "70% center",
+              filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.28)) drop-shadow(0 8px 16px rgba(0,0,0,0.18))",
+            }}
+          />
+        </div>
+      )}
+
+      {/* Floating cursor-follow video (second section) */}
+      {!hideVideo && hideText && (
+        <div
+          ref={wrapRef}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: 340,
+            height: 340,
+            willChange: "transform",
+            pointerEvents: "none",
+          }}
+        >
+          <video
+            ref={videoRef}
+            src="/assets/header/Hero.mp4"
+            muted
+            playsInline
+            preload="auto"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              borderRadius: "16px",
+              filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.28)) drop-shadow(0 8px 16px rgba(0,0,0,0.18))",
+            }}
+          />
+        </div>
+      )}
+
+      {/* HEY! ASCII */}
+      {showHey && (
+        <div style={{ position: "relative", zIndex: 2, paddingLeft: "5%", flexShrink: 0, alignSelf: "center" }}>
+          <div style={{
+            fontFamily: "monospace",
+            fontSize: "clamp(9px, 1.1vw, 14px)",
+            lineHeight: 1.2,
+            color: "#111",
+            whiteSpace: "pre",
+            opacity: 0.75,
+            userSelect: "none",
+          }}>{`██╗  ██╗███████╗██╗   ██╗██╗
+██║  ██║██╔════╝╚██╗ ██╔╝██║
+███████║█████╗   ╚████╔╝ ██║
+██╔══██║██╔══╝    ╚██╔╝  ╚═╝
+██║  ██║███████╗   ██║   ██╗
+╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝`}</div>
+        </div>
+      )}
+
+      {/* Hi from Arunima — tag, greeting, description, CTAs */}
+      {!hideText && (
+        <div style={isMobile ? {
+          position: "relative",
+          zIndex: 2,
+          maxWidth: "100%",
+          display: "flex",
+          flexDirection: "column",
+        } : {
+          position: "absolute",
+          bottom: "50%",
+          left: "15%",
+          zIndex: 2,
+          maxWidth: "32%",
+          display: "flex",
+          flexDirection: "column",
+        }}>
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontFamily: "var(--font-playfair-display), 'Playfair Display', serif",
+              fontWeight: 400,
+              margin: 0,
+              lineHeight: 1,
+            }}
+          >
+            <span style={{ display: "block", fontSize: "clamp(24px, 3.2vw, 40px)", color: "#111" }}>
+              <span aria-hidden="true">👋</span> <span style={{ color: "#e8510a" }}>Hi</span> I am
+            </span>
+            <span style={{ display: "block", fontSize: "clamp(44px, 6.5vw, 76px)", color: "#111", letterSpacing: 0 }}>
+              Arunima
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontSize: "16px",
+              color: "#666",
+              lineHeight: 1.7,
+              fontFamily: "var(--font-inter), sans-serif",
+              margin: "20px 0 0",
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
+            }}
+          >
+            Founding Product Designer with 3+ years of experience building and scaling 0→1 products
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}
+          >
+            <a
+              href="/case-studies"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                background: "#e8510a", color: "#fff", borderRadius: 9999,
+                padding: "0.7em 1.5em", fontSize: "clamp(12px, 1.05vw, 14px)", fontWeight: 600,
+                fontFamily: "var(--font-inter), sans-serif", textDecoration: "none",
+                transition: "background 0.2s, color 0.2s",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#c9450c"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#e8510a"; }}
+            >
+              Case Studies
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                background: "#fff", color: "#111",
+                border: "1.5px solid #111", borderRadius: 9999,
+                padding: "0.7em 1.5em", fontSize: "clamp(12px, 1.05vw, 14px)", fontWeight: 600,
+                fontFamily: "var(--font-inter), sans-serif", textDecoration: "none",
+                transition: "background 0.2s, color 0.2s",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#111"; }}
+            >
+              Connect on linkedin
+            </a>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Lanyard — starts right after left text column, max width */}
+      {!hideText && !showIntroText && !isMobile && (
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: "40%",
+          right: 0,
+          height: "100%",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}>
+          <div data-cursor-drag style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "auto" }}>
+            <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+          </div>
+          {/* "Drag me around!" — above the canvas so it's always visible */}
+          <div style={{
+            position: "absolute", bottom: "8%", left: "32%",
+            zIndex: 3, pointerEvents: "none",
+            transform: "rotate(-7deg)",
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
+          }}>
+            <div style={{
+              fontSize: 19.55,
+              fontFamily: "var(--font-inter), sans-serif",
+              color: "#888",
+              fontStyle: "italic",
+              whiteSpace: "nowrap",
+              letterSpacing: "-0.01em",
+            }}>Drag me around!</div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile — simplified card, no decorative stickers, stacked in flow */}
+      {!hideText && !showIntroText && isMobile && (
+        <div style={{ position: "relative", width: "100%", height: 320, marginTop: 24, flexShrink: 0 }}>
+          <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+        </div>
+      )}
+
+      {/* Intro text (second section) — identical to HomeIntro right column */}
+      {showIntroText && (
+        <div style={{
+          position: "relative",
+          zIndex: 2,
+          flex: "1",
+          paddingLeft: isMobile ? "20px" : "calc(var(--gutter) * 0.9)",
+          paddingRight: isMobile ? "20px" : "calc(var(--gutter) * 0.9)",
+        }}>
+          <IntroAnimatedHeading progress={scrollYProgress} isMobile={isMobile} />
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-5%" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          >
+            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "16px" }}>
+              <strong style={{ color: "#111", fontWeight: 600 }}>Engineer</strong> turned <strong style={{ color: "#111", fontWeight: 600 }}>Product Designer</strong> with <strong style={{ color: "#111", fontWeight: 600 }}>3+ years of experience</strong> designing and scaling <strong style={{ color: "#111", fontWeight: 600 }}>0→1 B2B SaaS and AI products</strong> across hospitality, enterprise software, and emerging technologies.
+            </p>
+
+            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "16px" }}>
+              I&apos;ve led the end-to-end design of <strong style={{ color: "#111", fontWeight: 600 }}>6+ products</strong>, partnering closely with founders, product managers, and engineers to build scalable design systems, simplify complex workflows, and create enterprise experiences used by hotel teams across thousands of properties worldwide.
+            </p>
+
+            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "32px" }}>
+              With a background in <strong style={{ color: "#111", fontWeight: 600 }}>Computer Science Engineering</strong>, I work at the intersection of <strong style={{ color: "#111", fontWeight: 600 }}>design, product, and technology</strong>. I care deeply about <strong style={{ color: "#111", fontWeight: 600 }}>product thinking, systems thinking, interaction design, accessibility, and craftsmanship</strong>, building experiences that are intuitive, scalable, and create measurable business impact.
+            </p>
+
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "12px", background: "#e8e8e8", borderRadius: "9999px", padding: "8px 20px 8px 8px", marginBottom: "28px" }}>
+              <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "#c0c0c0", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", fontWeight: 700, color: "#fff" }}>A</div>
+              <div>
+                <p style={{ fontSize: "11px", color: "#888", fontFamily: "var(--font-inter), sans-serif", margin: 0 }}>Schedule a call with the Designer</p>
+                <p style={{ fontSize: "13px", fontWeight: 600, color: "#111", fontFamily: "var(--font-inter), sans-serif", margin: 0 }}>Arunima Acharya</p>
+              </div>
+            </div>
+
+          </motion.div>
+        </div>
+      )}
+    </section>
+  );
+
+  // Wrap in tall container when showIntroText so scroll progress spans 200vh
+  if (showIntroText) {
+    return (
+      <div ref={scrollContainerRef} style={{ height: "200vh" }}>
+        {sectionJSX}
+      </div>
+    );
+  }
+
+  return sectionJSX;
+}

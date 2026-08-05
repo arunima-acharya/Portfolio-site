@@ -1,0 +1,123 @@
+.dock-outer {
+  margin: 0 0.5rem;
+  display: flex;
+  max-width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.dock-panel {
+  display: flex;
+  align-items: flex-end;
+  width: fit-content;
+  gap: 0.45rem;
+  border-radius: 1.25rem;
+  background-color: rgba(42, 42, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 13px 0.88rem 0.88rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dock-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #1e1a26;
+  border: 1px solid #2a2a2a;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.dock-item:hover {
+  background-color: #e8510a;
+  border-color: #e8510a;
+}
+
+.dock-item.active {
+  background-color: #e8510a;
+  border-color: #e8510a;
+}
+
+.dock-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  transition: color 0.2s ease;
+}
+
+.dock-item:hover .dock-icon,
+.dock-item.active .dock-icon {
+  color: #ffffff;
+}
+
+.dock-label {
+  position: absolute;
+  top: -2.25rem;
+  left: 50%;
+  width: fit-content;
+  white-space: pre;
+  border-radius: 0.5rem;
+  border: 1px solid #2a2a2a;
+  background-color: rgba(42, 42, 42, 0.95);
+  padding: 0.2rem 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #e0e0e0;
+  letter-spacing: 0.05em;
+  transform: translateX(-50%);
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Light mode */
+html.light .dock-panel {
+  background-color: #ffffff;
+  border-color: #d1d1d1;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+html.light .dock-item {
+  background-color: #f0f0f0;
+  border-color: #d1d1d1;
+}
+
+html.light .dock-item:hover,
+html.light .dock-item.active {
+  background-color: #e8510a;
+  border-color: #e8510a;
+}
+
+html.light .dock-icon {
+  color: #555;
+}
+
+html.light .dock-item:hover .dock-icon,
+html.light .dock-item.active .dock-icon {
+  color: #ffffff;
+}
+
+html.light .dock-label {
+  background-color: #ffffff;
+  border-color: #d1d1d1;
+  color: #111;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Active section dot */
+.dock-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
