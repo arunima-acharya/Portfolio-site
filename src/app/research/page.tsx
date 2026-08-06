@@ -30,7 +30,7 @@ export default function ResearchPage() {
               Design Investigations
             </span>
           </div>
-          <h1 className="fluid-text-3xl font-semibold leading-tight tracking-tight" style={{ color: textDark }}>
+          <h1 className="fluid-text-3xl font-semibold leading-tight tracking-tight" style={{ color: textDark, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>
             Research
           </h1>
           <p className="text-base max-w-lg leading-relaxed" style={{ color: textMuted }}>

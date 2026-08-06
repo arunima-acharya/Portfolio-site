@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, useTransform, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
@@ -200,6 +200,16 @@ export default function DesignProcess3D() {
     offset: ["start start", "end end"],
   });
 
+  // Reuses the pin's own scroll progress for a subtle layered parallax drift
+  // between Col 1 (heading) and Col 3 (3D stack) — independent of the
+  // activeIdx layer-switching logic driven by the same scrollYProgress below.
+  // A standalone scroll-linked hook targeting an element inside this sticky
+  // content wouldn't animate through most of the pin (the element's viewport
+  // position barely changes while pinned), so this reuses the outer pin
+  // progress instead, same approach as HomeIntro's background trail drift.
+  const headingParallaxY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const stackParallaxY = useTransform(scrollYProgress, [0, 1], [0, 24]);
+
   // Drive active layer from scroll: divide progress into 5 bands (intro + 4 layers)
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     if (v < 0.1) setActiveIdx(null);
@@ -219,8 +229,8 @@ export default function DesignProcess3D() {
   // Mobile: static list
   if (isMobile) {
     return (
-      <section style={{ paddingTop: "18px", paddingBottom: "25px", paddingLeft: "20px", paddingRight: "20px", backgroundColor: "#fff" }}>
-        <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 400, letterSpacing: 0, color: textPrimary, fontFamily: "var(--font-playfair-display), 'Playfair Display', serif", marginBottom: "20px" }}>
+      <section style={{ paddingTop: "18px", paddingBottom: "25px", paddingLeft: "20px", paddingRight: "20px", backgroundColor: "#FFF7EE" }}>
+        <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 400, letterSpacing: 0, color: textPrimary, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif", marginBottom: "20px" }}>
           Own the process.
           <span style={{ display: "block" }}>Deliver impact.</span>
         </h2>
@@ -254,7 +264,7 @@ export default function DesignProcess3D() {
       <div
         onMouseMove={handleGridMouseMove}
         onMouseLeave={handleGridMouseLeave}
-        style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "#fff", display: "flex", alignItems: "center" }}
+        style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "#FFF7EE", display: "flex", alignItems: "center" }}
       >
         <div
           ref={gridRef}
@@ -282,7 +292,7 @@ export default function DesignProcess3D() {
             inset: 0,
             zIndex: 0,
             pointerEvents: "none",
-            background: "#fff",
+            background: "#FFF7EE",
             WebkitMaskImage: "radial-gradient(ellipse 15vw 42vh at 76% 50%, black 0%, black 65%, transparent 100%)",
             maskImage: "radial-gradient(ellipse 15vw 42vh at 76% 50%, black 0%, black 65%, transparent 100%)",
           }}
@@ -302,8 +312,8 @@ export default function DesignProcess3D() {
           }}
         >
           {/* Col 1: Static heading */}
-          <div style={{ flex: "0 0 38%", paddingRight: "48px", marginTop: `calc(-${STACK_H * 0.10}px + 20vh)` }}>
-            <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 400, letterSpacing: 0, color: textPrimary, fontFamily: "var(--font-playfair-display), 'Playfair Display', serif", marginBottom: "20px" }}>
+          <motion.div style={{ flex: "0 0 38%", paddingRight: "48px", marginTop: `calc(-${STACK_H * 0.10}px + 20vh)`, y: headingParallaxY }}>
+            <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 400, letterSpacing: 0, color: textPrimary, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif", marginBottom: "20px" }}>
               Own the process.
               <span style={{ display: "block" }}>Deliver impact.</span>
             </h2>
@@ -317,7 +327,7 @@ export default function DesignProcess3D() {
               <div>I think deeper.</div>
               <div>I ship better.</div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Col 2: Dynamic layer content */}
           <div style={{ flex: "0 0 17%", position: "relative", height: `${STACK_H}px`, marginTop: "20vh" }}>
@@ -370,7 +380,7 @@ export default function DesignProcess3D() {
           </div>
 
           {/* Col 3: 3D stack */}
-          <div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, transform: `scale(${STACK_SCALE})`, transformOrigin: "center left", marginTop: "20vh" }}>
+          <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", marginTop: "20vh" }}>
             {LAYERS.map((layer, i) => (
               <LayerCard
                 key={layer.id}
@@ -380,7 +390,7 @@ export default function DesignProcess3D() {
                 isAnyActive={activeIdx !== null}
               />
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </div>

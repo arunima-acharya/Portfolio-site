@@ -140,7 +140,7 @@ type Item = (typeof ITEMS)[number];
 export const DESK_LEGEND = ITEMS.map((i) => `${i.label} ${i.name}`);
 
 /* ── A single desk object ─────────────────────────────────── */
-function DeskItem({ item, containerRef }: { item: Item; containerRef: React.RefObject<HTMLDivElement | null> }) {
+function DeskItem({ item, index, containerRef }: { item: Item; index: number; containerRef: React.RefObject<HTMLDivElement | null> }) {
   const [hovered, setHovered] = useState(false);
   const reduce = useReducedMotion();
   const p = item.personality;
@@ -210,10 +210,24 @@ function DeskItem({ item, containerRef }: { item: Item; containerRef: React.RefO
       onHoverStart={() => setHovered(true)}
       onHoverEnd={reset}
       onPointerMove={handleMove}
+      // Entrance: items start stacked behind the "What's on My Desk" heading
+      // (screen center, and visually behind it — this whole graphics layer
+      // already sits under the heading's z-index) and spring out to their
+      // resting spot once the section scrolls into view, each with a slight
+      // overshoot ("bounce") and a small index-based stagger. Only top/left
+      // animate here — x/y stays the constant -width/2,-height/2 centering
+      // offset that `drag` uses as its own resting baseline, so the two
+      // never fight over the same transform.
+      initial={reduce ? false : { top: "50%", left: "50%", opacity: 0, scale: 0.3 }}
+      whileInView={{ top: item.top, left: item.left, opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={
+        reduce
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 200, damping: 15, mass: 0.7, delay: 0.1 + index * 0.045 }
+      }
       style={{
         position: "absolute",
-        top: item.top,
-        left: item.left,
         width: item.width,
         height: item.height,
         x: -item.width / 2,
@@ -473,7 +487,7 @@ export default function DesignBoardGraphics() {
   return (
     <div ref={containerRef} style={{ position: "absolute", inset: 0 }}>
       {ITEMS.map((item, i) => (
-        <DeskItem key={i} item={item} containerRef={containerRef} />
+        <DeskItem key={i} item={item} index={i} containerRef={containerRef} />
       ))}
     </div>
   );

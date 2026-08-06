@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useParallax } from "@/hooks/useParallax";
 import dynamic from "next/dynamic";
 
 const Folder = dynamic(() => import("@/components/ui/Folder.jsx"), { ssr: false });
@@ -20,6 +21,7 @@ const ease = [0.25, 0.46, 0.45, 0.94] as const;
 export default function Services() {
   const isMobile = useIsMobile();
   const isLight = true; // this section is always rendered in light mode, regardless of the site-wide theme toggle
+  const { ref: parallaxRef, y: headingY } = useParallax(36);
 
   const cardBg     = isLight ? "#fff" : "#1e1e1e";
   const cardBorder = isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)";
@@ -47,24 +49,28 @@ export default function Services() {
         </span>
       </div>
 
-      {/* Heading */}
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease }}
-        className="text-center mb-4"
-        style={{
-          fontSize: isMobile ? "34px" : "48px",
-          fontWeight: 400,
-          fontFamily: "var(--font-playfair-display), 'Playfair Display', serif",
-          color: textPrimary,
-          lineHeight: 1,
-          letterSpacing: 0,
-        }}
-      >
-        Tailored Solutions,<br />Impactful Results
-      </motion.h2>
+      {/* Heading — outer div owns the continuous scroll parallax, inner
+          motion.h2 keeps its own separate entrance-fade untouched (mixing
+          both on one element would fight over the same `y` prop). */}
+      <motion.div ref={parallaxRef} style={{ y: headingY }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease }}
+          className="text-center mb-4"
+          style={{
+            fontSize: isMobile ? "34px" : "48px",
+            fontWeight: 400,
+            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
+            color: textPrimary,
+            lineHeight: 1,
+            letterSpacing: 0,
+          }}
+        >
+          Tailored Solutions,<br />Impactful Results
+        </motion.h2>
+      </motion.div>
 
       {/* Subtitle */}
       <motion.p

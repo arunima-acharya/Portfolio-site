@@ -102,7 +102,7 @@ export default function ResearchHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
           className="font-semibold tracking-tight"
-          style={{ fontSize: "clamp(2.2rem, 5.2vw, 3.6rem)", lineHeight: 1.05, color: p.text }}
+          style={{ fontSize: "clamp(2.2rem, 5.2vw, 3.6rem)", lineHeight: 1.05, color: p.text, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
         >
           {project.title}
         </motion.h1>

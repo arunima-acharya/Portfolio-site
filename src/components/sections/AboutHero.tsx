@@ -62,7 +62,7 @@ export default function AboutHero() {
             </p>
 
             <Link
-              href="mailto:ishaankausik@gmail.com"
+              href="mailto:arunimaacharya17@gmail.com"
               className="group"
             style={{
                 display: "inline-flex",

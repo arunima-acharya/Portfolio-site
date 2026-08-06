@@ -84,7 +84,7 @@ export default function CaseStudiesPage() {
           </span>
           <h1
             className="fluid-text-3xl font-semibold leading-tight"
-            style={{ color: textDark }}
+            style={{ color: textDark, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
           >
             Case studies
           </h1>

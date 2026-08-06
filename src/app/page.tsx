@@ -1,11 +1,9 @@
 ﻿import type { Metadata } from "next";
 import JackPortfolio from "@/components/jack";
-import HomeIntro from "@/components/sections/HomeIntro";
 import FeaturedWork from "@/components/sections/FeaturedWork";
 import Services from "@/components/sections/Services";
-import ToolsGrid from "@/components/sections/ToolsGrid";
 import Testimonials from "@/components/sections/Testimonials";
-import TestimonialsGrid from "@/components/sections/TestimonialsGrid";
+import ToolkitTestimonialsOverlap from "@/components/sections/ToolkitTestimonialsOverlap";
 import BentoExpertise from "@/components/sections/BentoExpertise";
 import HiIntro from "@/components/sections/HiIntro";
 import HeroSectionsWrapper from "@/components/sections/HeroSectionsWrapper";
@@ -16,9 +14,11 @@ import DarkHeroStatement from "@/components/sections/DarkHeroStatement";
 import MacbookScrollDemo from "@/components/MacbookScrollDemo";
 import TypographyZoom from "@/components/sections/TypographyZoom";
 import MainframeHero from "@/components/sections/MainframeHero";
+import HeroBgSticky from "@/components/sections/HeroBgSticky";
 
 const PAD = { paddingLeft: "15%", paddingRight: "15%" } as const;
 const PAD_WHITE = { ...PAD, backgroundColor: "#fff" } as const;
+const PAD_SERVICES = { ...PAD, backgroundColor: "#FFF7EE" } as const;
 
 export const metadata: Metadata = {
   title: "Arunima Acharya — Senior Product Designer",
@@ -29,16 +29,11 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <HomeClient>
-      {/* Mainframe hero */}
-      <MainframeHero hideVideo />
-
-      {/* HomeIntro (padded) */}
-      <div style={PAD}>
-        <HomeIntro />
-      </div>
-
-      {/* Typography zoom transition */}
-      <TypographyZoom />
+      {/* Mainframe hero + Typography zoom — share one sticky background */}
+      <HeroBgSticky>
+        <MainframeHero hideVideo />
+        <TypographyZoom />
+      </HeroBgSticky>
 
       {/* Dark statement — black background, full width */}
       <DarkHeroStatement />
@@ -46,8 +41,8 @@ export default function HomePage() {
       {/* Selected Works */}
       <FeaturedWork />
 
-      {/* Section 5 — Services (padded, white bg spans full width incl. gutters) */}
-      <div style={PAD_WHITE}>
+      {/* Section 5 — Services (padded, bg spans full width incl. gutters) */}
+      <div style={PAD_SERVICES}>
         <section id="services"><Services /></section>
       </div>
 
@@ -59,15 +54,12 @@ export default function HomePage() {
       {/* Section 7 — DesignProcess3D (full width) */}
       <DesignProcess3D />
 
-      {/* Section 8 — ToolsGrid (full width) */}
-      <ToolsGrid />
-
+      {/* Section 8/10 — ToolsGrid pinned, TestimonialsGrid slides in from
+          the right and overlaps it on scroll */}
+      <ToolkitTestimonialsOverlap />
 
       {/* Section 9 — Testimonials (full width, black bg) — hidden for now */}
       {/* <section id="testimonials"><Testimonials /></section> */}
-
-      {/* Section 10 — Client testimonials grid, directly above the footer */}
-      <TestimonialsGrid />
     </HomeClient>
   );
 }

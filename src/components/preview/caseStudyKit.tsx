@@ -9,7 +9,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent, useMotionValue, useSpring, type MotionValue } from "motion/react";
-import { ImagePlus } from "lucide-react";
+import { ImagePlus, Quote, Lightbulb, AlertTriangle, CheckCircle2, TrendingUp } from "lucide-react";
 
 export const ff = "var(--font-manrope), sans-serif";
 
@@ -622,6 +622,89 @@ export function SolutionStep({ number, title, desc, reverse, children }: { numbe
   );
 }
 
+// ── Solution card ─────────────────────────────────────────────
+// Richer alternative to SolutionStep: a split card with a
+// Challenge/Approach/Impact breakdown on the left and a screenshot on the
+// right. Use when each solution needs to show its reasoning, not just a
+// caption.
+function SolutionRow({ icon, iconBg, iconColor, label, labelColor, children, last }: {
+  icon: React.ReactNode; iconBg: string; iconColor: string; label: string; labelColor: string;
+  children: React.ReactNode; last?: boolean;
+}) {
+  return (
+    <div style={{ display: "flex", gap: 14, marginBottom: last ? 0 : 22 }}>
+      <div style={{
+        width: 30, height: 30, borderRadius: "50%", background: iconBg, color: iconColor,
+        display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1,
+      }}>
+        {icon}
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: labelColor, fontFamily: ff, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.03em" }}>
+          {label}
+        </div>
+        <div style={{ fontSize: 15.5, color: "#555", fontFamily: ff, lineHeight: 1.55 }}>{children}</div>
+      </div>
+    </div>
+  );
+}
+
+// A trailing "%" marks the value as a metric, which renders bold with its
+// caption trailing; anything else renders as a plain qualitative bullet.
+function ImpactItem({ value, caption }: { value: string; caption?: string }) {
+  const isMetric = /%$/.test(value);
+  return (
+    <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+      <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#1C46F2", flexShrink: 0, alignSelf: "center" }} />
+      {isMetric ? (
+        <span style={{ fontSize: 15.5, color: "#555", fontFamily: ff }}>
+          <strong style={{ color: "#111", fontWeight: 700 }}>{value}</strong>
+          {caption ? ` ${caption}` : ""}
+        </span>
+      ) : (
+        <span style={{ fontSize: 15.5, color: "#555", fontFamily: ff, fontWeight: 500 }}>{value}</span>
+      )}
+    </div>
+  );
+}
+
+export function SolutionCard({ number, title, challenge, approach, impact, children }: {
+  number: string; title: string; challenge: string; approach: string;
+  impact: Array<{ value: string; caption?: string }>; children: React.ReactNode;
+}) {
+  return (
+    <div style={{
+      background: "#fff",
+      border: "1px solid rgba(0,0,0,0.07)", borderRadius: 24,
+      padding: 32, display: "flex",
+      alignItems: "stretch", gap: 40, boxShadow: "0 4px 24px rgba(0,0,0,0.03)", overflow: "hidden",
+    }}>
+      <div style={{ flex: "0 0 44%", minWidth: 0, display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 18 }}>
+          <span style={{ fontSize: 38, fontWeight: 700, color: "#1C46F2", fontFamily: ff, lineHeight: 1 }}>{number}</span>
+          <h3 style={{ fontSize: 24, fontWeight: 600, color: "#111", fontFamily: ff, lineHeight: 1.3, margin: 0 }}>{title}</h3>
+        </div>
+        <div style={{ width: 40, height: 2, background: "rgba(0,0,0,0.1)", marginBottom: 24 }} />
+
+        <SolutionRow icon={<AlertTriangle size={15} />} iconBg="#fde3e0" iconColor="#e35347" label="Challenge" labelColor="#e35347">
+          {challenge}
+        </SolutionRow>
+        <SolutionRow icon={<CheckCircle2 size={15} />} iconBg="#d9f4e3" iconColor="#22a35a" label="Approach" labelColor="#22a35a">
+          {approach}
+        </SolutionRow>
+        <SolutionRow icon={<TrendingUp size={15} />} iconBg="#dde3fd" iconColor="#1C46F2" label="Impact" labelColor="#1C46F2" last>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {impact.map((item, i) => <ImpactItem key={i} {...item} />)}
+          </div>
+        </SolutionRow>
+      </div>
+      <div style={{ flex: 1, minWidth: 0, borderRadius: 14, border: "1px solid rgba(0,0,0,0.06)", overflow: "hidden" }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 export function SolutionPill({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <div style={{
@@ -907,6 +990,300 @@ export function DesignPrinciplesScroll({ principles, images }: { principles: Des
             ))}
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Scroll-reveal section ─────────────────────────────────────
+// Same sticky-mockup + revealing-card-trail pattern as
+// DesignPrinciplesScroll, but the mockup is vertically centered against the
+// measured card trail rather than pinned to its top, and the cards sit on a
+// tighter gap. Used for "The Challenge", where the trail is longer.
+export function ScrollRevealSection({ items, images }: {
+  items: Array<{ index: string; title: string; desc: string }>; images: string[];
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const [activeStep, setActiveStep] = useState(0);
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setActiveStep(Math.min(items.length - 1, Math.floor(v * items.length)));
+  });
+
+  // Bumped every time this section leaves the viewport, and folded into
+  // each RevealCard's key below — remounting them resets their internal
+  // opacity ratchet, so the reveal replays from scratch on the next entry
+  // instead of staying permanently revealed after the first pass.
+  const [resetKey, setResetKey] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) setResetKey((k) => k + 1);
+      },
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Measures the card trail's actual rendered height (it grows with the
+  // number/length of items) so the mockup can be vertically centered
+  // against it instead of pinned to its own top.
+  const cardTrailRef = useRef<HTMLDivElement>(null);
+  const [cardTrailHeight, setCardTrailHeight] = useState(0);
+  useEffect(() => {
+    const el = cardTrailRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setCardTrailHeight(entry.contentRect.height);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // The card column is wider than the reserved space on purpose — cardOverlap
+  // is how far the cards' left edge cuts into the mockup's right edge, so
+  // reserved is deliberately smaller than cardColumnWidth by that amount.
+  const cardColumnWidth = 400;
+  const cardOverlap = 40;
+  const reserved = cardColumnWidth - cardOverlap;
+  const centeredLeft = reserved / 2;
+  const placeholderLeft = useTransform(scrollYProgress, [0, 1 / items.length], [centeredLeft, 0]);
+
+  const bezelSidePadding = 10;
+  const chromeBarHeight = 30;
+  const screenAspectRatio = 1840 / 1230;
+  const innerWidth = 1160 - reserved - bezelSidePadding * 2;
+  const innerHeight = Math.round(innerWidth / screenAspectRatio);
+  const placeholderHeight = innerHeight + chromeBarHeight + bezelSidePadding;
+  // Mockup is visually scaled 1.2x from its top-left corner, so its true
+  // rendered height is placeholderHeight * 1.2 — that's what needs to be
+  // centered against the card trail, not the unscaled placeholderHeight.
+  const scaledMockupHeight = placeholderHeight * 1.2;
+  const trailHeight = cardTrailHeight || placeholderHeight;
+  const containerHeight = Math.max(scaledMockupHeight, trailHeight);
+  const mockupTop = Math.max(0, (containerHeight - scaledMockupHeight) / 2);
+
+  return (
+    <div ref={ref} style={{ height: `${items.length * 100}vh`, position: "relative" }}>
+      <div style={{ position: "sticky", top: 0, height: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
+        <div style={{ position: "relative", maxWidth: 1160, margin: "0 auto", width: "100%", height: containerHeight }}>
+          <motion.div style={{
+            position: "absolute", top: mockupTop, left: placeholderLeft,
+            width: `calc(100% - ${reserved}px)`, height: placeholderHeight,
+            borderRadius: 16, background: "#e5e5e5",
+            boxShadow: "0 24px 64px rgba(0,0,0,0.10)", overflow: "hidden",
+            scale: 1.2, transformOrigin: "left top",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 16px" }}>
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57" }} />
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#febc2e" }} />
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840" }} />
+            </div>
+            <div style={{ padding: `0 ${bezelSidePadding}px ${bezelSidePadding}px` }}>
+              <div style={{ position: "relative", height: innerHeight, boxSizing: "border-box", background: "#fff", borderRadius: 10, overflow: "hidden", padding: 8 }}>
+                {images.map((src, i) => (
+                  // eslint-disable-next-line @next/next/no-img-element -- local static asset, no next/image remote pattern needed
+                  <img
+                    key={`${src}-${i}`}
+                    src={src}
+                    alt={items[i].title}
+                    style={{
+                      position: "absolute", top: 8, left: 8, right: 8, bottom: 8, width: "calc(100% - 16px)", height: "calc(100% - 16px)", objectFit: "contain",
+                      opacity: i === activeStep ? 1 : 0, transition: "opacity 0.4s ease",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          <div ref={cardTrailRef} style={{ position: "absolute", top: 0, right: 0, width: cardColumnWidth, display: "flex", flexDirection: "column", gap: 10 }}>
+            {items.map((p, i) => (
+              <RevealCard key={`${p.index}-${resetKey}`} index={i} total={items.length} scrollYProgress={scrollYProgress}>
+                <PrincipleCallout index={p.index} title={p.title} desc={p.desc} />
+              </RevealCard>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Lifecycle overview ────────────────────────────────────────
+// Compact isometric "workflow" diagram, enterprise-SaaS-diagram style
+// (Linear/Stripe/Notion) rather than a traditional wide flowchart. Steps and
+// their meander positions are supplied per case study.
+export type LifecycleStep = { icon: React.ReactNode; title: string };
+export type LifecyclePosition = { xFrac: number; level: number };
+
+const ISO_CUBE_WIDTH = 96;
+const ISO_CUBE_HEIGHT = 72;
+
+// Minimal white isometric platform — top/left/right faces, a thin blue
+// accent restricted to the right face only, soft neutral drop-shadow. Active
+// state lifts slightly and switches the accent to full blue with a stronger
+// (but still soft) blue-tinted shadow.
+function IsoStepCard({ icon, title, number, active }: {
+  icon: React.ReactNode; title: string; number: string; active: boolean;
+}) {
+  const stroke = active ? "#1C46F2" : "#e7e7ea";
+  return (
+    <div style={{ width: 110, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <span style={{
+        fontSize: 11, fontWeight: 700, fontFamily: ff, letterSpacing: "0.04em", marginBottom: 8,
+        color: active ? "#1C46F2" : "#9aa1ac", transition: "color 0.4s ease",
+      }}>
+        {number}
+      </span>
+      <div style={{
+        position: "relative", width: ISO_CUBE_WIDTH, height: ISO_CUBE_HEIGHT,
+        transition: "transform 0.4s ease, filter 0.4s ease",
+        transform: active ? "translateY(-3px)" : "translateY(0)",
+        filter: active ? "drop-shadow(0 12px 20px rgba(28,70,242,0.18))" : "drop-shadow(0 8px 16px rgba(17,17,17,0.06))",
+      }}>
+        <svg width={ISO_CUBE_WIDTH} height={ISO_CUBE_HEIGHT} viewBox="0 0 96 72" style={{ display: "block", overflow: "visible" }}>
+          <polygon points="8,18 48,36 48,68 8,50" fill="#fbfbfc" stroke={stroke} strokeWidth={1.2} strokeLinejoin="round" style={{ transition: "stroke 0.4s ease" }} />
+          <polygon points="88,18 48,36 48,68 88,50" fill={active ? "#dde3fd" : "#f6f7fb"} stroke={stroke} strokeWidth={1.2} strokeLinejoin="round" style={{ transition: "fill 0.4s ease, stroke 0.4s ease" }} />
+          <polygon points="48,2 88,18 48,36 8,18" fill="#ffffff" stroke={stroke} strokeWidth={1.3} strokeLinejoin="round" style={{ transition: "stroke 0.4s ease" }} />
+        </svg>
+        <div style={{
+          position: "absolute", top: 0, left: 0, width: ISO_CUBE_WIDTH, height: 34,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          color: active ? "#1C46F2" : "#111111", transition: "color 0.4s ease",
+        }}>
+          {icon}
+        </div>
+      </div>
+      <span style={{ fontSize: 13, fontWeight: 600, color: "#111111", fontFamily: ff, marginTop: 10, textAlign: "center" }}>
+        {title}
+      </span>
+    </div>
+  );
+}
+
+// Cycles which cube reads as "active" (setInterval, looping) so the
+// workflow visibly animates through step 1..n, communicating progression.
+export function LifecycleOverview({ steps, positions }: { steps: LifecycleStep[]; positions: LifecyclePosition[] }) {
+  const n = steps.length;
+  const cardOuterWidth = 110;
+  const numberRowHeight = 19; // number label height, above each cube
+  const maxLevel = Math.max(...positions.map((p) => p.level));
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  useEffect(() => {
+    const id = window.setInterval(() => setActiveIndex((i) => (i + 1) % n), 900);
+    return () => window.clearInterval(id);
+  }, [n]);
+
+  // Measured in real pixels so the diagram stretches to fill whatever width
+  // is available (no card/maxWidth cap) while the x-fractions stay in sync.
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(1160);
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => {
+      setContainerWidth(entry.contentRect.width);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const diagramHeight = maxLevel + numberRowHeight + 8 + ISO_CUBE_HEIGHT + 70;
+
+  const cubeCenterX = (i: number) => positions[i].xFrac * containerWidth;
+  const left = (i: number) => cubeCenterX(i) - cardOuterWidth / 2;
+  const top = (i: number) => positions[i].level;
+  const cubeTop = (i: number) => top(i) + numberRowHeight + 8;
+  const cubeBottom = (i: number) => cubeTop(i) + ISO_CUBE_HEIGHT;
+
+  return (
+    <div ref={containerRef} style={{ width: "100%" }}>
+      <div style={{ position: "relative", width: containerWidth, height: diagramHeight }}>
+        <svg width={containerWidth} height={diagramHeight} style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
+          <defs>
+            <marker id="lifecycleArrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth={6} markerHeight={6} orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#1C46F2" />
+            </marker>
+          </defs>
+          {steps.slice(0, -1).map((_, i) => {
+            const x1 = cubeCenterX(i);
+            const y1 = cubeBottom(i);
+            const x2 = cubeCenterX(i + 1);
+            const y2 = cubeTop(i + 1);
+            // L-shaped elbow (sharp right angle, not curved) — straight
+            // vertical from the source, then straight horizontal into the
+            // destination.
+            return (
+              <path
+                key={i}
+                d={`M ${x1} ${y1} L ${x1} ${y2} L ${x2} ${y2}`}
+                fill="none"
+                stroke="#1C46F2" strokeOpacity={0.55} strokeWidth={1.5} strokeDasharray="4 4"
+                markerEnd="url(#lifecycleArrow)"
+              />
+            );
+          })}
+        </svg>
+
+        {steps.map((s, i) => (
+          <div key={s.title} style={{ position: "absolute", left: left(i), top: top(i) }}>
+            <IsoStepCard icon={s.icon} title={s.title} number={String(i + 1).padStart(2, "0")} active={activeIndex === i} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── "What We Learned" interview row ───────────────────────────
+export function LearnedRow({ number, role, icon, quote, insight }: {
+  number: string; role: string; icon: React.ReactNode; quote: string; insight: string;
+}) {
+  return (
+    <div style={{
+      display: "flex", alignItems: "center", gap: 0, background: "#fff",
+      border: "1px solid rgba(0,0,0,0.07)", borderRadius: 16, padding: "26px 30px",
+      boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+    }}>
+      <div style={{ flex: "0 0 150px", textAlign: "center" }}>
+        <div style={{
+          width: 56, height: 56, borderRadius: "50%", background: "#f6e9d8", color: "#c1874f",
+          display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 10px",
+        }}>
+          {icon}
+        </div>
+        <div style={{ fontSize: 13.5, fontWeight: 700, color: "#111", fontFamily: ff }}>Interview {number}</div>
+        <div style={{ fontSize: 12, color: "#888", fontFamily: ff, marginTop: 2 }}>{role}</div>
+      </div>
+      <div style={{
+        flex: 1, display: "flex", alignItems: "flex-start", gap: 10,
+        borderLeft: "1px solid rgba(0,0,0,0.06)", borderRight: "1px solid rgba(0,0,0,0.06)", padding: "0 28px",
+      }}>
+        <Quote size={20} style={{ color: "#8a5a3a", flexShrink: 0, marginTop: 2 }} />
+        <p style={{
+          fontSize: 15, fontStyle: "italic", fontWeight: 600, color: "#5c3b28",
+          fontFamily: "Georgia, 'Times New Roman', serif", lineHeight: 1.5, margin: 0,
+        }}>
+          {quote}
+        </p>
+      </div>
+      <div style={{ flex: "0 0 240px", paddingLeft: 28 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+          <span style={{
+            width: 26, height: 26, borderRadius: "50%", background: "#e2f5e6", color: "#379354",
+            display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+          }}>
+            <Lightbulb size={13} />
+          </span>
+          <span style={{ fontSize: 12.5, fontWeight: 700, color: "#379354", fontFamily: ff }}>Insight</span>
+        </div>
+        <p style={{ fontSize: 13.5, color: "#777", fontFamily: ff, lineHeight: 1.55, margin: 0 }}>{insight}</p>
       </div>
     </div>
   );

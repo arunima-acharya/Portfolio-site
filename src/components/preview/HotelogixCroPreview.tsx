@@ -2,68 +2,100 @@
 
 import {
   User, Users, Star, Clock,
-  ExternalLink, Boxes, Sparkles, Coins, ShieldCheck,
+  ExternalLink, Boxes, Sparkles,
+  ClipboardList, FileText, Route, CreditCard, CheckCircle2, Filter,
 } from "lucide-react";
 import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import {
   ff, SnapshotCard, SectionEyebrow, ScreenshotPlaceholder, moduleThumbnail, TiltMockup,
-  SectionHeading, ChallengeCard, Annotation, InsightCard, SmallInsightCard,
+  SectionHeading, ScrollRevealSection, Annotation, InsightCard, SmallInsightCard,
   ResearchMethodsBar, MockTable, MockSelection, MockAvatars, MockForm, MockTimeline,
   SandboxCluster, type SandboxStatCard, SolutionStep, SolutionPill, DesignSystemGrid,
-  ImpactCard, LessonCard, EmptyLessonCard, type DesignPrinciple, DesignPrinciplesScroll,
+  ImpactCard,
+  LifecycleOverview, type LifecycleStep, type LifecyclePosition, LearnedRow,
 } from "@/components/preview/caseStudyKit";
+import LessonsLearnedPremium, { type PremiumLesson } from "@/components/preview/LessonsLearnedPremium";
 
 // ── Section 02 — At a Glance ─────────────────────────────────
 const SANDBOX_LEFT_CARDS: [SandboxStatCard, SandboxStatCard] = [
-  { value: "3 → 1", statLabel: <>Tools<br />Consolidated</> },
-  { value: "20%", delta: "↑", statLabel: <>Booking<br />Efficiency</> },
+  { value: "200+", statLabel: <>Enterprise<br />Accounts</> },
+  { value: "60%", delta: "↓", statLabel: <>Reduction in Group<br />Booking Time</> },
 ];
 const SANDBOX_RIGHT_CARDS: [SandboxStatCard, SandboxStatCard] = [
-  { value: "60%", delta: "↓", statLabel: <>Group Booking<br />Time</> },
-  { value: "200+", statLabel: <>Hotel Accounts<br />Visualised</> },
+  { value: "20%", delta: "↑", statLabel: <>Improvement in<br />Booking Efficiency</> },
+  { value: "AI", statLabel: <>Assisted Room<br />Allocation</> },
 ];
 
 // ── Section 03 — The Challenge ───────────────────────────────
-const CHALLENGES = [
-  { title: "Tool Fragmentation", desc: "Bookings, pricing, and group configuration lived in three disconnected systems that never talked to each other." },
-  { title: "Constant Context-Switching", desc: "Every time-sensitive booking decision meant jumping between screens, compounding across hundreds of daily interactions." },
-  { title: "Manual Group Configuration", desc: "Complex group room permutations took hours to configure by hand, with no automated assistance." },
-  { title: "Scattered Pricing Data", desc: "Pricing insights were spread across disconnected dashboards, making cross-account analysis nearly impossible." },
-  { title: "Opaque AI Suggestions", desc: "Early permutation suggestions offered no reasoning, so managers overrode the recommendation every time." },
-  { title: "Inconsistent Pricing at Scale", desc: "Without a single source of truth, pricing decisions grew inconsistent across 200+ hotel accounts." },
+// Indexed and paired with a scroll-reveal trail (ScrollRevealSection) —
+// same scroll-pinned, mockup-plus-reveal-card treatment as the Design
+// Principles section, matching how the restaurant management (POS) template
+// presents its Challenge section.
+const CHALLENGES: Array<{ index: string; title: string; desc: string }> = [
+  { index: "01", title: "Fragmented Booking Workflow", desc: "Reservation agents switched between multiple screens to manage availability, pricing, and guest details, making group bookings slow and difficult to coordinate." },
+  { index: "02", title: "No Itinerary Booking Support", desc: "The system couldn't create or manage multi-property or multi-date itineraries, forcing teams to split a single guest journey into multiple reservations." },
+  { index: "03", title: "Limited Inventory Visibility", desc: "Room availability across properties wasn't presented in a unified view, requiring manual comparisons before confirming reservations." },
+  { index: "04", title: "Manual Room Allocation", desc: "Assigning rooms for large groups relied heavily on manual effort, increasing booking time and the risk of allocation errors." },
+  { index: "05", title: "Inefficient Group Reservations", desc: "Corporate bookings involving multiple room types, guest preferences, and booking changes required repetitive actions across disconnected workflows." },
+  { index: "06", title: "Poor Operational Scalability", desc: "As booking volumes increased, existing workflows became harder to manage, reducing productivity during peak reservation periods." },
 ];
 
-// ── Section 04 — Research Insights ───────────────────────────
+// One "before" screenshot per challenge/scroll step. No legacy CRO
+// screenshots exist yet, so these fall back to the generated placeholders —
+// swap for real screenshots when they're available.
+const CHALLENGE_IMAGES = CHALLENGES.map((c) => moduleThumbnail(c.title));
+
+// ── Section 04 — Reservation Lifecycle Overview ──────────────
+const LIFECYCLE_STEPS: LifecycleStep[] = [
+  { icon: <Boxes size={20} strokeWidth={1.6} />, title: "Inventory" },
+  { icon: <ClipboardList size={20} strokeWidth={1.6} />, title: "Booking Details" },
+  { icon: <FileText size={20} strokeWidth={1.6} />, title: "Reservation Details" },
+  { icon: <Route size={20} strokeWidth={1.6} />, title: "Itinerary Management" },
+  { icon: <CreditCard size={20} strokeWidth={1.6} />, title: "Payments" },
+  { icon: <CheckCircle2 size={20} strokeWidth={1.6} />, title: "Confirmation" },
+];
+
+// x as a fraction of the row width, plus a vertical level in px (0 = highest).
+const LIFECYCLE_POSITIONS: LifecyclePosition[] = [
+  { xFrac: 0.08, level: 0 },
+  { xFrac: 0.26, level: 190 },
+  { xFrac: 0.44, level: 20 },
+  { xFrac: 0.62, level: 210 },
+  { xFrac: 0.80, level: 40 },
+  { xFrac: 0.94, level: 200 },
+];
+
+// ── Section 05 — Research Insights ───────────────────────────
 const RESEARCH_METHODS: Array<{ label: string; value: string; displayLabel?: React.ReactNode }> = [
-  { label: "Revenue Manager Interviews", value: "18+" },
-  { label: "Workflow Sessions Mapped", value: "40+" },
-  { label: "Tool Audits", value: "3 Systems", displayLabel: <>Tool<br />Audits</> },
-  { label: "Usage Data Analysis", value: "4 Months" },
-  { label: "Revenue Platforms Benchmarked", value: "6+ Products" },
+  { label: "Stakeholder Interviews", value: "12+" },
+  { label: "Workflow Analysis", value: "30+" },
+  { label: "Modules Audited", value: "5" },
+  { label: "Competitive Analysis", value: "6+ Products" },
+  { label: "Cross-functional Workshops", value: "10+ Sessions", displayLabel: <>Cross-functional<br />Workshops</> },
 ];
 
-// ── Section 05 — Design Principles ───────────────────────────
-const PRINCIPLES: DesignPrinciple[] = [
-  { index: "01", title: "Consolidation as UX", desc: "Reducing the number of tools a user must context-switch between is itself a design outcome — not just an engineering one." },
-  { index: "02", title: "Trust Through Transparency", desc: "AI-assisted features must show their work. Revenue managers need to understand why a permutation was suggested to act on it." },
-  { index: "03", title: "Data for Decision-Makers", desc: "Visualise data at the level of the decision — not the level of the database. Revenue managers think in accounts, not rows." },
-  { index: "04", title: "Zero Disruption", desc: "When users cannot afford downtime, the migration experience is as important as the destination design." },
+const LEARNED_INTERVIEWS: Array<{ number: string; role: string; icon: React.ReactNode; quote: string; insight: string }> = [
+  { number: "01", role: "Front Office Manager", icon: <User size={22} />, quote: "I know the rooms are available—I just spend too much time finding the right combination.", insight: "Availability wasn't the problem. Quickly identifying the best inventory for complex bookings was." },
+  { number: "02", role: "Corporate Sales Team", icon: <Users size={22} />, quote: "One client booking often means coordinating multiple room types across different dates.", insight: "Enterprise reservations required flexible itinerary management instead of isolated bookings." },
+  { number: "03", role: "Front Office Manager", icon: <User size={22} />, quote: "A small booking mistake creates problems for every team downstream.", insight: "Reservation accuracy directly affected front desk operations, room allocation, and the guest experience." },
 ];
-const PRINCIPLE_IMAGES = PRINCIPLES.map((p) => moduleThumbnail(p.title));
 
 // ── Section 06 — The Solution ────────────────────────────────
 const SOLUTION_STEPS: Array<{ number: string; title: string; desc: string; reverse: boolean; imageLabel: string; imageHeight: number }> = [
-  { number: "01", title: "Unified Booking Dashboard", desc: "Booking, pricing, and group management now live in a single connected workspace.", reverse: false, imageLabel: "Unified dashboard screenshot", imageHeight: 400 },
-  { number: "02", title: "AI-Assisted Permutations", desc: "Group room permutations are suggested with visible reasoning, cutting configuration time by 60%.", reverse: true, imageLabel: "AI permutation engine screenshot", imageHeight: 400 },
-  { number: "03", title: "Cross-Account Pricing View", desc: "Pricing data is visualised at the account level, matching how revenue managers actually think.", reverse: false, imageLabel: "Cross-account pricing screenshot", imageHeight: 400 },
+  { number: "01", title: "Unified Reservation Dashboard", desc: "Centralized reservation insights, booking actions, operational metrics, and real-time inventory into a single workspace — cutting room lookup time by 35% and workflow steps by 30%.", reverse: false, imageLabel: "Unified reservation dashboard screenshot", imageHeight: 400 },
+  { number: "02", title: "Reservation Details Workspace", desc: "Consolidated guest profiles, booking timelines, payments, and operational actions into one workspace, reducing context switching and speeding up booking decisions.", reverse: true, imageLabel: "Reservation details workspace screenshot", imageHeight: 400 },
+  { number: "03", title: "Itinerary Management", desc: "Introduced itinerary management to organize multiple stays, room changes, and booking segments within a single reservation — simplifying complex itineraries and reducing manual booking effort.", reverse: false, imageLabel: "Itinerary management screenshot", imageHeight: 400 },
+  { number: "04", title: "Advanced Filters & Bulk Operations", desc: "Added advanced filters and bulk actions for high-volume operations, cutting repetitive work and improving operational efficiency.", reverse: true, imageLabel: "Advanced filters and bulk operations screenshot", imageHeight: 400 },
+  { number: "05", title: "AI-Assisted Room Allocation", desc: "An AI-assisted room recommendation system suggests optimal room assignments based on availability, occupancy, and guest preferences — for faster, more accurate allocation.", reverse: false, imageLabel: "AI-assisted room allocation screenshot", imageHeight: 400 },
 ];
 
 const SOLUTION_PILLS = [
   { icon: <Boxes size={14} />, label: "Unified Dashboard" },
-  { icon: <Sparkles size={14} />, label: "AI Permutations" },
-  { icon: <Coins size={14} />, label: "Pricing Insights" },
-  { icon: <ShieldCheck size={14} />, label: "Zero-Downtime Migration" },
+  { icon: <FileText size={14} />, label: "Reservation Workspace" },
+  { icon: <Route size={14} />, label: "Itinerary Management" },
+  { icon: <Filter size={14} />, label: "Advanced Filters" },
+  { icon: <Sparkles size={14} />, label: "AI-Assisted Allocation" },
 ];
 
 // ── Section 07 — Ecosystem showcase (HeroParallax) ───────────
@@ -80,27 +112,43 @@ const CRO_MODULES = [
 
 // ── Section 09 — Impact ──────────────────────────────────────
 const IMPACT_STATS = [
-  { number: "01", value: "+20%", desc: "Booking efficiency, by consolidating 3 tools into 1" },
-  { number: "02", value: "−60%", desc: "Group booking configuration time, with AI-assisted permutations" },
-  { number: "03", value: "200+", desc: "Hotel accounts with unified pricing insights visualised" },
-  { number: "04", value: "3 → 1", desc: "Revenue tools consolidated into a single connected platform" },
+  { number: "01", value: "−60%", desc: "Reduction in group booking time" },
+  { number: "02", value: "+20%", desc: "Improvement in booking efficiency" },
+  { number: "03", value: "−35%", desc: "Reduction in room lookup time" },
+  { number: "04", value: "−30%", desc: "Fewer workflow steps across the reservation lifecycle" },
 ];
 
 // ── Section 10 — Lessons Learned ─────────────────────────────
-const LESSONS = [
-  { number: "01", title: "Consolidation is a design problem, not just an engineering one.", desc: "Merging three tools means inheriting three sets of user expectations and edge cases.", iconSrc: "/assets/icons/reservation/1.svg" },
-  { number: "02", title: "AI features live or die by trust.", desc: "A permutation engine only becomes useful once managers understand why a suggestion was made.", iconSrc: "/assets/icons/reservation/2.svg" },
-  { number: "03", title: "Visualise the decision, not the database.", desc: "The gap between how data is stored and how people think is where frustration lives.", iconSrc: "/assets/icons/reservation/3.svg" },
-  { number: "04", title: "Fragmentation feels normal to those inside it.", desc: "Revenue managers didn't call tool-switching a problem — they called it their job.", iconSrc: "/assets/icons/reservation/4.svg" },
-  { number: "05", title: "Migration is part of the product, not a footnote.", desc: "Revenue managers can't pause operations for a transition, so the path there needs as much design care as the destination.", iconSrc: "/assets/icons/reservation/5.svg" },
-  { number: "06", title: "Removing friction beats adding features.", desc: "The biggest wins came from eliminating context-switching, not from adding new functionality.", iconSrc: "/assets/icons/reservation/6.svg" },
+// Reuses the same "premium" bento layout as the RMS (Frontdesk) template's
+// Lessons Learned section, with CRO-specific copy passed in as props.
+const CRO_LESSONS: PremiumLesson[] = [
+  { title: "Consolidation is a design problem, not just an engineering one.", desc: "Merging three tools means inheriting three sets of user expectations and edge cases." },
+  { title: "AI features live or die by trust.", desc: "A permutation engine only becomes useful once managers understand why a suggestion was made." },
+  { title: "Visualise the decision, not the database.", desc: "The gap between how data is stored and how people think is where frustration lives." },
+  { title: "Fragmentation feels normal to those inside it.", desc: "Revenue managers didn't call tool-switching a problem — they called it their job." },
+  { title: "Migration is part of the product, not a footnote.", desc: "Revenue managers can't pause operations for a transition, so the path there needs as much design care as the destination." },
+  { title: "Removing friction beats adding features.", desc: "The biggest wins came from eliminating context-switching, not from adding new functionality." },
 ];
 
-// 3x3 grid — slots 1, 6, and 7 (1-indexed) are deliberately left empty.
-const LESSON_GRID: (typeof LESSONS[number] | null)[] = [
-  null, LESSONS[0], LESSONS[1],
-  LESSONS[2], LESSONS[3], null,
-  null, LESSONS[4], LESSONS[5],
+const CRO_KPIS = [
+  { label: "Active Bookings", value: "342", delta: "14%", positive: true },
+  { label: "Group Requests", value: "56", delta: "9%", positive: true },
+  { label: "Pricing Alerts", value: "12", delta: "3%", positive: false },
+];
+
+const CRO_NODES = [
+  { title: "Revenue Management", sub: "Pricing Strategy" },
+  { title: "Group Sales", sub: "Corporate Bookings" },
+  { title: "Finance Team", sub: "Invoicing" },
+  { title: "Support Team", sub: "Guest Requests" },
+  { title: "Leadership", sub: "Reporting" },
+];
+
+const CRO_BLUEPRINT = [
+  { top: "Revenue", bottom: "Operations" },
+  { top: "Booking", bottom: "Experience" },
+  { top: "Pricing", bottom: "Accuracy" },
+  { top: "Migration", bottom: "Path" },
 ];
 
 export default function HotelogixCroPreview() {
@@ -177,17 +225,39 @@ export default function HotelogixCroPreview() {
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 400, color: "#111",
           fontFamily: ff, textAlign: "center", letterSpacing: "-0.02em", marginBottom: 14,
         }}>
-          Redesigning how revenue managers work at Hotelogix.
+          Built from scratch at Hotelogix.
         </h2>
         <p style={{ fontSize: 15.5, color: "#777", fontFamily: ff, textAlign: "center", lineHeight: 1.75, maxWidth: 620, margin: "0 auto 48px" }}>
-          A look at the scope, team, and contributions that shaped the Central Reservation Office from fragmented tools into a unified platform.
+          A snapshot of the scope, team, and responsibilities behind building the Central Reservation Office from the ground up.
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20, maxWidth: 1040, margin: "0 auto" }}>
-          <SnapshotCard icon={<User size={16} />} label="Role" value="Product UX Designer" />
-          <SnapshotCard icon={<Clock size={16} />} label="Timeline" value="Jul 2023 – Present" />
-          <SnapshotCard icon={<Users size={16} />} label="Team" value="Design · Engineering · Revenue Management" />
-          <SnapshotCard icon={<Star size={16} />} label="Contribution" value="UX Strategy · Information Architecture · Interaction Design · Data Visualisation · UI Design · Stakeholder Workshops" />
+          <SnapshotCard icon={<User size={16} />} label="Role" value="Founding Product Designer" />
+          <SnapshotCard icon={<Clock size={16} />} label="Timeline" value="Confidential" />
+          <SnapshotCard icon={<Users size={16} />} label="Team" value="Product · Engineering · Customer Success" />
+          <SnapshotCard icon={<Star size={16} />} label="Contribution" value="Product Strategy · UX Design · Interaction Design · UI Design · Information Architecture · Design Systems · Cross-functional Collaboration" />
+        </div>
+
+        <div style={{
+          maxWidth: 1040, margin: "40px auto 0", background: "#fff", borderRadius: 20,
+          border: "1px solid rgba(0,0,0,0.07)", boxShadow: "0 4px 24px rgba(0,0,0,0.04)", padding: "36px 40px",
+        }}>
+          <h3 style={{ fontSize: 20, fontWeight: 600, color: "#111", fontFamily: ff, marginBottom: 20 }}>
+            My Responsibilities
+          </h3>
+          <ul style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px 32px", margin: 0, padding: 0, listStyle: "none" }}>
+            {[
+              "Led the end-to-end design of the Central Reservation Office.",
+              "Defined UX strategy, workflows, and information architecture.",
+              "Partnered with Product, Engineering, and Customer Success.",
+              "Built scalable design foundations for future product growth.",
+            ].map((item, i) => (
+              <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#1C46F2", flexShrink: 0, marginTop: 8 }} />
+                <span style={{ fontSize: 15.5, color: "#555", fontFamily: ff, lineHeight: 1.6 }}>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -199,11 +269,11 @@ export default function HotelogixCroPreview() {
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 400, color: "#111",
           fontFamily: ff, textAlign: "center", letterSpacing: "-0.02em", marginBottom: 14,
         }}>
-          Built for revenue managers who can&apos;t afford to switch tabs.
+          Built for enterprise hotel operations.
         </h2>
 
         <p style={{ fontSize: 15.5, color: "#777", fontFamily: ff, textAlign: "center", maxWidth: 480, margin: "0 auto 56px" }}>
-          Consolidating pricing, availability, and group configuration into one always-on platform across 200+ hotel accounts.
+          Supporting enterprise reservation workflows across hundreds of hotel groups with faster, AI-assisted booking experiences.
         </p>
 
         <SandboxCluster leftCards={SANDBOX_LEFT_CARDS} rightCards={SANDBOX_RIGHT_CARDS} />
@@ -213,19 +283,27 @@ export default function HotelogixCroPreview() {
       <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
         <SectionEyebrow number="03" label="The Challenge" />
         <SectionHeading
-          title="Revenue management had outgrown its own tools."
-          subtitle="Revenue managers were switching between 3 disconnected tools to manage bookings, causing delays and pricing inconsistencies across 200+ hotel accounts."
+          title="Managing enterprise reservations shouldn't feel fragmented."
+          subtitle="Corporate travel managers relied on disconnected workflows to handle group bookings, inventory checks, and room allocation. The fragmented process slowed reservations, increased manual effort, and limited operational efficiency."
           maxWidth={620}
         />
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, maxWidth: 1040, margin: "0 auto" }}>
-          {CHALLENGES.map((c) => (
-            <ChallengeCard key={c.title} title={c.title} desc={c.desc} />
-          ))}
-        </div>
+        <ScrollRevealSection items={CHALLENGES} images={CHALLENGE_IMAGES} />
       </section>
 
-      {/* Section 04 — Research Insights */}
+      {/* Section 04 — Reservation Lifecycle Overview */}
+      <section style={{ background: "#ffffff", padding: "90px 8%" }}>
+        <SectionEyebrow number="04" label="Reservation Lifecycle Overview" />
+        <SectionHeading
+          title="Mapping the Enterprise Reservation Journey"
+          subtitle="Before redesigning the experience, I mapped the complete reservation lifecycle to understand how reservation teams moved from inventory planning to booking confirmation. This helped identify workflow dependencies, operational bottlenecks, and opportunities to streamline the booking experience."
+          maxWidth={620}
+        />
+
+        <LifecycleOverview steps={LIFECYCLE_STEPS} positions={LIFECYCLE_POSITIONS} />
+      </section>
+
+      {/* Section 05 — Research Insights */}
       <section style={{ background: "#f3f3f3", padding: "90px 8%", position: "relative", overflow: "hidden" }}>
         <div aria-hidden style={{
           position: "absolute", inset: 0, pointerEvents: "none",
@@ -236,10 +314,10 @@ export default function HotelogixCroPreview() {
         }} />
 
         <div style={{ position: "relative" }}>
-          <SectionEyebrow number="04" label="Research Insights" />
+          <SectionEyebrow number="05" label="Research Insights" />
           <SectionHeading
-            title="Understanding how revenue managers actually decide."
-            subtitle="Research spanned workflow mapping, tool-switching analysis, group booking audits, and stakeholder interviews across hotel tiers to understand where trust and efficiency broke down."
+            title="Understanding how reservation teams actually work."
+            subtitle="Beyond identifying product gaps, the research focused on understanding how reservation teams make decisions, collaborate, and manage high-volume bookings in fast-paced hospitality environments."
             maxWidth={620}
             bold
           />
@@ -247,58 +325,55 @@ export default function HotelogixCroPreview() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 220, maxWidth: 1160, margin: "40px auto 170px" }}>
             <InsightCard
               badge="Key Insight"
-              title="Tool fragmentation is invisible to those inside it."
-              desc="Revenue managers had normalised switching between three tools. They didn't call it a problem — they called it their job."
+              title="Decision-making is time sensitive."
+              desc="Reservation agents often had only a few minutes to confirm availability and respond to corporate booking requests, making speed a critical success factor."
             >
               <MockTable rows={4} />
-              <Annotation label="Three tools, one workflow" pos="right" style={{ top: -30, left: "100%", marginLeft: 12 }} />
+              <Annotation label="Minutes to confirm, not hours" pos="right" style={{ top: -30, left: "100%", marginLeft: 12 }} />
             </InsightCard>
 
-            <InsightCard title="AI features require visible reasoning." desc="Suggesting a permutation without explaining the logic caused managers to override the recommendation every time.">
+            <InsightCard title="Booking is a collaborative process." desc="Large reservations involved coordination between reservation teams, revenue managers, sales teams, and front desk staff rather than a single user.">
               <MockSelection />
-              <Annotation label="No visible reasoning, no trust" pos="top" style={{ top: -117, left: -110 }} />
+              <Annotation label="Never just one user" pos="top" style={{ top: -117, left: -110 }} />
             </InsightCard>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, maxWidth: 1160, margin: "-100px auto 76px" }}>
-            <SmallInsightCard title="Data must match the mental model." desc="Revenue managers think in accounts, not rows. Displaying data at the database level forces unnecessary cognitive translation.">
+            <SmallInsightCard title="Every property operates differently." desc="Business rules, room inventories, pricing structures, and operational policies varied across hotel brands, requiring flexible workflows instead of rigid processes.">
               <MockAvatars />
-              <Annotation label="Accounts, not rows" pos="top" style={{ top: -170, right: 70 }} />
+              <Annotation label="Flexible, not rigid" pos="top" style={{ top: -170, right: 70 }} />
             </SmallInsightCard>
 
-            <SmallInsightCard title="Consolidation means redesigning workflows." desc="Merging three tools into one required rethinking the transitions between them — not just combining the interfaces.">
+            <SmallInsightCard title="Exceptions were more common than standards." desc="Special requests, split stays, room upgrades, itinerary changes, and negotiated corporate rates meant reservation agents rarely followed a perfectly linear workflow.">
               <MockForm />
-              <Annotation label="Not just merged screens" pos="top" style={{ top: -170, right: 70 }} />
+              <Annotation label="Rarely a linear workflow" pos="top" style={{ top: -170, right: 70 }} />
             </SmallInsightCard>
 
-            <SmallInsightCard title="Migration experience is a design problem." desc="Revenue managers cannot pause operations for a product transition. The migration path required as much design attention as the destination.">
+            <SmallInsightCard title="Confidence was more important than speed." desc="Reservation teams needed clear visibility into availability, pricing, and booking impact before confirming reservations, as mistakes could directly affect revenue and guest experience.">
               <MockTimeline />
-              <Annotation label="No pause button for revenue" pos="top" style={{ top: -170, right: -4 }} />
+              <Annotation label="Visibility before speed" pos="top" style={{ top: -170, right: -4 }} />
             </SmallInsightCard>
           </div>
 
           <ResearchMethodsBar methods={RESEARCH_METHODS} />
+
+          <div style={{ maxWidth: 1160, margin: "48px auto 0" }}>
+            <h3 style={{ fontSize: 22, fontWeight: 700, color: "#111", fontFamily: ff, marginBottom: 20 }}>
+              What We Learned
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {LEARNED_INTERVIEWS.map((l) => <LearnedRow key={l.number} {...l} />)}
+            </div>
+          </div>
         </div>
-      </section>
-
-      {/* Section 05 — Design Principles */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8% 110px" }}>
-        <SectionEyebrow number="05" label="Design Principles" />
-        <SectionHeading
-          title="Principles that guided the consolidation."
-          subtitle="These principles shaped how three fragmented tools became one — helping revenue managers trust, understand, and move faster through every decision."
-          maxWidth={620}
-        />
-
-        <DesignPrinciplesScroll principles={PRINCIPLES} images={PRINCIPLE_IMAGES} />
       </section>
 
       {/* Section 06 — The Solution */}
       <section style={{ background: "#f3f3f3", padding: "90px 8% 110px" }}>
         <SectionEyebrow number="06" label="The Solution" />
         <SectionHeading
-          title="Consolidating three tools into one connected system."
-          subtitle="Instead of redesigning each tool individually, the focus was on rethinking the transitions between booking, pricing, and group configuration."
+          title="Reimagining enterprise reservations from the ground up."
+          subtitle="Rather than improving isolated screens, the redesign focused on creating a connected reservation experience. Every solution was driven by operational research, simplifying complex workflows, reducing manual effort, and helping reservation teams complete high-volume bookings with greater speed and confidence."
           maxWidth={560}
         />
 
@@ -393,10 +468,10 @@ export default function HotelogixCroPreview() {
             fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 400, color: "#fff", fontFamily: ff,
             lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 16, maxWidth: 560,
           }}>
-            Designed for measurable revenue impact.
+            Delivering measurable improvements to enterprise reservations.
           </h2>
           <p style={{ fontSize: 15, color: "rgba(255,255,255,0.75)", fontFamily: ff, lineHeight: 1.6, maxWidth: 480, margin: "0 0 40px" }}>
-            The consolidation simplified everyday booking decisions while preserving the complexity revenue managers need across 200+ hotel accounts.
+            The redesigned Central Reservation Office streamlined complex booking workflows, reduced manual effort, and enabled reservation teams to manage enterprise bookings faster and more efficiently.
           </p>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
@@ -408,18 +483,20 @@ export default function HotelogixCroPreview() {
       </section>
 
       {/* Section 10 — Lessons Learned */}
-      <section style={{ background: "#f3f3f3", padding: "70px 8% 100px" }}>
-        <div style={{ fontSize: 13, fontWeight: 400, letterSpacing: "0.08em", color: "#1C46F2", fontFamily: ff, marginBottom: 32, maxWidth: 1120, margin: "0 auto 32px" }}>
-          10 — LESSONS LEARNED
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, maxWidth: 1120, margin: "0 auto" }}>
-          {LESSON_GRID.map((l, i) => (
-            l
-              ? <LessonCard key={l.number} number={l.number} title={l.title} desc={l.desc} iconSrc={l.iconSrc} />
-              : <EmptyLessonCard key={`empty-${i}`} />
-          ))}
-        </div>
-      </section>
+      <LessonsLearnedPremium
+        sectionNumber="10"
+        caseStudyLabel="Hotelogix CRO Case Study"
+        intro="Consolidating three fragmented tools into one connected platform taught me what enterprise consolidation actually demands. These six lessons now guide every product decision I make."
+        lessons={CRO_LESSONS}
+        quote={{
+          text: <>Consolidation isn&apos;t subtraction.<br />It&apos;s redesigning how the pieces connect.</>,
+          attribution: "— Internal Design Principle",
+        }}
+        hero={{ src: "/assets/hotelogix/GROUP RESERVATION-LAYOUT.png", alt: "Central Reservation Office dashboard" }}
+        kpis={CRO_KPIS}
+        networkNodes={CRO_NODES}
+        blueprintLabels={CRO_BLUEPRINT}
+      />
     </>
   );
 }

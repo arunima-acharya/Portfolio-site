@@ -10,7 +10,7 @@ export default function TypographyZoom() {
   return (
     <div
       style={{
-        backgroundColor: "#F1EFEA",
+        backgroundColor: "transparent",
         position:        "relative",
         height:          "100vh",
         display:         "flex",
@@ -39,7 +39,7 @@ export default function TypographyZoom() {
         <div
           style={{
             fontSize:   "clamp(1.2rem, 3.6vw, 3rem)",
-            fontFamily: "var(--font-playfair-display), 'Playfair Display', serif",
+            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
             fontStyle:  "italic",
             fontWeight: 540,
             color:      "#1A2332",
@@ -75,7 +75,7 @@ export default function TypographyZoom() {
         <div
           style={{
             position:   "absolute",
-            bottom:     "6%",
+            bottom:     "3%",
             left:       "50%",
             transform:  "translateX(-50%)",
             zIndex:     50,

@@ -28,7 +28,7 @@ export default function ResearchCard({ project, index, featured = false }: Resea
         href={projectHref(project)}
         className="group relative block overflow-hidden rounded-2xl"
         aria-label={`Read investigation: ${project.title}`}
-        style={{ border: "1px solid rgba(255,255,255,0.08)", background: "#0c0c0c" }}
+        style={{ border: "1px solid rgba(0,0,0,0.08)", background: "#ffffff" }}
       >
         <div className={featured ? "md:grid md:grid-cols-[1.1fr_0.9fr]" : ""}>
           {/* Visual panel */}
@@ -61,14 +61,14 @@ export default function ResearchCard({ project, index, featured = false }: Resea
             </div>
 
             <h3
-              className="font-semibold text-white tracking-tight leading-tight"
-              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem" }}
+              className="font-semibold text-[#111] tracking-tight leading-tight"
+              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
             >
               {project.title}
             </h3>
 
             <p
-              className={`mt-3 text-zinc-400 leading-relaxed ${featured ? "line-clamp-3" : "line-clamp-2"}`}
+              className={`mt-3 text-zinc-600 leading-relaxed ${featured ? "line-clamp-3" : "line-clamp-2"}`}
               style={{ fontSize: featured ? "15px" : "13.5px" }}
             >
               {project.valueProposition ?? project.shortDescription}
@@ -79,7 +79,7 @@ export default function ResearchCard({ project, index, featured = false }: Resea
                 {topics.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[11px] px-2.5 py-1 rounded-full text-zinc-400 border border-white/8 bg-white/[0.03]"
+                    className="text-[11px] px-2.5 py-1 rounded-full text-zinc-600 border border-black/8 bg-black/[0.03]"
                   >
                     {tag}
                   </span>
@@ -96,12 +96,12 @@ export default function ResearchCard({ project, index, featured = false }: Resea
               )}
               <span
                 className="inline-flex items-center gap-1.5 text-[13px] font-medium ml-auto transition-colors duration-200"
-                style={{ color: "#a1a1aa" }}
+                style={{ color: "#71717a" }}
               >
-                <span className="group-hover:text-white transition-colors duration-200">Read investigation</span>
+                <span className="group-hover:text-[#111] transition-colors duration-200">Read investigation</span>
                 <span
                   className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-200"
-                  style={{ background: "rgba(255,255,255,0.06)" }}
+                  style={{ background: "rgba(0,0,0,0.05)" }}
                 >
                   <ArrowUpRight
                     size={14}

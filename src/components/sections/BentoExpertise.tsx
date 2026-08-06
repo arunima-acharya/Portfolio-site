@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useParallax } from "@/hooks/useParallax";
 
 const CATEGORIES = [
   {
@@ -164,6 +165,7 @@ export default function BentoExpertise() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
   const isMobile = useIsMobile();
+  const { ref: fanParallaxRef, y: fanY } = useParallax(32);
   const isLight = true; // this section is always rendered in light mode, regardless of the site-wide theme toggle
 
   // Random tilt + vertical offset per card. Starts flat (deterministic,
@@ -240,7 +242,7 @@ export default function BentoExpertise() {
             letterSpacing: 0,
             lineHeight: 1,
             color: textPrimary,
-            fontFamily: "var(--font-playfair-display), 'Playfair Display', serif",
+            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
           }}
         >
           What I bring to the table.
@@ -263,20 +265,25 @@ export default function BentoExpertise() {
           ))}
         </div>
       ) : (
-        <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: "36px", transform: "translateY(15%)" }}>
-          {CATEGORIES.map((cat, i) => (
-            <div key={cat.title} style={{ flex: "0 0 280px", marginLeft: i === 0 ? 0 : i === 1 ? "-46px" : "-26px" }}>
-              <BentoCard
-                cat={cat}
-                globalIdx={i}
-                isInView={isInView}
-                colors={{ textPrimary, cardBg, cardBorder, cardShadow, arrowBorder, arrowColor, pillBg, pillBorder, pillText }}
-                fan={fan[i]}
-                fanned
-              />
-            </div>
-          ))}
-        </div>
+        // Outer element owns the continuous scroll parallax; inner keeps its
+        // existing static translateY(15%) positioning untouched — nested on
+        // separate elements so the two transforms compose instead of fighting.
+        <motion.div ref={fanParallaxRef} style={{ y: fanY }}>
+          <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: "36px", transform: "translateY(15%)" }}>
+            {CATEGORIES.map((cat, i) => (
+              <div key={cat.title} style={{ flex: "0 0 280px", marginLeft: i === 0 ? 0 : i === 1 ? "-46px" : "-26px" }}>
+                <BentoCard
+                  cat={cat}
+                  globalIdx={i}
+                  isInView={isInView}
+                  colors={{ textPrimary, cardBg, cardBorder, cardShadow, arrowBorder, arrowColor, pillBg, pillBorder, pillText }}
+                  fan={fan[i]}
+                  fanned
+                />
+              </div>
+            ))}
+          </div>
+        </motion.div>
       )}
     </section>
   );

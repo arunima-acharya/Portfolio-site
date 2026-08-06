@@ -30,7 +30,7 @@ function Section({
           <span className="text-xs font-medium text-zinc-600 uppercase tracking-widest">
             {label}
           </span>
-          <h2 className="text-2xl font-semibold text-white">{title}</h2>
+          <h2 className="text-2xl font-semibold text-white" style={{ fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>{title}</h2>
         </div>
         {children}
       </div>
@@ -389,7 +389,7 @@ function RichCaseStudy({ project }: { project: Project }) {
               style={{ backgroundColor: "#ebebeb" }}
             >
               {/* Title at top */}
-              <h3 className="text-[22px] font-semibold text-zinc-800 leading-snug">
+              <h3 className="text-[22px] font-semibold text-zinc-800 leading-snug" style={{ fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>
                 {feature.title}
               </h3>
 

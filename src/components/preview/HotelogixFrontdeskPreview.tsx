@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import LessonsLearnedPremium from "@/components/preview/LessonsLearnedPremium";
-import ReservationSimulator from "@/components/preview/ReservationSimulator";
 import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 
 // Single source of truth for this page's font — every text style below reads
@@ -817,8 +816,7 @@ const CHALLENGES: Array<{ index: string; title: string; desc: string }> = [
   { index: "06", title: "Inefficient Operations", desc: "Hotel staff spent more time navigating the software than managing guests, reducing operational efficiency." },
 ];
 
-// One old-system screenshot per challenge/scroll step — reuses the same
-// "before" screenshots as the Design Principles scroll (image 85 repeats
+// One old-system screenshot per challenge/scroll step (image 85 repeats
 // once since there are 6 challenges but only 5 distinct old-system shots).
 const CHALLENGE_IMAGES = [
   "/assets/old/image 81.png",
@@ -1152,18 +1150,6 @@ export default function HotelogixFrontdeskPreview() {
         />
 
         <LifecycleOverview />
-      </section>
-
-      {/* Section 05 — Reservation Simulator */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
-        <SectionEyebrow number="05" label="Reservation Simulator" />
-        <SectionHeading
-          title="Experience the workflow, not a description of it."
-          subtitle="An interactive walkthrough of the redesigned front-desk journey — click through each stage the way a front-desk agent would, from creating a booking to checking a guest out."
-          maxWidth={640}
-        />
-
-        <ReservationSimulator />
       </section>
 
       {/* Section 06 — Research Insights */}

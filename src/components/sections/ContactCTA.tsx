@@ -25,7 +25,7 @@ export default function ContactCTA() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <Link
-            href="mailto:ishaankausik@gmail.com"
+            href="mailto:arunimaacharya17@gmail.com"
             id="contact-cta-heading"
             style={{
               display: "inline-flex",

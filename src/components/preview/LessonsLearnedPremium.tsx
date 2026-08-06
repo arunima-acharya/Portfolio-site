@@ -1,26 +1,50 @@
 "use client";
 
-// "Premium SaaS" treatment of the Lessons Learned section (Section 10) — a
-// distinct visual system (Inter/Inter Tight, #5B6CFF accent, #FCFCFD canvas,
-// soft shadows, no card grid) deliberately different from the rest of the
-// Hotelogix case study, which uses Manrope + #1C46F2.
+// Lessons Learned section (Section 10). Uses the same design system as the
+// rest of the Hotelogix case study — Manrope (`ff`), #1C46F2 accent, #f3f3f3
+// canvas, and the shared SectionEyebrow/SectionHeading primitives — so the
+// bento layout below reads as part of the page rather than a separate one.
 
 import {
   Building2, ClipboardList, Wallet, Camera, User,
   Users, Quote, TrendingUp, TrendingDown,
 } from "lucide-react";
+import { ff, SectionEyebrow, SectionHeading } from "@/components/preview/caseStudyKit";
 
-const headFont = "var(--font-inter-tight), var(--font-inter), sans-serif";
-const bodyFont = "var(--font-inter), sans-serif";
-const accent = "#5B6CFF";
-const accentTint = "#EEF0FF";
-const ink = "#12131A";
-const muted = "#6b6f7b";
-const faint = "#9a9ea8";
-const canvas = "#FCFCFD";
-const cardBorder = "1px solid rgba(0,0,0,0.05)";
-const cardShadow = "0 20px 50px rgba(25,40,90,0.06)";
-const radius = 24;
+// Everything case-study-specific is a prop; the layout, geometry and tints
+// below are fixed. Defaults reproduce the RMS content exactly, so
+// `<LessonsLearnedPremium />` with no props renders as it always has.
+export type PremiumLesson = { title: string; desc: string };
+export type HeroImage = { src: string; alt: string };
+export type KpiSpec = { label: string; value: string; delta: string; positive: boolean };
+export type NodeLabel = { title: string; sub: string };
+export type BlueprintLabel = { top: string; bottom: string };
+
+export type LessonsLearnedPremiumProps = {
+  sectionNumber?: string;
+  caseStudyLabel?: string;
+  intro?: string;
+  /** Exactly six — the bento has six fixed slots. */
+  lessons?: PremiumLesson[];
+  quote?: { text: React.ReactNode; attribution: string };
+  hero?: HeroImage;
+  /** Three floating KPI chips over the hero image. */
+  kpis?: KpiSpec[];
+  /** Five network-diagram node labels, in the fixed geometry's order. */
+  networkNodes?: NodeLabel[];
+  /** Four blueprint floor labels, top floor first. */
+  blueprintLabels?: BlueprintLabel[];
+};
+
+const accent = "#1C46F2";
+const accentTint = "#E8EDFE";
+const ink = "#111";
+const muted = "#777";
+const faint = "#999";
+const canvas = "#f3f3f3";
+const cardBorder = "1px solid rgba(0,0,0,0.07)";
+const cardShadow = "0 4px 24px rgba(0,0,0,0.04)";
+const radius = 16;
 
 function Panel({ style, children }: { style?: React.CSSProperties; children: React.ReactNode }) {
   return (
@@ -33,9 +57,12 @@ function Panel({ style, children }: { style?: React.CSSProperties; children: Rea
   );
 }
 
+// Per-lesson number. Matches the numeral half of the page's SectionEyebrow
+// (15px / 400 / accent) — these are lesson counters, not page sections, so
+// they carry no uppercase label alongside them.
 function Eyebrow({ n }: { n: string }) {
   return (
-    <div style={{ fontSize: 16, fontWeight: 600, color: accent, fontFamily: headFont, marginBottom: 14 }}>
+    <div style={{ fontSize: 15, fontWeight: 400, color: accent, fontFamily: ff, marginBottom: 14 }}>
       {n}
     </div>
   );
@@ -47,14 +74,14 @@ function KpiFloat({ label, value, delta, positive, style }: {
   return (
     <div style={{
       position: "absolute", background: "#fff", borderRadius: 14, border: cardBorder,
-      boxShadow: "0 12px 28px rgba(25,40,90,0.10)", padding: "10px 16px", minWidth: 128, ...style,
+      boxShadow: "0 12px 28px rgba(0,0,0,0.10)", padding: "10px 16px", minWidth: 128, ...style,
     }}>
-      <div style={{ fontSize: 10.5, color: faint, fontFamily: bodyFont, marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 10.5, color: faint, fontFamily: ff, marginBottom: 4 }}>{label}</div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 7 }}>
-        <span style={{ fontSize: 19, fontWeight: 700, color: ink, fontFamily: headFont }}>{value}</span>
+        <span style={{ fontSize: 19, fontWeight: 700, color: ink, fontFamily: ff }}>{value}</span>
         <span style={{
           display: "inline-flex", alignItems: "center", gap: 2, fontSize: 11, fontWeight: 600,
-          color: positive ? "#16a34a" : "#dc2626", fontFamily: bodyFont,
+          color: positive ? "#16a34a" : "#dc2626", fontFamily: ff,
         }}>
           {positive ? <TrendingUp size={11} /> : <TrendingDown size={11} />}
           {delta}
@@ -65,7 +92,7 @@ function KpiFloat({ label, value, delta, positive, style }: {
 }
 
 // ── Section 01 — dashboard illustration ──────────────────────
-function DashboardIllustration() {
+function DashboardIllustration({ hero, kpis }: { hero: HeroImage; kpis: KpiSpec[] }) {
   return (
     <div style={{ position: "relative", height: 260, borderRadius: 18, overflow: "hidden", background: "linear-gradient(135deg, #fafbff 0%, #f2f3fb 100%)" }}>
       <div style={{
@@ -86,14 +113,21 @@ function DashboardIllustration() {
       }}>
         {/* eslint-disable-next-line @next/next/no-img-element -- local static asset, no next/image remote pattern needed */}
         <img
-          src="/assets/hotelogix/FRONTDESK.png"
-          alt="Hotelogix front desk dashboard"
+          src={hero.src}
+          alt={hero.alt}
           style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", filter: "blur(1px)", opacity: 0.85 }}
         />
       </div>
-      <KpiFloat label="Reservations" value="128" delta="12%" positive style={{ top: 30, right: 26 }} />
-      <KpiFloat label="Check-ins" value="82" delta="8%" positive style={{ top: 118, right: 46 }} />
-      <KpiFloat label="Housekeeping" value="24" delta="4%" positive={false} style={{ top: 200, right: 20 }} />
+      {kpis.map((k, i) => (
+        <KpiFloat
+          key={k.label}
+          label={k.label}
+          value={k.value}
+          delta={k.delta}
+          positive={k.positive}
+          style={[{ top: 30, right: 26 }, { top: 118, right: 46 }, { top: 200, right: 20 }][i]}
+        />
+      ))}
     </div>
   );
 }
@@ -104,14 +138,16 @@ function DashboardIllustration() {
 // the hub), one sits lower-right — each with its own tinted icon color.
 const HUB = { x: 45, y: 50 };
 const NETWORK_NODES = [
-  { icon: Users, title: "Front Desk", sub: "Room Status", tint: "#E9EEFF", iconColor: "#5B6CFF", pos: { top: "16%", left: "1%" }, anchor: { x: 20, y: 20 } },
+  { icon: Users, title: "Front Desk", sub: "Room Status", tint: accentTint, iconColor: accent, pos: { top: "16%", left: "1%" }, anchor: { x: 20, y: 20 } },
   { icon: ClipboardList, title: "Housekeeping", sub: "Room Cleanliness", tint: "#E3F8EC", iconColor: "#22c55e", pos: { top: "16%", right: "2%" }, anchor: { x: 71, y: 20 } },
   { icon: Wallet, title: "Finance Team", sub: "Invoicing", tint: "#EFE8FC", iconColor: "#8b5cf6", pos: { top: "62%", left: "0%" }, anchor: { x: 17, y: 66 } },
   { icon: Camera, title: "Maintenance", sub: "Work Orders", tint: "#FDECDC", iconColor: "#f59e0b", pos: { top: "46%", right: "-1%" }, anchor: { x: 84, y: 52 } },
   { icon: ClipboardList, title: "Management", sub: "Reporting", tint: "#E3F8EC", iconColor: "#22c55e", pos: { top: "82%", right: "6%" }, anchor: { x: 71, y: 80 } },
 ];
 
-function NetworkDiagram() {
+function NetworkDiagram({ labels }: { labels: NodeLabel[] }) {
+  // Geometry and tints stay fixed; only the wording swaps per case study.
+  const nodes = NETWORK_NODES.map((n, i) => ({ ...n, ...(labels[i] ?? {}) }));
   return (
     <div style={{ position: "relative", height: 420 }}>
       {/* Concentric dashed rings + connector lines, in one 0-100/0-100
@@ -121,7 +157,7 @@ function NetworkDiagram() {
           below, since a non-uniform SVG scale would otherwise stretch
           them into ellipses. */}
       <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: "absolute", inset: 0 }}>
-        {NETWORK_NODES.map((n, i) => {
+        {nodes.map((n, i) => {
           const midX = HUB.x + (n.anchor.x - HUB.x) * 0.42;
           const midY = HUB.y + (n.anchor.y - HUB.y) * 0.42;
           return (
@@ -137,7 +173,7 @@ function NetworkDiagram() {
         <div key={d} style={{
           position: "absolute", top: `${HUB.y}%`, left: `${HUB.x}%`, width: d, height: d,
           transform: "translate(-50%,-50%)", borderRadius: "50%",
-          border: `1px dashed rgba(91,108,255,${d === 200 ? 0.22 : 0.14})`,
+          border: `1px dashed rgba(28,70,242,${d === 200 ? 0.22 : 0.14})`,
         }} />
       ))}
 
@@ -145,18 +181,18 @@ function NetworkDiagram() {
         position: "absolute", top: `${HUB.y}%`, left: `${HUB.x}%`, transform: "translate(-50%,-50%)",
         width: 76, height: 76, borderRadius: "50%", background: accent,
         display: "flex", alignItems: "center", justifyContent: "center",
-        boxShadow: "0 16px 34px rgba(91,108,255,0.38)", zIndex: 1,
+        boxShadow: "0 16px 34px rgba(28,70,242,0.38)", zIndex: 1,
       }}>
         <Building2 size={30} color="#fff" strokeWidth={1.6} />
       </div>
 
-      {NETWORK_NODES.map((n, i) => {
+      {nodes.map((n, i) => {
         const Icon = n.icon;
         return (
           <div key={i} style={{
             position: "absolute", ...n.pos,
             display: "flex", alignItems: "center", gap: 10, background: "#fff", borderRadius: 14,
-            border: cardBorder, boxShadow: "0 10px 24px rgba(25,40,90,0.07)", padding: "10px 16px 10px 10px", whiteSpace: "nowrap",
+            border: cardBorder, boxShadow: "0 10px 24px rgba(0,0,0,0.07)", padding: "10px 16px 10px 10px", whiteSpace: "nowrap",
           }}>
             <div style={{
               width: 34, height: 34, borderRadius: 10, background: n.tint,
@@ -165,8 +201,8 @@ function NetworkDiagram() {
               <Icon size={16} color={n.iconColor} strokeWidth={1.9} />
             </div>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: ink, fontFamily: bodyFont }}>{n.title}</div>
-              <div style={{ fontSize: 11, color: faint, fontFamily: bodyFont }}>{n.sub}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: ink, fontFamily: ff }}>{n.title}</div>
+              <div style={{ fontSize: 11, color: faint, fontFamily: ff }}>{n.sub}</div>
             </div>
           </div>
         );
@@ -177,14 +213,8 @@ function NetworkDiagram() {
 
 // ── Section 03 — blueprint illustration ──────────────────────
 // Two-tone (bold + light) two-line labels, connected via a solid leader
-// with a dot at each end.
-const BLUEPRINT_LABELS = [
-  { top: "Rooftop", bottom: "Operations" },
-  { top: "Guest", bottom: "Experience" },
-  { top: "Operational", bottom: "Efficiency" },
-  { top: "Back of House", bottom: "Workflows" },
-];
-
+// with a dot at each end. Labels arrive as a prop (see RMS_BLUEPRINT for the
+// default set); the building geometry below assumes exactly four floors.
 const GROUND_Y = 470;
 const FRONT = { x: 250, y: 70, w: 280, h: 400 };
 const BACK = { x: 70, y: 190, w: 150, h: GROUND_Y - 190 };
@@ -225,7 +255,7 @@ function ChairIcon({ x, floorTop }: { x: number; floorTop: number }) {
   );
 }
 
-function BlueprintIllustration() {
+function BlueprintIllustration({ labels }: { labels: BlueprintLabel[] }) {
   return (
     <div style={{ position: "relative", height: 300, overflow: "hidden" }}>
       <svg width="100%" height="100%" viewBox="0 0 700 520" fill="none">
@@ -268,7 +298,7 @@ function BlueprintIllustration() {
         <line x1={FRONT.x + 16} y1={FRONT.y - 2} x2={FRONT.x + 16} y2={GROUND_Y} stroke={accent} strokeOpacity={0.55} strokeWidth={1} />
         <line x1={FRONT.x + FRONT.w - 16} y1={FRONT.y - 2} x2={FRONT.x + FRONT.w - 16} y2={GROUND_Y} stroke={accent} strokeOpacity={0.55} strokeWidth={1} />
 
-        {BLUEPRINT_LABELS.map((_, i) => {
+        {labels.map((_, i) => {
           const floorTop = FRONT.y + i * FLOOR_H;
           const slabTop = floorTop + ROOM_H;
           const doorX = FRONT.x + 50, doorW = 42, doorH = ROOM_H - 14, doorY = floorTop + 14;
@@ -296,7 +326,7 @@ function BlueprintIllustration() {
         })}
       </svg>
 
-      {BLUEPRINT_LABELS.map((b, i) => {
+      {labels.map((b, i) => {
         const cy = FRONT.y + i * FLOOR_H + FLOOR_H / 2;
         const cyPercent = (cy / 520) * 100;
         return (
@@ -310,8 +340,8 @@ function BlueprintIllustration() {
               <circle cx={14} cy={4} r={1.8} fill={accent} />
             </svg>
             <div style={{ lineHeight: 1.3, minWidth: 0 }}>
-              <div style={{ fontSize: 11.5, fontWeight: 700, color: ink, fontFamily: bodyFont }}>{b.top}</div>
-              <div style={{ fontSize: 11.5, fontWeight: 500, color: "#6b7bb8", fontFamily: bodyFont }}>{b.bottom}</div>
+              <div style={{ fontSize: 11.5, fontWeight: 700, color: ink, fontFamily: ff }}>{b.top}</div>
+              <div style={{ fontSize: 11.5, fontWeight: 500, color: "#6b7bb8", fontFamily: ff }}>{b.bottom}</div>
             </div>
           </div>
         );
@@ -334,11 +364,11 @@ function CollabAvatar({ label, tint, iconColor, style }: { label: string; tint: 
       <div style={{
         width: 82, height: 82, borderRadius: "50%", background: tint,
         display: "flex", alignItems: "center", justifyContent: "center", border: "4px solid #fff",
-        boxShadow: "0 12px 26px rgba(25,40,90,0.14)",
+        boxShadow: "0 12px 26px rgba(0,0,0,0.14)",
       }}>
         <User size={30} color={iconColor} strokeWidth={1.6} />
       </div>
-      <span style={{ fontSize: 13.5, color: ink, fontFamily: bodyFont, fontWeight: 700, whiteSpace: "nowrap" }}>{label}</span>
+      <span style={{ fontSize: 13.5, color: ink, fontFamily: ff, fontWeight: 700, whiteSpace: "nowrap" }}>{label}</span>
     </div>
   );
 }
@@ -364,7 +394,7 @@ function CollabDiagram() {
         position: "absolute", top: `${COLLAB_HUB.y}%`, left: `${COLLAB_HUB.x}%`, transform: "translate(-50%,-50%)",
         width: 60, height: 60, borderRadius: "50%", background: accent,
         display: "flex", alignItems: "center", justifyContent: "center",
-        boxShadow: "0 14px 30px rgba(91,108,255,0.36)", zIndex: 1,
+        boxShadow: "0 14px 30px rgba(28,70,242,0.36)", zIndex: 1,
       }}>
         <Users size={24} color="#fff" strokeWidth={1.6} />
       </div>
@@ -387,13 +417,13 @@ function QuoteChart() {
       </svg>
       <div style={{
         position: "absolute", top: -14, right: 4, background: "#fff", borderRadius: 12, border: cardBorder,
-        boxShadow: "0 10px 24px rgba(25,40,90,0.10)", padding: "8px 14px",
+        boxShadow: "0 10px 24px rgba(0,0,0,0.10)", padding: "8px 14px",
       }}>
-        <div style={{ fontSize: 9.5, color: faint, fontFamily: bodyFont }}>Operational Efficiency</div>
+        <div style={{ fontSize: 9.5, color: faint, fontFamily: ff }}>Operational Efficiency</div>
         <div style={{ display: "flex", alignItems: "baseline", gap: 5 }}>
-          <span style={{ fontSize: 16, fontWeight: 700, color: ink, fontFamily: headFont }}>↑ 28%</span>
+          <span style={{ fontSize: 16, fontWeight: 700, color: ink, fontFamily: ff }}>↑ 28%</span>
         </div>
-        <div style={{ fontSize: 9, color: faint, fontFamily: bodyFont }}>vs last month</div>
+        <div style={{ fontSize: 9, color: faint, fontFamily: ff }}>vs last month</div>
       </div>
     </div>
   );
@@ -404,16 +434,16 @@ function AnalyticsIllustration() {
   return (
     <div style={{ position: "relative", height: 230 }}>
       <div style={{
-        background: "#fff", borderRadius: 16, border: cardBorder, boxShadow: "0 12px 30px rgba(25,40,90,0.06)",
+        background: "#fff", borderRadius: 16, border: cardBorder, boxShadow: "0 12px 30px rgba(0,0,0,0.06)",
         padding: "16px 18px", height: "100%", display: "flex", flexDirection: "column",
         backgroundImage: "radial-gradient(rgba(0,0,0,0.045) 1px, transparent 1px)", backgroundSize: "11px 11px",
       }}>
-        <div style={{ fontSize: 10.5, color: faint, fontFamily: bodyFont, marginBottom: 4 }}>Task Completion Rate</div>
+        <div style={{ fontSize: 10.5, color: faint, fontFamily: ff, marginBottom: 4 }}>Task Completion Rate</div>
         <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 10 }}>
-          <span style={{ fontSize: 24, fontWeight: 700, color: ink, fontFamily: headFont }}>76%</span>
+          <span style={{ fontSize: 24, fontWeight: 700, color: ink, fontFamily: ff }}>76%</span>
           <span style={{
             display: "inline-flex", alignItems: "center", gap: 2, fontSize: 11, fontWeight: 600,
-            color: "#16a34a", fontFamily: bodyFont,
+            color: "#16a34a", fontFamily: ff,
           }}><TrendingUp size={11} /> 18%</span>
         </div>
         <svg width="100%" height="100%" viewBox="0 0 220 90" fill="none" preserveAspectRatio="none" style={{ flex: 1 }}>
@@ -429,14 +459,14 @@ function AnalyticsIllustration() {
       <div style={{
         position: "absolute", bottom: -18, left: "50%", transform: "translateX(-50%)",
         background: "#fff", borderRadius: 14, border: cardBorder,
-        boxShadow: "0 12px 28px rgba(25,40,90,0.12)", padding: "10px 18px", minWidth: 150, textAlign: "left",
+        boxShadow: "0 12px 28px rgba(0,0,0,0.12)", padding: "10px 18px", minWidth: 150, textAlign: "left",
       }}>
-        <div style={{ fontSize: 9.5, color: faint, fontFamily: bodyFont, marginBottom: 3 }}>After Redesign</div>
+        <div style={{ fontSize: 9.5, color: faint, fontFamily: ff, marginBottom: 3 }}>After Redesign</div>
         <div style={{
           display: "flex", alignItems: "center", gap: 4, fontSize: 15, fontWeight: 700,
-          color: "#16a34a", fontFamily: headFont, marginBottom: 2,
+          color: "#16a34a", fontFamily: ff, marginBottom: 2,
         }}><TrendingUp size={13} /> 18%</div>
-        <div style={{ fontSize: 10, color: faint, fontFamily: bodyFont }}>improvement</div>
+        <div style={{ fontSize: 10, color: faint, fontFamily: ff }}>improvement</div>
       </div>
     </div>
   );
@@ -446,7 +476,7 @@ function AnalyticsIllustration() {
 function DesignSystemPreview() {
   return (
     <div style={{
-      background: "#fff", borderRadius: 16, border: cardBorder, boxShadow: "0 12px 30px rgba(25,40,90,0.06)",
+      background: "#fff", borderRadius: 16, border: cardBorder, boxShadow: "0 12px 30px rgba(0,0,0,0.06)",
       padding: "20px 22px", display: "flex", flexDirection: "column", gap: 12, height: 220, justifyContent: "center",
       backgroundImage: "radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px)", backgroundSize: "10px 10px",
       backgroundPosition: "-4px -4px",
@@ -454,16 +484,16 @@ function DesignSystemPreview() {
       <div style={{ display: "flex", gap: 10 }}>
         <div style={{
           flex: 1, background: accent, color: "#fff", borderRadius: 999, textAlign: "center",
-          fontSize: 11.5, fontWeight: 600, padding: "9px 0", fontFamily: bodyFont,
+          fontSize: 11.5, fontWeight: 600, padding: "9px 0", fontFamily: ff,
         }}>Primary Button</div>
       </div>
       <div style={{
         border: "1px solid rgba(0,0,0,0.10)", borderRadius: 999, textAlign: "center",
-        fontSize: 11.5, fontWeight: 600, color: ink, padding: "9px 0", fontFamily: bodyFont,
+        fontSize: 11.5, fontWeight: 600, color: ink, padding: "9px 0", fontFamily: ff,
       }}>Secondary Button</div>
       <div style={{
         border: "1px solid rgba(0,0,0,0.10)", borderRadius: 10, fontSize: 11, color: faint,
-        padding: "9px 12px", fontFamily: bodyFont, background: "#fff",
+        padding: "9px 12px", fontFamily: ff, background: "#fff",
       }}>Input Field</div>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 2 }}>
         <div style={{ width: 16, height: 16, borderRadius: 5, background: accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -481,51 +511,81 @@ function DesignSystemPreview() {
   );
 }
 
-export default function LessonsLearnedPremium() {
+const RMS_LESSONS: PremiumLesson[] = [
+  { title: "Enterprise software isn't about adding features.", desc: "It's about removing friction from critical workflows." },
+  { title: "Every screen is connected.", desc: "Small design changes can affect multiple operational teams." },
+  { title: "Simplicity requires deep domain knowledge.", desc: "Understanding hotel operations was as important as designing interfaces." },
+  { title: "Collaboration drives better products.", desc: "Working closely with product managers and engineers ensured practical, scalable solutions." },
+  { title: "Data-driven decisions create real impact.", desc: "We used feedback, analytics and user insights to continuously improve the experience." },
+  { title: "Design systems unlock consistency at scale.", desc: "A strong foundation of components and patterns helped maintain a cohesive experience across modules." },
+];
+
+const RMS_KPIS: KpiSpec[] = [
+  { label: "Reservations", value: "128", delta: "12%", positive: true },
+  { label: "Check-ins", value: "82", delta: "8%", positive: true },
+  { label: "Housekeeping", value: "24", delta: "4%", positive: false },
+];
+
+const RMS_NODES: NodeLabel[] = [
+  { title: "Front Desk", sub: "Room Status" },
+  { title: "Housekeeping", sub: "Room Cleanliness" },
+  { title: "Finance Team", sub: "Invoicing" },
+  { title: "Maintenance", sub: "Work Orders" },
+  { title: "Management", sub: "Reporting" },
+];
+
+const RMS_BLUEPRINT: BlueprintLabel[] = [
+  { top: "Rooftop", bottom: "Operations" },
+  { top: "Guest", bottom: "Experience" },
+  { top: "Operational", bottom: "Efficiency" },
+  { top: "Back of House", bottom: "Workflows" },
+];
+
+export default function LessonsLearnedPremium({
+  sectionNumber = "10",
+  caseStudyLabel = "Hotelogix RMS Case Study",
+  intro = "Three years of designing enterprise hospitality products taught me what truly drives impact. These six lessons now guide every product decision I make.",
+  lessons = RMS_LESSONS,
+  quote = {
+    text: <>Great enterprise UX is invisible.<br />It empowers teams to do their best work.</>,
+    attribution: "— Internal Design Principle",
+  },
+  hero = { src: "/assets/hotelogix/FRONTDESK.png", alt: "Hotelogix front desk dashboard" },
+  kpis = RMS_KPIS,
+  networkNodes = RMS_NODES,
+  blueprintLabels = RMS_BLUEPRINT,
+}: LessonsLearnedPremiumProps = {}) {
+  const [l1, l2, l3, l4, l5, l6] = lessons;
   return (
     <section style={{ background: canvas, padding: "90px 6% 110px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
-        {/* Meta row */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 56 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: accent }} />
-            <span style={{ fontSize: 11.5, fontWeight: 600, letterSpacing: "0.10em", textTransform: "uppercase", color: muted, fontFamily: bodyFont }}>
-              10 / Lessons Learned
-            </span>
-          </div>
-          <span style={{ fontSize: 11.5, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: faint, fontFamily: bodyFont }}>
-            Hotelogix RMS Case Study
+        {/* Meta row — page-standard eyebrow, with the case-study label on the
+            right restyled to the same 12px/0.18em uppercase treatment. */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <SectionEyebrow number={sectionNumber} label="Lessons Learned" align="left" />
+          <span style={{ fontSize: 12, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#888", fontFamily: ff, marginBottom: 20 }}>
+            {caseStudyLabel}
           </span>
         </div>
 
         {/* Row 1 — title + Section 01 */}
         <div style={{ display: "grid", gridTemplateColumns: "minmax(0,0.62fr) minmax(0,1fr)", gap: 40, marginBottom: 24, alignItems: "start" }}>
           <div>
-            <h2 style={{
-              fontSize: "clamp(48px, 6vw, 92px)", fontWeight: 400, color: ink, fontFamily: bodyFont,
-              lineHeight: 1.02, letterSpacing: "-0.02em", margin: "0 0 26px",
-            }}>
-              Lessons<br />Learned
-            </h2>
-            <div style={{ width: 40, height: 3, background: accent, borderRadius: 2, marginBottom: 26 }} />
-            <p style={{ fontSize: 15.5, color: muted, fontFamily: bodyFont, lineHeight: 1.75, maxWidth: 380, margin: 0 }}>
-              Three years of designing enterprise hospitality products taught me what truly drives impact.
-              These six lessons now guide every product <strong style={{ color: ink, fontWeight: 700 }}>decision I make.</strong>
-            </p>
+            <SectionHeading align="left" maxWidth={380} title="Lessons Learned" subtitle={intro} />
           </div>
 
           <Panel style={{ padding: 40, display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,0.9fr)", gap: 32, alignItems: "center" }}>
             <div>
               <Eyebrow n="01" />
-              <h3 style={{ fontSize: 25, fontWeight: 700, color: ink, fontFamily: headFont, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 12px" }}>
-                Enterprise software isn&apos;t about adding features.
+              <h3 style={{ fontSize: 25, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 12px" }}>
+                {l1.title}
               </h3>
-              <p style={{ fontSize: 13.5, color: muted, fontFamily: bodyFont, lineHeight: 1.65, margin: 0 }}>
-                It&apos;s about removing friction from critical workflows.
+              <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.65, margin: 0 }}>
+                {l1.desc}
               </p>
             </div>
-            <DashboardIllustration />
+            <DashboardIllustration hero={hero} kpis={kpis} />
           </Panel>
         </div>
 
@@ -537,36 +597,36 @@ export default function LessonsLearnedPremium() {
         }}>
           <div>
             <Eyebrow n="02" />
-            <h3 style={{ fontSize: 30, fontWeight: 700, color: ink, fontFamily: headFont, lineHeight: 1.22, letterSpacing: "-0.01em", margin: "0 0 14px" }}>
-              Every screen is connected.
+            <h3 style={{ fontSize: 30, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.22, letterSpacing: "-0.01em", margin: "0 0 14px" }}>
+              {l2.title}
             </h3>
-            <p style={{ fontSize: 14, color: muted, fontFamily: bodyFont, lineHeight: 1.65, margin: 0, maxWidth: 260 }}>
-              Small design changes can affect multiple operational teams.
+            <p style={{ fontSize: 14, color: muted, fontFamily: ff, lineHeight: 1.65, margin: 0, maxWidth: 260 }}>
+              {l2.desc}
             </p>
           </div>
-          <NetworkDiagram />
+          <NetworkDiagram labels={networkNodes} />
         </div>
 
         {/* Row 3 — Sections 03 + 04, half width */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="03" />
-            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: headFont, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
-              Simplicity requires deep domain knowledge.
+            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
+              {l3.title}
             </h3>
-            <p style={{ fontSize: 13.5, color: muted, fontFamily: bodyFont, lineHeight: 1.6, margin: "0 0 20px" }}>
-              Understanding hotel operations was as important as designing interfaces.
+            <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
+              {l3.desc}
             </p>
-            <BlueprintIllustration />
+            <BlueprintIllustration labels={blueprintLabels} />
           </Panel>
 
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="04" />
-            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: headFont, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
-              Collaboration drives better products.
+            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
+              {l4.title}
             </h3>
-            <p style={{ fontSize: 13.5, color: muted, fontFamily: bodyFont, lineHeight: 1.6, margin: "0 0 20px" }}>
-              Working closely with product managers and engineers ensured practical, scalable solutions.
+            <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
+              {l4.desc}
             </p>
             <CollabDiagram />
           </Panel>
@@ -580,12 +640,12 @@ export default function LessonsLearnedPremium() {
           <div>
             <Quote size={30} color={accent} fill={accent} strokeWidth={0} style={{ marginBottom: 18, opacity: 0.9 }} />
             <p style={{
-              fontSize: "clamp(19px, 2.2vw, 25px)", fontWeight: 600, color: ink, fontFamily: headFont,
+              fontSize: "clamp(19px, 2.2vw, 25px)", fontWeight: 600, color: ink, fontFamily: ff,
               lineHeight: 1.35, letterSpacing: "-0.01em", margin: "0 0 14px",
             }}>
-              Great enterprise UX is invisible.<br />It empowers teams to do their best work.
+              {quote.text}
             </p>
-            <span style={{ fontSize: 13, color: muted, fontFamily: bodyFont }}>— Internal Design Principle</span>
+            <span style={{ fontSize: 13, color: muted, fontFamily: ff }}>{quote.attribution}</span>
           </div>
           <QuoteChart />
         </div>
@@ -594,22 +654,22 @@ export default function LessonsLearnedPremium() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="05" />
-            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: headFont, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
-              Data-driven decisions create real impact.
+            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
+              {l5.title}
             </h3>
-            <p style={{ fontSize: 13.5, color: muted, fontFamily: bodyFont, lineHeight: 1.6, margin: "0 0 32px" }}>
-              We used feedback, analytics and user insights to continuously improve the experience.
+            <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 32px" }}>
+              {l5.desc}
             </p>
             <AnalyticsIllustration />
           </Panel>
 
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="06" />
-            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: headFont, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
-              Design systems unlock consistency at scale.
+            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
+              {l6.title}
             </h3>
-            <p style={{ fontSize: 13.5, color: muted, fontFamily: bodyFont, lineHeight: 1.6, margin: "0 0 20px" }}>
-              A strong foundation of components and patterns helped maintain a cohesive experience across modules.
+            <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
+              {l6.desc}
             </p>
             <DesignSystemPreview />
           </Panel>

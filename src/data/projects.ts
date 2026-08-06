@@ -16,7 +16,7 @@ export const projects: Project[] = [
     team: ["Product", "Engineering", "Customer Success"],
     coverImage: "/images/hotelogix-frontdesk.jpg",
     images: [],
-    tags: ["Enterprise UX", "Design System", "Hospitality Tech", "B2B SaaS"],
+    tags: ["Enterprise UX", "B2B SaaS"],
     tools: ["Figma", "Miro", "Maze"],
     featured: true,
     problemStatement:

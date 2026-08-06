@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useParallax } from "@/hooks/useParallax";
 
 const TESTIMONIALS = [
   {
@@ -80,6 +82,7 @@ function ArrowButton({
 
 export default function TestimonialsGrid() {
   const isMobile = useIsMobile();
+  const { ref: headingParallaxRef, y: headingY } = useParallax(30);
   const [startIndex, setStartIndex] = useState(0);
   const total = TESTIMONIALS.length;
 
@@ -92,11 +95,15 @@ export default function TestimonialsGrid() {
   return (
     <section
       style={{
-        background: "#fff",
+        background: "#fff url('/herobg.svg') center / cover no-repeat",
         paddingTop: isMobile ? "64px" : "112px",
         paddingBottom: isMobile ? "64px" : "112px",
         paddingLeft: isMobile ? "20px" : "15%",
         paddingRight: isMobile ? "20px" : "15%",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
       {/* Header row — heading left, description + carousel controls right */}
@@ -110,20 +117,22 @@ export default function TestimonialsGrid() {
           marginBottom: isMobile ? "40px" : "56px",
         }}
       >
-        <h2
+        <motion.h2
+          ref={headingParallaxRef}
           style={{
-            fontFamily: "var(--font-playfair-display), 'Playfair Display', serif",
+            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
             fontSize: isMobile ? "32px" : "clamp(32px, 3.4vw, 44px)",
             fontWeight: 400,
             lineHeight: 1.15,
             color: "#111",
             margin: 0,
+            y: headingY,
           }}
         >
           What People Say
           <br />
           <span style={{ fontStyle: "italic" }}>Working With Me</span>
-        </h2>
+        </motion.h2>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: 300 }}>
           <p

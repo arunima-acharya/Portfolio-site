@@ -69,10 +69,10 @@ function AnimatedHeading({ progress, isMobile }: { progress: MotionValue<number>
   return (
     <h2
       style={{
-        fontSize: isMobile ? "19.6px" : "36px",
+        fontSize: isMobile ? "19.6px" : "40px",
         lineHeight: 1,
         letterSpacing: "0.5px",
-        fontFamily: "var(--font-playfair-display), 'Playfair Display', serif",
+        fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
         margin: "0 0 24px",
       }}
     >
@@ -92,6 +92,10 @@ export default function HomeIntro() {
     target: containerRef,
     offset: ["start start", "end end"],
   });
+  // Reuses the pin's own scroll progress for a secondary parallax drift on
+  // the decorative background layer — independent of the word-by-word
+  // heading reveal, which stays untouched.
+  const trailY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
 
   return (
     <div
@@ -114,13 +118,13 @@ export default function HomeIntro() {
           flexDirection: "row",
           alignItems: "center",
           paddingTop: "10vh",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#F1EFEA",
         }}
       >
         {!isMobile && (
-          <div style={{ position: "absolute", inset: 0, zIndex: 5, overflow: "hidden" }}>
+          <motion.div style={{ position: "absolute", inset: 0, zIndex: 5, overflow: "hidden", y: trailY }}>
             <ImageTrail items={TOOL_TRAIL_ITEMS} variant={2} />
-          </div>
+          </motion.div>
         )}
 
         {/* Content — right column */}

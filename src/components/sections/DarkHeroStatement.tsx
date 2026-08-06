@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useParallax } from "@/hooks/useParallax";
 
 function KpiCard({ label, num, delta, sub, accent, isActive }: { label: string; num: number; delta: string; sub: string; accent: boolean; isActive: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -136,6 +137,9 @@ export default function DarkHeroStatement() {
 
   // Tilt effect for dashboard mockup
   const cardRef = useRef<HTMLDivElement>(null);
+  // Independent continuous scroll parallax on the mockup, composed with the
+  // mouse-tilt rotateX/rotateY/scale above (different transform axes, no conflict).
+  const { ref: dashboardParallaxRef, y: dashboardY } = useParallax(40);
   const tiltX = useSpring(useMotionValue(0), { stiffness: 100, damping: 30, mass: 2 });
   const tiltY = useSpring(useMotionValue(0), { stiffness: 100, damping: 30, mass: 2 });
   const tiltScale = useSpring(useMotionValue(1), { stiffness: 100, damping: 30, mass: 2 });
@@ -235,7 +239,7 @@ export default function DarkHeroStatement() {
               letterSpacing: 0,
               color: "#1A2332",
               margin: 0,
-              fontFamily: "var(--font-playfair-display), 'Playfair Display', serif",
+              fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
             }}>
               Building Products That<br />People Actually Use
             </h2>
@@ -347,6 +351,7 @@ export default function DarkHeroStatement() {
 
         {/* Dashboard mockup — hidden on mobile, shown on desktop */}
         {!isMobile && (
+          <motion.div ref={dashboardParallaxRef} style={{ y: dashboardY }}>
           <motion.div
             ref={cardRef}
             onMouseMove={handleCardMouseMove}
@@ -701,6 +706,7 @@ export default function DarkHeroStatement() {
                 </div>
               </div>
             </motion.div>
+          </motion.div>
           </motion.div>
         )}
       </motion.div>

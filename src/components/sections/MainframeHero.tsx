@@ -3,21 +3,11 @@
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import VariableProximity from "@/components/ui/VariableProximity";
-import CurvedLoop from "@/components/ui/CurvedLoop";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useParallax } from "@/hooks/useParallax";
 import dynamic from "next/dynamic";
 
 const Lanyard = dynamic(() => import("@/components/Lanyard"), { ssr: false });
-
-const HERO_MARQUEE_TEXT =
-  "Product Design • UX Research • Design Systems • Interaction Design • Prototyping • User Testing • Design Strategy • Visual Design • Information Architecture •";
-const HERO_RIBBON_TEXT =
-  "Founding Product Designer • 3+ Years Experience • 0→1 B2B SaaS & AI Products •";
-
-// Hand-authored path (a single Q-curve can't loop back on itself): a gentle
-// diagonal S-curve rising left-to-right, for the bold ribbon band.
-const HERO_RIBBON_PATH =
-  "M-150,160 C250,420 650,80 1050,20 C1300,-20 1500,40 1700,-5";
 
 const SENSITIVITY = 0.8;
 const LERP = 0.06;
@@ -40,7 +30,7 @@ function IntroAnimatedHeading({ progress, isMobile }: { progress: MotionValue<nu
   const total = words.length;
   const windowSize = 2 / total;
   return (
-    <h2 style={{ fontSize: isMobile ? "28px" : "44px", fontWeight: 400, lineHeight: 1, letterSpacing: 0, fontFamily: "var(--font-playfair-display), 'Playfair Display', serif", margin: "0 0 24px" }}>
+    <h2 style={{ fontSize: isMobile ? "28px" : "44px", fontWeight: 400, lineHeight: 1, letterSpacing: 0, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif", margin: "0 0 24px" }}>
       {words.map((word, i) => {
         const start = (i / total) * 0.75;
         const end = Math.min(start + windowSize, 0.85);
@@ -63,6 +53,9 @@ export default function MainframeHero({
 } = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  // Independent from the video/mouse-driven `wrapRef` transform below — this
+  // is a plain scroll-position parallax on the greeting text block only.
+  const { ref: greetingParallaxRef, y: greetingY } = useParallax(24);
   const videoRef = useRef<HTMLVideoElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
@@ -168,7 +161,7 @@ export default function MainframeHero({
         width: "100%",
         overflow: "hidden",
         zIndex: 1,
-        background: "#fff",
+        background: "transparent",
         display: "flex",
         flexDirection: isMobile && !showIntroText ? "column" : "row",
         alignItems: isMobile && !showIntroText ? "stretch" : "center",
@@ -178,29 +171,6 @@ export default function MainframeHero({
         paddingRight: isMobile ? "6%" : "5%",
       }}
     >
-
-      {/* Curved marquee — decorative background layer, sits behind everything else.
-          Large full-bleed faint arc, plus the bold black ribbon on a diagonal S-curve. */}
-      {!hideText && !showIntroText && !isMobile && (
-        <div style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, transform: "translateY(-5%) rotate(9deg) scale(1.56)" }}>
-            <CurvedLoop marqueeText={HERO_MARQUEE_TEXT} speed={1.6} curveAmount={560} direction="right" interactive={false} className="!fill-[#e8510a]/10" />
-          </div>
-          <div style={{ position: "absolute", inset: "auto 0 4% 0", height: "45%" }}>
-            <CurvedLoop
-              marqueeText={HERO_RIBBON_TEXT}
-              speed={1}
-              interactive={false}
-              pathD={HERO_RIBBON_PATH}
-              ribbon
-              ribbonColor="#0a0a0a"
-              ribbonWidth={64}
-              textColor="#fff"
-              className="text-[1.5rem]"
-            />
-          </div>
-        </div>
-      )}
 
       {/* Full-bleed parallax video (first section) */}
       {!hideVideo && !hideText && (
@@ -292,31 +262,33 @@ export default function MainframeHero({
           flexDirection: "column",
         } : {
           position: "absolute",
-          bottom: "50%",
-          left: "15%",
+          bottom: "18%",
+          right: "8%",
           zIndex: 2,
           maxWidth: "32%",
           display: "flex",
           flexDirection: "column",
         }}>
-          <motion.h1
+          {/* Owns the continuous scroll parallax — nested *inside* the
+              absolutely-positioned parent (not wrapped from outside it),
+              since a transform on an ancestor of that parent would create a
+              new containing block and break its bottom/left positioning. */}
+          <motion.div ref={greetingParallaxRef} style={{ y: greetingY }}>
+          <motion.h2
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "var(--font-playfair-display), 'Playfair Display', serif",
+              fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
               fontWeight: 400,
+              fontSize: "clamp(28px, 3.4vw, 40px)",
+              color: "#111",
               margin: 0,
-              lineHeight: 1,
+              lineHeight: 1.1,
             }}
           >
-            <span style={{ display: "block", fontSize: "clamp(24px, 3.2vw, 40px)", color: "#111" }}>
-              <span aria-hidden="true">👋</span> <span style={{ color: "#e8510a" }}>Hi</span> I am
-            </span>
-            <span style={{ display: "block", fontSize: "clamp(44px, 6.5vw, 76px)", color: "#111", letterSpacing: 0 }}>
-              Arunima
-            </span>
-          </motion.h1>
+            Hey, a quick intro?
+          </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 18 }}
@@ -332,7 +304,24 @@ export default function MainframeHero({
               overflowWrap: "break-word",
             }}
           >
-            Founding Product Designer with 3+ years of experience building and scaling 0→1 products
+            Engineer turned Product Designer with 3+ years of experience designing enterprise SaaS and AI products.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontSize: "16px",
+              color: "#666",
+              lineHeight: 1.7,
+              fontFamily: "var(--font-inter), sans-serif",
+              margin: "16px 0 0",
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
+            }}
+          >
+            I specialize in 0→1 product design, design systems, and simplifying complex workflows through research, systems thinking, and interaction design.
           </motion.p>
 
           <motion.div
@@ -373,16 +362,17 @@ export default function MainframeHero({
               Connect on linkedin
             </a>
           </motion.div>
+          </motion.div>
         </div>
       )}
 
-      {/* Lanyard — starts right after left text column, max width */}
+      {/* Lanyard — left side, text column now sits to the right */}
       {!hideText && !showIntroText && !isMobile && (
         <div style={{
           position: "absolute",
           top: 0,
-          left: "40%",
-          right: 0,
+          left: 0,
+          right: "40%",
           height: "100%",
           pointerEvents: "none",
           zIndex: 1,

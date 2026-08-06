@@ -10,7 +10,7 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = `mailto:ishaankausik@gmail.com?subject=Portfolio Inquiry from ${form.name}&body=${encodeURIComponent(form.message)}%0A%0AFrom: ${form.email}`;
+    window.location.href = `mailto:arunimaacharya17@gmail.com?subject=Portfolio Inquiry from ${form.name}&body=${encodeURIComponent(form.message)}%0A%0AFrom: ${form.email}`;
     setSent(true);
   };
 
@@ -25,7 +25,12 @@ export default function ContactPage() {
         {/* Header */}
         <div className="mb-10">
           <span className="text-[#e8510a] text-sm font-semibold tracking-widest uppercase">Get in touch</span>
-          <h1 className="text-4xl font-black text-[var(--text-primary)] mt-2 mb-3">Contact Me</h1>
+          <h1
+            className="text-4xl font-normal text-[var(--text-primary)] mt-2 mb-3"
+            style={{ fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
+          >
+            Contact Me
+          </h1>
           <p className="text-[var(--text-secondary)] text-base leading-relaxed">
             Have a project in mind or just want to say hi? Fill out the form below or reach out directly.
           </p>
@@ -35,8 +40,8 @@ export default function ContactPage() {
         <div className="flex flex-wrap gap-6 mb-10">
           <div className="flex items-center gap-2 text-[var(--text-secondary)] text-sm">
             <Mail size={15} className="text-[#e8510a]" />
-            <a href="mailto:ishaankausik@gmail.com" className="hover:text-[#e8510a] transition-colors">
-              ishaankausik@gmail.com
+            <a href="mailto:arunimaacharya17@gmail.com" className="hover:text-[#e8510a] transition-colors">
+              arunimaacharya17@gmail.com
             </a>
           </div>
           <div className="flex items-center gap-2 text-[var(--text-secondary)] text-sm">

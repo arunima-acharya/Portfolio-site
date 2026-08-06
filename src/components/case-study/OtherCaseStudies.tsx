@@ -101,7 +101,7 @@ export default function OtherCaseStudies({ currentSlug }: { currentSlug: string 
         <div style={{ marginBottom: 48, ...revealStyle(revealed) }}>
           <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>More work</p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
-            <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2 }}>Other case studies</h2>
+            <h2 style={{ fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif", fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 400, color: "#111", lineHeight: 1.2 }}>Other case studies</h2>
             <Link
               href="/case-studies"
               style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: "#6b7280", textDecoration: "none", whiteSpace: "nowrap", paddingBottom: 4 }}

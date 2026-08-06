@@ -10,16 +10,17 @@ import ContactCTA from "@/components/sections/ContactCTA";
 import MenstaTemplate, { MenstaData } from "@/components/preview/MenstaTemplate";
 import { pocketPmsData } from "@/data/pocketPmsData";
 import { axiesRoomData } from "@/data/axiesRoomData";
-import { contactMeData } from "@/data/contactMeData";
 import HotelogixFrontdeskPreview from "@/components/preview/HotelogixFrontdeskPreview";
 import HotelogixCroPreview from "@/components/preview/HotelogixCroPreview";
 import HotelogixPosPreview from "@/components/preview/HotelogixPosPreview";
+import ContactMePreview from "@/components/preview/ContactMePreview";
 import PositivityMentalHealthPreview from "@/components/preview/PositivityMentalHealthPreview";
 
 const menstaTemplateData: Record<string, MenstaData> = {
   "pocket-pms": pocketPmsData,
+  // AxisRooms uses the mobile-app template (phone mockups, app-store style
+  // sections) rather than the desktop case-study preview.
   "axiesroom": axiesRoomData,
-  "contact-me": contactMeData,
 };
 
 // Bespoke, hand-built previews that don't fit the generic MenstaData schema
@@ -28,6 +29,7 @@ const bespokePreviews: Record<string, ComponentType> = {
   "hotelogix-frontdesk": HotelogixFrontdeskPreview,
   "hotelogix-cro": HotelogixCroPreview,
   "hotelogix-pos": HotelogixPosPreview,
+  "contact-me": ContactMePreview,
   "positivity-mental-health": PositivityMentalHealthPreview,
 };
 

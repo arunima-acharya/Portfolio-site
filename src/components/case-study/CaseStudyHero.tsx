@@ -56,7 +56,9 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
           >
             <h1
               className="fluid-text-3xl font-semibold text-white"
-              style={project.slug === "hotelogix-frontdesk" ? { fontSize: "clamp(2.464rem, 6.899vw, 4.928rem)", lineHeight: 1 } : { lineHeight: 1 }}
+              style={project.slug === "hotelogix-frontdesk"
+                ? { fontSize: "clamp(2.464rem, 6.899vw, 4.928rem)", lineHeight: 1, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }
+                : { lineHeight: 1, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
             >
               {project.slug === "hotelogix-frontdesk" ? (
                 <>Reservation Management System</>

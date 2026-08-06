@@ -90,7 +90,7 @@ export default function CaseStudyCard({ project, index, featured = false }: Case
 
             <h3
               className="font-semibold tracking-tight leading-tight"
-              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "#111" }}
+              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "#111", fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
             >
               {project.title}
             </h3>

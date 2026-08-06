@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useParallax } from "@/hooks/useParallax";
 
 const tools = [
   { name: "Figma",     category: "UI Design",          slug: "figma",     bg: "#1E1E1E", color: "#fff" },
@@ -71,6 +72,7 @@ export default function ToolsGrid() {
   const { ref, isInView } = useScrollAnimation(0.1);
   const isMobile = useIsMobile();
   const isLight = true; // this section is always rendered in light mode, regardless of the site-wide theme toggle
+  const { ref: parallaxRef, y: headingY } = useParallax(30);
 
   const cardBg     = "#ffffff";
   const cardBorder = isLight ? "rgba(0,0,0,0.08)"           : "rgba(255,255,255,0.07)";
@@ -90,28 +92,34 @@ export default function ToolsGrid() {
         paddingLeft: isMobile ? "20px" : "15%",
         paddingRight: isMobile ? "20px" : "15%",
         backgroundColor: "#fff",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <div>
-        {/* Heading */}
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="space-y-3 mb-14"
-        >
-          <span className="text-xs font-medium text-zinc-500 uppercase tracking-widest">
-            Toolkit
-          </span>
-          <h2
-            id="tools-heading"
-            className="fluid-text-2xl font-normal"
-            style={{ color: isLight ? "#111" : "#fff", lineHeight: 1, fontFamily: "var(--font-playfair-display), 'Playfair Display', serif" }}
+      <div style={{ width: "100%" }}>
+        {/* Heading — outer div owns the continuous scroll parallax, inner
+            motion.div keeps its own separate entrance-fade untouched. */}
+        <motion.div ref={parallaxRef} style={{ y: headingY }}>
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-3 mb-14"
           >
-            The tools that power
-            <br className="hidden sm:block" /> every project
-          </h2>
+            <span className="text-xs font-medium text-zinc-500 uppercase tracking-widest">
+              Toolkit
+            </span>
+            <h2
+              id="tools-heading"
+              className="fluid-text-2xl font-normal"
+              style={{ color: isLight ? "#111" : "#fff", lineHeight: 1, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
+            >
+              The tools that power
+              <br className="hidden sm:block" /> every project
+            </h2>
+          </motion.div>
         </motion.div>
 
         {/* Cards */}
