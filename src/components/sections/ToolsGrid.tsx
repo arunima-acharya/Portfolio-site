@@ -24,9 +24,9 @@ function CardInner({ tool, isMobile, nameColor, catColor }: { tool: typeof tools
     <>
       <div
         style={{
-          width: isMobile ? 32 : 40,
-          height: isMobile ? 32 : 40,
-          borderRadius: "8px",
+          width: isMobile ? 52 : 40,
+          height: isMobile ? 52 : 40,
+          borderRadius: isMobile ? "12px" : "8px",
           background: tool.bg,
           border: tool.border ? "1px solid rgba(0,0,0,0.1)" : undefined,
           flexShrink: 0,
@@ -40,8 +40,8 @@ function CardInner({ tool, isMobile, nameColor, catColor }: { tool: typeof tools
         <img
           src={`https://cdn.simpleicons.org/${tool.slug}/${tool.color.replace("#", "")}`}
           alt={tool.name}
-          width={isMobile ? 16 : 20}
-          height={isMobile ? 16 : 20}
+          width={isMobile ? 26 : 20}
+          height={isMobile ? 26 : 20}
           style={{ display: "block" }}
           onError={(e) => {
             const img = e.currentTarget;
@@ -56,11 +56,11 @@ function CardInner({ tool, isMobile, nameColor, catColor }: { tool: typeof tools
           }}
         />
       </div>
-      <div>
-        <p style={{ margin: 0, fontSize: isMobile ? "13px" : "15px", fontWeight: 600, color: nameColor, fontFamily: "var(--font-inter), sans-serif", lineHeight: 1.3 }}>
+      <div style={{ textAlign: isMobile ? "center" : "left" }}>
+        <p style={{ margin: 0, fontSize: isMobile ? "16px" : "15px", fontWeight: 600, color: nameColor, fontFamily: "var(--font-inter), sans-serif", lineHeight: 1.3 }}>
           {tool.name}
         </p>
-        <p style={{ margin: "3px 0 0", fontSize: isMobile ? "11px" : "13px", color: catColor, fontFamily: "var(--font-inter), sans-serif", lineHeight: 1.3 }}>
+        <p style={{ margin: "3px 0 0", fontSize: isMobile ? "12.5px" : "13px", color: catColor, fontFamily: "var(--font-inter), sans-serif", lineHeight: 1.3 }}>
           {tool.category}
         </p>
       </div>
@@ -82,7 +82,10 @@ export default function ToolsGrid() {
   const nameColor  = isLight ? "#111"                        : "#f0f0f0";
   const catColor   = isLight ? "#999"                        : "rgba(255,255,255,0.4)";
 
-  const columns = isMobile ? "repeat(2, 1fr)" : "repeat(3, 1fr)";
+  // 9 tools is a clean 3x3 on desktop, but an odd number leaves a lone
+  // orphaned card on the last row of a 2-up mobile grid — drop the last
+  // one (Zeplin) on mobile so it stays a clean 4x2.
+  const visibleTools = isMobile ? tools.filter((t) => t.slug !== "zeplin") : tools;
 
   return (
     <section
@@ -122,15 +125,15 @@ export default function ToolsGrid() {
           </motion.div>
         </motion.div>
 
-        {/* Cards */}
+        {/* Cards — 2-up on mobile, 3-up desktop. Uses real Tailwind grid-cols
+            classes rather than an inline gridTemplateColumns so the global
+            mobile grid-collapse safety net (globals.css) can't touch it —
+            that net only matches inline `style` grid declarations. */}
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: columns,
-            gap: isMobile ? "10px" : "12px",
-          }}
+          className="grid grid-cols-2 md:grid-cols-3"
+          style={{ gap: isMobile ? "10px" : "12px" }}
         >
-          {tools.map((tool, i) => {
+          {visibleTools.map((tool, i) => {
             const shadowed = SHADOWED.has(i);
             return (
             <motion.div
@@ -147,10 +150,11 @@ export default function ToolsGrid() {
                 style={{
                   background: cardBg,
                   borderRadius: "16px",
-                  padding: isMobile ? "14px" : "20px 22px",
+                  padding: isMobile ? "20px 12px" : "20px 22px",
                   display: "flex",
+                  flexDirection: isMobile ? "column" : "row",
                   alignItems: "center",
-                  gap: isMobile ? "10px" : "16px",
+                  gap: isMobile ? "12px" : "16px",
                   cursor: "default",
                   // Alternating cards keep the static elevation the glow used
                   // to sit on top of, so the grid retains its rhythm.

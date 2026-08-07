@@ -141,36 +141,48 @@
  * everywhere. These rules target the inline `style` attribute directly
  * (matching on its rendered string) to collapse multi-column CSS grids on
  * narrow viewports without having to touch every component.
+ *
+ * `.frozen-grid` opts a subtree out of all of this — for mockups (e.g. the
+ * DarkHeroStatement dashboard) that are meant to shrink as one intact unit
+ * via `zoom` rather than have their internal grids reflow to one column.
  */
 @media (max-width: 640px) {
-  [style*="grid-template-columns"] {
+  [style*="grid-template-columns"]:not(.frozen-grid, .frozen-grid *) {
     grid-template-columns: 1fr !important;
   }
   /* A child with an explicit `grid-column: span N` forces the grid to
      create implicit extra columns even when the parent above is forced
      to a single column — collapse those spans too so it doesn't reopen
      multiple columns via implicit grid tracks. */
-  [style*="grid-column"] {
+  [style*="grid-column"]:not(.frozen-grid, .frozen-grid *) {
     grid-column: span 1 !important;
   }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
-  [style*="grid-template-columns: repeat(4"],
-  [style*="grid-template-columns:repeat(4"],
-  [style*="grid-template-columns: repeat(3"],
-  [style*="grid-template-columns:repeat(3"] {
+  [style*="grid-template-columns: repeat(4"]:not(.frozen-grid, .frozen-grid *),
+  [style*="grid-template-columns:repeat(4"]:not(.frozen-grid, .frozen-grid *),
+  [style*="grid-template-columns: repeat(3"]:not(.frozen-grid, .frozen-grid *),
+  [style*="grid-template-columns:repeat(3"]:not(.frozen-grid, .frozen-grid *) {
     grid-template-columns: repeat(2, 1fr) !important;
   }
-  /* Sticky center-phone 3-column layouts (labels | 280px phone | content)
+  /* Sticky center-phone 3-column layouts (labels | phone mockup | content)
      get too cramped at tablet widths — collapse to one column instead. */
-  [style*="1fr 280px 1fr"] {
+  [style*="1fr 280px 1fr"]:not(.frozen-grid, .frozen-grid *),
+  [style*="1fr 317px 1fr"]:not(.frozen-grid, .frozen-grid *),
+  [style*="1fr auto 1fr"]:not(.frozen-grid, .frozen-grid *) {
     grid-template-columns: 1fr !important;
+  }
+  /* 5-up feature/stat grids in the bespoke case-study preview pages —
+     same squeeze as repeat(3)/repeat(4) above, just not caught by that
+     substring match since it targets "repeat(3"/"repeat(4" specifically. */
+  [style*="repeat(5"]:not(.frozen-grid, .frozen-grid *) {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
   /* Same implicit-track issue as the mobile rule above: a `grid-column: span 3`
      child forces a 3rd implicit column even after the parent is downgraded
      to repeat(2, 1fr) here, so clamp spans to 2 in this range too. */
-  [style*="grid-column"] {
+  [style*="grid-column"]:not(.frozen-grid, .frozen-grid *) {
     grid-column: span 2 !important;
   }
 }

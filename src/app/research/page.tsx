@@ -15,7 +15,7 @@ export default function ResearchPage() {
   const [featured, ...rest] = researchProjects;
 
   return (
-    <div className="pt-32 pb-24" style={{ paddingLeft: "15%", paddingRight: "15%" }}>
+    <div className="pt-32 pb-24" style={{ paddingLeft: "var(--gutter)", paddingRight: "var(--gutter)" }}>
       <div className="space-y-16">
         {/* Header */}
         <motion.div

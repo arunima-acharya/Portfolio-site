@@ -82,7 +82,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
   return (
     <>
       <CaseStudyHero project={project} />
-      <div style={{ paddingLeft: "15%", paddingRight: "15%" }}>
+      <div style={{ paddingLeft: "var(--gutter)", paddingRight: "var(--gutter)" }}>
         <CaseStudyContent project={project} />
         <ProjectNavigation
           prevSlug={project.prevProject}

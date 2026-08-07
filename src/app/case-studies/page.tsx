@@ -67,7 +67,7 @@ export default function CaseStudiesPage() {
   const activeText = isLight ? "#fff"               : "#111";
 
   return (
-    <div className="pt-32 pb-24" style={{ paddingLeft: "15%", paddingRight: "15%" }}>
+    <div className="pt-32 pb-24" style={{ paddingLeft: "var(--gutter)", paddingRight: "var(--gutter)" }}>
       <div className="space-y-14">
         {/* Header */}
         <motion.div

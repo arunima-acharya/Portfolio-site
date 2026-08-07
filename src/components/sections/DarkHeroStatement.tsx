@@ -103,10 +103,31 @@ function KpiCard({ label, num, delta, sub, accent, isActive }: { label: string; 
   );
 }
 
+// Natural design width of the dashboard mockup below — it's built from fixed
+// px paddings/fonts and dense multi-column grids (e.g. a 6-column activity
+// table) that can't reflow to a phone width. Rather than hide it on mobile,
+// it renders at this width and shrinks as a whole via `zoom`, the same trick
+// already used for the slight 0.9 desktop scale-down.
+const DASHBOARD_DESIGN_WIDTH = 1100;
+
 export default function DarkHeroStatement() {
   const ref = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+
+  // Drives the mobile zoom factor — needs the actual viewport width, not
+  // just the mobile/desktop boolean above.
+  const [viewportWidth, setViewportWidth] = useState(0);
+  useEffect(() => {
+    const update = () => setViewportWidth(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  const mobileGutter = 40; // matches this section's 20px mobile padding on each side
+  const mobileZoom = viewportWidth > 0
+    ? Math.min(0.9, (viewportWidth - mobileGutter) / DASHBOARD_DESIGN_WIDTH)
+    : 0.32; // reasonable guess for a typical phone width before the first measurement
 
   // Gates the three perpetual-loop effects below (card rotation, row
   // rotation, bar-chart animation) so they only run while the mockup is
@@ -349,19 +370,24 @@ export default function DarkHeroStatement() {
           </p>
         </div>
 
-        {/* Dashboard mockup — hidden on mobile, shown on desktop */}
-        {!isMobile && (
-          <motion.div ref={dashboardParallaxRef} style={{ y: dashboardY }}>
+        {/* Dashboard mockup — fixed design width, shrunk as a whole via
+            `zoom` on mobile instead of being hidden (see mobileZoom above). */}
+        <motion.div ref={dashboardParallaxRef} style={{ y: dashboardY }}>
           <motion.div
             ref={cardRef}
             onMouseMove={handleCardMouseMove}
             onMouseEnter={handleCardMouseEnter}
             onMouseLeave={handleCardMouseLeave}
+            // Shrunk as one frozen unit via `zoom` above, not reflowed — see
+            // the `.frozen-grid` exemption from the global grid-collapse
+            // safety net in globals.css.
+            className="frozen-grid"
             style={{
-              marginTop: "112px",
-              marginLeft: "-5%",
-              marginRight: "-5%",
-              zoom: 0.9,
+              marginTop: isMobile ? "48px" : "112px",
+              marginLeft: isMobile ? 0 : "-5%",
+              marginRight: isMobile ? 0 : "-5%",
+              width: isMobile ? DASHBOARD_DESIGN_WIDTH : undefined,
+              zoom: isMobile ? mobileZoom : 0.9,
               perspective: "1000px",
               rotateX: tiltX,
               rotateY: tiltY,
@@ -414,7 +440,7 @@ export default function DarkHeroStatement() {
               </div>
 
               {/* App body */}
-              <div style={{ display: "grid", gridTemplateColumns: "48px 1fr", minHeight: 580 }}>
+              <div className="grid grid-cols-[48px_1fr]" style={{ minHeight: 580 }}>
 
                 {/* Icon sidebar */}
                 <div style={{ background: "#ffffff", borderRight: "1px solid rgba(26,35,50,0.08)", display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 16, gap: 6 }}>
@@ -451,7 +477,7 @@ export default function DarkHeroStatement() {
                   </div>
 
                   {/* Row 1: Balance | 2×2 KPIs | Chart */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr 1.4fr", gap: 12, alignItems: "stretch" }}>
+                  <div className="grid grid-cols-[1.1fr_1fr_1.4fr]" style={{ gap: 12, alignItems: "stretch" }}>
 
                     {/* Col 1 — Total Balance */}
                     <motion.div
@@ -483,7 +509,7 @@ export default function DarkHeroStatement() {
                       </div>
                       <div>
                         <div style={{ fontSize: 9.5, color: "rgba(26,35,50,0.35)", marginBottom: 8 }}>Wallets · Total 6 wallets</div>
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 6 }}>
+                        <div className="grid grid-cols-3" style={{ gap: 6 }}>
                           {[
                             { flag: "🇺🇸", cur: "USD", val: "$22,678", sub: "Limit $36k/m", status: "Active", c: "#22c55e" },
                             { flag: "🇩🇪", cur: "EUR", val: "€18,345", sub: "Limit $23k/m", status: "Active", c: "#22c55e" },
@@ -510,7 +536,7 @@ export default function DarkHeroStatement() {
                     </motion.div>
 
                     {/* Col 2 — 2×2 KPI grid only */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, alignContent: "stretch" }}>
+                    <div className="grid grid-cols-2" style={{ gap: 8, alignContent: "stretch" }}>
                       {[
                         { label: "Total Earnings", num: 950,  delta: "↑ 7%", sub: "This month", accent: true },
                         { label: "Total Spending", num: 700,  delta: "↓ 5%", sub: "This month", accent: false },
@@ -566,7 +592,7 @@ export default function DarkHeroStatement() {
                   </div>
 
                   {/* Row 2: Spending+Cards | Recent Activities */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1.1fr 2.4fr", gap: 12, alignItems: "start" }}>
+                  <div className="grid grid-cols-[1.1fr_2.4fr]" style={{ gap: 12, alignItems: "start" }}>
 
                     {/* Col 1 — Monthly Spending + My Cards */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 10, alignSelf: "stretch" }}>
@@ -621,7 +647,7 @@ export default function DarkHeroStatement() {
                           </div>
                           <div style={{ position: "relative", zIndex: 1 }}>
                             <div style={{ width: 28, height: 20, borderRadius: 4, background: "rgba(255,255,255,0.3)", border: "1px solid rgba(255,255,255,0.4)", marginBottom: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                              <div style={{ width: 16, height: 12, borderRadius: 2, border: "1px solid rgba(255,255,255,0.5)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1, padding: 2 }}>
+                              <div className="grid grid-cols-2" style={{ width: 16, height: 12, borderRadius: 2, border: "1px solid rgba(255,255,255,0.5)", gap: 1, padding: 2 }}>
                                 <div style={{ background: "rgba(255,255,255,0.4)", borderRadius: 1 }} />
                                 <div style={{ background: "rgba(255,255,255,0.4)", borderRadius: 1 }} />
                                 <div style={{ background: "rgba(255,255,255,0.4)", borderRadius: 1 }} />
@@ -665,7 +691,7 @@ export default function DarkHeroStatement() {
                           </div>
                         </div>
                       </div>
-                      <div style={{ display: "grid", gridTemplateColumns: "28px 1fr 1.8fr 0.8fr 0.9fr 1fr", padding: "8px 18px", borderBottom: "1px solid rgba(26,35,50,0.06)", gap: 8 }}>
+                      <div className="grid grid-cols-[28px_1fr_1.8fr_0.8fr_0.9fr_1fr]" style={{ padding: "8px 18px", borderBottom: "1px solid rgba(26,35,50,0.06)", gap: 8 }}>
                         {["","Order ID","Activity","Price","Status","Date"].map(h => (
                           <div key={h} style={{ fontSize: 9, color: "rgba(26,35,50,0.3)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{h}</div>
                         ))}
@@ -684,7 +710,8 @@ export default function DarkHeroStatement() {
                             ? { backgroundColor: "rgba(26,35,50,0.04)", x: 4 }
                             : { backgroundColor: "rgba(26,35,50,0)",     x: 0 }}
                           transition={{ duration: 0.18, ease: "easeOut" }}
-                          style={{ display: "grid", gridTemplateColumns: "28px 1fr 1.8fr 0.8fr 0.9fr 1fr", padding: "10px 18px", borderBottom: "1px solid rgba(26,35,50,0.05)", alignItems: "center", gap: 8, cursor: "default" }}
+                          className="grid grid-cols-[28px_1fr_1.8fr_0.8fr_0.9fr_1fr]"
+                          style={{ padding: "10px 18px", borderBottom: "1px solid rgba(26,35,50,0.05)", alignItems: "center", gap: 8, cursor: "default" }}
                         >
                           <div style={{ width: 14, height: 14, border: "1.5px solid rgba(26,35,50,0.18)", borderRadius: 3 }} />
                           <span style={{ fontSize: 10.5, color: "rgba(26,35,50,0.5)", fontWeight: 500 }}>{r.id}</span>
@@ -707,8 +734,7 @@ export default function DarkHeroStatement() {
               </div>
             </motion.div>
           </motion.div>
-          </motion.div>
-        )}
+        </motion.div>
       </motion.div>
     </section>
   );

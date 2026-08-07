@@ -16,7 +16,10 @@ import TypographyZoom from "@/components/sections/TypographyZoom";
 import MainframeHero from "@/components/sections/MainframeHero";
 import HeroBgSticky from "@/components/sections/HeroBgSticky";
 
-const PAD = { paddingLeft: "15%", paddingRight: "15%" } as const;
+// Fluid gutter (var(--gutter): 4.5vw mobile / 9vw tablet / 13.5vw desktop) instead of a flat
+// 15% — Services/BentoExpertise already add their own ~20px mobile padding inside, so a fixed
+// 15% here was stacking with it and over-cramping content on phones.
+const PAD = { paddingLeft: "var(--gutter)", paddingRight: "var(--gutter)" } as const;
 const PAD_WHITE = { ...PAD, backgroundColor: "#fff" } as const;
 const PAD_SERVICES = { ...PAD, backgroundColor: "#FFF7EE" } as const;
 

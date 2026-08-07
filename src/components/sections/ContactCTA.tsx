@@ -13,8 +13,8 @@ export default function ContactCTA() {
       className="py-24 md:py-32 border-t border-black/5"
       aria-labelledby="contact-cta-heading"
       style={{
-        paddingLeft: 0,
-        paddingRight: 0,
+        paddingLeft: "var(--gutter)",
+        paddingRight: "var(--gutter)",
       }}
     >
       <div className="max-w-screen-xl mx-auto">

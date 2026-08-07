@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { useParallax } from "@/hooks/useParallax";
 import dynamic from "next/dynamic";
 
 const Folder = dynamic(() => import("@/components/ui/Folder.jsx"), { ssr: false });
@@ -21,7 +20,6 @@ const ease = [0.25, 0.46, 0.45, 0.94] as const;
 export default function Services() {
   const isMobile = useIsMobile();
   const isLight = true; // this section is always rendered in light mode, regardless of the site-wide theme toggle
-  const { ref: parallaxRef, y: headingY } = useParallax(36);
 
   const cardBg     = isLight ? "#fff" : "#1e1e1e";
   const cardBorder = isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)";
@@ -30,11 +28,15 @@ export default function Services() {
   return (
     <section
       style={{
-        padding: isMobile ? "60px 0 80px" : "100px 0 120px",
+        minHeight: "100dvh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: isMobile ? "40px 0" : "60px 0",
       }}
     >
       {/* Pill label */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center" style={{ marginBottom: isMobile ? "20px" : "28px" }}>
         <span style={{
           background: isLight ? "#111" : "#fff",
           color: isLight ? "#fff" : "#111",
@@ -49,16 +51,13 @@ export default function Services() {
         </span>
       </div>
 
-      {/* Heading — outer div owns the continuous scroll parallax, inner
-          motion.h2 keeps its own separate entrance-fade untouched (mixing
-          both on one element would fight over the same `y` prop). */}
-      <motion.div ref={parallaxRef} style={{ y: headingY }}>
+      <div style={{ marginBottom: isMobile ? "20px" : "28px" }}>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="text-center mb-4"
+          className="text-center"
           style={{
             fontSize: isMobile ? "34px" : "48px",
             fontWeight: 400,
@@ -70,7 +69,7 @@ export default function Services() {
         >
           Tailored Solutions,<br />Impactful Results
         </motion.h2>
-      </motion.div>
+      </div>
 
       {/* Subtitle */}
       <motion.p
@@ -93,11 +92,12 @@ export default function Services() {
         Delivering innovative, results-driven solutions that elevate your brand and product.
       </motion.p>
 
-      {/* folder grid */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-        gap: "12px",
+      {/* folder grid — always 2 columns, incl. mobile. Uses a real Tailwind
+          grid-cols-2 class rather than inline gridTemplateColumns so the
+          global mobile grid-collapse safety net (globals.css) can't force
+          it back to 1 column — that net only matches inline styles. */}
+      <div className="grid grid-cols-2" style={{
+        gap: isMobile ? "10px" : "12px",
         maxWidth: isMobile ? "100%" : "664px",
         margin: "0 auto",
         paddingLeft: isMobile ? "20px" : 0,
@@ -114,31 +114,31 @@ export default function Services() {
             style={{
               background: cardBg,
               border: `1px solid ${cardBorder}`,
-              borderRadius: "21px",
-              padding: isMobile ? "20px 18px 16px" : "24px 21px 18px",
+              borderRadius: isMobile ? "16px" : "21px",
+              padding: isMobile ? "16px 14px 14px" : "24px 21px 18px",
               display: "flex",
-              flexDirection: isMobile ? "row" : "column",
+              flexDirection: "column",
               alignItems: "center",
-              gap: isMobile ? "16px" : "24px",
+              gap: isMobile ? "14px" : "24px",
               boxShadow: isLight
                 ? "0 2px 24px rgba(0,0,0,0.06)"
                 : "0 2px 24px rgba(0,0,0,0.3)",
-              aspectRatio: isMobile ? "auto" : "1",
+              aspectRatio: "1",
             }}
           >
             {/* Folder */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flex: isMobile ? "0 0 auto" : 1, paddingTop: isMobile ? 0 : "20%" }}>
-              <Folder color={service.color} size={isMobile ? 1.2 : 1.90} />
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flex: 1, paddingTop: isMobile ? "12%" : "20%" }}>
+              <Folder color={service.color} size={isMobile ? 1.1 : 1.90} />
             </div>
 
             {/* Title */}
             <h3 style={{
-              fontSize: "15px",
+              fontSize: isMobile ? "13px" : "15px",
               fontWeight: 500,
               color: textPrimary,
               fontFamily: "var(--font-inter), sans-serif",
               letterSpacing: "-0.01em",
-              textAlign: isMobile ? "left" : "center",
+              textAlign: "center",
             }}>
               {service.title}
             </h3>

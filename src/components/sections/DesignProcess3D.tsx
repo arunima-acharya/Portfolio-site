@@ -229,7 +229,7 @@ export default function DesignProcess3D() {
   // Mobile: static list
   if (isMobile) {
     return (
-      <section style={{ paddingTop: "18px", paddingBottom: "25px", paddingLeft: "20px", paddingRight: "20px", backgroundColor: "#FFF7EE" }}>
+      <section style={{ minHeight: "100dvh", boxSizing: "border-box", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "96px", paddingBottom: "48px", paddingLeft: "20px", paddingRight: "20px", backgroundColor: "#FFF7EE" }}>
         <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 400, letterSpacing: 0, color: textPrimary, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif", marginBottom: "20px" }}>
           Own the process.
           <span style={{ display: "block" }}>Deliver impact.</span>
@@ -239,20 +239,69 @@ export default function DesignProcess3D() {
           My design methodology is built on precision, empathy, and collaboration
           — creating experiences that users love and businesses value.
         </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-          {LAYERS.map((layer, i) => (
-            <div key={layer.id} style={{ background: "#e8e8e8", border: "1px solid rgba(0,0,0,0.08)", borderRadius: "16px", padding: "20px", display: "flex", gap: "16px", alignItems: "flex-start" }}>
-              <div style={{ width: 40, height: 40, borderRadius: "10px", background: layer.gradient, flexShrink: 0 }} />
-              <div>
-                <p style={{ fontSize: "14px", fontWeight: 600, color: layer.color, fontFamily: "var(--font-inter), sans-serif", marginBottom: "6px" }}>
-                  {String(i + 1).padStart(2, "0")} — {layer.title}
-                </p>
-                <p style={{ fontSize: "13px", color: textMuted, fontFamily: "var(--font-inter), sans-serif", lineHeight: 1.65 }}>
-                  {layer.description}
-                </p>
+        {/* Vertical journey — a numbered, gradient-swatched badge per step
+            (same swatch progression as the desktop 3D stack: light → deep
+            orange) connected by a thin line, instead of stacked flat boxes. */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {LAYERS.map((layer, i) => {
+            const last = i === LAYERS.length - 1;
+            // The first two swatches are pale, so the number needs dark
+            // text there; the last two are saturated enough for white.
+            const badgeTextColor = i < 2 ? "#5c5955" : "#fff";
+            return (
+              <div key={layer.id} style={{ display: "flex", gap: "18px" }}>
+                {/* Badge + connector column */}
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+                  <div style={{
+                    width: 46,
+                    height: 46,
+                    borderRadius: "50%",
+                    background: layer.gradient,
+                    border: "1px solid rgba(0,0,0,0.06)",
+                    boxShadow: "0 4px 14px rgba(0,0,0,0.12)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}>
+                    <span style={{ fontSize: "15px", fontWeight: 700, color: badgeTextColor, fontFamily: "var(--font-inter), sans-serif" }}>
+                      {i + 1}
+                    </span>
+                  </div>
+                  {!last && (
+                    <div style={{ width: 2, flex: 1, minHeight: "36px", background: "rgba(0,0,0,0.10)", marginTop: "8px" }} />
+                  )}
+                </div>
+
+                {/* Copy */}
+                <div style={{ paddingBottom: last ? "4px" : "36px" }}>
+                  <p style={{
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: layer.color,
+                    fontFamily: "var(--font-inter), sans-serif",
+                    marginBottom: "6px",
+                  }}>
+                    Step {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 style={{
+                    fontSize: "20px",
+                    fontWeight: 400,
+                    color: textPrimary,
+                    fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
+                    marginBottom: "8px",
+                  }}>
+                    {layer.title}
+                  </h3>
+                  <p style={{ fontSize: "13.5px", color: textMuted, fontFamily: "var(--font-inter), sans-serif", lineHeight: 1.65 }}>
+                    {layer.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     );

@@ -9,6 +9,14 @@ import {
   useReducedMotion,
   type TargetAndTransition,
 } from "framer-motion";
+import { useIsMobile } from "@/hooks/useIsMobile";
+
+// Item sizes below (108–298px) were tuned for a wide desktop canvas. On a
+// ~375px mobile viewport, positioning them at the same percentages at full
+// size would collide badly, so mobile renders everything at this fraction
+// of the desktop size instead — the top/left percentages stay the same,
+// only the footprint of each item shrinks.
+const MOBILE_SCALE = 0.572; // 0.44 base, scaled up 30% per request
 
 // Scatter of desk-item illustrations behind the "What's on My Desk" heading
 // in TypographyZoom, styled as a numbered catalogue: each item carries an
@@ -140,10 +148,12 @@ type Item = (typeof ITEMS)[number];
 export const DESK_LEGEND = ITEMS.map((i) => `${i.label} ${i.name}`);
 
 /* ── A single desk object ─────────────────────────────────── */
-function DeskItem({ item, index, containerRef }: { item: Item; index: number; containerRef: React.RefObject<HTMLDivElement | null> }) {
+function DeskItem({ item, index, containerRef, scale }: { item: Item; index: number; containerRef: React.RefObject<HTMLDivElement | null>; scale: number }) {
   const [hovered, setHovered] = useState(false);
   const reduce = useReducedMotion();
   const p = item.personality;
+  const renderWidth = item.width * scale;
+  const renderHeight = item.height * scale;
 
   // Normalised pointer position within the item (-0.5 … 0.5 on each axis),
   // springed so cursor-following reads as weight rather than a snap.
@@ -228,10 +238,10 @@ function DeskItem({ item, index, containerRef }: { item: Item; index: number; co
       }
       style={{
         position: "absolute",
-        width: item.width,
-        height: item.height,
-        x: -item.width / 2,
-        y: -item.height / 2,
+        width: renderWidth,
+        height: renderHeight,
+        x: -renderWidth / 2,
+        y: -renderHeight / 2,
         cursor: "grab",
         touchAction: "none",
         zIndex: hovered ? 20 : 10,
@@ -256,8 +266,8 @@ function DeskItem({ item, index, containerRef }: { item: Item; index: number; co
         <motion.img
           src={item.src}
           alt=""
-          width={item.width}
-          height={item.height}
+          width={renderWidth}
+          height={renderHeight}
           draggable={false}
           animate={{ filter: hovered && !reduce ? LIFT_SHADOW : BASE_SHADOW }}
           transition={{ duration: 0.35 }}
@@ -304,7 +314,7 @@ function DeskItem({ item, index, containerRef }: { item: Item; index: number; co
               pointerEvents: "none",
               display: "flex",
               flexDirection: "column",
-              gap: item.width * 0.035,
+              gap: renderWidth * 0.035,
             }}
           >
             {NOTEBOOK_LINES.map((line, l) => (
@@ -315,7 +325,7 @@ function DeskItem({ item, index, containerRef }: { item: Item; index: number; co
                 transition={{ duration: 0.32, delay: hovered && !reduce ? l * 0.13 : 0 }}
                 style={{
                   fontFamily: "var(--font-caveat), cursive",
-                  fontSize: Math.max(9, item.width * 0.055),
+                  fontSize: Math.max(9, renderWidth * 0.055),
                   lineHeight: 1,
                   color: "#3b3a38",
                   whiteSpace: "nowrap",
@@ -483,11 +493,13 @@ function DeskItem({ item, index, containerRef }: { item: Item; index: number; co
 
 export default function DesignBoardGraphics() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  const scale = isMobile ? MOBILE_SCALE : 1;
 
   return (
     <div ref={containerRef} style={{ position: "absolute", inset: 0 }}>
       {ITEMS.map((item, i) => (
-        <DeskItem key={i} item={item} index={i} containerRef={containerRef} />
+        <DeskItem key={i} item={item} index={i} containerRef={containerRef} scale={scale} />
       ))}
     </div>
   );

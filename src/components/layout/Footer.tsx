@@ -67,8 +67,8 @@ export default function Footer() {
         {/* Middle nav row */}
         <nav
           aria-label="Footer navigation"
+          className="flex flex-wrap sm:flex-nowrap"
           style={{
-            display: "flex",
             borderTop: `1px solid ${borderColor}`,
             borderBottom: `1px solid ${borderColor}`,
           }}
@@ -79,8 +79,10 @@ export default function Footer() {
               href={link.href}
               target={"external" in link && link.external ? "_blank" : undefined}
               rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
+              className="flex items-center basis-1/2 sm:basis-0"
               style={{
-                flex: i === 2 ? 2 : 1,
+                flexGrow: i === 2 ? 2 : 1,
+                minHeight: 44,
                 padding: "18px 0",
                 paddingLeft: i === 0 ? "0" : "24px",
                 borderLeft: i === 0 ? "none" : `1px solid ${borderColor}`,
@@ -91,7 +93,6 @@ export default function Footer() {
                 textDecoration: "none",
                 letterSpacing: "-0.01em",
                 transition: "opacity 0.15s ease",
-                display: "block",
               }}
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.55"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
@@ -103,8 +104,8 @@ export default function Footer() {
 
         {/* Brand + Arrow row */}
         <div
+          className="flex flex-wrap gap-6"
           style={{
-            display: "flex",
             alignItems: "flex-end",
             justifyContent: "space-between",
             paddingTop: "48px",
@@ -136,11 +137,9 @@ export default function Footer() {
 
           {/* Large arrow */}
           <svg
-            width="120"
-            height="120"
             viewBox="0 0 120 120"
             fill="none"
-            style={{ flexShrink: 0, opacity: 0.85 }}
+            style={{ width: "clamp(64px, 10vw, 120px)", height: "clamp(64px, 10vw, 120px)", flexShrink: 0, opacity: 0.85 }}
           >
             <path
               d="M90 30L30 90M30 90H72M30 90V48"

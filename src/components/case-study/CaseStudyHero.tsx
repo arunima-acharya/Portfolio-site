@@ -16,7 +16,7 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
   const backLabel = isResearch ? "All research" : "All case studies";
 
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden" style={{ paddingLeft: "15%", paddingRight: "15%" }} aria-label="Case study hero">
+    <section className="relative pt-32 pb-20 overflow-hidden" style={{ paddingLeft: "var(--gutter)", paddingRight: "var(--gutter)" }} aria-label="Case study hero">
       {/* Background gradient */}
       <div
         className="absolute inset-0 opacity-[0.06]"
@@ -67,7 +67,7 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
               )}
             </h1>
 
-            <p className="font-semibold leading-snug w-4/5" style={{ color: "#52525c", fontSize: "24px" }}>
+            <p className="font-semibold leading-snug w-full sm:w-4/5" style={{ color: "#52525c", fontSize: "clamp(17px, 2.6vw, 24px)" }}>
               {project.valueProposition ?? project.shortDescription}
             </p>
 

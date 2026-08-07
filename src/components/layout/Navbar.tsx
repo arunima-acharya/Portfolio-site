@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Sparkle } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, Sparkle, X } from "lucide-react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const LINKS = [
   { label: "Work",     href: "/case-studies" },
@@ -10,6 +13,115 @@ const LINKS = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const isMobile = useIsMobile(860); // below this, the pill row runs out of room
+  const [open, setOpen] = useState(false);
+
+  // Stop background scroll while the mobile menu is open.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [open]);
+
+  if (isMobile) {
+    return (
+      <div data-navbar style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "16px" }}>
+        <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+          <a
+            href="/"
+            style={{
+              display: "inline-flex", alignItems: "center", gap: "8px",
+              padding: "8px 14px 8px 10px", borderRadius: 9999,
+              background: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(180%)",
+              WebkitBackdropFilter: "blur(20px) saturate(180%)",
+              fontFamily: "var(--font-inter), sans-serif", fontSize: 14, fontWeight: 700,
+              color: "#111", textDecoration: "none", textTransform: "uppercase",
+              letterSpacing: "0.02em", whiteSpace: "nowrap",
+            }}
+          >
+            <Sparkle size={16} strokeWidth={2} fill="#111" style={{ flexShrink: 0 }} />
+            Arunima
+          </a>
+
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center",
+              width: 44, height: 44, borderRadius: 9999, border: "none",
+              background: "#111", color: "#fff", flexShrink: 0,
+            }}
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </nav>
+
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                marginTop: 12, background: "#fff", borderRadius: 20,
+                boxShadow: "0 16px 48px rgba(0,0,0,0.16)", overflow: "hidden",
+              }}
+            >
+              {LINKS.map(({ label, href }) => {
+                const active = pathname === href || pathname.startsWith(`${href}/`);
+                return (
+                  <a
+                    key={label}
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 8,
+                      minHeight: 52, padding: "0 20px",
+                      fontFamily: "var(--font-inter), sans-serif", fontSize: 16,
+                      fontWeight: active ? 600 : 400, color: active ? "#111" : "#555",
+                      textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
+                    }}
+                  >
+                    {active && <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#111", flexShrink: 0 }} />}
+                    {label}
+                  </a>
+                );
+              })}
+              <a
+                href="/assets/Arunima_Acharya_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex", alignItems: "center", minHeight: 52, padding: "0 20px",
+                  fontFamily: "var(--font-inter), sans-serif", fontSize: 16, color: "#555",
+                  textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
+                }}
+              >
+                Resume
+              </a>
+              <a
+                href="/contact"
+                onClick={() => setOpen(false)}
+                style={{
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  minHeight: 52, padding: "0 20px",
+                  fontFamily: "var(--font-inter), sans-serif", fontSize: 16, fontWeight: 500,
+                  color: "#fff", background: "#111", textDecoration: "none",
+                }}
+              >
+                Let&apos;s chat
+                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", flexShrink: 0 }} />
+              </a>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
 
   return (
     <div

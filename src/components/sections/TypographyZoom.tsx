@@ -19,11 +19,9 @@ export default function TypographyZoom() {
         overflow:        "hidden",
       }}
     >
-      {!isMobile && (
-        <div style={{ position: "absolute", inset: 0, zIndex: 40 }}>
-          <DesignBoardGraphics />
-        </div>
-      )}
+      <div style={{ position: "absolute", inset: 0, zIndex: 40 }}>
+        <DesignBoardGraphics />
+      </div>
       <div
         style={{
           userSelect:     "none",
@@ -38,7 +36,7 @@ export default function TypographyZoom() {
       >
         <div
           style={{
-            fontSize:   "clamp(1.2rem, 3.6vw, 3rem)",
+            fontSize:   isMobile ? "1.56rem" : "clamp(1.2rem, 3.6vw, 3rem)",
             fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
             fontStyle:  "italic",
             fontWeight: 540,
@@ -56,7 +54,7 @@ export default function TypographyZoom() {
             borderRadius:  "9999px",
             padding:       "0.5em 1.4em",
             fontFamily:    "var(--font-inter), sans-serif",
-            fontSize:      "clamp(0.5rem, 0.78vw, 0.7rem)",
+            fontSize:      isMobile ? "0.65rem" : "clamp(0.5rem, 0.78vw, 0.7rem)",
             fontWeight:    500,
             letterSpacing: "0.16em",
             textTransform: "uppercase",

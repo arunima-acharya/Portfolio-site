@@ -240,7 +240,7 @@ function RichCaseStudy({ project }: { project: Project }) {
             <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-widest">
               Key Insights
             </h3>
-            <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(5, 1fr)" }}>
+            <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
               {(project.keyInsights ?? project.research.userInsights.map((text) => ({ title: text, description: "" }))).map((insight, i) => (
                 <div
                   key={i}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowUpRight, Calendar } from "lucide-react";
 import { getFeaturedProjects, projectHref } from "@/data/projects";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useParallax } from "@/hooks/useParallax";
@@ -36,10 +37,15 @@ function ProjectCard({
         href={projectHref(project)}
         className="group grid md:grid-cols-2 overflow-hidden rounded-2xl"
         aria-label={`View case study: ${project.title}`}
-        style={{ background: "#fff", boxShadow: "0 16px 40px rgba(0,0,0,0.12)", height: isMobile ? undefined : CARD_HEIGHT }}
+        style={{
+          background: "#fff",
+          border: "1px solid rgba(0,0,0,0.08)",
+          boxShadow: "0 1px 2px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06)",
+          minHeight: isMobile ? undefined : CARD_HEIGHT,
+        }}
       >
         {/* Visual panel */}
-        <div className="relative overflow-hidden" style={{ minHeight: isMobile ? CARD_HEIGHT : "100%", background: "#fafafa" }}>
+        <div className="relative overflow-hidden" style={{ minHeight: CARD_HEIGHT, background: "#fafafa" }}>
           <div
             aria-hidden="true"
             className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105"
@@ -66,7 +72,7 @@ function ProjectCard({
         </div>
 
         {/* Content panel */}
-        <div className="flex flex-col" style={{ padding: "40px 48px", overflow: isMobile ? undefined : "hidden" }}>
+        <div className="flex flex-col" style={{ padding: "40px 48px" }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#e8510a", flexShrink: 0 }} />
@@ -84,11 +90,12 @@ function ProjectCard({
             </p>
 
             {tags.length > 0 && (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 24 }}>
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    style={{ fontSize: 12, padding: "6px 14px", borderRadius: 9999, border: "1px solid rgba(0,0,0,0.12)", color: "#555" }}
+                    className="text-[11px] px-2.5 py-1 rounded-full"
+                    style={{ color: "#555", border: "1px solid rgba(0,0,0,0.08)", background: "rgba(0,0,0,0.02)" }}
                   >
                     {tag}
                   </span>
@@ -97,16 +104,33 @@ function ProjectCard({
             )}
           </div>
 
-          <span
-            className="inline-flex items-center gap-2 self-start transition-colors duration-200"
-            style={{
-              fontSize: 13, fontWeight: 600, color: "#e8510a",
-              borderRadius: 9999, padding: "0.65em 1.3em 0.65em 0",
-              fontFamily: "var(--font-inter), sans-serif", marginTop: "auto",
-            }}
+          <div
+            className="flex items-center justify-between"
+            style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid rgba(0,0,0,0.06)" }}
           >
-            View Case Study <span aria-hidden="true">↗</span>
-          </span>
+            {project.timeline && (
+              <span className="inline-flex items-center gap-1.5 text-[12.5px]" style={{ color: "#888" }}>
+                <Calendar size={12} />
+                {project.timeline}
+              </span>
+            )}
+            <span
+              className="inline-flex items-center gap-1.5 text-[13px] font-medium ml-auto transition-colors duration-200"
+              style={{ color: "#555" }}
+            >
+              <span className="group-hover:text-[#111] transition-colors duration-200">View case study</span>
+              <span
+                className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-200"
+                style={{ background: "rgba(0,0,0,0.05)" }}
+              >
+                <ArrowUpRight
+                  size={14}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  style={{ color: "#e8510a" }}
+                />
+              </span>
+            </span>
+          </div>
         </div>
       </Link>
     </motion.div>
