@@ -230,7 +230,7 @@ export default function DesignProcess3D() {
   if (isMobile) {
     return (
       <section style={{ minHeight: "100dvh", boxSizing: "border-box", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "96px", paddingBottom: "48px", paddingLeft: "20px", paddingRight: "20px", backgroundColor: "var(--sp-cream)" }}>
-        <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, textTransform: "lowercase", color: "var(--sp-cocoa)", fontFamily: "var(--font-fraunces), serif", marginBottom: "20px" }}>
+        <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, textTransform: "capitalize", color: "var(--sp-cocoa)", fontFamily: "var(--font-fraunces), serif", marginBottom: "20px" }}>
           Own the process.
           <span style={{ display: "block" }}>Deliver impact.</span>
         </h2>
@@ -362,7 +362,7 @@ export default function DesignProcess3D() {
         >
           {/* Col 1: Static heading */}
           <motion.div style={{ flex: "0 0 38%", paddingRight: "48px", marginTop: `calc(-${STACK_H * 0.10}px + 20vh)`, y: headingParallaxY }}>
-            <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, textTransform: "lowercase", color: "var(--sp-cocoa)", fontFamily: "var(--font-fraunces), serif", marginBottom: "20px" }}>
+            <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, textTransform: "capitalize", color: "var(--sp-cocoa)", fontFamily: "var(--font-fraunces), serif", marginBottom: "20px" }}>
               Own the process.
               <span style={{ display: "block" }}>Deliver impact.</span>
             </h2>

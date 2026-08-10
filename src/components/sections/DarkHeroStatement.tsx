@@ -258,7 +258,7 @@ export default function DarkHeroStatement() {
               fontWeight: 600,
               lineHeight: 1,
               letterSpacing: 0,
-              textTransform: "lowercase",
+              textTransform: "capitalize",
               color: "var(--sp-cocoa)",
               margin: 0,
               fontFamily: "var(--font-fraunces), serif",

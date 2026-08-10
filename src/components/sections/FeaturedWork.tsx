@@ -86,7 +86,7 @@ function ProjectCard({
               </span>
             </div>
 
-            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 600, textTransform: "lowercase", color: "var(--sp-cocoa)", lineHeight: 1.1, letterSpacing: "normal", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-fraunces), serif" }}>
+            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 600, textTransform: "capitalize", color: "var(--sp-cocoa)", lineHeight: 1.1, letterSpacing: "normal", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-fraunces), serif" }}>
               {project.title}
             </h3>
 

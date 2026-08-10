@@ -64,7 +64,7 @@ export default function Services() {
             fontWeight: 600,
             fontFamily: "var(--font-fraunces), serif",
             color: "var(--sp-cocoa)",
-            textTransform: "lowercase",
+            textTransform: "capitalize",
             lineHeight: 1,
             letterSpacing: 0,
           }}

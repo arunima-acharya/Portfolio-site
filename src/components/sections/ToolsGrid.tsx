@@ -112,7 +112,7 @@ export default function ToolsGrid() {
             <h2
               id="tools-heading"
               className="fluid-text-2xl"
-              style={{ color: isLight ? "var(--sp-cocoa)" : "#fff", lineHeight: 1, fontFamily: "var(--font-fraunces), serif", fontWeight: 600, textTransform: "lowercase" }}
+              style={{ color: isLight ? "var(--sp-cocoa)" : "#fff", lineHeight: 1, fontFamily: "var(--font-fraunces), serif", fontWeight: 600, textTransform: "capitalize" }}
             >
               The tools that power
               <br className="hidden sm:block" /> every project

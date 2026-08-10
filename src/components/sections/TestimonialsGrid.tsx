@@ -121,7 +121,7 @@ export default function TestimonialsGrid() {
             fontFamily: "var(--font-fraunces), serif",
             fontSize: isMobile ? "32px" : "clamp(32px, 3.4vw, 44px)",
             fontWeight: 600,
-            textTransform: "lowercase",
+            textTransform: "capitalize",
             lineHeight: 1.15,
             color: "var(--sp-cocoa)",
             margin: 0,

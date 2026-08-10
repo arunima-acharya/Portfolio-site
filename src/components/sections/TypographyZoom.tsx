@@ -40,7 +40,7 @@ export default function TypographyZoom() {
             fontFamily: "var(--font-fraunces), serif",
             fontWeight: 600,
             color:      "var(--sp-cocoa)",
-            textTransform: "lowercase",
+            textTransform: "capitalize",
             lineHeight: 1,
             whiteSpace: "nowrap",
           }}

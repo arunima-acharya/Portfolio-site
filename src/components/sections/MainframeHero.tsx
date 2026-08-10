@@ -284,7 +284,7 @@ export default function MainframeHero({
               fontWeight: 600,
               fontSize: "clamp(29px, 3.5vw, 41px)",
               color: "var(--sp-cocoa)",
-              textTransform: "lowercase",
+              textTransform: "capitalize",
               margin: 0,
               lineHeight: 1.1,
             }}

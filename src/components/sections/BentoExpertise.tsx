@@ -241,7 +241,7 @@ export default function BentoExpertise() {
             fontSize: isMobile ? "34px" : "48px",
             fontWeight: 600,
             letterSpacing: 0,
-            textTransform: "lowercase",
+            textTransform: "capitalize",
             lineHeight: 1,
             color: "var(--sp-cocoa)",
             fontFamily: "var(--font-fraunces), serif",
