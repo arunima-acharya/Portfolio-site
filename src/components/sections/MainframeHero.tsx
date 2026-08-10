@@ -297,7 +297,7 @@ export default function MainframeHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontSize: isMobile ? "14.4px" : "16.5px",
+              fontSize: isMobile ? "16px" : "16.5px",
               color: "var(--sp-cocoa)",
               lineHeight: 1.7,
               fontFamily: "var(--font-geist), sans-serif",
@@ -314,7 +314,7 @@ export default function MainframeHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontSize: isMobile ? "14.4px" : "16.5px",
+              fontSize: isMobile ? "16px" : "16.5px",
               color: "var(--sp-cocoa)",
               lineHeight: 1.7,
               fontFamily: "var(--font-geist), sans-serif",
@@ -431,8 +431,8 @@ export default function MainframeHero({
             <div style={{ display: "inline-flex", alignItems: "center", gap: "12px", background: "#e8e8e8", borderRadius: "9999px", padding: "8px 20px 8px 8px", marginBottom: "28px" }}>
               <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "#c0c0c0", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", fontWeight: 700, color: "#fff" }}>A</div>
               <div>
-                <p style={{ fontSize: "11px", color: "#888", fontFamily: "var(--font-geist), sans-serif", margin: 0 }}>Schedule a call with the Designer</p>
-                <p style={{ fontSize: "13px", fontWeight: 600, color: "#111", fontFamily: "var(--font-geist), sans-serif", margin: 0 }}>Arunima Acharya</p>
+                <p style={{ fontSize: "16px", color: "#888", fontFamily: "var(--font-geist), sans-serif", margin: 0 }}>Schedule a call with the Designer</p>
+                <p style={{ fontSize: "16px", fontWeight: 600, color: "#111", fontFamily: "var(--font-geist), sans-serif", margin: 0 }}>Arunima Acharya</p>
               </div>
             </div>
 

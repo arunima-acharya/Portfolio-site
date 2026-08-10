@@ -54,7 +54,7 @@ export default function TypographyZoom() {
             borderRadius:  "20px",
             padding:       "0.5em 1.4em",
             fontFamily:    "var(--font-geist), sans-serif",
-            fontSize:      isMobile ? "0.65rem" : "clamp(0.5rem, 0.78vw, 0.7rem)",
+            fontSize:      "16px",
             fontWeight:    500,
             letterSpacing: "0.16em",
             textTransform: "uppercase",
@@ -86,7 +86,7 @@ export default function TypographyZoom() {
             style={{
               margin:        "0 0 0.4em",
               fontFamily:    "var(--font-geist), sans-serif",
-              fontSize:      "clamp(0.6rem, 0.85vw, 0.82rem)",
+              fontSize:      "16px",
               fontWeight:    700,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
@@ -99,7 +99,7 @@ export default function TypographyZoom() {
             style={{
               margin:        0,
               fontFamily:    "var(--font-geist), sans-serif",
-              fontSize:      "clamp(0.44rem, 0.62vw, 0.6rem)",
+              fontSize:      "16px",
               fontWeight:    500,
               letterSpacing: "0.12em",
               textTransform: "uppercase",

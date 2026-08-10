@@ -58,7 +58,7 @@ function CardInner({ tool, isMobile, nameColor, catColor }: { tool: typeof tools
         <p style={{ margin: 0, fontSize: isMobile ? "16px" : "15px", fontWeight: 600, color: nameColor, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.3 }}>
           {tool.name}
         </p>
-        <p style={{ margin: "3px 0 0", fontSize: isMobile ? "12.5px" : "13px", color: catColor, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.3 }}>
+        <p style={{ margin: "3px 0 0", fontSize: isMobile ? "16px" : "16px", color: catColor, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.3 }}>
           {tool.category}
         </p>
       </div>
@@ -106,7 +106,7 @@ export default function ToolsGrid() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-3 mb-14"
           >
-            <span className="text-xs font-medium text-zinc-500 uppercase tracking-widest">
+            <span className="text-[16px] font-medium text-zinc-500 uppercase tracking-widest">
               Toolkit
             </span>
             <h2

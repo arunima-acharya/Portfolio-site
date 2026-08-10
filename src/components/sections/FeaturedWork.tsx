@@ -31,7 +31,10 @@ function ProjectCard({
       // Card-stack effect: each card sticks a little lower than the one
       // before it, so as you scroll it slides in and overlaps/peeks out
       // from under the previous card instead of just stacking in flow.
-      style={{ position: "sticky", top: `${96 + index * 28}px`, zIndex: index + 1 }}
+      // Base offset raised (was 96) so the first card stays in normal
+      // flow longer and the overlap only kicks in once it's scrolled
+      // further up, instead of sticking almost immediately.
+      style={{ position: "sticky", top: `${160 + index * 28}px`, zIndex: index + 1 }}
     >
       <Link
         href={projectHref(project)}
@@ -81,7 +84,7 @@ function ProjectCard({
           <div style={{ minHeight: 0, overflow: isMobile ? "hidden" : undefined }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: isMobile ? 8 : 16 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0 }} />
-              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sp-orange)" }}>
+              <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sp-orange)" }}>
                 {project.category}
               </span>
             </div>
@@ -92,7 +95,7 @@ function ProjectCard({
 
             <p
               className={isMobile ? "line-clamp-2" : undefined}
-              style={{ fontSize: isMobile ? "13px" : 14.5, color: "#666", lineHeight: 1.5, marginBottom: isMobile ? 10 : 20 }}
+              style={{ fontSize: isMobile ? "16px" : 16, color: "#666", lineHeight: 1.5, marginBottom: isMobile ? 10 : 20 }}
             >
               {project.shortDescription}
             </p>
@@ -102,7 +105,7 @@ function ProjectCard({
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[11px] px-2.5 py-1 rounded-[20px]"
+                    className="text-[16px] px-2.5 py-1 rounded-[20px]"
                     style={{ color: "#555", border: "1px solid rgba(0,0,0,0.08)", background: "rgba(0,0,0,0.02)" }}
                   >
                     {tag}
@@ -117,13 +120,13 @@ function ProjectCard({
             style={{ marginTop: "auto", paddingTop: isMobile ? 10 : 20, flexShrink: 0, borderTop: "1px solid rgba(0,0,0,0.06)" }}
           >
             {project.timeline && (
-              <span className="inline-flex items-center gap-1.5 text-[12.5px]" style={{ color: "#888" }}>
+              <span className="inline-flex items-center gap-1.5 text-[16px]" style={{ color: "#888" }}>
                 <Calendar size={12} />
                 {project.timeline}
               </span>
             )}
             <span
-              className="inline-flex items-center gap-1.5 text-[13px] font-medium ml-auto transition-colors duration-200"
+              className="inline-flex items-center gap-1.5 text-[16px] font-medium ml-auto transition-colors duration-200"
               style={{ color: "#555" }}
             >
               <span className="group-hover:text-[#111] transition-colors duration-200">View case study</span>
@@ -155,12 +158,12 @@ export default function FeaturedWork() {
 
   return (
     <section
-      className="py-24 md:py-32"
+      className="py-[86px] md:py-[115px]"
       aria-labelledby="work-heading"
       style={{
         backgroundColor: "#fff",
-        paddingLeft: isMobile ? "20px" : "20%",
-        paddingRight: isMobile ? "20px" : "20%",
+        paddingLeft: isMobile ? "18px" : "18%",
+        paddingRight: isMobile ? "18px" : "18%",
       }}
     >
       {/* Header row */}
@@ -188,7 +191,7 @@ export default function FeaturedWork() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="max-w-full md:max-w-[220px] text-[13px] leading-relaxed md:text-right md:pt-1"
+          className="max-w-full md:max-w-[220px] text-[16px] leading-relaxed md:text-right md:pt-1"
           style={{ color: mutedColor }}
         >
           Every project is a reflection of a commitment to quality — designed to create meaningful product experiences.
@@ -210,7 +213,7 @@ export default function FeaturedWork() {
             display: "inline-flex", alignItems: "center", gap: 6,
             background: "transparent", color: "#111",
             border: "1px solid rgba(0,0,0,0.2)", borderRadius: 9999,
-            padding: "0.7em 1.5em", fontSize: "14px", fontWeight: 600,
+            padding: "0.7em 1.5em", fontSize: "16px", fontWeight: 600,
             fontFamily: "var(--font-geist), sans-serif", textDecoration: "none",
             transition: "background 0.2s, color 0.2s, border-color 0.2s",
           }}

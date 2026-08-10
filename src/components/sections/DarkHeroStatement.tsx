@@ -268,7 +268,7 @@ export default function DarkHeroStatement() {
 
             {/* Subtitle */}
             <p style={{
-              fontSize: isMobile ? "14px" : "16px",
+              fontSize: isMobile ? "16px" : "16px",
               lineHeight: 1.7,
               color: "#5C5955",
               margin: 0,
@@ -292,7 +292,7 @@ export default function DarkHeroStatement() {
                   border: "1.5px solid var(--sp-charcoal)",
                   backgroundColor: "var(--sp-cream)",
                   color: "var(--sp-charcoal)",
-                  fontSize: "13px",
+                  fontSize: "16px",
                   fontWeight: 500,
                   textDecoration: "none",
                   letterSpacing: "-0.01em",
@@ -315,7 +315,7 @@ export default function DarkHeroStatement() {
                   border: "1px solid rgba(23,23,23,0.25)",
                   backgroundColor: "transparent",
                   color: "rgba(23,23,23,0.75)",
-                  fontSize: "13px",
+                  fontSize: "16px",
                   fontWeight: 500,
                   textDecoration: "none",
                   letterSpacing: "-0.01em",

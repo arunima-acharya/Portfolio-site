@@ -146,7 +146,7 @@ function BentoCard({ cat, globalIdx, isInView, colors, fan, fanned }: { cat: Cat
               background: pill,
               border: `1px solid ${pillBdr}`,
               color: pillTxt,
-              fontSize: "12px",
+              fontSize: "16px",
               fontWeight: 400,
               fontFamily: "var(--font-geist), sans-serif",
               whiteSpace: "nowrap",
@@ -223,7 +223,7 @@ export default function BentoExpertise() {
       >
         <span
           style={{
-            fontSize: "9.5px",
+            fontSize: "16px",
             fontWeight: 600,
             letterSpacing: "0.14em",
             textTransform: "uppercase",

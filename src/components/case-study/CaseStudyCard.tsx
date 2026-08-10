@@ -12,21 +12,14 @@ interface CaseStudyCardProps {
   featured?: boolean;
 }
 
-const ACCENT_COLORS = [
-  "#e8510a",
-  "#4a90d9",
-  "#22c55e",
-  "#a259ff",
-  "#f59e0b",
-  "#3b82f6",
-  "#ec4899",
-];
-
 // Always rendered light — a deliberate, fixed identity for the case-studies
 // grid (mirrors how research pieces are always dark) rather than following
 // the site-wide theme toggle.
 export default function CaseStudyCard({ project, index, featured = false }: CaseStudyCardProps) {
-  const accent = ACCENT_COLORS[index % ACCENT_COLORS.length];
+  // Single accent — the Superr reference uses marker orange as the only
+  // chromatic accent, not a per-card rainbow. Raw hex (not the CSS var)
+  // since this gets alpha-suffixed below for the gradient washes.
+  const accent = "#ff6f1e";
 
   return (
     <motion.div
@@ -37,12 +30,12 @@ export default function CaseStudyCard({ project, index, featured = false }: Case
     >
       <Link
         href={projectHref(project)}
-        className="group relative block overflow-hidden rounded-2xl"
+        className="group relative block overflow-hidden rounded-xl"
         aria-label={`View case study: ${project.title}`}
         style={{
-          border: "1px solid rgba(0,0,0,0.08)",
-          background: "#ffffff",
-          boxShadow: "0 1px 2px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06)",
+          border: "1.5px solid var(--sp-charcoal)",
+          background: "var(--sp-cream)",
+          boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
         }}
       >
         <div className={featured ? "md:grid md:grid-cols-[1.1fr_0.9fr]" : ""}>
@@ -83,21 +76,21 @@ export default function CaseStudyCard({ project, index, featured = false }: Case
           <div className={`relative flex flex-col justify-center p-7 ${featured ? "md:p-9" : ""}`}>
             <div className="flex items-center gap-2 mb-3">
               <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: accent }} />
-              <span className="text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: accent }}>
+              <span className="text-[16px] font-semibold uppercase tracking-[0.16em]" style={{ color: accent, fontFamily: "var(--font-geist), sans-serif" }}>
                 {project.category}
               </span>
             </div>
 
             <h3
               className="font-semibold tracking-tight leading-tight"
-              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "#111", fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
+              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "var(--sp-cocoa)", fontFamily: "var(--font-fraunces), serif", fontWeight: 600, textTransform: "capitalize" }}
             >
               {project.title}
             </h3>
 
             <p
               className={`mt-3 leading-relaxed ${featured ? "line-clamp-3" : "line-clamp-2"}`}
-              style={{ fontSize: featured ? "15px" : "13.5px", color: "#666" }}
+              style={{ fontSize: "16px", color: "#666", fontFamily: "var(--font-geist), sans-serif" }}
             >
               {project.valueProposition ?? project.shortDescription}
             </p>
@@ -107,8 +100,8 @@ export default function CaseStudyCard({ project, index, featured = false }: Case
                 {project.tags.slice(0, 3).map((tag) => (
                   <span
                     key={tag}
-                    className="text-[11px] px-2.5 py-1 rounded-full"
-                    style={{ color: "#555", border: "1px solid rgba(0,0,0,0.08)", background: "rgba(0,0,0,0.02)" }}
+                    className="text-[16px] px-2.5 py-1 rounded-[20px]"
+                    style={{ color: "#555", border: "1px solid rgba(0,0,0,0.08)", background: "rgba(0,0,0,0.02)", fontFamily: "var(--font-geist), sans-serif" }}
                   >
                     {tag}
                   </span>
@@ -118,14 +111,14 @@ export default function CaseStudyCard({ project, index, featured = false }: Case
 
             <div className="flex items-center justify-between mt-7 pt-5" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
               {project.timeline && (
-                <span className="inline-flex items-center gap-1.5 text-[12.5px]" style={{ color: "#888" }}>
+                <span className="inline-flex items-center gap-1.5 text-[16px]" style={{ color: "#888", fontFamily: "var(--font-geist), sans-serif" }}>
                   <Calendar size={12} />
                   {project.timeline}
                 </span>
               )}
               <span
-                className="inline-flex items-center gap-1.5 text-[13px] font-medium ml-auto transition-colors duration-200"
-                style={{ color: "#555" }}
+                className="inline-flex items-center gap-1.5 text-[16px] font-medium ml-auto transition-colors duration-200"
+                style={{ color: "#555", fontFamily: "var(--font-geist), sans-serif" }}
               >
                 <span className="group-hover:text-[#111] transition-colors duration-200">View case study</span>
                 <span

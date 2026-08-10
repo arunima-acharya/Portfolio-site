@@ -41,7 +41,7 @@ export default function Services() {
           background: isLight ? "var(--sp-cream)" : "#fff",
           color: isLight ? "var(--sp-charcoal)" : "#111",
           border: isLight ? "1.5px solid var(--sp-charcoal)" : "none",
-          fontSize: "13px",
+          fontSize: "16px",
           fontWeight: 500,
           letterSpacing: "0.04em",
           padding: "6px 18px",
@@ -135,7 +135,7 @@ export default function Services() {
 
             {/* Title */}
             <h3 style={{
-              fontSize: isMobile ? "13px" : "15px",
+              fontSize: isMobile ? "16px" : "16px",
               fontWeight: 500,
               color: textPrimary,
               fontFamily: "var(--font-geist), sans-serif",

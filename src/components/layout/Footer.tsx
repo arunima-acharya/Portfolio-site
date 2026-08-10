@@ -89,7 +89,7 @@ export default function Footer() {
                 padding: "18px 0",
                 paddingLeft: i === 0 ? "0" : "24px",
                 borderLeft: i === 0 ? "none" : `1px solid ${borderColor}`,
-                fontSize: "14px",
+                fontSize: "16px",
                 fontWeight: 400,
                 color: fg,
                 fontFamily: "var(--font-geist), sans-serif",
@@ -170,14 +170,14 @@ export default function Footer() {
         {BOTTOM_LINKS.map((link, i) => (
           <span key={link.label} style={{ display: "flex", alignItems: "center" }}>
             {i !== 0 && (
-              <span style={{ color: dividerColor, margin: "0 14px", fontSize: "12px" }}>|</span>
+              <span style={{ color: dividerColor, margin: "0 14px", fontSize: "16px" }}>|</span>
             )}
             <Link
               href={link.href}
               target={"external" in link && link.external ? "_blank" : undefined}
               rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
               style={{
-                fontSize: "12px",
+                fontSize: "16px",
                 fontWeight: 400,
                 color: mutedColor,
                 fontFamily: "var(--font-geist), sans-serif",
@@ -194,7 +194,7 @@ export default function Footer() {
           </span>
         ))}
 
-        <span style={{ marginLeft: "auto", fontSize: "12px", color: faintColor, fontFamily: "var(--font-geist), sans-serif" }}>
+        <span style={{ marginLeft: "auto", fontSize: "16px", color: faintColor, fontFamily: "var(--font-geist), sans-serif" }}>
           © {year}
         </span>
       </div>

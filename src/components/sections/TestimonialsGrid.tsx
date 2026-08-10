@@ -137,7 +137,7 @@ export default function TestimonialsGrid() {
           <p
             style={{
               fontFamily: "var(--font-geist), sans-serif",
-              fontSize: 13.5,
+              fontSize: 16,
               lineHeight: 1.6,
               color: "rgba(0,0,0,0.4)",
               margin: 0,
@@ -185,7 +185,7 @@ export default function TestimonialsGrid() {
                   borderRadius: 20,
                   padding: "6px 14px",
                   fontFamily: "var(--font-geist), sans-serif",
-                  fontSize: 12.5,
+                  fontSize: 16,
                   fontWeight: 600,
                   color: "var(--sp-charcoal)",
                   marginBottom: "22px",
@@ -198,7 +198,7 @@ export default function TestimonialsGrid() {
               <p
                 style={{
                   fontFamily: "var(--font-geist), sans-serif",
-                  fontSize: 15.5,
+                  fontSize: 16,
                   lineHeight: 1.6,
                   color: "var(--sp-cocoa)",
                   margin: 0,
@@ -215,7 +215,7 @@ export default function TestimonialsGrid() {
                 justifyContent: "space-between",
                 marginTop: "24px",
                 fontFamily: "var(--font-geist), sans-serif",
-                fontSize: 12.5,
+                fontSize: 16,
                 color: "rgba(0,0,0,0.4)",
               }}
             >

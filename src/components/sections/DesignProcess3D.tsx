@@ -234,7 +234,7 @@ export default function DesignProcess3D() {
           Own the process.
           <span style={{ display: "block" }}>Deliver impact.</span>
         </h2>
-        <p style={{ fontSize: "14px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, marginBottom: "32px" }}>
+        <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, marginBottom: "32px" }}>
           Every great product starts with deep research and clear thinking.
           My design methodology is built on precision, empathy, and collaboration
           — creating experiences that users love and businesses value.
@@ -264,7 +264,7 @@ export default function DesignProcess3D() {
                     justifyContent: "center",
                     flexShrink: 0,
                   }}>
-                    <span style={{ fontSize: "15px", fontWeight: 700, color: badgeTextColor, fontFamily: "var(--font-geist), sans-serif" }}>
+                    <span style={{ fontSize: "16px", fontWeight: 700, color: badgeTextColor, fontFamily: "var(--font-geist), sans-serif" }}>
                       {i + 1}
                     </span>
                   </div>
@@ -276,7 +276,7 @@ export default function DesignProcess3D() {
                 {/* Copy */}
                 <div style={{ paddingBottom: last ? "4px" : "36px" }}>
                   <p style={{
-                    fontSize: "11px",
+                    fontSize: "16px",
                     fontWeight: 700,
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
@@ -295,7 +295,7 @@ export default function DesignProcess3D() {
                   }}>
                     {layer.title}
                   </h3>
-                  <p style={{ fontSize: "13.5px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.65 }}>
+                  <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.65 }}>
                     {layer.description}
                   </p>
                 </div>
@@ -366,12 +366,12 @@ export default function DesignProcess3D() {
               Own the process.
               <span style={{ display: "block" }}>Deliver impact.</span>
             </h2>
-            <p style={{ fontSize: "14px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, maxWidth: "38ch", marginBottom: "24px" }}>
+            <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, maxWidth: "38ch", marginBottom: "24px" }}>
               Every great product starts with deep research and clear thinking.
               My design methodology is built on precision, empathy, and collaboration
               — creating experiences that users love and businesses value.
             </p>
-            <div style={{ fontSize: "14px", fontWeight: 600, color: textPrimary, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.9, letterSpacing: "-0.01em" }}>
+            <div style={{ fontSize: "16px", fontWeight: 600, color: textPrimary, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.9, letterSpacing: "-0.01em" }}>
               <div>I don&apos;t just design faster.</div>
               <div>I think deeper.</div>
               <div>I ship better.</div>
@@ -390,10 +390,10 @@ export default function DesignProcess3D() {
                   transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                   style={{ position: "absolute", top: activeIdx !== null ? visualCenterY(activeIdx) - 40 : 0, width: "100%", background: "rgba(255,255,255,0.20)", borderRadius: "16px", padding: "16px", backdropFilter: "blur(8px)" }}
                 >
-                  <p style={{ fontSize: "14px", fontWeight: 600, color: activeLayer.color, fontFamily: "var(--font-geist), sans-serif", marginBottom: "10px", letterSpacing: "-0.01em" }}>
+                  <p style={{ fontSize: "16px", fontWeight: 600, color: activeLayer.color, fontFamily: "var(--font-geist), sans-serif", marginBottom: "10px", letterSpacing: "-0.01em" }}>
                     {activeLayer.title}
                   </p>
-                  <p style={{ fontSize: "14px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.7, maxWidth: "26ch" }}>
+                  <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.7, maxWidth: "26ch" }}>
                     {activeLayer.description}
                   </p>
                 </motion.div>

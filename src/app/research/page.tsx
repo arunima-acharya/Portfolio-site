@@ -8,11 +8,10 @@ import { useTheme } from "@/components/ThemeProvider";
 export default function ResearchPage() {
   const { theme } = useTheme();
   const isLight = theme === "light";
-  const textMuted = isLight ? "#666" : "#888";
-  const textDark = isLight ? "#111" : "#fff";
+  const textMuted = isLight ? "#8a8580" : "#888";
+  const textDark = isLight ? "var(--sp-charcoal)" : "#fff";
 
   const researchProjects = projects.filter((p) => p.category === "Research");
-  const [featured, ...rest] = researchProjects;
 
   return (
     <div className="pt-32 pb-24" style={{ paddingLeft: "var(--gutter)", paddingRight: "var(--gutter)" }}>
@@ -25,37 +24,32 @@ export default function ResearchPage() {
           className="space-y-5"
         >
           <div className="flex items-center gap-2.5">
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#e8510a" }} />
-            <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: textMuted }}>
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--sp-orange)" }} />
+            <span className="text-[16px] font-semibold uppercase tracking-[0.2em]" style={{ color: textMuted, fontFamily: "var(--font-geist), sans-serif" }}>
               Design Investigations
             </span>
           </div>
-          <h1 className="fluid-text-3xl font-semibold leading-tight tracking-tight" style={{ color: textDark, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>
+          <h1 className="fluid-text-3xl font-semibold leading-tight tracking-tight" style={{ color: isLight ? "var(--sp-cocoa)" : textDark, fontFamily: "var(--font-fraunces), serif", fontWeight: 600, textTransform: "capitalize" }}>
             Research
           </h1>
           <p className="text-base max-w-lg leading-relaxed" style={{ color: textMuted }}>
             Independent investigations into design systems, interaction patterns, and emerging product
             categories — written up as standalone studies rather than client work.
           </p>
-          <div className="text-xs pt-1" style={{ color: textMuted }}>
+          <div className="text-[16px] pt-1" style={{ color: textMuted }}>
             {researchProjects.length} {researchProjects.length === 1 ? "investigation" : "investigations"} published
           </div>
         </motion.div>
 
-        {/* Grid */}
+        {/* Grid — always two columns */}
         {researchProjects.length > 0 ? (
-          <div className="space-y-8">
-            {featured && <ResearchCard project={featured} index={0} featured />}
-            {rest.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {rest.map((project, i) => (
-                  <ResearchCard key={project.id} project={project} index={i + 1} />
-                ))}
-              </div>
-            )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {researchProjects.map((project, i) => (
+              <ResearchCard key={project.id} project={project} index={i} />
+            ))}
           </div>
         ) : (
-          <p className="text-sm" style={{ color: textMuted }}>
+          <p className="text-[16px]" style={{ color: textMuted }}>
             No investigations published yet — check back soon.
           </p>
         )}
