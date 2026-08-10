@@ -3,6 +3,14 @@
 @layer base {
   :root {
     --gutter: 4.5vw;
+
+    /* Superr style reference — homepage restyle tokens */
+    --sp-cream: #fdfbf9;
+    --sp-charcoal: #171717;
+    --sp-cocoa: #2b1a07;
+    --sp-dew: #f7efe9;
+    --sp-orange: #ff6f1e;
+    --sp-sienna: #ce500a;
   }
 
   @media (min-width: 768px) {

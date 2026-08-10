@@ -33,14 +33,14 @@ export default function Navbar() {
             style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
               padding: "8px 14px 8px 10px", borderRadius: 9999,
-              background: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(180%)",
+              background: "rgba(253,251,249,0.7)", backdropFilter: "blur(20px) saturate(180%)",
               WebkitBackdropFilter: "blur(20px) saturate(180%)",
-              fontFamily: "var(--font-inter), sans-serif", fontSize: 14, fontWeight: 700,
-              color: "#111", textDecoration: "none", textTransform: "uppercase",
+              fontFamily: "var(--font-geist), sans-serif", fontSize: 14, fontWeight: 700,
+              color: "var(--sp-charcoal)", textDecoration: "none", textTransform: "uppercase",
               letterSpacing: "0.02em", whiteSpace: "nowrap",
             }}
           >
-            <Sparkle size={16} strokeWidth={2} fill="#111" style={{ flexShrink: 0 }} />
+            <Sparkle size={16} strokeWidth={2} fill="var(--sp-charcoal)" style={{ flexShrink: 0 }} />
             Arunima
           </a>
 
@@ -52,7 +52,7 @@ export default function Navbar() {
             style={{
               display: "flex", alignItems: "center", justifyContent: "center",
               width: 44, height: 44, borderRadius: 9999, border: "none",
-              background: "#111", color: "#fff", flexShrink: 0,
+              background: "var(--sp-charcoal)", color: "#fff", flexShrink: 0,
             }}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
@@ -67,8 +67,8 @@ export default function Navbar() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                marginTop: 12, background: "#fff", borderRadius: 20,
-                boxShadow: "0 16px 48px rgba(0,0,0,0.16)", overflow: "hidden",
+                marginTop: 12, background: "var(--sp-cream)", borderRadius: 20,
+                border: "1.5px solid var(--sp-charcoal)", overflow: "hidden",
               }}
             >
               {LINKS.map(({ label, href }) => {
@@ -81,12 +81,12 @@ export default function Navbar() {
                     style={{
                       display: "flex", alignItems: "center", gap: 8,
                       minHeight: 52, padding: "0 20px",
-                      fontFamily: "var(--font-inter), sans-serif", fontSize: 16,
-                      fontWeight: active ? 600 : 400, color: active ? "#111" : "#555",
+                      fontFamily: "var(--font-geist), sans-serif", fontSize: 16,
+                      fontWeight: active ? 600 : 400, color: active ? "var(--sp-charcoal)" : "#555",
                       textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
                     }}
                   >
-                    {active && <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#111", flexShrink: 0 }} />}
+                    {active && <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />}
                     {label}
                   </a>
                 );
@@ -97,7 +97,7 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 style={{
                   display: "flex", alignItems: "center", minHeight: 52, padding: "0 20px",
-                  fontFamily: "var(--font-inter), sans-serif", fontSize: 16, color: "#555",
+                  fontFamily: "var(--font-geist), sans-serif", fontSize: 16, color: "#555",
                   textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
                 }}
               >
@@ -109,12 +109,12 @@ export default function Navbar() {
                 style={{
                   display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                   minHeight: 52, padding: "0 20px",
-                  fontFamily: "var(--font-inter), sans-serif", fontSize: 16, fontWeight: 500,
-                  color: "#fff", background: "#111", textDecoration: "none",
+                  fontFamily: "var(--font-geist), sans-serif", fontSize: 16, fontWeight: 500,
+                  color: "var(--sp-charcoal)", background: "var(--sp-cream)", borderTop: "1.5px solid var(--sp-charcoal)", textDecoration: "none",
                 }}
               >
                 Let&apos;s chat
-                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", flexShrink: 0 }} />
+                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0 }} />
               </a>
             </motion.div>
           )}
@@ -159,20 +159,20 @@ export default function Navbar() {
             gap: "8px",
             padding: "8px 14px 8px 10px",
             borderRadius: 9999,
-            background: "rgba(255,255,255,0.55)",
+            background: "rgba(253,251,249,0.7)",
             backdropFilter: "blur(20px) saturate(180%)",
             WebkitBackdropFilter: "blur(20px) saturate(180%)",
-            fontFamily: "var(--font-inter), sans-serif",
+            fontFamily: "var(--font-geist), sans-serif",
             fontSize: 14,
             fontWeight: 700,
-            color: "#111",
+            color: "var(--sp-charcoal)",
             textDecoration: "none",
             textTransform: "uppercase",
             letterSpacing: "0.02em",
             whiteSpace: "nowrap",
           }}
         >
-          <Sparkle size={16} strokeWidth={2} fill="#111" style={{ flexShrink: 0 }} />
+          <Sparkle size={16} strokeWidth={2} fill="var(--sp-charcoal)" style={{ flexShrink: 0 }} />
           Arunima
         </a>
 
@@ -185,10 +185,10 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             gap: "clamp(4px, 2vw, 8px)",
-            background: "#fff",
-            borderRadius: 9999,
+            background: "var(--sp-cream)",
+            border: "1.5px solid var(--sp-charcoal)",
+            borderRadius: 20,
             padding: "10px clamp(16px, 3vw, 24px)",
-            boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
           }}
         >
           {LINKS.map(({ label, href }) => {
@@ -202,10 +202,10 @@ export default function Navbar() {
                   alignItems: "center",
                   gap: "6px",
                   padding: "0 clamp(8px, 1.5vw, 14px)",
-                  fontFamily: "var(--font-inter), sans-serif",
+                  fontFamily: "var(--font-geist), sans-serif",
                   fontSize: 14,
                   fontWeight: active ? 600 : 400,
-                  color: active ? "#111" : "#9a9a9a",
+                  color: active ? "var(--sp-charcoal)" : "#9a9a9a",
                   textDecoration: "none",
                   whiteSpace: "nowrap",
                   transition: "color 0.2s",
@@ -214,7 +214,7 @@ export default function Navbar() {
                 onMouseLeave={e => { if (!active) e.currentTarget.style.color = "#9a9a9a"; }}
               >
                 {active && (
-                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#111", flexShrink: 0 }} />
+                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
                 )}
                 {label}
               </a>
@@ -226,7 +226,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             style={{
               padding: "0 clamp(8px, 1.5vw, 14px)",
-              fontFamily: "var(--font-inter), sans-serif",
+              fontFamily: "var(--font-geist), sans-serif",
               fontSize: 14,
               color: "#9a9a9a",
               textDecoration: "none",
@@ -248,22 +248,21 @@ export default function Navbar() {
             display: "inline-flex",
             alignItems: "center",
             gap: "10px",
-            background: "#111",
-            color: "#fff",
-            borderRadius: 9999,
+            background: "var(--sp-cream)",
+            color: "var(--sp-charcoal)",
+            border: "1.5px solid var(--sp-charcoal)",
+            borderRadius: 20,
             padding: "10px 10px 10px 20px",
             fontSize: 14,
-            fontFamily: "var(--font-inter), sans-serif",
+            fontFamily: "var(--font-geist), sans-serif",
             fontWeight: 500,
             textDecoration: "none",
             whiteSpace: "nowrap",
-            transition: "background 0.2s",
+            boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 2px 0px",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "#e8510a")}
-          onMouseLeave={e => (e.currentTarget.style.background = "#111")}
         >
           Let&apos;s chat
-          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", flexShrink: 0 }} />
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0 }} />
         </a>
       </nav>
     </div>

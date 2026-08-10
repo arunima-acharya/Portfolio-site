@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, Anton, Manrope, Kanit, Source_Serif_4, Instrument_Serif, Playfair_Display, Caveat } from "next/font/google";
+import { Inter, Inter_Tight, Anton, Manrope, Kanit, Source_Serif_4, Instrument_Serif, Playfair_Display, Caveat, Fraunces, Geist } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -71,6 +71,22 @@ const caveat = Caveat({
   display: "swap",
 });
 
+// Superr style reference — rounded display serif (substitute for gelica) +
+// clean grotesque for secondary UI.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
+const geist = Geist({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-geist",
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -139,7 +155,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${interTight.variable} ${anton.variable} ${manrope.variable} ${kanit.variable} ${sourceSerif4.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${caveat.variable} light`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${interTight.variable} ${anton.variable} ${manrope.variable} ${kanit.variable} ${sourceSerif4.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${caveat.variable} ${fraunces.variable} ${geist.variable} light`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: `(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(t);})();` }} />
       </head>

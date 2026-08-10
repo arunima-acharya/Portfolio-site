@@ -24,8 +24,8 @@ export default function Footer() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  const bg = isHome ? "#e8510a" : "#000";
-  const fg = isHome ? "#111" : "#fff";
+  const bg = isHome ? "var(--sp-orange)" : "var(--sp-charcoal)";
+  const fg = isHome ? "var(--sp-charcoal)" : "var(--sp-cream)";
   const borderColor = isHome ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.25)";
   const dividerColor = isHome ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.3)";
   const mutedColor = isHome ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.6)";
@@ -40,6 +40,8 @@ export default function Footer() {
         width: "100%",
         position: "relative",
         overflow: "hidden",
+        borderTopLeftRadius: 56,
+        borderTopRightRadius: 56,
       }}
     >
       {/* Main body */}
@@ -52,11 +54,12 @@ export default function Footer() {
         <h2
           style={{
             fontSize: "clamp(28px, 4.5vw, 62px)",
-            fontWeight: 400,
+            fontWeight: 600,
             lineHeight: 1.12,
-            letterSpacing: "-0.03em",
+            letterSpacing: "normal",
+            textTransform: "lowercase",
             color: fg,
-            fontFamily: "var(--font-inter), sans-serif",
+            fontFamily: "var(--font-fraunces), serif",
             maxWidth: "16ch",
             marginBottom: "64px",
           }}
@@ -89,7 +92,7 @@ export default function Footer() {
                 fontSize: "14px",
                 fontWeight: 400,
                 color: fg,
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-geist), sans-serif",
                 textDecoration: "none",
                 letterSpacing: "-0.01em",
                 transition: "opacity 0.15s ease",
@@ -116,11 +119,12 @@ export default function Footer() {
           <div
             style={{
               fontSize: "clamp(22px, 3vw, 36px)",
-              fontWeight: 400,
-              letterSpacing: "-0.03em",
+              fontWeight: 500,
+              letterSpacing: "normal",
+              textTransform: "lowercase",
               lineHeight: 1.15,
               color: fg,
-              fontFamily: "var(--font-inter), sans-serif",
+              fontFamily: "var(--font-fraunces), serif",
             }}
           >
             Arunima
@@ -176,7 +180,7 @@ export default function Footer() {
                 fontSize: "12px",
                 fontWeight: 400,
                 color: mutedColor,
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-geist), sans-serif",
                 textDecoration: "none",
                 letterSpacing: "0.01em",
                 transition: "color 0.15s ease",
@@ -190,7 +194,7 @@ export default function Footer() {
           </span>
         ))}
 
-        <span style={{ marginLeft: "auto", fontSize: "12px", color: faintColor, fontFamily: "var(--font-inter), sans-serif" }}>
+        <span style={{ marginLeft: "auto", fontSize: "12px", color: faintColor, fontFamily: "var(--font-geist), sans-serif" }}>
           © {year}
         </span>
       </div>

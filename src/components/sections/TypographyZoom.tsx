@@ -37,10 +37,10 @@ export default function TypographyZoom() {
         <div
           style={{
             fontSize:   isMobile ? "1.56rem" : "clamp(1.2rem, 3.6vw, 3rem)",
-            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
-            fontStyle:  "italic",
-            fontWeight: 540,
-            color:      "#1A2332",
+            fontFamily: "var(--font-fraunces), serif",
+            fontWeight: 600,
+            color:      "var(--sp-cocoa)",
+            textTransform: "lowercase",
             lineHeight: 1,
             whiteSpace: "nowrap",
           }}
@@ -50,15 +50,15 @@ export default function TypographyZoom() {
         <span
           style={{
             display:       "inline-block",
-            border:        "1px solid #1A2332",
-            borderRadius:  "9999px",
+            border:        "1px solid var(--sp-charcoal)",
+            borderRadius:  "20px",
             padding:       "0.5em 1.4em",
-            fontFamily:    "var(--font-inter), sans-serif",
+            fontFamily:    "var(--font-geist), sans-serif",
             fontSize:      isMobile ? "0.65rem" : "clamp(0.5rem, 0.78vw, 0.7rem)",
             fontWeight:    500,
             letterSpacing: "0.16em",
             textTransform: "uppercase",
-            color:         "#1A2332",
+            color:         "var(--sp-charcoal)",
             whiteSpace:    "nowrap",
           }}
         >
@@ -85,12 +85,12 @@ export default function TypographyZoom() {
           <p
             style={{
               margin:        "0 0 0.4em",
-              fontFamily:    "var(--font-inter), sans-serif",
+              fontFamily:    "var(--font-geist), sans-serif",
               fontSize:      "clamp(0.6rem, 0.85vw, 0.82rem)",
               fontWeight:    700,
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color:         "#e8510a",
+              color:         "var(--sp-orange)",
             }}
           >
             Rearrange my desk!
@@ -98,7 +98,7 @@ export default function TypographyZoom() {
           <p
             style={{
               margin:        0,
-              fontFamily:    "var(--font-inter), sans-serif",
+              fontFamily:    "var(--font-geist), sans-serif",
               fontSize:      "clamp(0.44rem, 0.62vw, 0.6rem)",
               fontWeight:    500,
               letterSpacing: "0.12em",

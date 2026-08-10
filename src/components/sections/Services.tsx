@@ -21,9 +21,9 @@ export default function Services() {
   const isMobile = useIsMobile();
   const isLight = true; // this section is always rendered in light mode, regardless of the site-wide theme toggle
 
-  const cardBg     = isLight ? "#fff" : "#1e1e1e";
-  const cardBorder = isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)";
-  const textPrimary = isLight ? "#111" : "#fff";
+  const cardBg     = isLight ? "var(--sp-cream)" : "#1e1e1e";
+  const cardBorder = isLight ? "var(--sp-charcoal)" : "rgba(255,255,255,0.06)";
+  const textPrimary = isLight ? "var(--sp-charcoal)" : "#fff";
 
   return (
     <section
@@ -38,14 +38,15 @@ export default function Services() {
       {/* Pill label */}
       <div className="flex justify-center" style={{ marginBottom: isMobile ? "20px" : "28px" }}>
         <span style={{
-          background: isLight ? "#111" : "#fff",
-          color: isLight ? "#fff" : "#111",
+          background: isLight ? "var(--sp-cream)" : "#fff",
+          color: isLight ? "var(--sp-charcoal)" : "#111",
+          border: isLight ? "1.5px solid var(--sp-charcoal)" : "none",
           fontSize: "13px",
-          fontWeight: 600,
+          fontWeight: 500,
           letterSpacing: "0.04em",
           padding: "6px 18px",
-          borderRadius: "9999px",
-          fontFamily: "var(--font-inter), sans-serif",
+          borderRadius: "20px",
+          fontFamily: "var(--font-geist), sans-serif",
         }}>
           Services
         </span>
@@ -60,9 +61,10 @@ export default function Services() {
           className="text-center"
           style={{
             fontSize: isMobile ? "34px" : "48px",
-            fontWeight: 400,
-            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
-            color: textPrimary,
+            fontWeight: 600,
+            fontFamily: "var(--font-fraunces), serif",
+            color: "var(--sp-cocoa)",
+            textTransform: "lowercase",
             lineHeight: 1,
             letterSpacing: 0,
           }}
@@ -81,7 +83,7 @@ export default function Services() {
         style={{
           fontSize: isMobile ? "14px" : "clamp(14px, 1.4vw, 18px)",
           color: isLight ? "#888" : "rgba(255,255,255,0.45)",
-          fontFamily: "var(--font-inter), sans-serif",
+          fontFamily: "var(--font-geist), sans-serif",
           maxWidth: "48ch",
           margin: isMobile ? "0 auto 48px" : "0 auto 80px",
           lineHeight: 1.6,
@@ -113,15 +115,15 @@ export default function Services() {
             transition={{ duration: 0.5, delay: i * 0.08, ease }}
             style={{
               background: cardBg,
-              border: `1px solid ${cardBorder}`,
-              borderRadius: isMobile ? "16px" : "21px",
+              border: isLight ? `1.5px solid ${cardBorder}` : `1px solid ${cardBorder}`,
+              borderRadius: "12px",
               padding: isMobile ? "16px 14px 14px" : "24px 21px 18px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               gap: isMobile ? "14px" : "24px",
               boxShadow: isLight
-                ? "0 2px 24px rgba(0,0,0,0.06)"
+                ? "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px"
                 : "0 2px 24px rgba(0,0,0,0.3)",
               aspectRatio: "1",
             }}
@@ -136,7 +138,7 @@ export default function Services() {
               fontSize: isMobile ? "13px" : "15px",
               fontWeight: 500,
               color: textPrimary,
-              fontFamily: "var(--font-inter), sans-serif",
+              fontFamily: "var(--font-geist), sans-serif",
               letterSpacing: "-0.01em",
               textAlign: "center",
             }}>

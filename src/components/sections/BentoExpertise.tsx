@@ -65,17 +65,20 @@ function BentoCard({ cat, globalIdx, isInView, colors, fan, fanned }: { cat: Cat
   const [hovered, setHovered] = useState(false);
   const active = hovered;
 
-  const bg       = active ? "#e8510a" : colors.cardBg;
-  const border   = active ? "#e8510a" : colors.cardBorder;
+  // Matte, border-driven hover instead of a filled highlight — orange marks
+  // the border, not a solid fill, per the reference's "thin borders instead
+  // of fills" rule.
+  const bg       = active ? "var(--sp-dew)" : colors.cardBg;
+  const border   = active ? "var(--sp-orange)" : colors.cardBorder;
   const shadow   = active
-    ? "0 12px 40px rgba(232,81,10,0.35)"
+    ? "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px"
     : fanned ? "0 16px 36px rgba(0,0,0,0.14)" : colors.cardShadow;
-  const title    = active ? "#fff"    : colors.textPrimary;
-  const arrow    = active ? "rgba(255,255,255,0.4)" : colors.arrowBorder;
-  const arrowIco = active ? "#fff"    : colors.arrowColor;
-  const pill     = active ? "rgba(255,255,255,0.15)" : colors.pillBg;
-  const pillBdr  = active ? "rgba(255,255,255,0.2)"  : colors.pillBorder;
-  const pillTxt  = active ? "#fff"    : colors.pillText;
+  const title    = colors.textPrimary;
+  const arrow    = active ? "var(--sp-orange)" : colors.arrowBorder;
+  const arrowIco = active ? "var(--sp-orange)" : colors.arrowColor;
+  const pill     = colors.pillBg;
+  const pillBdr  = colors.pillBorder;
+  const pillTxt  = colors.pillText;
 
   const t = "background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease";
 
@@ -101,8 +104,8 @@ function BentoCard({ cat, globalIdx, isInView, colors, fan, fanned }: { cat: Cat
         style={{
           position: "relative",
           background: bg,
-          border: `1px solid ${border}`,
-          borderRadius: "20px",
+          border: `1.5px solid ${border}`,
+          borderRadius: "12px",
           padding: "28px",
           display: "flex",
           flexDirection: "column",
@@ -120,7 +123,7 @@ function BentoCard({ cat, globalIdx, isInView, colors, fan, fanned }: { cat: Cat
             letterSpacing: "-0.03em",
             lineHeight: 1.2,
             color: title,
-            fontFamily: "var(--font-inter), sans-serif",
+            fontFamily: "var(--font-geist), sans-serif",
             transition: "color 0.25s ease",
           }}>
             {cat.title}
@@ -139,13 +142,13 @@ function BentoCard({ cat, globalIdx, isInView, colors, fan, fanned }: { cat: Cat
             <span key={tag} style={{
               display: "inline-block",
               padding: "7px 15px",
-              borderRadius: "9999px",
+              borderRadius: "20px",
               background: pill,
               border: `1px solid ${pillBdr}`,
               color: pillTxt,
               fontSize: "12px",
               fontWeight: 400,
-              fontFamily: "var(--font-inter), sans-serif",
+              fontFamily: "var(--font-geist), sans-serif",
               whiteSpace: "nowrap",
               letterSpacing: "-0.01em",
               transition: "background 0.25s ease, border-color 0.25s ease, color 0.25s ease",
@@ -182,16 +185,16 @@ export default function BentoExpertise() {
     return () => window.clearTimeout(id);
   }, []);
 
-  const textPrimary  = isLight ? "#111"                        : "#f0f0f0";
-  const textMuted    = isLight ? "#999"                        : "rgba(255,255,255,0.4)";
-  const cardBg       = isLight ? "#fff"                        : "#1a1a1a";
-  const cardBorder   = isLight ? "rgba(0,0,0,0.08)"           : "rgba(255,255,255,0.07)";
-  const cardShadow   = isLight ? "0 2px 12px rgba(0,0,0,0.04)": "0 2px 12px rgba(0,0,0,0.2)";
-  const pillBg       = isLight ? "#f5f5f5"                     : "rgba(255,255,255,0.07)";
-  const pillBorder   = isLight ? "rgba(0,0,0,0.07)"           : "rgba(255,255,255,0.07)";
-  const pillText     = isLight ? "#444"                        : "rgba(255,255,255,0.6)";
-  const arrowBorder  = isLight ? "rgba(0,0,0,0.10)"           : "rgba(255,255,255,0.12)";
-  const arrowColor   = isLight ? "#999"                        : "rgba(255,255,255,0.4)";
+  const textPrimary  = isLight ? "var(--sp-charcoal)"          : "#f0f0f0";
+  const textMuted    = isLight ? "#8a8580"                     : "rgba(255,255,255,0.4)";
+  const cardBg       = isLight ? "var(--sp-cream)"             : "#1a1a1a";
+  const cardBorder   = isLight ? "var(--sp-charcoal)"          : "rgba(255,255,255,0.07)";
+  const cardShadow   = isLight ? "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px" : "0 2px 12px rgba(0,0,0,0.2)";
+  const pillBg       = isLight ? "var(--sp-dew)"               : "rgba(255,255,255,0.07)";
+  const pillBorder   = isLight ? "var(--sp-charcoal)"          : "rgba(255,255,255,0.07)";
+  const pillText     = isLight ? "var(--sp-charcoal)"          : "rgba(255,255,255,0.6)";
+  const arrowBorder  = isLight ? "var(--sp-charcoal)"          : "rgba(255,255,255,0.12)";
+  const arrowColor   = isLight ? "var(--sp-charcoal)"          : "rgba(255,255,255,0.4)";
 
   return (
     <section
@@ -225,7 +228,7 @@ export default function BentoExpertise() {
             letterSpacing: "0.14em",
             textTransform: "uppercase",
             color: textMuted,
-            fontFamily: "var(--font-inter), sans-serif",
+            fontFamily: "var(--font-geist), sans-serif",
             display: "block",
             marginBottom: "14px",
           }}
@@ -236,11 +239,12 @@ export default function BentoExpertise() {
           id="bento-expertise-heading"
           style={{
             fontSize: isMobile ? "34px" : "48px",
-            fontWeight: 400,
+            fontWeight: 600,
             letterSpacing: 0,
+            textTransform: "lowercase",
             lineHeight: 1,
-            color: textPrimary,
-            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
+            color: "var(--sp-cocoa)",
+            fontFamily: "var(--font-fraunces), serif",
           }}
         >
           What I bring to the table.

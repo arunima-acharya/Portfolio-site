@@ -35,12 +35,12 @@ function ProjectCard({
     >
       <Link
         href={projectHref(project)}
-        className="group grid md:grid-cols-2 overflow-hidden rounded-2xl"
+        className="group grid md:grid-cols-2 overflow-hidden rounded-xl"
         aria-label={`View case study: ${project.title}`}
         style={{
-          background: "#fff",
-          border: "1px solid rgba(0,0,0,0.08)",
-          boxShadow: "0 1px 2px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06)",
+          background: "var(--sp-cream)",
+          border: "1.5px solid var(--sp-charcoal)",
+          boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
           minHeight: isMobile ? undefined : CARD_HEIGHT,
           // Hard cap on mobile — image below is shrunk and copy is clamped
           // so real content should fit well under this, but this guarantees
@@ -69,7 +69,7 @@ function ProjectCard({
             <motion.span
               aria-hidden="true"
               className="font-bold select-none"
-              style={{ fontSize: "clamp(3.5rem, 8vw, 7rem)", color: "#e8510a", opacity: 0.16, letterSpacing: "-0.04em", y: numberY }}
+              style={{ fontSize: "clamp(3.5rem, 8vw, 7rem)", color: "var(--sp-orange)", opacity: 0.16, letterSpacing: "-0.04em", y: numberY }}
             >
               {String(index + 1).padStart(2, "0")}
             </motion.span>
@@ -80,13 +80,13 @@ function ProjectCard({
         <div className="flex flex-col" style={{ padding: isMobile ? "18px 20px" : "40px 48px", overflow: isMobile ? "hidden" : undefined }}>
           <div style={{ minHeight: 0, overflow: isMobile ? "hidden" : undefined }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: isMobile ? 8 : 16 }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#e8510a", flexShrink: 0 }} />
-              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#e8510a" }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0 }} />
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sp-orange)" }}>
                 {project.category}
               </span>
             </div>
 
-            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 400, color: "#111", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>
+            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 600, textTransform: "lowercase", color: "var(--sp-cocoa)", lineHeight: 1.1, letterSpacing: "normal", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-fraunces), serif" }}>
               {project.title}
             </h3>
 
@@ -102,7 +102,7 @@ function ProjectCard({
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[11px] px-2.5 py-1 rounded-full"
+                    className="text-[11px] px-2.5 py-1 rounded-[20px]"
                     style={{ color: "#555", border: "1px solid rgba(0,0,0,0.08)", background: "rgba(0,0,0,0.02)" }}
                   >
                     {tag}
@@ -134,7 +134,7 @@ function ProjectCard({
                 <ArrowUpRight
                   size={14}
                   className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  style={{ color: "#e8510a" }}
+                  style={{ color: "var(--sp-orange)" }}
                 />
               </span>
             </span>
@@ -177,7 +177,7 @@ export default function FeaturedWork() {
             lineHeight: 1,
             letterSpacing: 0,
             color: textColor,
-            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
+            fontFamily: "var(--font-fraunces), serif",
           }}
         >
           Selected Works
@@ -211,7 +211,7 @@ export default function FeaturedWork() {
             background: "transparent", color: "#111",
             border: "1px solid rgba(0,0,0,0.2)", borderRadius: 9999,
             padding: "0.7em 1.5em", fontSize: "14px", fontWeight: 600,
-            fontFamily: "var(--font-inter), sans-serif", textDecoration: "none",
+            fontFamily: "var(--font-geist), sans-serif", textDecoration: "none",
             transition: "background 0.2s, color 0.2s, border-color 0.2s",
           }}
           onMouseEnter={e => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}

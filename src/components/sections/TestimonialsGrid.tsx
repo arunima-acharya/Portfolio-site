@@ -60,19 +60,17 @@ function ArrowButton({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: isPrev ? "#111" : "transparent",
-        border: isPrev ? "none" : "1.5px solid rgba(0,0,0,0.15)",
-        color: isPrev ? "#fff" : "#111",
+        background: "var(--sp-cream)",
+        border: isPrev ? "1.5px solid var(--sp-charcoal)" : "1.5px solid rgba(0,0,0,0.15)",
+        color: "var(--sp-charcoal)",
         cursor: "pointer",
-        transition: "background 0.2s, border-color 0.2s",
+        transition: "border-color 0.2s",
       }}
       onMouseEnter={e => {
-        if (isPrev) (e.currentTarget as HTMLButtonElement).style.background = "#e8510a";
-        else (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,0,0,0.35)";
+        (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--sp-orange)";
       }}
       onMouseLeave={e => {
-        if (isPrev) (e.currentTarget as HTMLButtonElement).style.background = "#111";
-        else (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,0,0,0.15)";
+        (e.currentTarget as HTMLButtonElement).style.borderColor = isPrev ? "var(--sp-charcoal)" : "rgba(0,0,0,0.15)";
       }}
     >
       {isPrev ? <ArrowLeft size={17} /> : <ArrowRight size={17} />}
@@ -95,7 +93,7 @@ export default function TestimonialsGrid() {
   return (
     <section
       style={{
-        background: "#fff url('/herobg.svg') center / cover no-repeat",
+        background: "var(--sp-cream) url('/herobg.svg') center / cover no-repeat",
         paddingTop: isMobile ? "64px" : "112px",
         paddingBottom: isMobile ? "64px" : "112px",
         paddingLeft: isMobile ? "20px" : "15%",
@@ -120,11 +118,12 @@ export default function TestimonialsGrid() {
         <motion.h2
           ref={headingParallaxRef}
           style={{
-            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
+            fontFamily: "var(--font-fraunces), serif",
             fontSize: isMobile ? "32px" : "clamp(32px, 3.4vw, 44px)",
-            fontWeight: 400,
+            fontWeight: 600,
+            textTransform: "lowercase",
             lineHeight: 1.15,
-            color: "#111",
+            color: "var(--sp-cocoa)",
             margin: 0,
             y: headingY,
           }}
@@ -137,7 +136,7 @@ export default function TestimonialsGrid() {
         <div style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: 300 }}>
           <p
             style={{
-              fontFamily: "var(--font-inter), sans-serif",
+              fontFamily: "var(--font-geist), sans-serif",
               fontSize: 13.5,
               lineHeight: 1.6,
               color: "rgba(0,0,0,0.4)",
@@ -165,8 +164,10 @@ export default function TestimonialsGrid() {
           <div
             key={`${t.name}-${startIndex}-${i}`}
             style={{
-              background: "#F6F5F3",
-              borderRadius: 22,
+              background: "var(--sp-cream)",
+              border: "1.5px solid var(--sp-charcoal)",
+              boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
+              borderRadius: 12,
               padding: "28px 26px",
               display: "flex",
               flexDirection: "column",
@@ -180,26 +181,26 @@ export default function TestimonialsGrid() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "7px",
-                  background: "#fff",
-                  borderRadius: 9999,
+                  background: "var(--sp-dew)",
+                  borderRadius: 20,
                   padding: "6px 14px",
-                  fontFamily: "var(--font-inter), sans-serif",
+                  fontFamily: "var(--font-geist), sans-serif",
                   fontSize: 12.5,
                   fontWeight: 600,
-                  color: "#111",
+                  color: "var(--sp-charcoal)",
                   marginBottom: "22px",
                 }}
               >
-                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#111", flexShrink: 0 }} />
+                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
                 {t.name}
               </span>
 
               <p
                 style={{
-                  fontFamily: "var(--font-manrope), sans-serif",
+                  fontFamily: "var(--font-geist), sans-serif",
                   fontSize: 15.5,
                   lineHeight: 1.6,
-                  color: "#1a1a1a",
+                  color: "var(--sp-cocoa)",
                   margin: 0,
                 }}
               >
@@ -213,7 +214,7 @@ export default function TestimonialsGrid() {
                 alignItems: "center",
                 justifyContent: "space-between",
                 marginTop: "24px",
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-geist), sans-serif",
                 fontSize: 12.5,
                 color: "rgba(0,0,0,0.4)",
               }}
