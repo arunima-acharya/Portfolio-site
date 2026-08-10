@@ -15,7 +15,7 @@ import {
   MatrixTable,
   MatrixRow,
 } from "./ResearchPrimitives";
-import { useResearchAccent } from "./ResearchAccent";
+import { useResearchAccent, useSeverityColors } from "./ResearchAccent";
 
 export const AI_CONVERSATION_UX_TOC = [
   { id: "introduction", label: "Introduction" },
@@ -62,6 +62,7 @@ const FINDINGS = [
 
 export default function AIConversationUXContent() {
   const accent = useResearchAccent();
+  const severity = useSeverityColors();
 
   return (
     <div>
@@ -239,8 +240,8 @@ export default function AIConversationUXContent() {
 
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#f59e0b" }} />
-              <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "#fbbf24" }}>Medium Friction</span>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: severity.medium }} />
+              <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: severity.medium }}>Medium Friction</span>
             </div>
             <Bullets
               items={[
