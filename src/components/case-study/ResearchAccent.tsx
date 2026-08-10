@@ -55,19 +55,20 @@ const DARK_PALETTE: ResearchPalette = {
   dockShadow: "0 8px 32px rgba(0,0,0,0.45)",
 };
 
+// Superr style reference — cream paper canvas, charcoal ink/borders.
 const LIGHT_PALETTE: ResearchPalette = {
-  bg: "#ffffff",
-  text: "#111111",
-  textBody: "#525252",
-  textMuted: "#6b6b6b",
-  textFaint: "#707070",
-  cardBg: "rgba(0,0,0,0.025)",
-  cardBorder: "rgba(0,0,0,0.08)",
-  cardBorderStrong: "rgba(0,0,0,0.12)",
-  border: "rgba(0,0,0,0.08)",
-  hoverText: "#111111",
-  dockBg: "rgba(255,255,255,0.88)",
-  dockShadow: "0 8px 32px rgba(0,0,0,0.14)",
+  bg: "#fdfbf9",
+  text: "#171717",
+  textBody: "#171717",
+  textMuted: "#8a8580",
+  textFaint: "#8a8580",
+  cardBg: "#f7efe9",
+  cardBorder: "#171717",
+  cardBorderStrong: "#171717",
+  border: "#171717",
+  hoverText: "#171717",
+  dockBg: "rgba(253,251,249,0.9)",
+  dockShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
 };
 
 export function useResearchPalette(): ResearchPalette {

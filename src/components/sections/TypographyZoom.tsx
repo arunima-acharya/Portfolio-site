@@ -74,11 +74,14 @@ export default function TypographyZoom() {
           style={{
             position:   "absolute",
             bottom:     "3%",
-            left:       "50%",
-            transform:  "translateX(-50%)",
+            left:       0,
+            right:      0,
             zIndex:     50,
             userSelect: "none",
-            maxWidth:   "95ch",
+            width:      "100%",
+            paddingLeft: "5%",
+            paddingRight: "5%",
+            boxSizing: "border-box",
             textAlign:  "center",
           }}
         >

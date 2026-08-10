@@ -15,7 +15,6 @@ const categories: Array<"All" | ProjectCategory> = [
   "Design System",
   "Mobile App",
   "SaaS",
-  "E-commerce",
 ];
 
 // Design Investigations live on their own /research page, not in the case-studies grid.
@@ -90,51 +89,8 @@ export default function CaseStudiesPage() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between"
+          className="flex flex-col gap-4 items-start"
         >
-          {/* Category filter pills */}
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
-            {categories.map((cat) => {
-              const isActive = activeFilter === cat;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setActiveFilter(cat)}
-                  aria-pressed={isActive}
-                  style={{
-                    padding: "7px 16px",
-                    borderRadius: "20px",
-                    fontSize: "16px",
-                    fontWeight: isActive ? 600 : 500,
-                    fontFamily: "var(--font-geist), sans-serif",
-                    border: `1.5px solid ${isActive ? (isLight ? "var(--sp-charcoal)" : "transparent") : border}`,
-                    background: isActive ? activeBg : "transparent",
-                    color: isActive ? activeText : textMuted,
-                    cursor: "pointer",
-                    transition: "background 0.15s, color 0.15s, border-color 0.15s",
-                    outline: "none",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      (e.currentTarget as HTMLButtonElement).style.background = bgHover;
-                      (e.currentTarget as HTMLButtonElement).style.borderColor = borderHov;
-                      (e.currentTarget as HTMLButtonElement).style.color = textDark;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      (e.currentTarget as HTMLButtonElement).style.background = "transparent";
-                      (e.currentTarget as HTMLButtonElement).style.borderColor = border;
-                      (e.currentTarget as HTMLButtonElement).style.color = textMuted;
-                    }
-                  }}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
-
           {/* Search */}
           <div className="relative w-full md:w-64">
             <Search
@@ -185,6 +141,49 @@ export default function CaseStudiesPage() {
                 <X size={12} />
               </button>
             )}
+          </div>
+
+          {/* Category filter pills */}
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
+            {categories.map((cat) => {
+              const isActive = activeFilter === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveFilter(cat)}
+                  aria-pressed={isActive}
+                  style={{
+                    padding: "7px 16px",
+                    borderRadius: "20px",
+                    fontSize: "16px",
+                    fontWeight: isActive ? 600 : 500,
+                    fontFamily: "var(--font-geist), sans-serif",
+                    border: `1.5px solid ${isActive ? (isLight ? "var(--sp-charcoal)" : "transparent") : border}`,
+                    background: isActive ? activeBg : "transparent",
+                    color: isActive ? activeText : textMuted,
+                    cursor: "pointer",
+                    transition: "background 0.15s, color 0.15s, border-color 0.15s",
+                    outline: "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      (e.currentTarget as HTMLButtonElement).style.background = bgHover;
+                      (e.currentTarget as HTMLButtonElement).style.borderColor = borderHov;
+                      (e.currentTarget as HTMLButtonElement).style.color = textDark;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                      (e.currentTarget as HTMLButtonElement).style.borderColor = border;
+                      (e.currentTarget as HTMLButtonElement).style.color = textMuted;
+                    }
+                  }}
+                >
+                  {cat}
+                </button>
+              );
+            })}
           </div>
         </motion.div>
 

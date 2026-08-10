@@ -77,7 +77,7 @@ export default async function ResearchArticlePage({ params }: PageProps) {
             rest of the site is toggled to the other. */}
         <div
           className={isLight ? "research-light" : "research-dark"}
-          style={{ background: isLight ? "#ffffff" : "#0a0a0a", color: isLight ? "#111111" : "#ffffff" }}
+          style={{ background: isLight ? "#fdfbf9" : "#0a0a0a", color: isLight ? "#171717" : "#ffffff" }}
         >
           <ReadingProgress />
           <ResearchHero
