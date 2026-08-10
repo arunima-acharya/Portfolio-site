@@ -18,7 +18,7 @@ function ProjectCard({
   index: number;
   isMobile: boolean;
 }) {
-  const tags = project.tags.slice(0, 3);
+  const tags = project.tags.slice(0, isMobile ? 2 : 3);
   const { ref: parallaxRef, y: numberY } = useParallax(28);
 
   return (
@@ -42,10 +42,15 @@ function ProjectCard({
           border: "1px solid rgba(0,0,0,0.08)",
           boxShadow: "0 1px 2px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.06)",
           minHeight: isMobile ? undefined : CARD_HEIGHT,
+          // Hard cap on mobile — image below is shrunk and copy is clamped
+          // so real content should fit well under this, but this guarantees
+          // the card never runs taller than one screen even if it doesn't.
+          maxHeight: isMobile ? "calc(100dvh - 20px)" : undefined,
         }}
       >
-        {/* Visual panel */}
-        <div className="relative overflow-hidden" style={{ minHeight: CARD_HEIGHT, background: "#fafafa" }}>
+        {/* Visual panel — much shorter on mobile (a banner strip, not a
+            near-square hero) so the card's total height stays screen-sized */}
+        <div className="relative overflow-hidden" style={{ minHeight: isMobile ? 120 : CARD_HEIGHT, height: isMobile ? "22dvh" : undefined, background: "#fafafa" }}>
           <div
             aria-hidden="true"
             className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105"
@@ -72,25 +77,28 @@ function ProjectCard({
         </div>
 
         {/* Content panel */}
-        <div className="flex flex-col" style={{ padding: "40px 48px" }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+        <div className="flex flex-col" style={{ padding: isMobile ? "18px 20px" : "40px 48px", overflow: isMobile ? "hidden" : undefined }}>
+          <div style={{ minHeight: 0, overflow: isMobile ? "hidden" : undefined }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: isMobile ? 8 : 16 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#e8510a", flexShrink: 0 }} />
               <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#e8510a" }}>
                 {project.category}
               </span>
             </div>
 
-            <h3 style={{ fontSize: "clamp(22px, 2.6vw, 32px)", fontWeight: 400, color: "#111", lineHeight: 1, letterSpacing: "-0.02em", marginBottom: 14, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>
+            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 400, color: "#111", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>
               {project.title}
             </h3>
 
-            <p style={{ fontSize: 14.5, color: "#666", lineHeight: 1.6, marginBottom: 20 }}>
+            <p
+              className={isMobile ? "line-clamp-2" : undefined}
+              style={{ fontSize: isMobile ? "13px" : 14.5, color: "#666", lineHeight: 1.5, marginBottom: isMobile ? 10 : 20 }}
+            >
               {project.shortDescription}
             </p>
 
             {tags.length > 0 && (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 24 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: isMobile ? 0 : 24 }}>
                 {tags.map((tag) => (
                   <span
                     key={tag}
@@ -106,7 +114,7 @@ function ProjectCard({
 
           <div
             className="flex items-center justify-between"
-            style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid rgba(0,0,0,0.06)" }}
+            style={{ marginTop: "auto", paddingTop: isMobile ? 10 : 20, flexShrink: 0, borderTop: "1px solid rgba(0,0,0,0.06)" }}
           >
             {project.timeline && (
               <span className="inline-flex items-center gap-1.5 text-[12.5px]" style={{ color: "#888" }}>
@@ -180,7 +188,7 @@ export default function FeaturedWork() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="max-w-[220px] text-[13px] leading-relaxed md:text-right md:pt-1"
+          className="max-w-full md:max-w-[220px] text-[13px] leading-relaxed md:text-right md:pt-1"
           style={{ color: mutedColor }}
         >
           Every project is a reflection of a commitment to quality — designed to create meaningful product experiences.

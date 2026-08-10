@@ -61,6 +61,14 @@ interface RawItem {
   ratio: number; // native width / height
   top: string;
   left: string;
+  // Mobile gets its own deliberate 3-column x 4-row grid position instead of
+  // reusing the desktop top/left — those percentages were art-directed for a
+  // wide canvas, and on a narrow tall viewport the same percentages put
+  // several items' scaled boxes close enough to collide (most visibly the
+  // bottom cluster around 65-68% top). A dedicated evenly-spaced grid
+  // guarantees no item-vs-item overlap regardless of viewport width.
+  mobileTop: string;
+  mobileLeft: string;
   size: number;
   rotate: number;
   labelPos: LabelPos;
@@ -68,18 +76,18 @@ interface RawItem {
 }
 
 const RAW_ITEMS: RawItem[] = [
-  { file: "desk (2).svg",  name: "Cat",         ratio: 736 / 736,   top: "11.9%", left: "44.4%", size: 235, rotate: 0,   labelPos: "bl", personality: "cat" },
-  { file: "desk (17).png", name: "Headphones",  ratio: 500 / 500,   top: "16.8%", left: "74.9%", size: 155, rotate: 0,   labelPos: "br", personality: "headphones" },
-  { file: "desk (11).svg", name: "Pen",         ratio: 600 / 600,   top: "22.8%", left: "87.3%", size: 130, rotate: -42, labelPos: "br", personality: "pen" },
-  { file: "desk (9).svg",  name: "Plant",       ratio: 736 / 736,   top: "23.6%", left: "23.2%", size: 247, rotate: 0,   labelPos: "bl", personality: "plant" },
-  { file: "desk (16).svg", name: "Croissant",   ratio: 736 / 736,   top: "29.4%", left: "46.3%", size: 130, rotate: -12, labelPos: "br", personality: "croissant" },
-  { file: "desk (15).svg", name: "Lamp",        ratio: 600 / 600,   top: "41.1%", left: "69.3%", size: 257, rotate: 0,   labelPos: "bl", personality: "lamp" },
-  { file: "desk (10).svg", name: "Notebook",    ratio: 735 / 450,   top: "65%",   left: "83%",   size: 235, rotate: 0,   labelPos: "bl", personality: "notebook" },
-  { file: "desk (12).svg", name: "Glasses",     ratio: 691 / 386,   top: "47.1%", left: "25%",   size: 108, rotate: -4,  labelPos: "bl", personality: "glasses" },
-  { file: "desk (7).svg",  name: "Candle",      ratio: 736 / 736,   top: "65.5%", left: "38.0%", size: 130, rotate: 0,   labelPos: "br", personality: "candle" },
-  { file: "desk (18).png", name: "Iced Coffee", ratio: 397 / 628,   top: "65.9%", left: "61.5%", size: 150, rotate: 0,   labelPos: "br", personality: "coffee" },
-  { file: "desk (5).svg",  name: "To-Do List",  ratio: 1494 / 1999, top: "68.0%", left: "19.6%", size: 298, rotate: -8,  labelPos: "bl", personality: "notepad" },
-  { file: "desk (19).png", name: "MacBook",     ratio: 591 / 422,   top: "78.7%", left: "49.0%", size: 180, rotate: -6,  labelPos: "bl", personality: "macbook" },
+  { file: "desk (2).svg",  name: "Cat",         ratio: 736 / 736,   top: "11.9%", left: "44.4%", mobileTop: "9%",  mobileLeft: "16%", size: 235, rotate: 0,   labelPos: "bl", personality: "cat" },
+  { file: "desk (17).png", name: "Headphones",  ratio: 500 / 500,   top: "16.8%", left: "74.9%", mobileTop: "9%",  mobileLeft: "50%", size: 155, rotate: 0,   labelPos: "br", personality: "headphones" },
+  { file: "desk (11).svg", name: "Pen",         ratio: 600 / 600,   top: "22.8%", left: "87.3%", mobileTop: "9%",  mobileLeft: "84%", size: 130, rotate: -42, labelPos: "br", personality: "pen" },
+  { file: "desk (9).svg",  name: "Plant",       ratio: 736 / 736,   top: "23.6%", left: "23.2%", mobileTop: "34%", mobileLeft: "16%", size: 247, rotate: 0,   labelPos: "bl", personality: "plant" },
+  { file: "desk (16).svg", name: "Croissant",   ratio: 736 / 736,   top: "29.4%", left: "46.3%", mobileTop: "34%", mobileLeft: "50%", size: 130, rotate: -12, labelPos: "br", personality: "croissant" },
+  { file: "desk (15).svg", name: "Lamp",        ratio: 600 / 600,   top: "41.1%", left: "69.3%", mobileTop: "34%", mobileLeft: "84%", size: 257, rotate: 0,   labelPos: "bl", personality: "lamp" },
+  { file: "desk (10).svg", name: "Notebook",    ratio: 735 / 450,   top: "65%",   left: "83%",   mobileTop: "60%", mobileLeft: "16%", size: 235, rotate: 0,   labelPos: "bl", personality: "notebook" },
+  { file: "desk (12).svg", name: "Glasses",     ratio: 691 / 386,   top: "47.1%", left: "25%",   mobileTop: "60%", mobileLeft: "50%", size: 108, rotate: -4,  labelPos: "bl", personality: "glasses" },
+  { file: "desk (7).svg",  name: "Candle",      ratio: 736 / 736,   top: "65.5%", left: "38.0%", mobileTop: "60%", mobileLeft: "84%", size: 130, rotate: 0,   labelPos: "br", personality: "candle" },
+  { file: "desk (18).png", name: "Iced Coffee", ratio: 397 / 628,   top: "65.9%", left: "61.5%", mobileTop: "86%", mobileLeft: "16%", size: 150, rotate: 0,   labelPos: "br", personality: "coffee" },
+  { file: "desk (5).svg",  name: "To-Do List",  ratio: 1494 / 1999, top: "68.0%", left: "19.6%", mobileTop: "86%", mobileLeft: "50%", size: 298, rotate: -8,  labelPos: "bl", personality: "notepad" },
+  { file: "desk (19).png", name: "MacBook",     ratio: 591 / 422,   top: "78.7%", left: "49.0%", mobileTop: "86%", mobileLeft: "84%", size: 180, rotate: -6,  labelPos: "bl", personality: "macbook" },
 ];
 
 const LABEL_GAP = 3;
@@ -154,6 +162,11 @@ function DeskItem({ item, index, containerRef, scale }: { item: Item; index: num
   const p = item.personality;
   const renderWidth = item.width * scale;
   const renderHeight = item.height * scale;
+  // scale is 1 on desktop and MOBILE_SCALE elsewhere — reuse it rather than
+  // threading another prop through just to pick the position table.
+  const isMobile = scale !== 1;
+  const restTop = isMobile ? item.mobileTop : item.top;
+  const restLeft = isMobile ? item.mobileLeft : item.left;
 
   // Normalised pointer position within the item (-0.5 … 0.5 on each axis),
   // springed so cursor-following reads as weight rather than a snap.
@@ -229,7 +242,7 @@ function DeskItem({ item, index, containerRef, scale }: { item: Item; index: num
       // offset that `drag` uses as its own resting baseline, so the two
       // never fight over the same transform.
       initial={reduce ? false : { top: "50%", left: "50%", opacity: 0, scale: 0.3 }}
-      whileInView={{ top: item.top, left: item.left, opacity: 1, scale: 1 }}
+      whileInView={{ top: restTop, left: restLeft, opacity: 1, scale: 1 }}
       viewport={{ once: true, amount: 0.4 }}
       transition={
         reduce

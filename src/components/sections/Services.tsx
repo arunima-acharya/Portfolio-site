@@ -128,7 +128,7 @@ export default function Services() {
           >
             {/* Folder */}
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flex: 1, paddingTop: isMobile ? "12%" : "20%" }}>
-              <Folder color={service.color} size={isMobile ? 1.1 : 1.90} />
+              <Folder color={service.color} size={isMobile ? 1.1 : 1.5} />
             </div>
 
             {/* Title */}

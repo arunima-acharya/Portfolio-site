@@ -12,7 +12,7 @@ export default function TypographyZoom() {
       style={{
         backgroundColor: "transparent",
         position:        "relative",
-        height:          "100vh",
+        minHeight:       "100vh",
         display:         "flex",
         alignItems:      "center",
         justifyContent:  "center",

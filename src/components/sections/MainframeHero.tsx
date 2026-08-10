@@ -260,6 +260,7 @@ export default function MainframeHero({
           maxWidth: "100%",
           display: "flex",
           flexDirection: "column",
+          order: 2,
         } : {
           position: "absolute",
           bottom: "18%",
@@ -281,7 +282,7 @@ export default function MainframeHero({
             style={{
               fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
               fontWeight: 400,
-              fontSize: "clamp(28px, 3.4vw, 40px)",
+              fontSize: "clamp(29px, 3.5vw, 41px)",
               color: "#111",
               margin: 0,
               lineHeight: 1.1,
@@ -295,7 +296,7 @@ export default function MainframeHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontSize: "16px",
+              fontSize: isMobile ? "14.4px" : "16.5px",
               color: "#666",
               lineHeight: 1.7,
               fontFamily: "var(--font-inter), sans-serif",
@@ -304,7 +305,7 @@ export default function MainframeHero({
               overflowWrap: "break-word",
             }}
           >
-            Engineer turned Product Designer with 3+ years of experience designing enterprise SaaS and AI products.
+            Engineer turned Product Designer with <span style={{ color: "#e8510a", fontWeight: 600 }}>3+ years</span> of experience designing enterprise SaaS and AI products.
           </motion.p>
 
           <motion.p
@@ -312,7 +313,7 @@ export default function MainframeHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontSize: "16px",
+              fontSize: isMobile ? "14.4px" : "16.5px",
               color: "#666",
               lineHeight: 1.7,
               fontFamily: "var(--font-inter), sans-serif",
@@ -321,7 +322,7 @@ export default function MainframeHero({
               overflowWrap: "break-word",
             }}
           >
-            I specialize in 0→1 product design, design systems, and simplifying complex workflows through research, systems thinking, and interaction design.
+            I specialize in <span style={{ color: "#e8510a", fontWeight: 600 }}>0→1</span> product design, design systems, and simplifying complex workflows through research, systems thinking, and interaction design.
           </motion.p>
 
           <motion.div
@@ -380,28 +381,22 @@ export default function MainframeHero({
           <div data-cursor-drag style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "auto" }}>
             <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
           </div>
-          {/* "Drag me around!" — above the canvas so it's always visible */}
-          <div style={{
-            position: "absolute", bottom: "8%", left: "32%",
-            zIndex: 3, pointerEvents: "none",
-            transform: "rotate(-7deg)",
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
-          }}>
-            <div style={{
-              fontSize: 19.55,
-              fontFamily: "var(--font-inter), sans-serif",
-              color: "#888",
-              fontStyle: "italic",
-              whiteSpace: "nowrap",
-              letterSpacing: "-0.01em",
-            }}>Drag me around!</div>
-          </div>
         </div>
       )}
 
-      {/* Mobile — simplified card, no decorative stickers, stacked in flow */}
+      {/* Mobile — simplified card, no decorative stickers, stacked above the
+          text (order: 1) and full-bleed (100vw x 100dvh, breaking out of the
+          section's side padding via the negative-margin centering trick). */}
       {!hideText && !showIntroText && isMobile && (
-        <div style={{ position: "relative", width: "100%", height: 320, marginTop: 24, flexShrink: 0 }}>
+        <div style={{
+          position: "relative",
+          width: "100vw",
+          marginLeft: "calc(50% - 50vw)",
+          marginRight: "calc(50% - 50vw)",
+          height: "100dvh",
+          flexShrink: 0,
+          order: 1,
+        }}>
           <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
         </div>
       )}

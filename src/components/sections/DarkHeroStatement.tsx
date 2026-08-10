@@ -388,12 +388,19 @@ export default function DarkHeroStatement() {
               marginRight: isMobile ? 0 : "-5%",
               width: isMobile ? DASHBOARD_DESIGN_WIDTH : undefined,
               zoom: isMobile ? mobileZoom : 0.9,
-              perspective: "1000px",
-              rotateX: tiltX,
-              rotateY: tiltY,
-              scale: tiltScale,
-              transformStyle: "preserve-3d",
               cursor: "default",
+              // The mouse-tilt 3D transforms below (perspective/rotateX/
+              // rotateY/preserve-3d + the inner translateZ) are desktop-only
+              // — combined with `zoom`'s non-standard box scaling, WebKit
+              // renders the 3D space wrong on mobile and the whole mockup
+              // comes out visually overlapping/garbled.
+              ...(isMobile ? {} : {
+                perspective: "1000px",
+                rotateX: tiltX,
+                rotateY: tiltY,
+                scale: tiltScale,
+                transformStyle: "preserve-3d",
+              }),
             }}
           >
             <motion.div style={{
@@ -402,7 +409,7 @@ export default function DarkHeroStatement() {
               overflow: "hidden",
               fontFamily: "var(--font-manrope), sans-serif",
               boxShadow,
-              translateZ: 40,
+              ...(isMobile ? {} : { translateZ: 40 }),
             }}>
 
               {/* Top nav */}
