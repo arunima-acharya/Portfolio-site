@@ -71,7 +71,8 @@ export interface MenstaData {
 }
 
 // ─── Shared Primitives ────────────────────────────────────────
-const FONT = "var(--font-manrope), sans-serif";
+const ff = "var(--font-geist), sans-serif";
+const ffHeading = "var(--font-fraunces), serif";
 
 
 const revealStyle = (visible: boolean, delay = 0): React.CSSProperties => ({
@@ -116,8 +117,8 @@ function StaticPhoneMockup({ colorIndex = 0, label = "Dashboard" }: { colorIndex
       }}>
         {/* Status bar */}
         <div style={{ position: "absolute", top: 17, left: 22, right: 22, display: "flex", justifyContent: "space-between" }}>
-          <span style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", fontFamily: FONT }}>9:41</span>
-          <span style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", fontFamily: FONT }}>●●●</span>
+          <span style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", fontFamily: ff }}>9:41</span>
+          <span style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", fontFamily: ff }}>●●●</span>
         </div>
         {/* Mock UI card */}
         <div style={{ width: "100%", background: "rgba(255,255,255,0.15)", borderRadius: 17, padding: "15px 18px", backdropFilter: "blur(8px)" }}>
@@ -137,7 +138,7 @@ function StaticPhoneMockup({ colorIndex = 0, label = "Dashboard" }: { colorIndex
         </div>
         {/* Label pill */}
         <div style={{ background: "rgba(0,0,0,0.2)", borderRadius: 10, padding: "7px 17px" }}>
-          <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.9)", letterSpacing: "0.05em" }}>{label}</span>
+          <span style={{ fontFamily: ff, fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.9)", letterSpacing: "0.05em" }}>{label}</span>
         </div>
         {/* Home indicator */}
         <div style={{ position: "absolute", bottom: 8, left: "50%", transform: "translateX(-50%)", width: 73, height: 4, background: "rgba(255,255,255,0.3)", borderRadius: 2 }} />
@@ -378,8 +379,8 @@ function PhoneCarousel() {
 function CheckIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <circle cx="8" cy="8" r="8" fill="#111" />
-      <path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="8" cy="8" r="8" fill="var(--sp-charcoal)" />
+      <path d="M4.5 8l2.5 2.5 4.5-4.5" stroke="var(--sp-cream)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -411,42 +412,42 @@ function ProjectSnapshotSection({ data }: { data: NonNullable<MenstaData["snapsh
   const items = [
     { icon: (
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" stroke={ACCENT} strokeWidth="1.8"/><path d="M5 24c0-4.418 4.03-8 9-8s9 3.582 9 8" stroke={ACCENT} strokeWidth="1.8" strokeLinecap="round"/></svg>
-      ), label: "Role", value: data.role, color: ACCENT, iconBg: "#dbeafe" },
+      ), label: "Role", value: data.role, color: ACCENT, iconBg: "rgba(255,111,30,0.12)" },
     { icon: (
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="6" width="20" height="18" rx="3" stroke={ACCENT} strokeWidth="1.8"/><path d="M4 11h20" stroke={ACCENT} strokeWidth="1.8"/><path d="M9 4v4M19 4v4" stroke={ACCENT} strokeWidth="1.8" strokeLinecap="round"/></svg>
-      ), label: "Timeline", value: data.timeline, color: ACCENT, iconBg: "#dbeafe" },
+      ), label: "Timeline", value: data.timeline, color: ACCENT, iconBg: "rgba(255,111,30,0.12)" },
     { icon: (
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="10" cy="10" r="4" stroke="#10b981" strokeWidth="1.8"/><circle cx="18" cy="10" r="4" stroke="#10b981" strokeWidth="1.8"/><path d="M2 22c0-3.314 3.582-6 8-6 1.15 0 2.24.196 3.21.545M14 22c0-3.314 3.582-6 8-6s8 2.686 8 6" stroke="#10b981" strokeWidth="1.8" strokeLinecap="round"/></svg>
       ), label: "Team", value: data.team, color: "#10b981", iconBg: "#ecfdf5" },
     { icon: (
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3l2.5 7.5H24l-6.4 4.6 2.5 7.5L14 18l-6.1 4.6 2.5-7.5L4 10.5h7.5z" stroke={ACCENT} strokeWidth="1.8" strokeLinejoin="round"/></svg>
-      ), label: "Contribution", value: data.contribution, color: ACCENT, iconBg: "#dbeafe" },
+      ), label: "Contribution", value: data.contribution, color: ACCENT, iconBg: "rgba(255,111,30,0.12)" },
   ];
 
   return (
-    <div ref={ref} style={{ background: "#fff", borderBottom: "1px solid #f0f0f0" }}>
+    <div ref={ref} style={{ background: "var(--sp-cream)", borderBottom: "1px solid rgba(23,23,23,0.08)" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: "80px 32px" }}>
         <div style={{ ...revealStyle(visible, 0), textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>
             Project Snapshot
           </p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2, marginBottom: 14 }}>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>
             Built from scratch at Hotelogix.
           </h2>
-          <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto" }}>
+          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>
             A look at the scope, team, and contributions that shaped Pocket PMS from the ground up.
           </p>
         </div>
         <div style={{ ...revealStyle(visible, 100), display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
           {items.map((item, i) => (
-            <div key={i} style={{ background: "#f9fafb", borderRadius: 16, padding: "24px 24px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
+            <div key={i} style={{ background: "var(--sp-dew)", borderRadius: 16, padding: "24px 24px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <div style={{ width: 44, height: 44, borderRadius: 12, background: item.iconBg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   {item.icon}
                 </div>
-                <div style={{ fontSize: 17, fontWeight: 600, color: item.color, fontFamily: FONT, letterSpacing: "0.02em" }}>{item.label}</div>
+                <div style={{ fontSize: 17, fontWeight: 600, color: item.color, fontFamily: ff, letterSpacing: "0.02em" }}>{item.label}</div>
               </div>
-              <div style={{ fontSize: 20, fontWeight: 700, color: "#111", fontFamily: FONT, lineHeight: 1.4, whiteSpace: "pre-line" }}>{item.value}</div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: "var(--sp-charcoal)", fontFamily: ff, lineHeight: 1.4, whiteSpace: "pre-line" }}>{item.value}</div>
             </div>
           ))}
         </div>
@@ -458,7 +459,7 @@ function ProjectSnapshotSection({ data }: { data: NonNullable<MenstaData["snapsh
 function HeroSection({ data }: { data: MenstaData["hero"] }) {
   return (
     <section style={{
-      background: "#ffffff",
+      background: "var(--sp-cream)",
       padding: "73px 32px 0",
       overflow: "visible",
       position: "relative",
@@ -467,17 +468,17 @@ function HeroSection({ data }: { data: MenstaData["hero"] }) {
 
       {/* Heading / subtext / CTAs */}
       <div style={{ maxWidth: MAX_W, margin: "0 auto", paddingTop: "5%", position: "relative", zIndex: 1, textAlign: "center" }}>
-        <h1 style={{ fontFamily: FONT, fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 400, color: "#111", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 22 }}>
+        <h1 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 600, color: "var(--sp-cocoa)", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 22 }}>
           {data.heading}
         </h1>
-        <p style={{ fontFamily: FONT, fontSize: 16, color: "#6b7280", lineHeight: 1.7, maxWidth: 420, margin: "0 auto 36px" }}>
+        <p style={{ fontFamily: ff, fontSize: 16, color: "#8a8580", lineHeight: 1.7, maxWidth: 420, margin: "0 auto 36px" }}>
           {data.subtext}
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
-          <button style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, background: "#111", color: "#fff", border: "none", borderRadius: 12, padding: "13px 28px", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
+          <button style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, background: "var(--sp-cream)", color: "var(--sp-charcoal)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 20, padding: "13px 28px", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
             🍎 App Store
           </button>
-          <button style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, background: "#fff", color: "#111", border: "1.5px solid #d1d5db", borderRadius: 12, padding: "13px 28px", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
+          <button style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, background: "var(--sp-cream)", color: "var(--sp-charcoal)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 20, padding: "13px 28px", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
             ▶ Play Store
           </button>
         </div>
@@ -493,14 +494,14 @@ function HeroSection({ data }: { data: MenstaData["hero"] }) {
 
 function TrustedSection({ data }: { data: MenstaData["trusted"] }) {
   return (
-    <section style={{ background: "#f9fafb", padding: "40px 32px 15%" }}>
+    <section style={{ background: "var(--sp-dew)", padding: "40px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
-        <p style={{ fontFamily: FONT, fontSize: 13, color: "#9ca3af", textAlign: "center", marginBottom: 24, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textAlign: "center", marginBottom: 24, letterSpacing: "0.05em", textTransform: "uppercase" }}>
           {data.text}
         </p>
         <div style={{ display: "flex", gap: 32, flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
           {data.logos.map(logo => (
-            <div key={logo} style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: "#9ca3af", padding: "6px 16px", border: "1px solid #e5e7eb", borderRadius: 8, background: "#fff" }}>
+            <div key={logo} style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, color: "#8a8580", padding: "6px 16px", border: "1.5px solid var(--sp-charcoal)", borderRadius: 8, background: "var(--sp-cream)" }}>
               {logo}
             </div>
           ))}
@@ -653,7 +654,7 @@ function OpportunitySection({ data }: { data: NonNullable<MenstaData["opportunit
   const illust = [<IllustDonut />, <IllustLineChart />, <IllustTwoDonuts />, <IllustArcDots />, <IllustGauge />];
   const card = (i: number, horizontal = false, illustAlign: "center" | "right" | "left" = "center", illustScale = 1.18, illustLeft?: string, illustVCenter = false) => (
     <div key={i} style={{
-      background: "#f5f5f5",
+      background: "var(--sp-dew)",
       borderRadius: 20,
       padding: "28px 28px 0",
       display: "flex",
@@ -666,8 +667,8 @@ function OpportunitySection({ data }: { data: NonNullable<MenstaData["opportunit
       position: "relative" as const,
     }}>
       <div style={{ width: horizontal ? "48%" : undefined, paddingBottom: horizontal ? 28 : 0 }}>
-        <h3 style={{ fontFamily: FONT, fontSize: 16, fontWeight: 700, color: "#111", marginBottom: 8, lineHeight: 1.35 }}>{data.cards[i].title}</h3>
-        <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", lineHeight: 1.6 }}>{data.cards[i].desc}</p>
+        <h3 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: 16, fontWeight: 700, color: "var(--sp-cocoa)", marginBottom: 8, lineHeight: 1.35 }}>{data.cards[i].title}</h3>
+        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", lineHeight: 1.6 }}>{data.cards[i].desc}</p>
       </div>
       {horizontal ? (
         <div style={{ width: "52%", height: "100%", display: "flex", alignItems: "flex-end", justifyContent: illustAlign === "right" ? "flex-end" : illustAlign === "left" ? "flex-start" : "center", overflow: "visible", transform: `scale(${illustScale})`, transformOrigin: `${illustAlign === "center" ? "center" : illustAlign} bottom`, paddingTop: 16 }}>
@@ -682,13 +683,13 @@ function OpportunitySection({ data }: { data: NonNullable<MenstaData["opportunit
   );
 
   return (
-    <section style={{ background: "#ffffff", padding: "80px 32px" }}>
+    <section style={{ background: "var(--sp-cream)", padding: "80px 32px" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 50 }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
-          <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
+          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
         </div>
         {/* Bento grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
@@ -832,8 +833,8 @@ function ApproachMockup() {
             display: "flex", flexDirection: "column" as const, alignItems: "center", justifyContent: "center", gap: 10, position: "relative",
           }}>
             <div style={{ position: "absolute", top: 20, left: 14, right: 14, display: "flex", justifyContent: "space-between" }}>
-              <span style={{ fontSize: 9, color: "rgba(255,255,255,0.7)", fontFamily: FONT }}>9:41</span>
-              <span style={{ fontSize: 9, color: "rgba(255,255,255,0.7)", fontFamily: FONT }}>●●●</span>
+              <span style={{ fontSize: 9, color: "rgba(255,255,255,0.7)", fontFamily: ff }}>9:41</span>
+              <span style={{ fontSize: 9, color: "rgba(255,255,255,0.7)", fontFamily: ff }}>●●●</span>
             </div>
             <div style={{ width: "70%", height: 6, background: "rgba(255,255,255,0.52)", borderRadius: 3 }} />
             <div style={{ width: "52%", height: 6, background: "rgba(255,255,255,0.32)", borderRadius: 3 }} />
@@ -982,7 +983,7 @@ function ApproachSection({ data, active }: { data: NonNullable<MenstaData["appro
   const [revealed, setRevealed] = useState(false);
   useEffect(() => { if (active) setRevealed(true); }, [active]);
   return (
-    <section data-section-phone="approach" style={{ background: "#ffffff", padding: "80px 32px 15%" }}>
+    <section data-section-phone="approach" style={{ background: "var(--sp-cream)", padding: "80px 32px 15%" }}>
       <span data-section-heading="approach" style={{ display: "block", height: 0 }} />
       <div style={{
         maxWidth: MAX_W, margin: "0 auto",
@@ -999,34 +1000,34 @@ function ApproachSection({ data, active }: { data: NonNullable<MenstaData["appro
         {/* Right: text content */}
         <div style={revealStyle(revealed)}>
           {data.eyebrow && (
-            <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>
+            <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>
               {data.eyebrow}
             </p>
           )}
           <h2 style={{
-            fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700,
-            color: "#111", lineHeight: 1.2, marginBottom: 14,
+            fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700,
+            color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14,
           }}>
             {data.heading}
           </h2>
           {(Array.isArray(data.description) ? data.description : [data.description]).map((p, i, arr) => (
-            <p key={i} style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", lineHeight: 1.75, marginBottom: i < arr.length - 1 ? 16 : 44 }}>{p}</p>
+            <p key={i} style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", lineHeight: 1.75, marginBottom: i < arr.length - 1 ? 16 : 44 }}>{p}</p>
           ))}
           <div style={{ display: "flex", flexDirection: "column" as const, gap: 28 }}>
             {data.principles.map((p, i) => (
               <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
                 <div style={{
                   flexShrink: 0, width: 44, height: 44,
-                  background: "#dbeafe", borderRadius: 10,
+                  background: "rgba(255,111,30,0.12)", borderRadius: 10,
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
                   {APPROACH_ICONS[i]}
                 </div>
                 <div>
-                  <h4 style={{ fontFamily: FONT, fontSize: 16, fontWeight: 700, color: "#111", marginBottom: 5, lineHeight: 1.3 }}>
+                  <h4 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: 16, fontWeight: 700, color: "var(--sp-cocoa)", marginBottom: 5, lineHeight: 1.3 }}>
                     {p.title}
                   </h4>
-                  <p style={{ fontFamily: FONT, fontSize: 13.5, color: "#6b7280", lineHeight: 1.65, margin: 0 }}>
+                  <p style={{ fontFamily: ff, fontSize: 13.5, color: "#8a8580", lineHeight: 1.65, margin: 0 }}>
                     {p.desc}
                   </p>
                 </div>
@@ -1100,16 +1101,16 @@ function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData[
   const orangeY = [396, 528];
 
   return (
-    <section data-section-phone="core" style={{ background: "#f6f6f6", padding: "94px 32px 15%", overflow: "hidden" }}>
+    <section data-section-phone="core" style={{ background: "var(--sp-dew)", padding: "94px 32px 15%", overflow: "hidden" }}>
       <span data-section-heading="core" style={{ display: "block", height: 0 }} />
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 64, marginTop: "5%" }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "#111", marginBottom: 14 }}>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "var(--sp-cocoa)", marginBottom: 14 }}>
             {data.heading} {data.headingAccent}
           </h2>
-          <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>{data.subtitle}</p>
+          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>{data.subtitle}</p>
         </div>
 
         {/* 3-col layout: left 4 cards | phone | right cards */}
@@ -1122,21 +1123,21 @@ function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData[
             preserveAspectRatio="none"
           >
             {/* Line 1: Phone left → TOP border of Single Reservations card */}
-            <path d="M 452 200 C 410 200 369 190 369 180" stroke="rgba(99,102,241,0.35)" strokeWidth="1.5" fill="none" vectorEffect="non-scaling-stroke" />
-            <circle cx="369" cy="180" r="4" fill="rgba(99,102,241,0.55)" vectorEffect="non-scaling-stroke" />
+            <path d="M 452 200 C 410 200 369 190 369 180" stroke="rgba(255,111,30,0.35)" strokeWidth="1.5" fill="none" vectorEffect="non-scaling-stroke" />
+            <circle cx="369" cy="180" r="4" fill="rgba(255,111,30,0.55)" vectorEffect="non-scaling-stroke" />
 
             {/* Line 2: Phone right → BOTTOM border of POS 2.0 card */}
-            <path d="M 748 130 C 793 130 831 148 831 162" stroke="rgba(99,102,241,0.35)" strokeWidth="1.5" fill="none" vectorEffect="non-scaling-stroke" />
-            <circle cx="831" cy="162" r="4" fill="rgba(99,102,241,0.55)" vectorEffect="non-scaling-stroke" />
+            <path d="M 748 130 C 793 130 831 148 831 162" stroke="rgba(255,111,30,0.35)" strokeWidth="1.5" fill="none" vectorEffect="non-scaling-stroke" />
+            <circle cx="831" cy="162" r="4" fill="rgba(255,111,30,0.55)" vectorEffect="non-scaling-stroke" />
 
             {/* Line 3: Phone right → TOP border of Management Dashboard card */}
-            <path d="M 748 400 C 793 400 831 385 831 368" stroke="rgba(99,102,241,0.35)" strokeWidth="1.5" fill="none" vectorEffect="non-scaling-stroke" />
-            <circle cx="831" cy="368" r="4" fill="rgba(99,102,241,0.55)" vectorEffect="non-scaling-stroke" />
+            <path d="M 748 400 C 793 400 831 385 831 368" stroke="rgba(255,111,30,0.35)" strokeWidth="1.5" fill="none" vectorEffect="non-scaling-stroke" />
+            <circle cx="831" cy="368" r="4" fill="rgba(255,111,30,0.55)" vectorEffect="non-scaling-stroke" />
           </svg>
 
           {/* Concentric circles — outermost (i=0) 2% fill → innermost (i=4) 10% fill */}
           {[360, 300, 245, 192, 144].map((r, i) => (
-            <div key={i} style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%,-50%)", width: r * 2, height: r * 2, borderRadius: "50%", border: `${i > 2 ? 1.5 : 1}px solid rgba(40,86,162,${[0.06, 0.10, 0.16, 0.23, 0.30][i]})`, background: `rgba(40,86,162,${[0.02, 0.04, 0.06, 0.08, 0.10][i]})`, pointerEvents: "none", zIndex: 0 }} />
+            <div key={i} style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%,-50%)", width: r * 2, height: r * 2, borderRadius: "50%", border: `${i > 2 ? 1.5 : 1}px solid rgba(255,111,30,${[0.06, 0.10, 0.16, 0.23, 0.30][i]})`, background: `rgba(255,111,30,${[0.02, 0.04, 0.06, 0.08, 0.10][i]})`, pointerEvents: "none", zIndex: 0 }} />
           ))}
 
           {/* LEFT — 4 cards pushed down 15% */}
@@ -1144,9 +1145,9 @@ function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData[
             {data.left.items.map((item, i) => {
               const active = activeIndex === i;
               return (
-                <div key={i} style={{ width: "85%", marginLeft: "10%", borderRadius: 16, background: "white", border: active ? "1px solid rgba(40,86,162,0.3)" : "1px solid #e8eaf0", padding: "16px 18px", boxShadow: active ? "0 8px 32px rgba(40,86,162,0.18), 0 2px 8px rgba(0,0,0,0.06)" : "0 1px 4px rgba(0,0,0,0.04)", transform: active ? "translateY(-2px) scale(1.01)" : "none", transition: "box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease" }}>
-                  <div style={{ fontFamily: FONT, fontSize: 16, fontWeight: 700, color: "#111", marginBottom: 5, lineHeight: 1.3 }}>{item.title}</div>
-                  <div style={{ fontFamily: FONT, fontSize: 14, color: "#6b7280", lineHeight: 1.55 }}>{item.desc}</div>
+                <div key={i} style={{ width: "85%", marginLeft: "10%", borderRadius: 16, background: "var(--sp-cream)", border: active ? "1.5px solid var(--sp-orange)" : "1.5px solid var(--sp-charcoal)", padding: "16px 18px", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", transform: active ? "translateY(-2px) scale(1.01)" : "none", transition: "box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease" }}>
+                  <div style={{ fontFamily: ff, fontSize: 16, fontWeight: 700, color: "var(--sp-charcoal)", marginBottom: 5, lineHeight: 1.3 }}>{item.title}</div>
+                  <div style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.55 }}>{item.desc}</div>
                 </div>
               );
             })}
@@ -1166,9 +1167,9 @@ function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData[
               {data.rights[0]?.items.map((item, i) => {
                 const active = activeIndex === 4 + i;
                 return (
-                  <div key={i} style={{ width: "85%", marginLeft: "auto", marginRight: "10%", borderRadius: 16, background: "white", border: active ? "1px solid rgba(40,86,162,0.3)" : "1px solid #e8eaf0", padding: "16px 18px", boxShadow: active ? "0 8px 32px rgba(40,86,162,0.18), 0 2px 8px rgba(0,0,0,0.06)" : "0 1px 4px rgba(0,0,0,0.04)", transform: active ? "translateY(-2px) scale(1.01)" : "none", transition: "box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease" }}>
-                    <div style={{ fontFamily: FONT, fontSize: 16, fontWeight: 700, color: "#111", marginBottom: 5, lineHeight: 1.3 }}>{item.title}</div>
-                    <div style={{ fontFamily: FONT, fontSize: 14, color: "#6b7280", lineHeight: 1.55 }}>{item.desc}</div>
+                  <div key={i} style={{ width: "85%", marginLeft: "auto", marginRight: "10%", borderRadius: 16, background: "var(--sp-cream)", border: active ? "1.5px solid var(--sp-orange)" : "1.5px solid var(--sp-charcoal)", padding: "16px 18px", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", transform: active ? "translateY(-2px) scale(1.01)" : "none", transition: "box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease" }}>
+                    <div style={{ fontFamily: ff, fontSize: 16, fontWeight: 700, color: "var(--sp-charcoal)", marginBottom: 5, lineHeight: 1.3 }}>{item.title}</div>
+                    <div style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.55 }}>{item.desc}</div>
                   </div>
                 );
               })}
@@ -1178,9 +1179,9 @@ function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData[
               {data.rights[1]?.items.map((item, i) => {
                 const active = activeIndex === 6 + i;
                 return (
-                  <div key={i} style={{ width: "85%", marginLeft: "auto", marginRight: "10%", borderRadius: 16, background: "white", border: active ? "1px solid rgba(40,86,162,0.3)" : "1px solid #e8eaf0", padding: "16px 18px", boxShadow: active ? "0 8px 32px rgba(40,86,162,0.18), 0 2px 8px rgba(0,0,0,0.06)" : "0 1px 4px rgba(0,0,0,0.04)", transform: active ? "translateY(-2px) scale(1.01)" : "none", transition: "box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease" }}>
-                    <div style={{ fontFamily: FONT, fontSize: 16, fontWeight: 700, color: "#111", marginBottom: 5, lineHeight: 1.3 }}>{item.title}</div>
-                    <div style={{ fontFamily: FONT, fontSize: 14, color: "#6b7280", lineHeight: 1.55 }}>{item.desc}</div>
+                  <div key={i} style={{ width: "85%", marginLeft: "auto", marginRight: "10%", borderRadius: 16, background: "var(--sp-cream)", border: active ? "1.5px solid var(--sp-orange)" : "1.5px solid var(--sp-charcoal)", padding: "16px 18px", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", transform: active ? "translateY(-2px) scale(1.01)" : "none", transition: "box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease" }}>
+                    <div style={{ fontFamily: ff, fontSize: 16, fontWeight: 700, color: "var(--sp-charcoal)", marginBottom: 5, lineHeight: 1.3 }}>{item.title}</div>
+                    <div style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.55 }}>{item.desc}</div>
                   </div>
                 );
               })}
@@ -1196,21 +1197,21 @@ function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData[
 function WhyBestSection({ data }: { data: MenstaData["whyBest"] }) {
   const icons = ["⚡", "🔄", "📊"];
   return (
-    <section style={{ background: "#fff", padding: "80px 32px 15%" }}>
+    <section style={{ background: "var(--sp-cream)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
-          <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
+          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
           {data.cards.map((card, i) => (
-            <div key={i} style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 16, padding: 32 }}>
+            <div key={i} style={{ background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 16, padding: 32 }}>
               <div style={{ width: 48, height: 48, background: "#f3f4f6", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, marginBottom: 20 }}>
                 {icons[i]}
               </div>
-              <h3 style={{ fontFamily: FONT, fontSize: 18, fontWeight: 600, color: "#111", marginBottom: 10 }}>{card.title}</h3>
-              <p style={{ fontFamily: FONT, fontSize: 14, color: "#6b7280", lineHeight: 1.6 }}>{card.desc}</p>
+              <h3 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: 18, fontWeight: 600, color: "var(--sp-cocoa)", marginBottom: 10 }}>{card.title}</h3>
+              <p style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.6 }}>{card.desc}</p>
             </div>
           ))}
         </div>
@@ -1248,7 +1249,7 @@ function HowItWorksSection({ data }: { data: MenstaData["howItWorks"] }) {
     const active = activeIndex === i;
     return (
       <div style={{
-        background: "#fff",
+        background: "var(--sp-cream)",
         borderRadius: 20,
         padding: "36px 40px",
         boxShadow: "0 8px 36px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
@@ -1257,13 +1258,13 @@ function HowItWorksSection({ data }: { data: MenstaData["howItWorks"] }) {
         transition: "opacity 0.4s ease, box-shadow 0.4s ease",
         width: "100%",
       }}>
-        <h3 style={{ fontFamily: FONT, fontSize: "clamp(18px,1.8vw,24px)", fontWeight: 700, color: "#111", lineHeight: 1.3, marginBottom: 14 }}>{tab.heading}</h3>
-        <p style={{ fontFamily: FONT, fontSize: 14, color: "#6b7280", lineHeight: 1.8, marginBottom: 28 }}>{tab.body}</p>
+        <h3 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(18px,1.8vw,24px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.3, marginBottom: 14 }}>{tab.heading}</h3>
+        <p style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.8, marginBottom: 28 }}>{tab.body}</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {tab.items.map((item, j) => (
             <div key={j} style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <span style={{ flexShrink: 0, display: "flex" }}><CheckIcon /></span>
-              <span style={{ fontFamily: FONT, fontSize: 13, color: "#374151" }}>{item}</span>
+              <span style={{ fontFamily: ff, fontSize: 13, color: "#8a8580" }}>{item}</span>
             </div>
           ))}
         </div>
@@ -1272,12 +1273,12 @@ function HowItWorksSection({ data }: { data: MenstaData["howItWorks"] }) {
   };
 
   return (
-    <section style={{ background: "#f9fafb", padding: "80px 0 5%", position: "relative", overflow: "clip" }}>
+    <section style={{ background: "var(--sp-dew)", padding: "80px 0 5%", position: "relative", overflow: "clip" }}>
       {/* Header */}
       <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: "0 32px", textAlign: "center", marginBottom: 80 }}>
-        <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-        <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
-        <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
+        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+        <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
+        <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
       </div>
 
       {/* 3-column grid: left cards | sticky phone | right cards */}
@@ -1340,18 +1341,18 @@ function HowItWorksSection({ data }: { data: MenstaData["howItWorks"] }) {
 
 function IntegrationsSection({ data, features }: { data: MenstaData["integrations"]; features: MenstaData["features"] }) {
   return (
-    <section style={{ background: "#fff", padding: "80px 32px 15%" }}>
+    <section style={{ background: "var(--sp-cream)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{features.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2, marginBottom: 14 }}>{features.heading}</h2>
-          <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto 40px" }}>{features.subtext}</p>
-          <h3 style={{ fontFamily: FONT, fontSize: 24, fontWeight: 600, color: "#111", marginBottom: 10 }}>{data.heading}</h3>
-          <p style={{ fontFamily: FONT, fontSize: 14, color: "#6b7280", marginBottom: 32 }}>{data.subtext}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{features.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{features.heading}</h2>
+          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto 40px" }}>{features.subtext}</p>
+          <h3 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: 24, fontWeight: 600, color: "var(--sp-cocoa)", marginBottom: 10 }}>{data.heading}</h3>
+          <p style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", marginBottom: 32 }}>{data.subtext}</p>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 16, justifyContent: "center" }}>
           {data.logos.map(logo => (
-            <div key={logo} style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: "#374151", padding: "8px 20px", border: "1px solid #e5e7eb", borderRadius: 8, background: "#f9fafb" }}>
+            <div key={logo} style={{ fontFamily: ff, fontSize: 13, fontWeight: 600, color: "#8a8580", padding: "8px 20px", border: "1.5px solid var(--sp-charcoal)", borderRadius: 8, background: "var(--sp-dew)" }}>
               {logo}
             </div>
           ))}
@@ -1363,25 +1364,25 @@ function IntegrationsSection({ data, features }: { data: MenstaData["integration
 
 function TestimonialsSection({ data }: { data: MenstaData["testimonials"] }) {
   return (
-    <section style={{ background: "#f9fafb", padding: "80px 32px 15%" }}>
+    <section style={{ background: "var(--sp-dew)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
-          <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
+          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
           {data.items.map((t, i) => (
-            <div key={i} style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 16, padding: 24 }}>
+            <div key={i} style={{ background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 16, padding: 24 }}>
               <StarRow />
-              <p style={{ fontFamily: FONT, fontSize: 14, color: "#374151", lineHeight: 1.7, margin: "14px 0 20px" }}>&ldquo;{t.quote}&rdquo;</p>
+              <p style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.7, margin: "14px 0 20px" }}>&ldquo;{t.quote}&rdquo;</p>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#e5e7eb", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, color: "#6b7280", fontFamily: FONT }}>
+                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--sp-dew)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, color: "#8a8580", fontFamily: ff }}>
                   {t.name[0]}
                 </div>
                 <div>
-                  <p style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: "#111", margin: 0 }}>{t.name}</p>
-                  <p style={{ fontFamily: FONT, fontSize: 12, color: "#9ca3af", margin: 0 }}>{t.role}</p>
+                  <p style={{ fontFamily: ff, fontSize: 13, fontWeight: 600, color: "var(--sp-charcoal)", margin: 0 }}>{t.name}</p>
+                  <p style={{ fontFamily: ff, fontSize: 12, color: "#8a8580", margin: 0 }}>{t.role}</p>
                 </div>
               </div>
             </div>
@@ -1396,22 +1397,22 @@ function TestimonialsSection({ data }: { data: MenstaData["testimonials"] }) {
 function FAQSection({ data }: { data: MenstaData["faq"] }) {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <section style={{ background: "#f9fafb", padding: "80px 32px 15%" }}>
+    <section style={{ background: "var(--sp-dew)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2 }}>{data.heading}</h2>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2 }}>{data.heading}</h2>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {data.items.map((item, i) => (
-            <div key={i} style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, overflow: "hidden" }}>
+            <div key={i} style={{ background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 12, overflow: "hidden" }}>
               <button onClick={() => setOpen(open === i ? null : i)} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" }}>
-                <span style={{ fontFamily: FONT, fontSize: 15, fontWeight: 500, color: "#111" }}>{item.q}</span>
-                <span style={{ fontFamily: FONT, fontSize: 18, color: "#6b7280", flexShrink: 0, marginLeft: 12 }}>{open === i ? "−" : "+"}</span>
+                <span style={{ fontFamily: ff, fontSize: 15, fontWeight: 500, color: "var(--sp-charcoal)" }}>{item.q}</span>
+                <span style={{ fontFamily: ff, fontSize: 18, color: "#8a8580", flexShrink: 0, marginLeft: 12 }}>{open === i ? "−" : "+"}</span>
               </button>
               {open === i && (
                 <div style={{ padding: "0 24px 20px" }}>
-                  <p style={{ fontFamily: FONT, fontSize: 14, color: "#6b7280", lineHeight: 1.7, margin: 0 }}>{item.a}</p>
+                  <p style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.7, margin: 0 }}>{item.a}</p>
                 </div>
               )}
             </div>
@@ -1450,7 +1451,7 @@ function CaseStudyCard({ project, index, delay, revealed }: {
       }}
     >
       {/* Image area — 4:3 */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", background: "#f5f5f3", overflow: "hidden" }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", background: "var(--sp-dew)", overflow: "hidden" }}>
         {/* Blurred blob */}
         <div style={{
           position: "absolute", inset: 0,
@@ -1465,7 +1466,7 @@ function CaseStudyCard({ project, index, delay, revealed }: {
         {/* Industry label */}
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <span style={{
-            fontFamily: FONT,
+            fontFamily: ff,
             fontSize: 10, fontWeight: 500, letterSpacing: "0.2em",
             textTransform: "uppercase" as const, color: "rgba(0,0,0,0.18)",
           }}>{project.industry}</span>
@@ -1473,7 +1474,7 @@ function CaseStudyCard({ project, index, delay, revealed }: {
         {/* Floating info bar */}
         <div style={{
           position: "absolute", bottom: 10, left: 10, right: 10,
-          background: "rgba(255,255,255,0.92)",
+          background: "rgba(253,251,249,0.92)",
           backdropFilter: "blur(14px)",
           WebkitBackdropFilter: "blur(14px)",
           borderRadius: 12,
@@ -1481,22 +1482,22 @@ function CaseStudyCard({ project, index, delay, revealed }: {
           display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10,
         }}>
           <div style={{ minWidth: 0 }}>
-            <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: "#111", lineHeight: 1.3, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const }}>
+            <p style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, color: "var(--sp-charcoal)", lineHeight: 1.3, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const }}>
               {project.title}
             </p>
-            <p style={{ fontFamily: FONT, fontSize: 11, color: "#888", marginTop: 2 }}>
+            <p style={{ fontFamily: ff, fontSize: 11, color: "#8a8580", marginTop: 2 }}>
               {project.category} / 2023
             </p>
           </div>
           <div style={{
             flexShrink: 0, width: 32, height: 32, borderRadius: 8,
-            background: hovered ? "#e8510a" : "#1a1a1a",
+            background: hovered ? "var(--sp-orange)" : "var(--sp-charcoal)",
             display: "flex", alignItems: "center", justifyContent: "center",
             transition: "background 0.2s",
             overflow: "hidden",
           }}>
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-              <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="var(--sp-cream)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </div>
@@ -1520,16 +1521,16 @@ function OtherCaseStudiesSection({ currentSlug }: { currentSlug: string }) {
   const others = projects.filter((p) => p.slug !== currentSlug).slice(0, 3);
 
   return (
-    <section ref={ref} style={{ background: "#fff", padding: "80px 32px 15%" }}>
+    <section ref={ref} style={{ background: "var(--sp-cream)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ marginBottom: 48, ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>More work</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>More work</p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
-            <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2 }}>Other case studies</h2>
-            <a href="/case-studies" style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: "#6b7280", textDecoration: "none", whiteSpace: "nowrap" as const, paddingBottom: 4 }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#111")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#6b7280")}
+            <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2 }}>Other case studies</h2>
+            <a href="/case-studies" style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, color: "#8a8580", textDecoration: "none", whiteSpace: "nowrap" as const, paddingBottom: 4 }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--sp-charcoal)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#8a8580")}
             >View all →</a>
           </div>
         </div>
@@ -1547,15 +1548,15 @@ function OtherCaseStudiesSection({ currentSlug }: { currentSlug: string }) {
 
 function CTASection({ data, appName }: { data: MenstaData["cta"]; appName: string }) {
   return (
-    <section style={{ background: "#f9fafb", padding: "80px 32px 15%" }}>
+    <section style={{ background: "var(--sp-dew)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto", textAlign: "center" }}>
-        <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 14 }}>{data.eyebrow}</p>
-        <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2, marginBottom: 36 }}>{data.heading}</h2>
+        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 14 }}>{data.eyebrow}</p>
+        <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 36 }}>{data.heading}</h2>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", marginBottom: 56 }}>
-          <button style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, background: "#111", color: "#fff", border: "none", borderRadius: 12, padding: "13px 28px", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
+          <button style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, background: "var(--sp-cream)", color: "var(--sp-charcoal)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 20, padding: "13px 28px", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
             🍎 App Store
           </button>
-          <button style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, background: "#fff", color: "#111", border: "1.5px solid #d1d5db", borderRadius: 12, padding: "13px 28px", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
+          <button style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, background: "var(--sp-cream)", color: "var(--sp-charcoal)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 20, padding: "13px 28px", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
             ▶ Play Store
           </button>
         </div>
@@ -1631,14 +1632,14 @@ function DesignSystemSection({ data, active }: { data: NonNullable<MenstaData["d
       content: (
         <div style={{ display: "flex", flexDirection: "column" as const, gap: 3 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6, paddingBottom: 6, borderBottom: "1px solid #f3f4f6" }}>
-            <div style={{ fontFamily: FONT, fontSize: 44, fontWeight: 800, color: "#111", lineHeight: 1 }}>Aa</div>
+            <div style={{ fontFamily: ff, fontSize: 44, fontWeight: 800, color: "#111", lineHeight: 1 }}>Aa</div>
             <div>
-              <div style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: "#111" }}>Manrope</div>
+              <div style={{ fontFamily: ff, fontSize: 12, fontWeight: 700, color: "#111" }}>Manrope</div>
             </div>
           </div>
           {[{l:"Heading 1",s:"20px / 28px",w:"Semibold",fs:18,fw:700},{l:"Heading 2",s:"16px / 24px",w:"Semibold",fs:14,fw:700},{l:"Heading 3",s:"13px / 20px",w:"Medium",fs:12,fw:500},{l:"Body",s:"11px / 18px",w:"Regular",fs:11,fw:400}].map((t, i, arr) => (
             <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 3, borderBottom: i < arr.length - 1 ? "1px solid #f3f4f6" : "none" }}>
-              <span style={{ fontFamily: FONT, fontSize: t.fs, fontWeight: t.fw, color: "#111" }}>{t.l}</span>
+              <span style={{ fontFamily: ff, fontSize: t.fs, fontWeight: t.fw, color: "#111" }}>{t.l}</span>
               <div style={{ textAlign: "right" as const }}>
                 <div style={{ fontSize: 12, color: "#9ca3af" }}>{t.s}</div>
                 <div style={{ fontSize: 10, color: "#d1d5db" }}>{t.w}</div>
@@ -1669,16 +1670,16 @@ function DesignSystemSection({ data, active }: { data: NonNullable<MenstaData["d
   ];
 
   return (
-    <section data-section-phone="design" style={{ background: "#f6f6f6", padding: "80px 10%" }}>
+    <section data-section-phone="design" style={{ background: "var(--sp-dew)", padding: "80px 10%" }}>
       <span data-section-heading="design" style={{ display: "block", height: 0 }} />
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Centered header */}
         <div style={{ textAlign: "center", marginBottom: 64, marginTop: "5%", ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "#111", marginBottom: 14 }}>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "var(--sp-cocoa)", marginBottom: 14 }}>
             {data.heading}
           </h2>
-          <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>{data.subtext}</p>
+          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>{data.subtext}</p>
         </div>
 
         {/* Three-column layout */}
@@ -1686,10 +1687,10 @@ function DesignSystemSection({ data, active }: { data: NonNullable<MenstaData["d
           {/* LEFT cards */}
           <div style={{ display: "flex", flexDirection: "column" as const, gap: 14, ...revealStyle(revealed, 100) }}>
             {leftCards.map((card, i) => (
-              <div key={i} style={{ background: "white", borderRadius: 16, padding: "18px 20px", border: "1px solid #e8eaf0", width: "85%", marginLeft: "10%", flex: 1, display: "flex", flexDirection: "column" as const }}>
+              <div key={i} style={{ background: "var(--sp-cream)", borderRadius: 16, padding: "18px 20px", border: "1.5px solid var(--sp-charcoal)", width: "85%", marginLeft: "10%", flex: 1, display: "flex", flexDirection: "column" as const }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-                  <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: ORG }}>{card.num}</span>
-                  <span style={{ fontFamily: FONT, fontSize: 15, fontWeight: 700, color: "#111" }}>{card.title}</span>
+                  <span style={{ fontFamily: ff, fontSize: 12, fontWeight: 700, color: ORG }}>{card.num}</span>
+                  <span style={{ fontFamily: ff, fontSize: 15, fontWeight: 700, color: "var(--sp-charcoal)" }}>{card.title}</span>
                 </div>
                 {card.content}
               </div>
@@ -1704,10 +1705,10 @@ function DesignSystemSection({ data, active }: { data: NonNullable<MenstaData["d
           {/* RIGHT cards */}
           <div style={{ display: "flex", flexDirection: "column" as const, gap: 14, ...revealStyle(revealed, 200) }}>
             {rightCards.map((card, i) => (
-              <div key={i} style={{ background: "white", borderRadius: 16, padding: "18px 20px", border: "1px solid #e8eaf0", width: "85%", marginRight: "10%" }}>
+              <div key={i} style={{ background: "var(--sp-cream)", borderRadius: 16, padding: "18px 20px", border: "1.5px solid var(--sp-charcoal)", width: "85%", marginRight: "10%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-                  <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: ORG }}>{card.num}</span>
-                  <span style={{ fontFamily: FONT, fontSize: 15, fontWeight: 700, color: "#111" }}>{card.title}</span>
+                  <span style={{ fontFamily: ff, fontSize: 12, fontWeight: 700, color: ORG }}>{card.num}</span>
+                  <span style={{ fontFamily: ff, fontSize: 15, fontWeight: 700, color: "var(--sp-charcoal)" }}>{card.title}</span>
                 </div>
                 {card.content}
               </div>
@@ -1733,36 +1734,36 @@ function DesktopMockup() {
             <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#27c93f" }} />
             <div style={{ flex: 1, display: "flex", gap: 12, marginLeft: 12 }}>
               {["Front Office","Reservations","Housekeeping","Accounts","Reports","More ↓"].map((item, i) => (
-                <span key={i} style={{ fontSize: 7, color: i === 1 ? "white" : "rgba(255,255,255,0.5)", fontFamily: FONT, fontWeight: i === 1 ? 600 : 400 }}>{item}</span>
+                <span key={i} style={{ fontSize: 7, color: i === 1 ? "white" : "rgba(255,255,255,0.5)", fontFamily: ff, fontWeight: i === 1 ? 600 : 400 }}>{item}</span>
               ))}
             </div>
           </div>
           {/* App chrome */}
           <div style={{ background: "white", borderRadius: "0 0 4px 4px", padding: 10, minHeight: 180 }}>
-            <div style={{ fontSize: 9, fontWeight: 700, color: "#111", marginBottom: 8, fontFamily: FONT }}>New Reservation</div>
+            <div style={{ fontSize: 9, fontWeight: 700, color: "#111", marginBottom: 8, fontFamily: ff }}>New Reservation</div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
               <div>
-                <div style={{ fontSize: 7, color: "#6b7280", marginBottom: 6, fontFamily: FONT, fontWeight: 600 }}>Guest Information</div>
+                <div style={{ fontSize: 7, color: "#6b7280", marginBottom: 6, fontFamily: ff, fontWeight: 600 }}>Guest Information</div>
                 {[["Guest Name",""],["Mobile No.",""],["Email",""],["Address",""],["City",""],["Country",""]].map(([l], i) => (
                   <div key={i} style={{ marginBottom: 4 }}>
-                    <div style={{ fontSize: 6.5, color: "#9ca3af", fontFamily: FONT }}>{l}</div>
+                    <div style={{ fontSize: 6.5, color: "#9ca3af", fontFamily: ff }}>{l}</div>
                     <div style={{ height: 13, background: "#f3f4f6", borderRadius: 3, border: "1px solid #e5e7eb", marginTop: 1 }} />
                   </div>
                 ))}
               </div>
               <div>
-                <div style={{ fontSize: 7, color: "#6b7280", marginBottom: 6, fontFamily: FONT, fontWeight: 600 }}>Guest Allocation</div>
+                <div style={{ fontSize: 7, color: "#6b7280", marginBottom: 6, fontFamily: ff, fontWeight: 600 }}>Guest Allocation</div>
                 {[["Room Type",""],["No. of Rooms",""],["Check-in",""],["Check-out",""],["Rate Plan",""]].map(([l], i) => (
                   <div key={i} style={{ marginBottom: 4 }}>
-                    <div style={{ fontSize: 6.5, color: "#9ca3af", fontFamily: FONT }}>{l}</div>
+                    <div style={{ fontSize: 6.5, color: "#9ca3af", fontFamily: ff }}>{l}</div>
                     <div style={{ height: 13, background: "#f3f4f6", borderRadius: 3, border: "1px solid #e5e7eb", marginTop: 1 }} />
                   </div>
                 ))}
                 <div style={{ marginTop: 8 }}>
-                  <div style={{ fontSize: 7, color: "#6b7280", marginBottom: 4, fontFamily: FONT, fontWeight: 600 }}>Room Details</div>
+                  <div style={{ fontSize: 7, color: "#6b7280", marginBottom: 4, fontFamily: ff, fontWeight: 600 }}>Room Details</div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 2 }}>
                     {["Room No.","Room Type","Price"].map((h, i) => (
-                      <div key={i} style={{ fontSize: 6, color: "white", background: "#374151", padding: "2px 4px", fontFamily: FONT }}>{h}</div>
+                      <div key={i} style={{ fontSize: 6, color: "white", background: "#374151", padding: "2px 4px", fontFamily: ff }}>{h}</div>
                     ))}
                     {["-","-","-"].map((v, i) => (
                       <div key={i} style={{ height: 10, background: "#f9fafb", border: "1px solid #e5e7eb" }} />
@@ -1773,9 +1774,9 @@ function DesktopMockup() {
             </div>
             <div style={{ display: "flex", justifyContent: "flex-end", gap: 5, marginTop: 8, paddingTop: 6, borderTop: "1px solid #e5e7eb" }}>
               {["Save","Cancel"].map((b, i) => (
-                <div key={i} style={{ fontSize: 7, fontFamily: FONT, padding: "3px 8px", borderRadius: 3, background: i === 0 ? "#f3f4f6" : "#f3f4f6", border: "1px solid #d1d5db", color: "#374151" }}>{b}</div>
+                <div key={i} style={{ fontSize: 7, fontFamily: ff, padding: "3px 8px", borderRadius: 3, background: i === 0 ? "#f3f4f6" : "#f3f4f6", border: "1px solid #d1d5db", color: "#374151" }}>{b}</div>
               ))}
-              <div style={{ fontSize: 7, fontFamily: FONT, padding: "3px 8px", borderRadius: 3, background: PRP, color: "white" }}>Confirm</div>
+              <div style={{ fontSize: 7, fontFamily: ff, padding: "3px 8px", borderRadius: 3, background: PRP, color: "white" }}>Confirm</div>
             </div>
           </div>
         </div>
@@ -1810,76 +1811,76 @@ function ChallengesSection({ data, active }: { data: NonNullable<MenstaData["cha
   ];
 
   return (
-    <section data-section-phone="challenges" style={{ background: "#f6f6f6", padding: "100px 32px 80px" }}>
+    <section data-section-phone="challenges" style={{ background: "var(--sp-dew)", padding: "100px 32px 80px" }}>
       <span data-section-heading="challenges" style={{ display: "block", height: 0 }} />
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 56, ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "#111", marginBottom: 14 }}>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "var(--sp-cocoa)", marginBottom: 14 }}>
             {data.heading}{" "}
             <span style={{ color: PRP }}>{data.headingAccent}</span>
           </h2>
-          <p style={{ fontFamily: FONT, fontSize: 16, color: "#6b7280", maxWidth: 520, margin: "0 auto", lineHeight: 1.7 }}>{data.subtext}</p>
+          <p style={{ fontFamily: ff, fontSize: 16, color: "#8a8580", maxWidth: 520, margin: "0 auto", lineHeight: 1.7 }}>{data.subtext}</p>
         </div>
 
         {/* Comparison card */}
-        <div style={{ background: "white", borderRadius: 20, border: "1px solid #e8eaf0", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", ...revealStyle(revealed, 100) }}>
+        <div style={{ background: "var(--sp-cream)", borderRadius: 20, border: "1.5px solid var(--sp-charcoal)", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.06)", ...revealStyle(revealed, 100) }}>
           <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr" }}>
             {/* BEFORE */}
-            <div style={{ padding: "32px 36px 28px", borderRight: "1px solid #e8eaf0" }}>
-              <div style={{ display: "inline-block", background: "#dbeafe", borderRadius: 6, padding: "3px 10px", marginBottom: 16 }}>
-                <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: PRP, letterSpacing: "0.08em" }}>BEFORE</span>
+            <div style={{ padding: "32px 36px 28px", borderRight: "1px solid rgba(23,23,23,0.12)" }}>
+              <div style={{ display: "inline-block", background: "rgba(255,111,30,0.12)", borderRadius: 6, padding: "3px 10px", marginBottom: 16 }}>
+                <span style={{ fontFamily: ff, fontSize: 11, fontWeight: 700, color: PRP, letterSpacing: "0.08em" }}>BEFORE</span>
               </div>
-              <h3 style={{ fontFamily: FONT, fontSize: 22, fontWeight: 800, color: "#111", marginBottom: 8 }}>Desktop experience</h3>
-              <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", marginBottom: 20, lineHeight: 1.6 }}>Multiple screens. More clicks.<br />Steep learning curve.</p>
+              <h3 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: 22, fontWeight: 800, color: "var(--sp-cocoa)", marginBottom: 8 }}>Desktop experience</h3>
+              <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 20, lineHeight: 1.6 }}>Multiple screens. More clicks.<br />Steep learning curve.</p>
               <div style={{ display: "flex", flexDirection: "column" as const, gap: 10, marginBottom: 24 }}>
                 {beforeItems.map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, background: "#f8f9fb", borderRadius: 10, padding: "10px 14px" }}>
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, background: "var(--sp-dew)", borderRadius: 10, padding: "10px 14px" }}>
                     <span style={{ fontSize: 18 }}>{item.icon}</span>
                     <div>
-                      <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 700, color: "#111" }}>{item.bold}</span>
-                      <span style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280" }}> {item.text}</span>
+                      <span style={{ fontFamily: ff, fontSize: 13, fontWeight: 700, color: "var(--sp-charcoal)" }}>{item.bold}</span>
+                      <span style={{ fontFamily: ff, fontSize: 13, color: "#8a8580" }}> {item.text}</span>
                     </div>
                   </div>
                 ))}
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 20, paddingTop: 16, borderTop: "1px solid #f0f0f0" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 20, paddingTop: 16, borderTop: "1px solid rgba(23,23,23,0.08)" }}>
                 <span style={{ fontSize: 20 }}>📊</span>
                 <div>
-                  <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 700, color: PRP }}>Powerful, but overwhelming. </span>
-                  <span style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280" }}>Designed for the front desk, not for the floor.</span>
+                  <span style={{ fontFamily: ff, fontSize: 13, fontWeight: 700, color: PRP }}>Powerful, but overwhelming. </span>
+                  <span style={{ fontFamily: ff, fontSize: 13, color: "#8a8580" }}>Designed for the front desk, not for the floor.</span>
                 </div>
               </div>
             </div>
 
             {/* AFTER */}
-            <div style={{ padding: "32px 36px 28px", background: "#fafbff", display: "flex", gap: 24, alignItems: "stretch" }}>
+            <div style={{ padding: "32px 36px 28px", background: "var(--sp-dew)", display: "flex", gap: 24, alignItems: "stretch" }}>
               {/* Left: text content */}
               <div style={{ flex: 1, display: "flex", flexDirection: "column" as const, justifyContent: "space-between" }}>
                 <div>
                   <div style={{ display: "inline-block", background: "#d1fae5", borderRadius: 6, padding: "3px 10px", marginBottom: 16 }}>
-                    <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: GRN, letterSpacing: "0.08em" }}>AFTER</span>
+                    <span style={{ fontFamily: ff, fontSize: 11, fontWeight: 700, color: GRN, letterSpacing: "0.08em" }}>AFTER</span>
                   </div>
-                  <h3 style={{ fontFamily: FONT, fontSize: 22, fontWeight: 800, color: "#111", marginBottom: 8 }}>Mobile experience</h3>
-                  <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", marginBottom: 20, lineHeight: 1.6 }}>Fewer taps. Clear flow.<br />Built for how staff actually work.</p>
+                  <h3 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: 22, fontWeight: 800, color: "var(--sp-cocoa)", marginBottom: 8 }}>Mobile experience</h3>
+                  <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 20, lineHeight: 1.6 }}>Fewer taps. Clear flow.<br />Built for how staff actually work.</p>
                   <div style={{ display: "flex", flexDirection: "column" as const, gap: 10, marginBottom: 24 }}>
                     {afterItems.map((item, i) => (
-                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, background: "white", borderRadius: 10, padding: "10px 14px", border: "1px solid #e8eaf0" }}>
+                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, background: "var(--sp-cream)", borderRadius: 10, padding: "10px 14px", border: "1.5px solid var(--sp-charcoal)" }}>
                         <span style={{ fontSize: 18 }}>{item.icon}</span>
                         <div>
-                          <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 700, color: item.accent ?? "#111" }}>{item.bold}</span>
-                          <span style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280" }}> {item.text}</span>
+                          <span style={{ fontFamily: ff, fontSize: 13, fontWeight: 700, color: item.accent ?? "var(--sp-charcoal)" }}>{item.bold}</span>
+                          <span style={{ fontFamily: ff, fontSize: 13, color: "#8a8580" }}> {item.text}</span>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, paddingTop: 16, borderTop: "1px solid #e8eaf0" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, paddingTop: 16, borderTop: "1px solid rgba(23,23,23,0.12)" }}>
                   <span style={{ fontSize: 20 }}>✅</span>
                   <div>
-                    <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 700, color: GRN }}>Intuitive, focused and mobile-first. </span>
-                    <span style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280" }}>Designed for speed, clarity and movement.</span>
+                    <span style={{ fontFamily: ff, fontSize: 13, fontWeight: 700, color: GRN }}>Intuitive, focused and mobile-first. </span>
+                    <span style={{ fontFamily: ff, fontSize: 13, color: "#8a8580" }}>Designed for speed, clarity and movement.</span>
                   </div>
                 </div>
               </div>
@@ -1912,20 +1913,20 @@ function GoalSection() {
   }, []);
 
   return (
-    <section style={{ background: "#f6f6f6", padding: "10% 32px 80px" }}>
+    <section style={{ background: "var(--sp-dew)", padding: "10% 32px 80px" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div ref={ref} style={{ borderRadius: 20, overflow: "hidden", background: `linear-gradient(135deg, ${PRP} 0%, #4f46e5 100%)`, boxShadow: "0 8px 32px rgba(99,102,241,0.22)", ...revealStyle(revealed) }}>
           <div style={{ padding: "32px 40px 28px", borderBottom: "1px solid rgba(255,255,255,0.12)", textAlign: "center" as const }}>
-            <p style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase" as const, letterSpacing: "0.1em", marginBottom: 10 }}>The goal</p>
-            <p style={{ fontFamily: FONT, fontSize: 20, fontWeight: 700, color: "white", lineHeight: 1.5, maxWidth: 540, margin: "0 auto" }}>Make complex operations effortless on mobile—so staff can focus on guests, not the system.</p>
+            <p style={{ fontFamily: ff, fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase" as const, letterSpacing: "0.1em", marginBottom: 10 }}>The goal</p>
+            <p style={{ fontFamily: ff, fontSize: 20, fontWeight: 700, color: "white", lineHeight: 1.5, maxWidth: 540, margin: "0 auto" }}>Make complex operations effortless on mobile—so staff can focus on guests, not the system.</p>
           </div>
           <div style={{ display: "flex", padding: "24px 40px" }}>
             {stats.map((s, i) => (
               <div key={i} style={{ flex: 1, display: "flex", alignItems: "center", gap: 10, paddingRight: i < stats.length - 1 ? 32 : 0, paddingLeft: i > 0 ? 32 : 0, borderRight: i < stats.length - 1 ? "1px solid rgba(255,255,255,0.15)" : "none" }}>
                 <span style={{ fontSize: 20, opacity: 0.8 }}>{s.icon}</span>
                 <div>
-                  <div style={{ fontFamily: FONT, fontSize: 28, fontWeight: 800, color: "white", lineHeight: 1, marginBottom: 4 }}>{s.val}</div>
-                  <div style={{ fontFamily: FONT, fontSize: 13, color: "rgba(255,255,255,0.65)", lineHeight: 1.4 }}>{s.label}</div>
+                  <div style={{ fontFamily: ff, fontSize: 28, fontWeight: 800, color: "white", lineHeight: 1, marginBottom: 4 }}>{s.val}</div>
+                  <div style={{ fontFamily: ff, fontSize: 13, color: "rgba(255,255,255,0.65)", lineHeight: 1.4 }}>{s.label}</div>
                 </div>
               </div>
             ))}
@@ -1952,7 +1953,7 @@ function AuditBox({ x, y, w, h, children, tone = "white" }: { x: number; y: numb
     <div style={{
       position: "absolute", left: pct(x, AUDIT_W), top: pct(y, AUDIT_H), width: pct(w, AUDIT_W), height: pct(h, AUDIT_H),
       background: bg, border, borderRadius: 8, boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
-      display: "flex", alignItems: "center", gap: 6, padding: "0 10px", fontFamily: FONT,
+      display: "flex", alignItems: "center", gap: 6, padding: "0 10px", fontFamily: ff,
     }}>
       {children}
     </div>
@@ -1975,7 +1976,7 @@ function AuditDiagram({ annotations }: { annotations: NonNullable<MenstaData["ux
   };
 
   return (
-    <div style={{ position: "relative", width: "100%", aspectRatio: `${AUDIT_W} / ${AUDIT_H}`, fontFamily: FONT }}>
+    <div style={{ position: "relative", width: "100%", aspectRatio: `${AUDIT_W} / ${AUDIT_H}`, fontFamily: ff }}>
       {/* Connector lines */}
       <svg viewBox={`0 0 ${AUDIT_W} ${AUDIT_H}`} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
         {line(380, 54, 265, 84, 1)}
@@ -2015,9 +2016,9 @@ function AuditDiagram({ annotations }: { annotations: NonNullable<MenstaData["ux
 
       {/* Bottom button variants */}
       <div style={{ position: "absolute", left: pct(185, AUDIT_W), top: pct(614, AUDIT_H), width: pct(460, AUDIT_W), display: "flex", gap: 8 }}>
-        <div style={{ background: "#1e3a8a", color: "#fff", borderRadius: 7, padding: "8px 16px", fontFamily: FONT, fontSize: 12, fontWeight: 700 }}>Update Rate</div>
-        <div style={{ background: "#fff", border: "1.5px solid #1e3a8a", color: "#1e3a8a", borderRadius: 7, padding: "8px 16px", fontFamily: FONT, fontSize: 12, fontWeight: 700 }}>Update Inventory</div>
-        <div style={{ color: "#1e3a8a", borderRadius: 7, padding: "8px 16px", fontFamily: FONT, fontSize: 12, fontWeight: 700 }}>Edit Rate →</div>
+        <div style={{ background: "#1e3a8a", color: "#fff", borderRadius: 7, padding: "8px 16px", fontFamily: ff, fontSize: 12, fontWeight: 700 }}>Update Rate</div>
+        <div style={{ background: "#fff", border: "1.5px solid #1e3a8a", color: "#1e3a8a", borderRadius: 7, padding: "8px 16px", fontFamily: ff, fontSize: 12, fontWeight: 700 }}>Update Inventory</div>
+        <div style={{ color: "#1e3a8a", borderRadius: 7, padding: "8px 16px", fontFamily: ff, fontSize: 12, fontWeight: 700 }}>Edit Rate →</div>
       </div>
 
       {/* Annotations */}
@@ -2032,10 +2033,10 @@ function AuditDiagram({ annotations }: { annotations: NonNullable<MenstaData["ux
 function AuditAnnotationLabel({ x, y, w, num, title, desc }: { x: number; y: number; w: number; num: number; title?: string; desc?: string }) {
   return (
     <div style={{ position: "absolute", left: pct(x, AUDIT_W), top: pct(y, AUDIT_H), width: pct(w, AUDIT_W), display: "flex", gap: 8 }}>
-      <div style={{ width: 20, height: 20, borderRadius: "50%", background: AUDIT_RED, color: "white", fontFamily: FONT, fontSize: 10, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>{num}</div>
+      <div style={{ width: 20, height: 20, borderRadius: "50%", background: AUDIT_RED, color: "white", fontFamily: ff, fontSize: 10, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>{num}</div>
       <div>
-        <div style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 800, color: AUDIT_RED, lineHeight: 1.25, marginBottom: 3 }}>{title}</div>
-        <div style={{ fontFamily: FONT, fontSize: 11, color: "#6b7280", lineHeight: 1.45 }}>{desc}</div>
+        <div style={{ fontFamily: ff, fontSize: 12.5, fontWeight: 800, color: AUDIT_RED, lineHeight: 1.25, marginBottom: 3 }}>{title}</div>
+        <div style={{ fontFamily: ff, fontSize: 11, color: "#6b7280", lineHeight: 1.45 }}>{desc}</div>
       </div>
     </div>
   );
@@ -2044,10 +2045,10 @@ function AuditAnnotationLabel({ x, y, w, num, title, desc }: { x: number; y: num
 function AuditAnnotatedPhone() {
   const rowStyle: React.CSSProperties = { display: "flex", alignItems: "center", gap: 10, padding: "9px 12px" };
   const iconBoxStyle: React.CSSProperties = { width: 22, height: 22, borderRadius: 6, background: "#f3f4f6", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 11 };
-  const label: React.CSSProperties = { fontFamily: FONT, fontSize: 11.5, fontWeight: 600, color: "#111" };
+  const label: React.CSSProperties = { fontFamily: ff, fontSize: 11.5, fontWeight: 600, color: "#111" };
 
   return (
-    <div style={{ width: "100%", aspectRatio: "9 / 18.5", background: "#0a0a0a", borderRadius: 34, padding: "10px 8px", boxShadow: "0 24px 48px rgba(0,0,0,0.28)", position: "relative", fontFamily: FONT, boxSizing: "border-box" as const }}>
+    <div style={{ width: "100%", aspectRatio: "9 / 18.5", background: "#0a0a0a", borderRadius: 34, padding: "10px 8px", boxShadow: "0 24px 48px rgba(0,0,0,0.28)", position: "relative", fontFamily: ff, boxSizing: "border-box" as const }}>
       {/* Dynamic island */}
       <div style={{ position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)", width: "26%", height: "3%", background: "#0a0a0a", borderRadius: 20, zIndex: 10 }} />
       <div style={{ background: "#fff", borderRadius: 24, overflow: "hidden", height: "100%", display: "flex", flexDirection: "column" as const }}>
@@ -2109,17 +2110,17 @@ function UXAuditSection({ data }: { data: NonNullable<MenstaData["uxAudit"]> }) 
   }, []);
 
   return (
-    <section ref={ref} style={{ background: "#ffffff", padding: "90px 32px", overflow: "hidden" }}>
+    <section ref={ref} style={{ background: "var(--sp-cream)", padding: "90px 32px", overflow: "hidden" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto", display: "flex", flexDirection: "column" as const, alignItems: "center" }}>
         {/* TOP — copy, centered */}
         <div style={{ maxWidth: 640, textAlign: "center" as const, marginBottom: 56, ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 800, color: ACCENT, textTransform: "uppercase" as const, letterSpacing: "0.14em", marginBottom: 18 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(32px,3.6vw,48px)", fontWeight: 800, color: "#0f172a", lineHeight: 1.08, marginBottom: 22 }}>
+          <p style={{ fontFamily: ff, fontSize: 12.5, fontWeight: 800, color: ACCENT, textTransform: "uppercase" as const, letterSpacing: "0.14em", marginBottom: 18 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(32px,3.6vw,48px)", fontWeight: 800, color: "var(--sp-cocoa)", lineHeight: 1.08, marginBottom: 22 }}>
             {data.heading.join(" ")}
           </h2>
           <div style={{ width: 48, height: 4, background: ACCENT, borderRadius: 2, margin: "0 auto 26px" }} />
           {data.paragraphs.map((p, i) => (
-            <p key={i} style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", lineHeight: 1.75, marginBottom: i < data.paragraphs.length - 1 ? 16 : 0 }}>{p}</p>
+            <p key={i} style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", lineHeight: 1.75, marginBottom: i < data.paragraphs.length - 1 ? 16 : 0 }}>{p}</p>
           ))}
         </div>
 
@@ -2143,25 +2144,25 @@ function InformationArchitectureSection({ data }: { data: NonNullable<MenstaData
   }, []);
 
   return (
-    <section ref={ref} style={{ background: "#f6f6f6", padding: "90px 32px" }}>
+    <section ref={ref} style={{ background: "var(--sp-dew)", padding: "90px 32px" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center" as const, marginBottom: 56, ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
-          <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>{data.subtext}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
+          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>{data.subtext}</p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 32, alignItems: "center", ...revealStyle(revealed, 100) }}>
           {/* BEFORE — nested chain */}
-          <div style={{ background: "white", border: "1px solid #e8eaf0", borderRadius: 18, padding: "28px 28px 24px" }}>
+          <div style={{ background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 18, padding: "28px 28px 24px" }}>
             <div style={{ display: "inline-block", background: "#fee2e2", borderRadius: 6, padding: "3px 10px", marginBottom: 18 }}>
-              <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#dc2626", letterSpacing: "0.08em" }}>BEFORE</span>
+              <span style={{ fontFamily: ff, fontSize: 11, fontWeight: 700, color: "#dc2626", letterSpacing: "0.08em" }}>BEFORE</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const }}>
               {data.before.map((step, i) => (
                 <div key={i} style={{ display: "flex", flexDirection: "column" as const, alignItems: "center" }}>
-                  <div style={{ width: "100%", background: "#f8f9fb", border: "1px solid #eceef2", borderRadius: 10, padding: "9px 14px", textAlign: "center" as const }}>
-                    <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: "#374151" }}>{step}</span>
+                  <div style={{ width: "100%", background: "var(--sp-dew)", border: "1px solid rgba(23,23,23,0.12)", borderRadius: 10, padding: "9px 14px", textAlign: "center" as const }}>
+                    <span style={{ fontFamily: ff, fontSize: 13, fontWeight: 600, color: "#8a8580" }}>{step}</span>
                   </div>
                   {i < data.before.length - 1 && (
                     <div style={{ fontSize: 13, color: "#c4c9d4", padding: "4px 0" }}>↓</div>
@@ -2169,25 +2170,25 @@ function InformationArchitectureSection({ data }: { data: NonNullable<MenstaData
                 </div>
               ))}
             </div>
-            <p style={{ fontFamily: FONT, fontSize: 12, color: "#9ca3af", textAlign: "center" as const, marginTop: 14 }}>Multiple duplicated branches</p>
+            <p style={{ fontFamily: ff, fontSize: 12, color: "#8a8580", textAlign: "center" as const, marginTop: 14 }}>Multiple duplicated branches</p>
           </div>
 
           {/* Arrow */}
           <div style={{ fontSize: 28, color: PRP, fontWeight: 700 }}>→</div>
 
           {/* AFTER — clean grid */}
-          <div style={{ background: "white", border: "1px solid #e8eaf0", borderRadius: 18, padding: "28px 28px 24px" }}>
+          <div style={{ background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 18, padding: "28px 28px 24px" }}>
             <div style={{ display: "inline-block", background: "#d1fae5", borderRadius: 6, padding: "3px 10px", marginBottom: 18 }}>
-              <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: GRN, letterSpacing: "0.08em" }}>AFTER</span>
+              <span style={{ fontFamily: ff, fontSize: 11, fontWeight: 700, color: GRN, letterSpacing: "0.08em" }}>AFTER</span>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
               {data.after.map((item, i) => (
-                <div key={i} style={{ background: "#fafbff", border: "1px solid #e0e6f5", borderRadius: 10, padding: "16px 14px", textAlign: "center" as const }}>
-                  <span style={{ fontFamily: FONT, fontSize: 13.5, fontWeight: 700, color: "#111" }}>{item}</span>
+                <div key={i} style={{ background: "var(--sp-dew)", border: "1px solid rgba(23,23,23,0.12)", borderRadius: 10, padding: "16px 14px", textAlign: "center" as const }}>
+                  <span style={{ fontFamily: ff, fontSize: 13.5, fontWeight: 700, color: "var(--sp-charcoal)" }}>{item}</span>
                 </div>
               ))}
             </div>
-            <p style={{ fontFamily: FONT, fontSize: 12, color: "#9ca3af", textAlign: "center" as const, marginTop: 14 }}>One clear hierarchy</p>
+            <p style={{ fontFamily: ff, fontSize: 12, color: "#8a8580", textAlign: "center" as const, marginTop: 14 }}>One clear hierarchy</p>
           </div>
         </div>
       </div>
@@ -2210,15 +2211,15 @@ function WorkflowTransformationSection({ data }: { data: NonNullable<MenstaData[
   }, []);
 
   return (
-    <section ref={ref} style={{ background: "#ffffff", padding: "90px 32px" }}>
+    <section ref={ref} style={{ background: "var(--sp-cream)", padding: "90px 32px" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center" as const, marginBottom: 20, ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "#111", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
         </div>
         <div style={{ maxWidth: 640, margin: "0 auto 48px", ...revealStyle(revealed, 60) }}>
           {data.description.map((p, i) => (
-            <p key={i} style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", lineHeight: 1.75, textAlign: "center" as const, marginBottom: i < data.description.length - 1 ? 14 : 0 }}>{p}</p>
+            <p key={i} style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", lineHeight: 1.75, textAlign: "center" as const, marginBottom: i < data.description.length - 1 ? 14 : 0 }}>{p}</p>
           ))}
         </div>
 
@@ -2227,7 +2228,7 @@ function WorkflowTransformationSection({ data }: { data: NonNullable<MenstaData[
           {["Inventory", "Rates", "Reservations", "Reports", "Notifications", "Settings"].map((step, i, arr) => (
             <React.Fragment key={i}>
               <div style={{ background: "#fee2e2", border: "1px solid #fecaca", borderRadius: 10, padding: "10px 16px" }}>
-                <span style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 600, color: "#b91c1c" }}>{step}</span>
+                <span style={{ fontFamily: ff, fontSize: 12.5, fontWeight: 600, color: "#b91c1c" }}>{step}</span>
               </div>
               {i < arr.length - 1 && <span style={{ color: "#c4c9d4", fontSize: 14 }}>→</span>}
             </React.Fragment>
@@ -2240,7 +2241,7 @@ function WorkflowTransformationSection({ data }: { data: NonNullable<MenstaData[
           {["Operations", "Revenue", "Reservations", "Account"].map((step, i, arr) => (
             <React.Fragment key={i}>
               <div style={{ background: "#d1fae5", border: "1px solid #a7f3d0", borderRadius: 10, padding: "12px 22px" }}>
-                <span style={{ fontFamily: FONT, fontSize: 13.5, fontWeight: 700, color: "#047857" }}>{step}</span>
+                <span style={{ fontFamily: ff, fontSize: 13.5, fontWeight: 700, color: "#047857" }}>{step}</span>
               </div>
               {i < arr.length - 1 && <span style={{ color: "#c4c9d4", fontSize: 14 }}>→</span>}
             </React.Fragment>
@@ -2249,28 +2250,28 @@ function WorkflowTransformationSection({ data }: { data: NonNullable<MenstaData[
 
         {/* Before / After comparison */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, ...revealStyle(revealed, 200) }}>
-          <div style={{ background: "#f8f9fb", border: "1px solid #e8eaf0", borderRadius: 16, padding: "24px 26px" }}>
+          <div style={{ background: "var(--sp-dew)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 16, padding: "24px 26px" }}>
             <div style={{ display: "inline-block", background: "#fee2e2", borderRadius: 6, padding: "3px 10px", marginBottom: 16 }}>
-              <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: "#dc2626", letterSpacing: "0.08em" }}>{data.before.label}</span>
+              <span style={{ fontFamily: ff, fontSize: 11, fontWeight: 700, color: "#dc2626", letterSpacing: "0.08em" }}>{data.before.label}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: 10 }}>
               {data.before.items.map((item, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <span style={{ color: "#dc2626", fontSize: 14 }}>✕</span>
-                  <span style={{ fontFamily: FONT, fontSize: 13.5, color: "#374151" }}>{item}</span>
+                  <span style={{ fontFamily: ff, fontSize: 13.5, color: "#8a8580" }}>{item}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div style={{ background: "#fafbff", border: "1px solid #e0e6f5", borderRadius: 16, padding: "24px 26px" }}>
+          <div style={{ background: "var(--sp-dew)", border: "1px solid rgba(23,23,23,0.12)", borderRadius: 16, padding: "24px 26px" }}>
             <div style={{ display: "inline-block", background: "#d1fae5", borderRadius: 6, padding: "3px 10px", marginBottom: 16 }}>
-              <span style={{ fontFamily: FONT, fontSize: 11, fontWeight: 700, color: GRN, letterSpacing: "0.08em" }}>{data.after.label}</span>
+              <span style={{ fontFamily: ff, fontSize: 11, fontWeight: 700, color: GRN, letterSpacing: "0.08em" }}>{data.after.label}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column" as const, gap: 10 }}>
               {data.after.items.map((item, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <span style={{ color: GRN, fontSize: 14 }}>✓</span>
-                  <span style={{ fontFamily: FONT, fontSize: 13.5, fontWeight: 600, color: "#111" }}>{item}</span>
+                  <span style={{ fontFamily: ff, fontSize: 13.5, fontWeight: 600, color: "var(--sp-charcoal)" }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -2318,17 +2319,17 @@ function OutcomeSection({ data }: { data: NonNullable<MenstaData["outcome"]> }) 
   const marqueeItems = ["Reservations", "Group Bookings", "Housekeeping", "Accounts", "POS", "Management Dashboard", "Night Audit", "Consolidated Accounts"];
 
   return (
-    <section ref={ref} style={{ background: "#f0f4fb", overflow: "hidden" }}>
+    <section ref={ref} style={{ background: "var(--sp-dew)", overflow: "hidden" }}>
       <style>{`@keyframes outcome-marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }`}</style>
 
       {/* Header */}
       <div style={{ textAlign: "center" as const, maxWidth: MAX_W, margin: "0 auto", padding: "80px 32px 56px", ...revealStyle(revealed) }}>
-        <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
-        <h2 style={{ fontFamily: FONT, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "#111", marginBottom: 14 }}>
+        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+        <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "var(--sp-cocoa)", marginBottom: 14 }}>
           {data.heading}<br />
           Built for <span style={{ color: PRP }}>{data.headingAccent}</span>
         </h2>
-        <p style={{ fontFamily: FONT, fontSize: 15, color: "#6b7280", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
+        <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
       </div>
 
       {/* Phone fan */}
@@ -2358,7 +2359,7 @@ function OutcomeSection({ data }: { data: NonNullable<MenstaData["outcome"]> }) 
       </div>
 
       {/* Feature strip */}
-      <div style={{ background: "white", borderTop: "1px solid #e5e7eb", marginTop: 0 }}>
+      <div style={{ background: "var(--sp-cream)", borderTop: "1px solid rgba(23,23,23,0.12)", marginTop: 0 }}>
         <div style={{ maxWidth: MAX_W, margin: "0 auto", display: "flex" }}>
           {features.map((f, i) => (
             <div
@@ -2366,15 +2367,15 @@ function OutcomeSection({ data }: { data: NonNullable<MenstaData["outcome"]> }) 
               style={{
                 flex: 1,
                 padding: "28px 20px",
-                borderRight: i < features.length - 1 ? "1px solid #e5e7eb" : "none",
+                borderRight: i < features.length - 1 ? "1px solid rgba(23,23,23,0.12)" : "none",
                 ...revealStyle(revealed, 300 + i * 60),
               }}
             >
               {"num" in f && (
-                <div style={{ fontFamily: FONT, fontSize: 20, fontWeight: 800, color: PRP, lineHeight: 1, marginBottom: 4 }}>{f.num}</div>
+                <div style={{ fontFamily: ff, fontSize: 20, fontWeight: 800, color: PRP, lineHeight: 1, marginBottom: 4 }}>{f.num}</div>
               )}
-              <div style={{ fontFamily: FONT, fontSize: 13, fontWeight: 700, color: "#111", marginBottom: 3 }}>{f.title}</div>
-              <div style={{ fontFamily: FONT, fontSize: 12, color: "#6b7280", lineHeight: 1.45 }}>{f.desc}</div>
+              <div style={{ fontFamily: ff, fontSize: 13, fontWeight: 700, color: "var(--sp-charcoal)", marginBottom: 3 }}>{f.title}</div>
+              <div style={{ fontFamily: ff, fontSize: 12, color: "#8a8580", lineHeight: 1.45 }}>{f.desc}</div>
             </div>
           ))}
         </div>
@@ -2384,7 +2385,7 @@ function OutcomeSection({ data }: { data: NonNullable<MenstaData["outcome"]> }) 
       <div style={{ background: PRP, padding: "14px 0", overflow: "hidden" }}>
         <div style={{ display: "flex", animation: "outcome-marquee 24s linear infinite", width: "max-content" }}>
           {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span key={i} style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: "white", padding: "0 20px", whiteSpace: "nowrap" as const, opacity: 0.9 }}>
+            <span key={i} style={{ fontFamily: ff, fontSize: 13, fontWeight: 600, color: "white", padding: "0 20px", whiteSpace: "nowrap" as const, opacity: 0.9 }}>
               {item}&nbsp;&nbsp;•
             </span>
           ))}
@@ -2400,7 +2401,7 @@ export default function MenstaTemplate({ data, slug = "pocket-pms" }: { data: Me
   return (
     <AccentContext.Provider value={data.accentColor ?? "#2856A2"}>
     <ScreensContext.Provider value={data.screenshots ?? DEFAULT_SCREENS}>
-      <div style={{ background: "#f5f5f5", fontFamily: FONT }}>
+      <div style={{ background: "var(--sp-dew)", fontFamily: ff }}>
         <FloatingPhone onSection={setPhoneSection} />
         <HeroSection data={data.hero} />
         {data.snapshot && <ProjectSnapshotSection data={data.snapshot} />}

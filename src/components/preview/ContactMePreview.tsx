@@ -15,7 +15,7 @@ import {
 import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import {
-  ff, SnapshotCard, SectionEyebrow, ScreenshotPlaceholder, TiltMockup,
+  ff, ffHeading, SnapshotCard, SectionEyebrow, ScreenshotPlaceholder, TiltMockup,
   SectionHeading, ChallengeCard, Annotation, InsightCard, SmallInsightCard,
   ResearchMethodsBar, MockTable, MockSelection, MockAvatars, MockForm, MockTimeline,
   SandboxCluster, type SandboxStatCard, SolutionStep, SolutionPill, DesignSystemGrid,
@@ -110,18 +110,18 @@ export default function ContactMePreview() {
     <>
       {/* Section 01 — Overview */}
       <section style={{
-        background: "#f3f3f3",
+        background: "var(--sp-cream)",
         padding: "120px 8% 90px",
       }}>
         <h1 style={{
-          fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 400, color: "#111",
-          fontFamily: ff, textAlign: "center", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 22,
+          fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 600, color: "var(--sp-cocoa)",
+          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, textTransform: "capitalize", marginBottom: 22,
         }}>
           Contact Me
         </h1>
 
         <p style={{
-          fontSize: 16, color: "#6b7280", fontFamily: ff, textAlign: "center", lineHeight: 1.7,
+          fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: "center", lineHeight: 1.7,
           margin: "0 auto 32px",
         }}>
           {LOREM_LONG}
@@ -133,8 +133,9 @@ export default function ContactMePreview() {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              fontFamily: ff, fontSize: 14, fontWeight: 400, color: "#fff", background: "#111",
-              border: "none", borderRadius: 12, padding: "13px 28px", cursor: "pointer",
+              fontFamily: ff, fontSize: 16, fontWeight: 500, color: "var(--sp-charcoal)", background: "var(--sp-cream)",
+              border: "1.5px solid var(--sp-charcoal)", borderRadius: 20, padding: "13px 28px", cursor: "pointer",
+              boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 2px 0px",
               display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none",
             }}
           >
@@ -146,8 +147,8 @@ export default function ContactMePreview() {
         {/* Dashboard mockup */}
         <div style={{ position: "relative", maxWidth: 980, margin: "0 auto" }}>
           <div style={{
-            background: "#242424", borderRadius: 20,
-            boxShadow: "0 24px 64px rgba(0,0,0,0.10)", overflow: "hidden",
+            background: "var(--sp-dew)", borderRadius: 12,
+            boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", overflow: "hidden",
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 16px" }}>
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57" }} />
@@ -155,7 +156,7 @@ export default function ContactMePreview() {
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840" }} />
             </div>
             <div style={{ padding: "0 10px 10px" }}>
-              <div style={{ background: "#fff", borderRadius: 10, overflow: "hidden" }}>
+              <div style={{ background: "var(--sp-cream)", borderRadius: 8, overflow: "hidden" }}>
                 <ScreenshotPlaceholder label="Dashboard screenshot" height={653} />
               </div>
             </div>
@@ -164,20 +165,20 @@ export default function ContactMePreview() {
       </section>
 
       {/* Project Snapshot — sits right after the hero, no numbered eyebrow */}
-      <section style={{ background: "#f3f3f3", padding: "60px 8% 90px" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "60px 8% 90px" }}>
         <p style={{
-          fontSize: 12, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase",
-          color: "#999", fontFamily: ff, textAlign: "center", marginBottom: 14,
+          fontSize: 16, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase",
+          color: "#8a8580", fontFamily: ff, textAlign: "center", marginBottom: 14,
         }}>
           Project Snapshot
         </p>
         <h2 style={{
-          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 400, color: "#111",
-          fontFamily: ff, textAlign: "center", letterSpacing: "-0.02em", marginBottom: 14,
+          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
+          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
         }}>
           {LOREM_SHORT}
         </h2>
-        <p style={{ fontSize: 15.5, color: "#777", fontFamily: ff, textAlign: "center", lineHeight: 1.75, maxWidth: 620, margin: "0 auto 48px" }}>
+        <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: "center", lineHeight: 1.75, maxWidth: 620, margin: "0 auto 48px" }}>
           {LOREM_MED}
         </p>
 
@@ -190,17 +191,17 @@ export default function ContactMePreview() {
       </section>
 
       {/* Section 02 — At a Glance */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%" }}>
         <SectionEyebrow number="02" label="At a Glance" />
 
         <h2 style={{
-          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 400, color: "#111",
-          fontFamily: ff, textAlign: "center", letterSpacing: "-0.02em", marginBottom: 14,
+          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
+          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
         }}>
           {LOREM_SHORT}
         </h2>
 
-        <p style={{ fontSize: 15.5, color: "#777", fontFamily: ff, textAlign: "center", maxWidth: 480, margin: "0 auto 56px" }}>
+        <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: "center", maxWidth: 480, margin: "0 auto 56px" }}>
           {LOREM_MED}
         </p>
 
@@ -208,7 +209,7 @@ export default function ContactMePreview() {
       </section>
 
       {/* Section 03 — The Challenge */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%" }}>
         <SectionEyebrow number="03" label="The Challenge" />
         <SectionHeading
           title={LOREM_SHORT}
@@ -224,10 +225,10 @@ export default function ContactMePreview() {
       </section>
 
       {/* Section 04 — Research Insights */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%", position: "relative", overflow: "hidden" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%", position: "relative", overflow: "hidden" }}>
         <div aria-hidden style={{
           position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(23,23,23,0.07) 1px, transparent 1px)",
           backgroundSize: "18px 18px",
           WebkitMaskImage: "radial-gradient(circle at 8% 92%, black 0%, transparent 40%)",
           maskImage: "radial-gradient(circle at 8% 92%, black 0%, transparent 40%)",
@@ -276,7 +277,7 @@ export default function ContactMePreview() {
       </section>
 
       {/* Section 05 — Design Principles */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8% 110px" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8% 110px" }}>
         <SectionEyebrow number="05" label="Design Principles" />
         <SectionHeading
           title={LOREM_SHORT}
@@ -288,7 +289,7 @@ export default function ContactMePreview() {
       </section>
 
       {/* Section 06 — The Solution */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8% 110px" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8% 110px" }}>
         <SectionEyebrow number="06" label="The Solution" />
         <SectionHeading
           title={LOREM_SHORT}
@@ -333,13 +334,13 @@ export default function ContactMePreview() {
       </section>
 
       {/* Section 07 — Ecosystem showcase (HeroParallax) */}
-      <section style={{ background: "#1C46F2" }}>
+      <section style={{ background: "var(--sp-charcoal)" }}>
         <HeroParallax
           products={MODULES}
           containerHeight="280vh"
           headerTitle={LOREM_SHORT}
           headerSubtitle={LOREM_LONG}
-          headerFontFamily={ff}
+          headerFontFamily={ffHeading}
           compactHeader
           contentScale={1.15}
           headerGapBelow={560}
@@ -359,7 +360,7 @@ export default function ContactMePreview() {
       </section>
 
       {/* Section 08 — Design System */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%" }}>
         <SectionEyebrow number="08" label="Design System" />
         <SectionHeading
           title="Building better interfaces with design systems."
@@ -368,8 +369,8 @@ export default function ContactMePreview() {
         />
 
         <TiltMockup style={{
-          position: "relative", maxWidth: 1040, margin: "0 auto 20px", background: "#fff", borderRadius: 20,
-          border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 24px 64px rgba(0,0,0,0.08)", overflow: "hidden",
+          position: "relative", maxWidth: 1040, margin: "0 auto 20px", background: "var(--sp-cream)", borderRadius: 12,
+          border: "1.5px solid var(--sp-charcoal)", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", overflow: "hidden",
         }}>
           <ScreenshotPlaceholder label="Design system applied — component library mockup" height={666} fit="width" />
         </TiltMockup>
@@ -378,18 +379,18 @@ export default function ContactMePreview() {
       </section>
 
       {/* Section 09 — Impact */}
-      <section style={{ background: "#f3f3f3", padding: "60px 8%" }}>
-        <div style={{ background: "#1C46F2", borderRadius: 28, padding: "56px 48px 48px", maxWidth: 1120, margin: "0 auto" }}>
-          <div style={{ fontSize: 13, fontWeight: 400, letterSpacing: "0.08em", color: "#fff", fontFamily: ff, marginBottom: 24 }}>
+      <section style={{ background: "var(--sp-cream)", padding: "60px 8%" }}>
+        <div style={{ background: "var(--sp-dew)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 12, padding: "56px 48px 48px", maxWidth: 1120, margin: "0 auto" }}>
+          <div style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.08em", color: "var(--sp-orange)", fontFamily: ff, marginBottom: 24 }}>
             09 — IMPACT
           </div>
           <h2 style={{
-            fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 400, color: "#fff", fontFamily: ff,
-            lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 16, maxWidth: 560,
+            fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading,
+            lineHeight: 1.2, textTransform: "capitalize", marginBottom: 16, maxWidth: 560,
           }}>
             {LOREM_SHORT}
           </h2>
-          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.75)", fontFamily: ff, lineHeight: 1.6, maxWidth: 480, margin: "0 0 40px" }}>
+          <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.6, maxWidth: 480, margin: "0 0 40px" }}>
             {LOREM_MED}
           </p>
 
@@ -402,8 +403,8 @@ export default function ContactMePreview() {
       </section>
 
       {/* Section 10 — Lessons Learned */}
-      <section style={{ background: "#f3f3f3", padding: "70px 8% 100px" }}>
-        <div style={{ fontSize: 13, fontWeight: 400, letterSpacing: "0.08em", color: "#1C46F2", fontFamily: ff, marginBottom: 32, maxWidth: 1120, margin: "0 auto 32px" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "70px 8% 100px" }}>
+        <div style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.08em", color: "var(--sp-orange)", fontFamily: ff, marginBottom: 32, maxWidth: 1120, margin: "0 auto 32px" }}>
           10 — LESSONS LEARNED
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, maxWidth: 1120, margin: "0 auto" }}>

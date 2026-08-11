@@ -1,15 +1,48 @@
 "use client";
 
-// Lessons Learned section (Section 10). Uses the same design system as the
-// rest of the Hotelogix case study — Manrope (`ff`), #1C46F2 accent, #f3f3f3
-// canvas, and the shared SectionEyebrow/SectionHeading primitives — so the
-// bento layout below reads as part of the page rather than a separate one.
+// Lessons Learned section (Section 10). Uses the same Superr design system as
+// the rest of the Hotelogix case study — Geist body (`ff`), Fraunces
+// headings (`ffHeading`), the marker-orange accent, and local (non-shared)
+// SectionEyebrow/SectionHeading copies — so the bento layout below reads as
+// part of the page rather than a separate one. These primitives are defined
+// locally rather than imported from caseStudyKit because caseStudyKit is
+// still shared by several other, out-of-scope case-study pages.
 
 import {
   Building2, ClipboardList, Wallet, Camera, User,
   Users, Quote, TrendingUp, TrendingDown,
 } from "lucide-react";
-import { ff, SectionEyebrow, SectionHeading } from "@/components/preview/caseStudyKit";
+
+const ff = "var(--font-geist), sans-serif";
+const ffHeading = "var(--font-fraunces), serif";
+
+function SectionEyebrow({ number, label, align = "center" }: { number: string; label: string; align?: "left" | "center" }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: align === "left" ? "flex-start" : "center", gap: 8, marginBottom: 20 }}>
+      <span style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff }}>{number}</span>
+      <span style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8a8580", fontFamily: ff }}>{label}</span>
+    </div>
+  );
+}
+
+function SectionHeading({ title, subtitle, maxWidth = 640, bold = false, align = "center" }: { title: string; subtitle: string; maxWidth?: number; bold?: boolean; align?: "left" | "center" }) {
+  return (
+    <>
+      <h2 style={{
+        fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: bold ? 700 : 600, color: "var(--sp-cocoa)",
+        fontFamily: ffHeading, textAlign: align, textTransform: "capitalize", marginBottom: 14,
+      }}>
+        {title}
+      </h2>
+      <p style={{
+        fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: align, lineHeight: 1.75, maxWidth,
+        margin: align === "left" ? "0 0 56px" : "0 auto 56px",
+      }}>
+        {subtitle}
+      </p>
+    </>
+  );
+}
 
 // Everything case-study-specific is a prop; the layout, geometry and tints
 // below are fixed. Defaults reproduce the RMS content exactly, so
@@ -36,20 +69,20 @@ export type LessonsLearnedPremiumProps = {
   blueprintLabels?: BlueprintLabel[];
 };
 
-const accent = "#1C46F2";
-const accentTint = "#E8EDFE";
-const ink = "#111";
-const muted = "#777";
-const faint = "#999";
-const canvas = "#f3f3f3";
-const cardBorder = "1px solid rgba(0,0,0,0.07)";
-const cardShadow = "0 4px 24px rgba(0,0,0,0.04)";
-const radius = 16;
+const accent = "var(--sp-orange)";
+const accentTint = "rgba(255,111,30,0.12)";
+const ink = "var(--sp-charcoal)";
+const muted = "#8a8580";
+const faint = "#8a8580";
+const canvas = "var(--sp-cream)";
+const cardBorder = "1.5px solid var(--sp-charcoal)";
+const cardShadow = "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px";
+const radius = 12;
 
 function Panel({ style, children }: { style?: React.CSSProperties; children: React.ReactNode }) {
   return (
     <div style={{
-      background: "#fff", border: cardBorder, borderRadius: radius,
+      background: "var(--sp-cream)", border: cardBorder, borderRadius: radius,
       boxShadow: cardShadow, ...style,
     }}>
       {children}
@@ -58,11 +91,11 @@ function Panel({ style, children }: { style?: React.CSSProperties; children: Rea
 }
 
 // Per-lesson number. Matches the numeral half of the page's SectionEyebrow
-// (15px / 400 / accent) — these are lesson counters, not page sections, so
+// (16px / 400 / accent) — these are lesson counters, not page sections, so
 // they carry no uppercase label alongside them.
 function Eyebrow({ n }: { n: string }) {
   return (
-    <div style={{ fontSize: 15, fontWeight: 400, color: accent, fontFamily: ff, marginBottom: 14 }}>
+    <div style={{ fontSize: 16, fontWeight: 400, color: accent, fontFamily: ff, marginBottom: 14 }}>
       {n}
     </div>
   );
@@ -73,8 +106,8 @@ function KpiFloat({ label, value, delta, positive, style }: {
 }) {
   return (
     <div style={{
-      position: "absolute", background: "#fff", borderRadius: 14, border: cardBorder,
-      boxShadow: "0 12px 28px rgba(0,0,0,0.10)", padding: "10px 16px", minWidth: 128, ...style,
+      position: "absolute", background: "var(--sp-cream)", borderRadius: 14, border: cardBorder,
+      boxShadow: cardShadow, padding: "10px 16px", minWidth: 128, ...style,
     }}>
       <div style={{ fontSize: 10.5, color: faint, fontFamily: ff, marginBottom: 4 }}>{label}</div>
       <div style={{ display: "flex", alignItems: "baseline", gap: 7 }}>
@@ -94,10 +127,10 @@ function KpiFloat({ label, value, delta, positive, style }: {
 // ── Section 01 — dashboard illustration ──────────────────────
 function DashboardIllustration({ hero, kpis }: { hero: HeroImage; kpis: KpiSpec[] }) {
   return (
-    <div style={{ position: "relative", height: 260, borderRadius: 18, overflow: "hidden", background: "linear-gradient(135deg, #fafbff 0%, #f2f3fb 100%)" }}>
+    <div style={{ position: "relative", height: 260, borderRadius: 18, overflow: "hidden", background: "var(--sp-dew)" }}>
       <div style={{
         position: "absolute", top: 18, left: 18, bottom: 18, width: 40, borderRadius: 12,
-        background: "#14151d", display: "flex", flexDirection: "column", alignItems: "center", gap: 14, paddingTop: 18,
+        background: "var(--sp-charcoal)", display: "flex", flexDirection: "column", alignItems: "center", gap: 14, paddingTop: 18,
       }}>
         {[Building2, ClipboardList, Wallet].map((Icon, i) => (
           <div key={i} style={{
@@ -173,7 +206,7 @@ function NetworkDiagram({ labels }: { labels: NodeLabel[] }) {
         <div key={d} style={{
           position: "absolute", top: `${HUB.y}%`, left: `${HUB.x}%`, width: d, height: d,
           transform: "translate(-50%,-50%)", borderRadius: "50%",
-          border: `1px dashed rgba(28,70,242,${d === 200 ? 0.22 : 0.14})`,
+          border: `1px dashed rgba(255,111,30,${d === 200 ? 0.22 : 0.14})`,
         }} />
       ))}
 
@@ -181,9 +214,9 @@ function NetworkDiagram({ labels }: { labels: NodeLabel[] }) {
         position: "absolute", top: `${HUB.y}%`, left: `${HUB.x}%`, transform: "translate(-50%,-50%)",
         width: 76, height: 76, borderRadius: "50%", background: accent,
         display: "flex", alignItems: "center", justifyContent: "center",
-        boxShadow: "0 16px 34px rgba(28,70,242,0.38)", zIndex: 1,
+        boxShadow: "0 16px 34px rgba(255,111,30,0.38)", zIndex: 1,
       }}>
-        <Building2 size={30} color="#fff" strokeWidth={1.6} />
+        <Building2 size={30} color="var(--sp-cream)" strokeWidth={1.6} />
       </div>
 
       {nodes.map((n, i) => {
@@ -191,8 +224,8 @@ function NetworkDiagram({ labels }: { labels: NodeLabel[] }) {
         return (
           <div key={i} style={{
             position: "absolute", ...n.pos,
-            display: "flex", alignItems: "center", gap: 10, background: "#fff", borderRadius: 14,
-            border: cardBorder, boxShadow: "0 10px 24px rgba(0,0,0,0.07)", padding: "10px 16px 10px 10px", whiteSpace: "nowrap",
+            display: "flex", alignItems: "center", gap: 10, background: "var(--sp-cream)", borderRadius: 14,
+            border: cardBorder, boxShadow: cardShadow, padding: "10px 16px 10px 10px", whiteSpace: "nowrap",
           }}>
             <div style={{
               width: 34, height: 34, borderRadius: 10, background: n.tint,
@@ -341,7 +374,7 @@ function BlueprintIllustration({ labels }: { labels: BlueprintLabel[] }) {
             </svg>
             <div style={{ lineHeight: 1.3, minWidth: 0 }}>
               <div style={{ fontSize: 11.5, fontWeight: 700, color: ink, fontFamily: ff }}>{b.top}</div>
-              <div style={{ fontSize: 11.5, fontWeight: 500, color: "#6b7bb8", fontFamily: ff }}>{b.bottom}</div>
+              <div style={{ fontSize: 11.5, fontWeight: 500, color: muted, fontFamily: ff }}>{b.bottom}</div>
             </div>
           </div>
         );
@@ -363,8 +396,8 @@ function CollabAvatar({ label, tint, iconColor, style }: { label: string; tint: 
     <div style={{ position: "absolute", display: "flex", flexDirection: "column", alignItems: "center", gap: 10, ...style }}>
       <div style={{
         width: 82, height: 82, borderRadius: "50%", background: tint,
-        display: "flex", alignItems: "center", justifyContent: "center", border: "4px solid #fff",
-        boxShadow: "0 12px 26px rgba(0,0,0,0.14)",
+        display: "flex", alignItems: "center", justifyContent: "center", border: "4px solid var(--sp-cream)",
+        boxShadow: cardShadow,
       }}>
         <User size={30} color={iconColor} strokeWidth={1.6} />
       </div>
@@ -394,9 +427,9 @@ function CollabDiagram() {
         position: "absolute", top: `${COLLAB_HUB.y}%`, left: `${COLLAB_HUB.x}%`, transform: "translate(-50%,-50%)",
         width: 60, height: 60, borderRadius: "50%", background: accent,
         display: "flex", alignItems: "center", justifyContent: "center",
-        boxShadow: "0 14px 30px rgba(28,70,242,0.36)", zIndex: 1,
+        boxShadow: "0 14px 30px rgba(255,111,30,0.36)", zIndex: 1,
       }}>
-        <Users size={24} color="#fff" strokeWidth={1.6} />
+        <Users size={24} color="var(--sp-cream)" strokeWidth={1.6} />
       </div>
     </div>
   );
@@ -405,19 +438,19 @@ function CollabDiagram() {
 // ── Quote banner chart ────────────────────────────────────────
 function QuoteChart() {
   return (
-    <div style={{ position: "relative", background: "#fff", borderRadius: 16, border: cardBorder, padding: "16px 18px", height: 130 }}>
+    <div style={{ position: "relative", background: "var(--sp-cream)", borderRadius: 16, border: cardBorder, padding: "16px 18px", height: 130 }}>
       <svg width="100%" height="70" viewBox="0 0 200 70" fill="none" preserveAspectRatio="none">
         <polyline
           points="0,55 25,42 50,48 75,28 100,34 125,16 150,22 175,8 200,14"
           fill="none" stroke={accent} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
         />
         {[[0, 55], [50, 48], [100, 34], [150, 22], [200, 14]].map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r={2.2} fill={i === 4 ? accent : "#fff"} stroke={accent} strokeWidth={1.4} />
+          <circle key={i} cx={x} cy={y} r={2.2} fill={i === 4 ? accent : "var(--sp-cream)"} stroke={accent} strokeWidth={1.4} />
         ))}
       </svg>
       <div style={{
-        position: "absolute", top: -14, right: 4, background: "#fff", borderRadius: 12, border: cardBorder,
-        boxShadow: "0 10px 24px rgba(0,0,0,0.10)", padding: "8px 14px",
+        position: "absolute", top: -14, right: 4, background: "var(--sp-cream)", borderRadius: 12, border: cardBorder,
+        boxShadow: cardShadow, padding: "8px 14px",
       }}>
         <div style={{ fontSize: 9.5, color: faint, fontFamily: ff }}>Operational Efficiency</div>
         <div style={{ display: "flex", alignItems: "baseline", gap: 5 }}>
@@ -434,7 +467,7 @@ function AnalyticsIllustration() {
   return (
     <div style={{ position: "relative", height: 230 }}>
       <div style={{
-        background: "#fff", borderRadius: 16, border: cardBorder, boxShadow: "0 12px 30px rgba(0,0,0,0.06)",
+        background: "var(--sp-cream)", borderRadius: 16, border: cardBorder, boxShadow: cardShadow,
         padding: "16px 18px", height: "100%", display: "flex", flexDirection: "column",
         backgroundImage: "radial-gradient(rgba(0,0,0,0.045) 1px, transparent 1px)", backgroundSize: "11px 11px",
       }}>
@@ -452,14 +485,14 @@ function AnalyticsIllustration() {
             fill="none" stroke={accent} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"
           />
           {[[0, 72], [55, 68], [110, 52], [165, 38], [220, 10]].map(([x, y], i) => (
-            <circle key={i} cx={x} cy={y} r={2.2} fill="#fff" stroke={accent} strokeWidth={1.3} />
+            <circle key={i} cx={x} cy={y} r={2.2} fill="var(--sp-cream)" stroke={accent} strokeWidth={1.3} />
           ))}
         </svg>
       </div>
       <div style={{
         position: "absolute", bottom: -18, left: "50%", transform: "translateX(-50%)",
-        background: "#fff", borderRadius: 14, border: cardBorder,
-        boxShadow: "0 12px 28px rgba(0,0,0,0.12)", padding: "10px 18px", minWidth: 150, textAlign: "left",
+        background: "var(--sp-cream)", borderRadius: 14, border: cardBorder,
+        boxShadow: cardShadow, padding: "10px 18px", minWidth: 150, textAlign: "left",
       }}>
         <div style={{ fontSize: 9.5, color: faint, fontFamily: ff, marginBottom: 3 }}>After Redesign</div>
         <div style={{
@@ -476,14 +509,20 @@ function AnalyticsIllustration() {
 function DesignSystemPreview() {
   return (
     <div style={{
-      background: "#fff", borderRadius: 16, border: cardBorder, boxShadow: "0 12px 30px rgba(0,0,0,0.06)",
+      background: "var(--sp-cream)", borderRadius: 16, border: cardBorder, boxShadow: cardShadow,
       padding: "20px 22px", display: "flex", flexDirection: "column", gap: 12, height: 220, justifyContent: "center",
       backgroundImage: "radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px)", backgroundSize: "10px 10px",
       backgroundPosition: "-4px -4px",
     }}>
+      {/* This card illustrates the case study's OWN internal design-system
+          components (buttons, checkboxes, toggle) as content, not the
+          portfolio page's UI — so the filled "Primary Button" swatch stays
+          a solid accent fill (same decorative-mockup exemption as the
+          diagram icon tints below), rather than following the page's own
+          no-filled-CTA rule. */}
       <div style={{ display: "flex", gap: 10 }}>
         <div style={{
-          flex: 1, background: accent, color: "#fff", borderRadius: 999, textAlign: "center",
+          flex: 1, background: accent, color: "var(--sp-cream)", borderRadius: 999, textAlign: "center",
           fontSize: 11.5, fontWeight: 600, padding: "9px 0", fontFamily: ff,
         }}>Primary Button</div>
       </div>
@@ -493,18 +532,18 @@ function DesignSystemPreview() {
       }}>Secondary Button</div>
       <div style={{
         border: "1px solid rgba(0,0,0,0.10)", borderRadius: 10, fontSize: 11, color: faint,
-        padding: "9px 12px", fontFamily: ff, background: "#fff",
+        padding: "9px 12px", fontFamily: ff, background: "var(--sp-cream)",
       }}>Input Field</div>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 2 }}>
         <div style={{ width: 16, height: 16, borderRadius: 5, background: accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#fff" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" /></svg>
+          <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="var(--sp-cream)" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" /></svg>
         </div>
         <div style={{ width: 16, height: 16, borderRadius: 5, border: "1px solid rgba(0,0,0,0.15)" }} />
         <div style={{ width: 16, height: 16, borderRadius: 5, background: accent, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#fff" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" /></svg>
+          <svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="var(--sp-cream)" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" /></svg>
         </div>
         <div style={{ marginLeft: "auto", width: 32, height: 18, borderRadius: 999, background: accent, position: "relative" }}>
-          <div style={{ position: "absolute", top: 2, right: 2, width: 14, height: 14, borderRadius: "50%", background: "#fff" }} />
+          <div style={{ position: "absolute", top: 2, right: 2, width: 14, height: 14, borderRadius: "50%", background: "var(--sp-cream)" }} />
         </div>
       </div>
     </div>
@@ -557,14 +596,15 @@ export default function LessonsLearnedPremium({
 }: LessonsLearnedPremiumProps = {}) {
   const [l1, l2, l3, l4, l5, l6] = lessons;
   return (
-    <section style={{ background: canvas, padding: "90px 6% 110px" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+    <section style={{ background: canvas, padding: "90px 8% 110px" }}>
+      <div style={{ maxWidth: 1160, margin: "0 auto" }}>
 
         {/* Meta row — page-standard eyebrow, with the case-study label on the
-            right restyled to the same 12px/0.18em uppercase treatment. */}
+            right restyled to the same 16px/0.18em uppercase treatment used by
+            SectionEyebrow's own label. */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <SectionEyebrow number={sectionNumber} label="Lessons Learned" align="left" />
-          <span style={{ fontSize: 12, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#888", fontFamily: ff, marginBottom: 20 }}>
+          <span style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8a8580", fontFamily: ff, marginBottom: 20 }}>
             {caseStudyLabel}
           </span>
         </div>
@@ -578,10 +618,10 @@ export default function LessonsLearnedPremium({
           <Panel style={{ padding: 40, display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,0.9fr)", gap: 32, alignItems: "center" }}>
             <div>
               <Eyebrow n="01" />
-              <h3 style={{ fontSize: 25, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 12px" }}>
+              <h3 style={{ fontSize: 25, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 12px" }}>
                 {l1.title}
               </h3>
-              <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.65, margin: 0 }}>
+              <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.65, margin: 0 }}>
                 {l1.desc}
               </p>
             </div>
@@ -591,16 +631,16 @@ export default function LessonsLearnedPremium({
 
         {/* Row 2 — Section 02, full width */}
         <div style={{
-          background: "linear-gradient(180deg, #F6F7FF 0%, #F1F2FB 100%)", borderRadius: radius,
+          background: "var(--sp-dew)", border: cardBorder, borderRadius: radius,
           padding: "44px 48px", display: "grid", gridTemplateColumns: "minmax(0,0.42fr) minmax(0,1fr)", gap: 32,
           alignItems: "center", marginBottom: 24,
         }}>
           <div>
             <Eyebrow n="02" />
-            <h3 style={{ fontSize: 30, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.22, letterSpacing: "-0.01em", margin: "0 0 14px" }}>
+            <h3 style={{ fontSize: 30, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.22, margin: "0 0 14px" }}>
               {l2.title}
             </h3>
-            <p style={{ fontSize: 14, color: muted, fontFamily: ff, lineHeight: 1.65, margin: 0, maxWidth: 260 }}>
+            <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.65, margin: 0, maxWidth: 260 }}>
               {l2.desc}
             </p>
           </div>
@@ -611,10 +651,10 @@ export default function LessonsLearnedPremium({
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="03" />
-            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
+            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 10px" }}>
               {l3.title}
             </h3>
-            <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
+            <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
               {l3.desc}
             </p>
             <BlueprintIllustration labels={blueprintLabels} />
@@ -622,17 +662,18 @@ export default function LessonsLearnedPremium({
 
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="04" />
-            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
+            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 10px" }}>
               {l4.title}
             </h3>
-            <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
+            <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
               {l4.desc}
             </p>
             <CollabDiagram />
           </Panel>
         </div>
 
-        {/* Quote banner */}
+        {/* Quote banner — soft accentTint fill (not a hard/saturated accent
+            fill), matching the "no filled CTA/highlight" rule. */}
         <div style={{
           background: accentTint, borderRadius: radius, padding: "44px 48px", marginBottom: 24,
           display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,0.55fr)", gap: 40, alignItems: "center",
@@ -640,12 +681,12 @@ export default function LessonsLearnedPremium({
           <div>
             <Quote size={30} color={accent} fill={accent} strokeWidth={0} style={{ marginBottom: 18, opacity: 0.9 }} />
             <p style={{
-              fontSize: "clamp(19px, 2.2vw, 25px)", fontWeight: 600, color: ink, fontFamily: ff,
-              lineHeight: 1.35, letterSpacing: "-0.01em", margin: "0 0 14px",
+              fontSize: "clamp(19px, 2.2vw, 25px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading,
+              textTransform: "capitalize", lineHeight: 1.35, margin: "0 0 14px",
             }}>
               {quote.text}
             </p>
-            <span style={{ fontSize: 13, color: muted, fontFamily: ff }}>{quote.attribution}</span>
+            <span style={{ fontSize: 16, color: muted, fontFamily: ff }}>{quote.attribution}</span>
           </div>
           <QuoteChart />
         </div>
@@ -654,10 +695,10 @@ export default function LessonsLearnedPremium({
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 24 }}>
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="05" />
-            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
+            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 10px" }}>
               {l5.title}
             </h3>
-            <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 32px" }}>
+            <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 32px" }}>
               {l5.desc}
             </p>
             <AnalyticsIllustration />
@@ -665,10 +706,10 @@ export default function LessonsLearnedPremium({
 
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="06" />
-            <h3 style={{ fontSize: 21, fontWeight: 700, color: ink, fontFamily: ff, lineHeight: 1.28, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
+            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 10px" }}>
               {l6.title}
             </h3>
-            <p style={{ fontSize: 13.5, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
+            <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
               {l6.desc}
             </p>
             <DesignSystemPreview />

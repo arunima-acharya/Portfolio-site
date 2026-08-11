@@ -11,10 +11,12 @@ import { HeroParallax } from "@/components/ui/hero-parallax";
 import LessonsLearnedPremium from "@/components/preview/LessonsLearnedPremium";
 import ScrollStack, { ScrollStackItem } from "@/components/ui/ScrollStack";
 
-// Single source of truth for this page's font — every text style below reads
-// from `ff` rather than hardcoding a family, so anything added later stays
-// on Manrope automatically as long as it does the same.
-const ff = "var(--font-manrope), sans-serif";
+// Single source of truth for this page's fonts — body copy, labels, and UI
+// text read from `ff` (Geist); headline-level text (h1/h2/h3, card titles)
+// reads from `ffHeading` (Fraunces) — matching the Superr conversion used
+// throughout the rest of this codebase.
+const ff = "var(--font-geist), sans-serif";
+const ffHeading = "var(--font-fraunces), serif";
 
 function StatCard({ icon, value, label, delta, highlighted }: {
   icon?: React.ReactNode; value: string; label: React.ReactNode; delta?: string; highlighted?: boolean;
@@ -22,26 +24,26 @@ function StatCard({ icon, value, label, delta, highlighted }: {
   return (
     <div style={{
       display: "flex", alignItems: "center", gap: 14,
-      background: highlighted ? "#1C46F2" : "#fff", borderRadius: 16, padding: "18px 22px",
-      border: highlighted ? "1px solid #1C46F2" : "1px solid rgba(0,0,0,0.07)",
-      boxShadow: highlighted ? "0 8px 28px rgba(28,70,242,0.22)" : "0 4px 24px rgba(0,0,0,0.04)",
+      background: highlighted ? "var(--sp-dew)" : "var(--sp-cream)", borderRadius: 12, padding: "18px 22px",
+      border: highlighted ? "1.5px solid var(--sp-orange)" : "1.5px solid var(--sp-charcoal)",
+      boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
       transition: "background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
     }}>
       {icon && (
         <div style={{
-          width: 48, height: 48, borderRadius: "50%", background: highlighted ? "rgba(255,255,255,0.18)" : "#dde3fd",
+          width: 48, height: 48, borderRadius: "50%", background: highlighted ? "rgba(255,111,30,0.18)" : "rgba(255,111,30,0.12)",
           display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
           transition: "background-color 0.5s ease",
         }}>
-          <span style={{ color: highlighted ? "#fff" : "#1C46F2", display: "flex" }}>{icon}</span>
+          <span style={{ color: "var(--sp-orange)", display: "flex" }}>{icon}</span>
         </div>
       )}
       <div>
         <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-          <span style={{ fontSize: 26, fontWeight: 400, color: highlighted ? "#fff" : "#111", fontFamily: ff, letterSpacing: "-0.02em" }}>{value}</span>
-          {delta && <span style={{ fontSize: 14, fontWeight: 400, color: highlighted ? "#a8f0c0" : "#22c55e", fontFamily: ff }}>{delta}</span>}
+          <span style={{ fontSize: 26, fontWeight: 400, color: "var(--sp-charcoal)", fontFamily: ff, letterSpacing: "-0.02em" }}>{value}</span>
+          {delta && <span style={{ fontSize: 16, fontWeight: 400, color: "#22c55e", fontFamily: ff }}>{delta}</span>}
         </div>
-        <div style={{ fontSize: 13, color: highlighted ? "rgba(255,255,255,0.85)" : "#666", fontFamily: ff, lineHeight: 1.35 }}>{label}</div>
+        <div style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.35 }}>{label}</div>
       </div>
     </div>
   );
@@ -49,17 +51,17 @@ function StatCard({ icon, value, label, delta, highlighted }: {
 
 function SnapshotCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div style={{ background: "#fafafa", border: "1px solid rgba(0,0,0,0.06)", borderRadius: 16, padding: "20px 20px 24px" }}>
+    <div style={{ background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 12, padding: "20px 20px 24px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
         <div style={{
-          width: 34, height: 34, borderRadius: 10, background: "#dde3fd",
+          width: 34, height: 34, borderRadius: 8, background: "rgba(255,111,30,0.12)",
           display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         }}>
-          <span style={{ color: "#1C46F2", display: "flex" }}>{icon}</span>
+          <span style={{ color: "var(--sp-orange)", display: "flex" }}>{icon}</span>
         </div>
-        <span style={{ fontSize: 13, color: "#888", fontFamily: ff }}>{label}</span>
+        <span style={{ fontSize: 16, color: "#8a8580", fontFamily: ff }}>{label}</span>
       </div>
-      <div style={{ fontSize: 16, fontWeight: 400, color: "#111", fontFamily: ff, lineHeight: 1.4 }}>{value}</div>
+      <div style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-charcoal)", fontFamily: ff, lineHeight: 1.4 }}>{value}</div>
     </div>
   );
 }
@@ -67,8 +69,8 @@ function SnapshotCard({ icon, label, value }: { icon: React.ReactNode; label: st
 function SectionEyebrow({ number, label, align = "center" }: { number: string; label: string; align?: "left" | "center" }) {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: align === "left" ? "flex-start" : "center", gap: 8, marginBottom: 20 }}>
-      <span style={{ fontSize: 15, fontWeight: 400, color: "#1C46F2", fontFamily: ff }}>{number}</span>
-      <span style={{ fontSize: 12, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#888", fontFamily: ff }}>{label}</span>
+      <span style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff }}>{number}</span>
+      <span style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8a8580", fontFamily: ff }}>{label}</span>
     </div>
   );
 }
@@ -91,7 +93,7 @@ function ScreenshotPlaceholder({ label, height, src, fit = "height" }: { label: 
   if (src) {
     if (fit === "cover") {
       return (
-        <div style={{ height, width: "100%", overflow: "hidden", background: "#f7f7f7" }}>
+        <div style={{ height, width: "100%", overflow: "hidden", background: "var(--sp-dew)" }}>
           {/* eslint-disable-next-line @next/next/no-img-element -- local static asset, no next/image remote pattern needed */}
           <img src={src} alt={label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
         </div>
@@ -99,14 +101,14 @@ function ScreenshotPlaceholder({ label, height, src, fit = "height" }: { label: 
     }
     if (fit === "width") {
       return (
-        <div style={{ height, width: "100%", overflow: "hidden", background: "#f7f7f7" }}>
+        <div style={{ height, width: "100%", overflow: "hidden", background: "var(--sp-dew)" }}>
           {/* eslint-disable-next-line @next/next/no-img-element -- local static asset, no next/image remote pattern needed */}
           <img src={src} alt={label} style={{ width: "100%", height: "auto", display: "block" }} />
         </div>
       );
     }
     return (
-      <div style={{ height, width: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", background: "#f7f7f7" }}>
+      <div style={{ height, width: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", background: "var(--sp-dew)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element -- local static asset, no next/image remote pattern needed */}
         <img src={src} alt={label} style={{ height: "100%", width: "auto", display: "block" }} />
       </div>
@@ -115,10 +117,12 @@ function ScreenshotPlaceholder({ label, height, src, fit = "height" }: { label: 
   return (
     <div style={{
       height, width: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8,
-      background: "repeating-linear-gradient(45deg, #fafafa, #fafafa 10px, #f2f2f2 10px, #f2f2f2 20px)",
+      background: "repeating-linear-gradient(45deg, var(--sp-cream), var(--sp-cream) 10px, var(--sp-dew) 10px, var(--sp-dew) 20px)",
     }}>
-      <ImagePlus size={26} color="#ccc" />
-      <span style={{ fontSize: 12, color: "#bbb", fontFamily: ff }}>{label}</span>
+      <ImagePlus size={26} color="rgba(23,23,23,0.25)" />
+      {/* Decorative "no image" placeholder chrome — exempt from the 16px body
+          minimum, same treatment as other mockup micro-labels on this page. */}
+      <span style={{ fontSize: 12, color: "rgba(23,23,23,0.35)", fontFamily: ff }}>{label}</span>
     </div>
   );
 }
@@ -174,13 +178,13 @@ function SectionHeading({ title, subtitle, maxWidth = 640, bold = false, align =
   return (
     <>
       <h2 style={{
-        fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: bold ? 800 : 400, color: "#111",
-        fontFamily: ff, textAlign: align, letterSpacing: "-0.02em", marginBottom: 14,
+        fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: bold ? 700 : 600, color: "var(--sp-cocoa)",
+        fontFamily: ffHeading, textAlign: align, textTransform: "capitalize", marginBottom: 14,
       }}>
         {title}
       </h2>
       <p style={{
-        fontSize: 15.5, color: "#777", fontFamily: ff, textAlign: align, lineHeight: 1.75, maxWidth,
+        fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: align, lineHeight: 1.75, maxWidth,
         margin: align === "left" ? "0 0 56px" : "0 auto 56px",
       }}>
         {subtitle}
@@ -201,18 +205,18 @@ const RESEARCH_INSIGHTS: Array<{ title: string; desc: string }> = [
 function ResearchInsightCard({ title, desc }: { title: string; desc: string }) {
   return (
     <div style={{
-      background: "#fff", border: "1px solid rgba(0,0,0,0.07)", borderRadius: 16,
-      padding: 24, boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+      background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 12,
+      padding: 24, boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
     }}>
-      <div style={{ fontSize: 15, fontWeight: 700, color: "#111", fontFamily: ff, marginBottom: 10, lineHeight: 1.3 }}>{title}</div>
-      <p style={{ fontSize: 13, color: "#777", fontFamily: ff, lineHeight: 1.6, margin: 0 }}>{desc}</p>
+      <div style={{ fontSize: 16, fontWeight: 700, color: "var(--sp-charcoal)", fontFamily: ff, marginBottom: 10, lineHeight: 1.3 }}>{title}</div>
+      <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.6, margin: 0 }}>{desc}</p>
     </div>
   );
 }
 
-// "What We Learned" — interview callouts. Warm/cream + green palette is
-// deliberate here (distinct from the blue used everywhere else) to read as
-// direct quotes/testimony rather than another UI-chrome card.
+// "What We Learned" — interview callouts. Kept as a distinct quote-style
+// treatment (Fraunces italic body copy) but folded onto the single Marker
+// Orange accent + Dew Drop tint instead of the old blue/brown/green mix.
 const LEARNED_INTERVIEWS: Array<{ number: string; role: string; icon: React.ReactNode; quote: string; insight: string }> = [
   { number: "01", role: "Front Desk Staff", icon: <User size={22} />, quote: "I know the guest is somewhere—I just can't find it quickly.", insight: "Critical information was scattered across multiple screens." },
   { number: "02", role: "Reservation Managers", icon: <UserRound size={22} />, quote: "Comparing room availability takes too many steps.", insight: "Room allocation required unnecessary navigation." },
@@ -224,28 +228,28 @@ function LearnedRow({ number, role, icon, quote, insight }: {
 }) {
   return (
     <div style={{
-      display: "flex", alignItems: "center", gap: 0, background: "#fff",
-      border: "1px solid rgba(0,0,0,0.07)", borderRadius: 16, padding: "26px 30px",
-      boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+      display: "flex", alignItems: "center", gap: 0, background: "var(--sp-cream)",
+      border: "1.5px solid var(--sp-charcoal)", borderRadius: 12, padding: "26px 30px",
+      boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
     }}>
       <div style={{ flex: "0 0 150px", textAlign: "center" }}>
         <div style={{
-          width: 56, height: 56, borderRadius: "50%", background: "#f6e9d8", color: "#c1874f",
+          width: 56, height: 56, borderRadius: "50%", background: "rgba(255,111,30,0.12)", color: "var(--sp-orange)",
           display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 10px",
         }}>
           {icon}
         </div>
-        <div style={{ fontSize: 13.5, fontWeight: 700, color: "#111", fontFamily: ff }}>Interview {number}</div>
-        <div style={{ fontSize: 12, color: "#888", fontFamily: ff, marginTop: 2 }}>{role}</div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: "var(--sp-charcoal)", fontFamily: ff }}>Interview {number}</div>
+        <div style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, marginTop: 2 }}>{role}</div>
       </div>
       <div style={{
         flex: 1, display: "flex", alignItems: "flex-start", gap: 10,
-        borderLeft: "1px solid rgba(0,0,0,0.06)", borderRight: "1px solid rgba(0,0,0,0.06)", padding: "0 28px",
+        borderLeft: "1px solid rgba(23,23,23,0.10)", borderRight: "1px solid rgba(23,23,23,0.10)", padding: "0 28px",
       }}>
-        <Quote size={20} style={{ color: "#8a5a3a", flexShrink: 0, marginTop: 2 }} />
+        <Quote size={20} style={{ color: "var(--sp-orange)", flexShrink: 0, marginTop: 2 }} />
         <p style={{
-          fontSize: 15, fontStyle: "italic", fontWeight: 600, color: "#5c3b28",
-          fontFamily: "Georgia, 'Times New Roman', serif", lineHeight: 1.5, margin: 0,
+          fontSize: 16, fontStyle: "italic", fontWeight: 600, color: "var(--sp-cocoa)",
+          fontFamily: ffHeading, lineHeight: 1.5, margin: 0,
         }}>
           {quote}
         </p>
@@ -253,14 +257,14 @@ function LearnedRow({ number, role, icon, quote, insight }: {
       <div style={{ flex: "0 0 240px", paddingLeft: 28 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
           <span style={{
-            width: 26, height: 26, borderRadius: "50%", background: "#e2f5e6", color: "#379354",
+            width: 26, height: 26, borderRadius: "50%", background: "rgba(255,111,30,0.12)", color: "var(--sp-orange)",
             display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
           }}>
             <Lightbulb size={13} />
           </span>
-          <span style={{ fontSize: 12.5, fontWeight: 700, color: "#379354", fontFamily: ff }}>Insight</span>
+          <span style={{ fontSize: 16, fontWeight: 700, color: "var(--sp-orange)", fontFamily: ff }}>Insight</span>
         </div>
-        <p style={{ fontSize: 13.5, color: "#777", fontFamily: ff, lineHeight: 1.55, margin: 0 }}>{insight}</p>
+        <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.55, margin: 0 }}>{insight}</p>
       </div>
     </div>
   );
@@ -300,19 +304,23 @@ const LIFECYCLE_POSITIONS: Array<{ xFrac: number; level: number }> = [
 const ISO_CUBE_WIDTH = 96;
 const ISO_CUBE_HEIGHT = 72;
 
-// Minimal white isometric platform — top/left/right faces, a thin blue
-// accent restricted to the right face only ("a small blue side accent"),
-// soft neutral drop-shadow. Active state lifts slightly and switches the
-// accent to full blue with a stronger (but still soft) blue-tinted shadow.
+// Minimal white isometric platform — top/left/right faces, a thin orange
+// accent restricted to the right face only ("a small accent side"), soft
+// neutral drop-shadow. Active state lifts slightly and switches the accent
+// to full Marker Orange with a stronger (but still soft) orange-tinted
+// shadow. The diagram's own number/title labels stay at their compact
+// diagram scale (11-13px) — decorative infographic annotation bound to a
+// fixed 110px card width, the same class of exemption as the dashboard
+// mockup's micro-labels elsewhere in this codebase.
 function IsoStepCard({ icon, title, number, active }: {
   icon: React.ReactNode; title: string; number: string; active: boolean;
 }) {
-  const stroke = active ? "#1C46F2" : "#e7e7ea";
+  const stroke = active ? "var(--sp-orange)" : "#e7e7ea";
   return (
     <div style={{ width: 110, display: "flex", flexDirection: "column", alignItems: "center" }}>
       <span style={{
         fontSize: 11, fontWeight: 700, fontFamily: ff, letterSpacing: "0.04em", marginBottom: 8,
-        color: active ? "#1C46F2" : "#9aa1ac", transition: "color 0.4s ease",
+        color: active ? "var(--sp-orange)" : "#9aa1ac", transition: "color 0.4s ease",
       }}>
         {number}
       </span>
@@ -320,22 +328,22 @@ function IsoStepCard({ icon, title, number, active }: {
         position: "relative", width: ISO_CUBE_WIDTH, height: ISO_CUBE_HEIGHT,
         transition: "transform 0.4s ease, filter 0.4s ease",
         transform: active ? "translateY(-3px)" : "translateY(0)",
-        filter: active ? "drop-shadow(0 12px 20px rgba(28,70,242,0.18))" : "drop-shadow(0 8px 16px rgba(17,17,17,0.06))",
+        filter: active ? "drop-shadow(0 12px 20px rgba(255,111,30,0.22))" : "drop-shadow(0 8px 16px rgba(17,17,17,0.06))",
       }}>
         <svg width={ISO_CUBE_WIDTH} height={ISO_CUBE_HEIGHT} viewBox="0 0 96 72" style={{ display: "block", overflow: "visible" }}>
           <polygon points="8,18 48,36 48,68 8,50" fill="#fbfbfc" stroke={stroke} strokeWidth={1.2} strokeLinejoin="round" style={{ transition: "stroke 0.4s ease" }} />
-          <polygon points="88,18 48,36 48,68 88,50" fill={active ? "#dde3fd" : "#f6f7fb"} stroke={stroke} strokeWidth={1.2} strokeLinejoin="round" style={{ transition: "fill 0.4s ease, stroke 0.4s ease" }} />
+          <polygon points="88,18 48,36 48,68 88,50" fill={active ? "rgba(255,111,30,0.14)" : "#f6f7fb"} stroke={stroke} strokeWidth={1.2} strokeLinejoin="round" style={{ transition: "fill 0.4s ease, stroke 0.4s ease" }} />
           <polygon points="48,2 88,18 48,36 8,18" fill="#ffffff" stroke={stroke} strokeWidth={1.3} strokeLinejoin="round" style={{ transition: "stroke 0.4s ease" }} />
         </svg>
         <div style={{
           position: "absolute", top: 0, left: 0, width: ISO_CUBE_WIDTH, height: 34,
           display: "flex", alignItems: "center", justifyContent: "center",
-          color: active ? "#1C46F2" : "#111111", transition: "color 0.4s ease",
+          color: active ? "var(--sp-orange)" : "var(--sp-charcoal)", transition: "color 0.4s ease",
         }}>
           {icon}
         </div>
       </div>
-      <span style={{ fontSize: 13, fontWeight: 600, color: "#111111", fontFamily: ff, marginTop: 10, textAlign: "center" }}>
+      <span style={{ fontSize: 13, fontWeight: 600, color: "var(--sp-charcoal)", fontFamily: ff, marginTop: 10, textAlign: "center" }}>
         {title}
       </span>
     </div>
@@ -384,7 +392,7 @@ function LifecycleOverview() {
         <svg width={containerWidth} height={diagramHeight} style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
           <defs>
             <marker id="lifecycleArrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth={6} markerHeight={6} orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 Z" fill="#1C46F2" />
+              <path d="M0,0 L10,5 L0,10 Z" fill="var(--sp-orange)" />
             </marker>
           </defs>
           {LIFECYCLE_STEPS.slice(0, -1).map((_, i) => {
@@ -400,7 +408,7 @@ function LifecycleOverview() {
                 key={i}
                 d={`M ${x1} ${y1} L ${x1} ${y2} L ${x2} ${y2}`}
                 fill="none"
-                stroke="#1C46F2" strokeOpacity={0.55} strokeWidth={1.5} strokeDasharray="4 4"
+                stroke="var(--sp-orange)" strokeOpacity={0.55} strokeWidth={1.5} strokeDasharray="4 4"
                 markerEnd="url(#lifecycleArrow)"
               />
             );
@@ -428,15 +436,15 @@ const RESEARCH_METHODS: Array<{ label: string; value: string; displayLabel?: Rea
 function ResearchMethodsBar() {
   return (
     <div style={{
-      display: "flex", alignItems: "center", gap: 40, background: "#fff",
-      border: "1px solid rgba(0,0,0,0.07)", borderRadius: 18, padding: "32px 40px",
-      maxWidth: 1160, margin: "48px auto 0", boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+      display: "flex", alignItems: "center", gap: 40, background: "var(--sp-cream)",
+      border: "1.5px solid var(--sp-charcoal)", borderRadius: 12, padding: "32px 40px",
+      maxWidth: 1160, margin: "48px auto 0", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
     }}>
       <div style={{ flex: "0 0 200px" }}>
-        <div style={{ fontSize: 11.5, fontWeight: 700, letterSpacing: "0.08em", color: "#1C46F2", fontFamily: ff, marginBottom: 8 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: "0.08em", color: "var(--sp-orange)", fontFamily: ff, marginBottom: 8 }}>
           RESEARCH METHODS
         </div>
-        <p style={{ fontSize: 13, color: "#777", fontFamily: ff, lineHeight: 1.55, margin: 0 }}>
+        <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.55, margin: 0 }}>
           A mix of qualitative and quantitative approaches.
         </p>
       </div>
@@ -444,10 +452,10 @@ function ResearchMethodsBar() {
         {RESEARCH_METHODS.map((m, i) => (
           <div key={m.label} style={{
             flex: 1, padding: "0 28px",
-            borderLeft: i > 0 ? "1px solid rgba(0,0,0,0.08)" : "none",
+            borderLeft: i > 0 ? "1px solid rgba(23,23,23,0.10)" : "none",
           }}>
-            <div style={{ fontSize: 16, fontWeight: 400, color: "#111", fontFamily: ff, lineHeight: 1.3 }}>{m.displayLabel ?? m.label}</div>
-            <div style={{ fontSize: 16, fontWeight: 700, color: "#1C46F2", fontFamily: ff, marginTop: 4 }}>{m.value}</div>
+            <div style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-charcoal)", fontFamily: ff, lineHeight: 1.3 }}>{m.displayLabel ?? m.label}</div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: "var(--sp-orange)", fontFamily: ff, marginTop: 4 }}>{m.value}</div>
           </div>
         ))}
       </div>
@@ -463,11 +471,11 @@ function SandboxBackgroundGrid() {
     <svg width="100%" height="100%" viewBox="0 0 700 700" preserveAspectRatio="xMidYMid meet" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
       <defs>
         <pattern id="sandboxHatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-          <line x1={0} y1={0} x2={0} y2={7} stroke="rgba(0,0,0,0.05)" strokeWidth={5} />
+          <line x1={0} y1={0} x2={0} y2={7} stroke="rgba(23,23,23,0.05)" strokeWidth={5} />
         </pattern>
       </defs>
-      <polygon points="350,50 650,350 350,650 50,350" fill="none" stroke="rgba(0,0,0,0.06)" strokeWidth={1.5} />
-      <polygon points="350,160 540,350 350,540 160,350" fill="none" stroke="rgba(0,0,0,0.05)" strokeWidth={1} />
+      <polygon points="350,50 650,350 350,650 50,350" fill="none" stroke="rgba(23,23,23,0.06)" strokeWidth={1.5} />
+      <polygon points="350,160 540,350 350,540 160,350" fill="none" stroke="rgba(23,23,23,0.05)" strokeWidth={1} />
       <polygon points="350,50 650,350 540,350 350,160" fill="url(#sandboxHatch)" />
       <polygon points="650,350 350,650 350,540 540,350" fill="url(#sandboxHatch)" />
       <polygon points="350,650 50,350 160,350 350,540" fill="url(#sandboxHatch)" />
@@ -479,26 +487,26 @@ function SandboxBackgroundGrid() {
 // Simplified isometric "sandbox" box — top/left/right faces as flat
 // polygons, matching the flat-grey/orange-accent style of IsoBuilding above.
 function IsoSandboxBox({ label, highlighted }: { label: string; highlighted: boolean }) {
-  const stroke = highlighted ? "#1C46F2" : "#d8d8d8";
+  const stroke = highlighted ? "var(--sp-orange)" : "#d8d8d8";
   const uid = label.replace(/[^a-z0-9]/gi, "");
   return (
     <div style={{
       transition: "transform 0.6s ease, filter 0.5s ease", transform: highlighted ? "translateY(-6px)" : "translateY(0)",
-      filter: highlighted ? "drop-shadow(0 18px 26px rgba(28,70,242,0.35))" : "drop-shadow(0 8px 14px rgba(0,0,0,0.10))",
+      filter: highlighted ? "drop-shadow(0 18px 26px rgba(255,111,30,0.32))" : "drop-shadow(0 8px 14px rgba(0,0,0,0.10))",
     }}>
       <svg width={190} height={130} viewBox="0 0 190 130">
         <defs>
           <linearGradient id={`top-${uid}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={highlighted ? "#eff2ff" : "#ffffff"} />
-            <stop offset="100%" stopColor={highlighted ? "#b8c6ff" : "#f0f0f0"} />
+            <stop offset="0%" stopColor={highlighted ? "#fff5ec" : "#ffffff"} />
+            <stop offset="100%" stopColor={highlighted ? "#ffcda3" : "#f0f0f0"} />
           </linearGradient>
           <linearGradient id={`left-${uid}`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor={highlighted ? "#cfd8ff" : "#f7f7f7"} />
-            <stop offset="100%" stopColor={highlighted ? "#99adff" : "#e6e6e6"} />
+            <stop offset="0%" stopColor={highlighted ? "#ffe0c7" : "#f7f7f7"} />
+            <stop offset="100%" stopColor={highlighted ? "#ffb27a" : "#e6e6e6"} />
           </linearGradient>
           <linearGradient id={`right-${uid}`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor={highlighted ? "#a3b5ff" : "#f0f0f0"} />
-            <stop offset="100%" stopColor={highlighted ? "#5e7bf2" : "#d8d8d8"} />
+            <stop offset="0%" stopColor={highlighted ? "#ffb27a" : "#f0f0f0"} />
+            <stop offset="100%" stopColor={highlighted ? "var(--sp-orange)" : "#d8d8d8"} />
           </linearGradient>
         </defs>
         <polygon
@@ -521,16 +529,16 @@ function IsoSandboxBox({ label, highlighted }: { label: string; highlighted: boo
         ))}
         {highlighted && (
           <>
-            <ellipse cx={95} cy={46} rx={30} ry={16} fill="none" stroke="#1C46F2" strokeOpacity={0.35} strokeDasharray="3 3" />
-            <circle cx={95} cy={46} r={6} fill="#1C46F2" />
+            <ellipse cx={95} cy={46} rx={30} ry={16} fill="none" stroke="var(--sp-orange)" strokeOpacity={0.35} strokeDasharray="3 3" />
+            <circle cx={95} cy={46} r={6} fill="var(--sp-orange)" />
           </>
         )}
-        <circle cx={78} cy={58} r={3.5} fill={highlighted ? "#1C46F2" : "#22c55e"} style={{ transition: "fill 0.5s ease" }} />
+        <circle cx={78} cy={58} r={3.5} fill={highlighted ? "var(--sp-orange)" : "#22c55e"} style={{ transition: "fill 0.5s ease" }} />
         <line x1={132} y1={56} x2={150} y2={47} stroke="#ccc" strokeWidth={1.5} />
         {[0, 1, 2].map((i) => (
           <circle
             key={i} cx={140 + i * 10} cy={100 - i} r={2.5}
-            fill={highlighted ? "#1C46F2" : "#a0ade0"} opacity={highlighted ? 1 : 0.5}
+            fill={highlighted ? "var(--sp-orange)" : "#c4c4c4"} opacity={highlighted ? 1 : 0.5}
             style={{ transition: "fill 0.5s ease, opacity 0.5s ease" }}
           />
         ))}
@@ -598,14 +606,14 @@ function SandboxCluster() {
 function PrincipleCallout({ index, title, desc }: { index: string; title: string; desc: string }) {
   return (
     <div style={{
-      width: "100%", background: "#fff", border: "1px solid rgba(0,0,0,0.07)",
-      borderRadius: 16, padding: 20, boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+      width: "100%", background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)",
+      borderRadius: 12, padding: 20, boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
     }}>
       <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 8 }}>
-        <span style={{ fontSize: 13, fontWeight: 700, color: "#1C46F2", fontFamily: ff }}>{index}</span>
-        <span style={{ fontSize: 16, fontWeight: 700, color: "#111", fontFamily: ff, lineHeight: 1.3 }}>{title}</span>
+        <span style={{ fontSize: 16, fontWeight: 700, color: "var(--sp-orange)", fontFamily: ff }}>{index}</span>
+        <span style={{ fontSize: 16, fontWeight: 700, color: "var(--sp-charcoal)", fontFamily: ff, lineHeight: 1.3 }}>{title}</span>
       </div>
-      <p style={{ fontSize: 13, color: "#777", fontFamily: ff, lineHeight: 1.55, margin: 0 }}>{desc}</p>
+      <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.55, margin: 0 }}>{desc}</p>
     </div>
   );
 }
@@ -623,10 +631,10 @@ function SolutionRow({ icon, iconBg, iconColor, label, labelColor, children, las
         {icon}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: labelColor, fontFamily: ff, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.03em" }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: labelColor, fontFamily: ff, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.03em" }}>
           {label}
         </div>
-        <div style={{ fontSize: 15.5, color: "#555", fontFamily: ff, lineHeight: 1.55 }}>{children}</div>
+        <div style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.55 }}>{children}</div>
       </div>
     </div>
   );
@@ -636,14 +644,14 @@ function ImpactItem({ value, caption }: { value: string; caption?: string }) {
   const isMetric = /%$/.test(value);
   return (
     <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
-      <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#1C46F2", flexShrink: 0, alignSelf: "center" }} />
+      <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0, alignSelf: "center" }} />
       {isMetric ? (
-        <span style={{ fontSize: 15.5, color: "#555", fontFamily: ff }}>
-          <strong style={{ color: "#111", fontWeight: 700 }}>{value}</strong>
+        <span style={{ fontSize: 16, color: "#8a8580", fontFamily: ff }}>
+          <strong style={{ color: "var(--sp-charcoal)", fontWeight: 700 }}>{value}</strong>
           {caption ? ` ${caption}` : ""}
         </span>
       ) : (
-        <span style={{ fontSize: 15.5, color: "#555", fontFamily: ff, fontWeight: 500 }}>{value}</span>
+        <span style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, fontWeight: 500 }}>{value}</span>
       )}
     </div>
   );
@@ -655,17 +663,17 @@ function SolutionCard({ number, title, challenge, approach, impact, children }: 
 }) {
   return (
     <div style={{
-      background: "#fff",
-      border: "1px solid rgba(0,0,0,0.07)", borderRadius: 24,
+      background: "var(--sp-cream)",
+      border: "1.5px solid var(--sp-charcoal)", borderRadius: 12,
       padding: 32, display: "flex",
-      alignItems: "stretch", gap: 40, boxShadow: "0 4px 24px rgba(0,0,0,0.03)", overflow: "hidden",
+      alignItems: "stretch", gap: 40, boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", overflow: "hidden",
     }}>
       <div style={{ flex: "0 0 44%", minWidth: 0, display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 18 }}>
-          <span style={{ fontSize: 38, fontWeight: 700, color: "#1C46F2", fontFamily: ff, lineHeight: 1 }}>{number}</span>
-          <h3 style={{ fontSize: 24, fontWeight: 600, color: "#111", fontFamily: ff, lineHeight: 1.3, margin: 0 }}>{title}</h3>
+          <span style={{ fontSize: 38, fontWeight: 700, color: "var(--sp-orange)", fontFamily: ff, lineHeight: 1 }}>{number}</span>
+          <h3 style={{ fontSize: 24, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.3, margin: 0 }}>{title}</h3>
         </div>
-        <div style={{ width: 40, height: 2, background: "rgba(0,0,0,0.1)", marginBottom: 24 }} />
+        <div style={{ width: 40, height: 2, background: "rgba(23,23,23,0.12)", marginBottom: 24 }} />
 
         <SolutionRow icon={<AlertTriangle size={15} />} iconBg="#fde3e0" iconColor="#e35347" label="Challenge" labelColor="#e35347">
           {challenge}
@@ -673,13 +681,13 @@ function SolutionCard({ number, title, challenge, approach, impact, children }: 
         <SolutionRow icon={<CheckCircle2 size={15} />} iconBg="#d9f4e3" iconColor="#22a35a" label="Approach" labelColor="#22a35a">
           {approach}
         </SolutionRow>
-        <SolutionRow icon={<TrendingUp size={15} />} iconBg="#dde3fd" iconColor="#1C46F2" label="Impact" labelColor="#1C46F2" last>
+        <SolutionRow icon={<TrendingUp size={15} />} iconBg="rgba(255,111,30,0.12)" iconColor="var(--sp-orange)" label="Impact" labelColor="var(--sp-orange)" last>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {impact.map((item, i) => <ImpactItem key={i} {...item} />)}
           </div>
         </SolutionRow>
       </div>
-      <div style={{ flex: 1, minWidth: 0, borderRadius: 14, border: "1px solid rgba(0,0,0,0.06)", overflow: "hidden" }}>
+      <div style={{ flex: 1, minWidth: 0, borderRadius: 12, border: "1.5px solid var(--sp-charcoal)", overflow: "hidden" }}>
         {children}
       </div>
     </div>
@@ -740,25 +748,34 @@ const SOLUTION_STEPS: Array<{
 // ── Section 08 — Design System ───────────────────────────────
 // Adapted from the Pocket PMS design-system section (same 3-card
 // structure: color / typography / spacing) using Hotelogix's own tokens
-// — the orange accent and Manrope-regular scale already used throughout
-// this page — instead of Pocket PMS's blue palette.
+// — the Marker Orange accent and Geist/Fraunces type pairing used
+// throughout this page — instead of Pocket PMS's blue palette.
 function DesignSystemCard({ number, title, children }: { number: string; title: string; children: React.ReactNode }) {
   return (
     <div style={{
-      background: "#fff", border: "1px solid rgba(0,0,0,0.07)", borderRadius: 18,
-      padding: "24px 24px 26px", boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+      background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 12,
+      padding: "24px 24px 26px", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 18 }}>
-        <span style={{ fontSize: 12, fontWeight: 400, color: "#1C46F2", fontFamily: ff }}>{number}</span>
-        <span style={{ fontSize: 15, fontWeight: 400, color: "#111", fontFamily: ff }}>{title}</span>
+        <span style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff }}>{number}</span>
+        <span style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-charcoal)", fontFamily: ff }}>{title}</span>
       </div>
       {children}
     </div>
   );
 }
 
-const dsLabel: React.CSSProperties = { fontSize: 9.5, fontWeight: 400, color: "#999", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: ff, marginBottom: 6 };
+// Compact spec-sheet micro-labels below (9.5-11px) are decorative
+// design-token demo chrome — the same exemption class as the dashboard
+// mockup's tiny UI text elsewhere in this codebase — kept small so the
+// swatch/spacing rows still read as a miniature style guide rather than
+// full body copy.
+const dsLabel: React.CSSProperties = { fontSize: 9.5, fontWeight: 400, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: ff, marginBottom: 6 };
 
+// These hex values describe the actual color tokens designed for the real
+// Hotelogix product (the subject of this case study) — left untouched, like
+// the real product screenshots, rather than recolored to this page's own
+// Superr accent.
 const COLOR_PRIMARY = [
   { hex: "#1C46F2", label: "Primary" },
   { hex: "#8a9ff4", label: "" },
@@ -790,12 +807,12 @@ const SPACING_SCALE = [4, 8, 12, 16, 24, 32, 48, 64];
 function ImpactCard({ number, value, desc }: { number: string; value: string; desc: string }) {
   return (
     <div style={{
-      background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "22px 20px", position: "relative",
-      minHeight: 200, display: "flex", flexDirection: "column", justifyContent: "flex-end",
+      background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 12, padding: "22px 20px", position: "relative",
+      minHeight: 200, display: "flex", flexDirection: "column", justifyContent: "flex-end", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
     }}>
-      <span style={{ position: "absolute", top: 18, right: 20, fontSize: 11, color: "#bbb", fontFamily: ff }}>{number}</span>
-      <div style={{ fontSize: 32, fontWeight: 700, color: "#111", fontFamily: ff, marginBottom: 8, letterSpacing: "-0.02em" }}>{value}</div>
-      <p style={{ fontSize: 12.5, color: "#777", fontFamily: ff, lineHeight: 1.5, margin: 0 }}>{desc}</p>
+      <span style={{ position: "absolute", top: 18, right: 20, fontSize: 16, color: "#8a8580", fontFamily: ff }}>{number}</span>
+      <div style={{ fontSize: 32, fontWeight: 700, color: "var(--sp-charcoal)", fontFamily: ff, marginBottom: 8, letterSpacing: "-0.02em" }}>{value}</div>
+      <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.5, margin: 0 }}>{desc}</p>
     </div>
   );
 }
@@ -929,7 +946,7 @@ function ScrollRevealSection({ items, images }: {
   // The card column is wider than the reserved space on purpose — cardOverlap
   // is how far the cards' left edge cuts into the mockup's right edge, so
   // reserved is deliberately smaller than cardColumnWidth by that amount.
-  const cardColumnWidth = 400;
+  const cardColumnWidth = 440;
   const cardOverlap = 40;
   const reserved = cardColumnWidth - cardOverlap;
   const centeredLeft = reserved / 2;
@@ -961,8 +978,8 @@ function ScrollRevealSection({ items, images }: {
           <motion.div style={{
             position: "absolute", top: mockupTop, left: placeholderLeft,
             width: `calc(100% - ${reserved}px)`, height: placeholderHeight,
-            borderRadius: 16, background: "#e5e5e5",
-            boxShadow: "0 24px 64px rgba(0,0,0,0.10)", overflow: "hidden",
+            borderRadius: 12, background: "var(--sp-dew)",
+            boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", overflow: "hidden",
             scale: 1.2, transformOrigin: "left top",
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 16px" }}>
@@ -971,7 +988,7 @@ function ScrollRevealSection({ items, images }: {
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840" }} />
             </div>
             <div style={{ padding: `0 ${bezelSidePadding}px ${bezelSidePadding}px` }}>
-              <div style={{ position: "relative", height: innerHeight, boxSizing: "border-box", background: "#fff", borderRadius: 10, overflow: "hidden", padding: 8 }}>
+              <div style={{ position: "relative", height: innerHeight, boxSizing: "border-box", background: "var(--sp-cream)", borderRadius: 8, overflow: "hidden", padding: 8 }}>
                 {images.map((src, i) => (
                   // eslint-disable-next-line @next/next/no-img-element -- local static asset, no next/image remote pattern needed
                   <img
@@ -1006,18 +1023,18 @@ export default function HotelogixFrontdeskPreview() {
     <>
       {/* Section 01 — Overview */}
       <section style={{
-        background: "#f3f3f3",
+        background: "var(--sp-cream)",
         padding: "120px 8% 90px",
       }}>
         <h1 style={{
-          fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 400, color: "#111",
-          fontFamily: ff, textAlign: "center", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 22,
+          fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 600, color: "var(--sp-cocoa)",
+          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, textTransform: "capitalize", marginBottom: 22,
         }}>
           Reservation Management System
         </h1>
 
         <p style={{
-          fontSize: 16, color: "#6b7280", fontFamily: ff, textAlign: "center", lineHeight: 1.7,
+          fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: "center", lineHeight: 1.7,
           margin: "0 auto 32px",
         }}>
           Managing reservations isn&apos;t just booking rooms. It&apos;s about coordinating inventory,
@@ -1032,8 +1049,9 @@ export default function HotelogixFrontdeskPreview() {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              fontFamily: ff, fontSize: 14, fontWeight: 400, color: "#fff", background: "#111",
-              border: "none", borderRadius: 12, padding: "13px 28px", cursor: "pointer",
+              fontFamily: ff, fontSize: 16, fontWeight: 500, color: "var(--sp-charcoal)", background: "var(--sp-cream)",
+              border: "1.5px solid var(--sp-charcoal)", borderRadius: 20, padding: "13px 28px", cursor: "pointer",
+              boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 2px 0px",
               display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none",
             }}
           >
@@ -1045,8 +1063,8 @@ export default function HotelogixFrontdeskPreview() {
         {/* Dashboard mockup */}
         <div style={{ position: "relative", maxWidth: 980, margin: "0 auto" }}>
           <div style={{
-            background: "#e5e5e5", borderRadius: 20,
-            boxShadow: "0 24px 64px rgba(0,0,0,0.10)", overflow: "hidden",
+            background: "var(--sp-dew)", borderRadius: 12,
+            boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", overflow: "hidden",
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 16px" }}>
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57" }} />
@@ -1054,7 +1072,7 @@ export default function HotelogixFrontdeskPreview() {
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840" }} />
             </div>
             <div style={{ padding: "0 10px 10px" }}>
-              <div style={{ background: "#fff", borderRadius: 10, overflow: "hidden" }}>
+              <div style={{ background: "var(--sp-cream)", borderRadius: 8, overflow: "hidden" }}>
                 <ScreenshotPlaceholder label="Dashboard screenshot" height={653} src="/assets/hotelogix/FRONTDESK.png" />
               </div>
             </div>
@@ -1063,20 +1081,20 @@ export default function HotelogixFrontdeskPreview() {
       </section>
 
       {/* Project Snapshot — sits right after the hero, no numbered eyebrow */}
-      <section style={{ background: "#f3f3f3", padding: "60px 8% 90px" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "60px 8% 90px" }}>
         <p style={{
-          fontSize: 12, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase",
-          color: "#999", fontFamily: ff, textAlign: "center", marginBottom: 14,
+          fontSize: 16, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase",
+          color: "#8a8580", fontFamily: ff, textAlign: "center", marginBottom: 14,
         }}>
           Project Snapshot
         </p>
         <h2 style={{
-          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 400, color: "#111",
-          fontFamily: ff, textAlign: "center", letterSpacing: "-0.02em", marginBottom: 14,
+          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
+          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
         }}>
           Built from scratch at Hotelogix.
         </h2>
-        <p style={{ fontSize: 15.5, color: "#777", fontFamily: ff, textAlign: "center", lineHeight: 1.75, maxWidth: 620, margin: "0 auto 48px" }}>
+        <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: "center", lineHeight: 1.75, maxWidth: 620, margin: "0 auto 48px" }}>
           A look at the scope, team, and contributions that shaped the Reservation Management System from the ground up.
         </p>
 
@@ -1088,10 +1106,10 @@ export default function HotelogixFrontdeskPreview() {
         </div>
 
         <div style={{
-          maxWidth: 1040, margin: "40px auto 0", background: "#fff", borderRadius: 20,
-          border: "1px solid rgba(0,0,0,0.07)", boxShadow: "0 4px 24px rgba(0,0,0,0.04)", padding: "36px 40px",
+          maxWidth: 1040, margin: "40px auto 0", background: "var(--sp-cream)", borderRadius: 12,
+          border: "1.5px solid var(--sp-charcoal)", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", padding: "36px 40px",
         }}>
-          <h3 style={{ fontSize: 20, fontWeight: 600, color: "#111", fontFamily: ff, marginBottom: 20 }}>
+          <h3 style={{ fontSize: 20, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
             My Responsibilities
           </h3>
           <ul style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px 32px", margin: 0, padding: 0, listStyle: "none" }}>
@@ -1102,8 +1120,8 @@ export default function HotelogixFrontdeskPreview() {
               "Built scalable design foundations to support future product growth.",
             ].map((item, i) => (
               <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#1C46F2", flexShrink: 0, marginTop: 8 }} />
-                <span style={{ fontSize: 15.5, color: "#555", fontFamily: ff, lineHeight: 1.6 }}>{item}</span>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0, marginTop: 8 }} />
+                <span style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.6 }}>{item}</span>
               </li>
             ))}
           </ul>
@@ -1111,17 +1129,17 @@ export default function HotelogixFrontdeskPreview() {
       </section>
 
       {/* Section 02 — At a Glance */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%" }}>
         <SectionEyebrow number="02" label="At a Glance" />
 
         <h2 style={{
-          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 400, color: "#111",
-          fontFamily: ff, textAlign: "center", letterSpacing: "-0.02em", marginBottom: 14,
+          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
+          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
         }}>
           Built for hotels that never stop operating.
         </h2>
 
-        <p style={{ fontSize: 15.5, color: "#777", fontFamily: ff, textAlign: "center", maxWidth: 480, margin: "0 auto 56px" }}>
+        <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: "center", maxWidth: 480, margin: "0 auto 56px" }}>
           Powering reservations around the clock across thousands of properties worldwide.
         </p>
 
@@ -1129,7 +1147,7 @@ export default function HotelogixFrontdeskPreview() {
       </section>
 
       {/* Section 03 — The Challenge */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%" }}>
         <SectionEyebrow number="03" label="The Challenge" />
         <SectionHeading
           title="Hotel reservations had become unnecessarily complex."
@@ -1141,7 +1159,7 @@ export default function HotelogixFrontdeskPreview() {
       </section>
 
       {/* Section 04 — Reservation Lifecycle Overview */}
-      <section style={{ background: "#ffffff", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-dew)", padding: "90px 8%" }}>
         <SectionEyebrow number="04" label="Reservation Lifecycle Overview" />
         <SectionHeading
           title="Understanding the Operational Ecosystem"
@@ -1153,10 +1171,10 @@ export default function HotelogixFrontdeskPreview() {
       </section>
 
       {/* Section 06 — Research Insights */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%", position: "relative", overflow: "hidden" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%", position: "relative", overflow: "hidden" }}>
         <div aria-hidden style={{
           position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(23,23,23,0.07) 1px, transparent 1px)",
           backgroundSize: "18px 18px",
           WebkitMaskImage: "radial-gradient(circle at 8% 92%, black 0%, transparent 40%)",
           maskImage: "radial-gradient(circle at 8% 92%, black 0%, transparent 40%)",
@@ -1180,7 +1198,7 @@ export default function HotelogixFrontdeskPreview() {
           <ResearchMethodsBar />
 
           <div style={{ maxWidth: 1160, margin: "48px auto 0" }}>
-            <h3 style={{ fontSize: 22, fontWeight: 700, color: "#111", fontFamily: ff, marginBottom: 20 }}>
+            <h3 style={{ fontSize: 22, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
               What We Learned
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -1191,7 +1209,7 @@ export default function HotelogixFrontdeskPreview() {
       </section>
 
       {/* Section 07 — The Solution */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8% 110px" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8% 110px" }}>
         <SectionEyebrow number="07" label="The Solution" />
         <SectionHeading
           title="Reimagining reservation management from the ground up."
@@ -1220,8 +1238,8 @@ export default function HotelogixFrontdeskPreview() {
           {SOLUTION_STEPS.map((s) => (
             <ScrollStackItem
               key={s.number}
-              itemClassName="rounded-[24px] shadow-none bg-transparent p-0"
-              style={{ height: "auto", padding: 0, borderRadius: 24, boxShadow: "none", background: "transparent" }}
+              itemClassName="rounded-[12px] shadow-none bg-transparent p-0"
+              style={{ height: "auto", padding: 0, borderRadius: 12, boxShadow: "none", background: "transparent" }}
             >
               <SolutionCard number={s.number} title={s.title} challenge={s.challenge} approach={s.approach} impact={s.impact}>
                 <ScreenshotPlaceholder label={s.imageLabel} height={s.imageHeight} src={s.imageSrc} fit="cover" />
@@ -1231,22 +1249,22 @@ export default function HotelogixFrontdeskPreview() {
         </ScrollStack>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, marginTop: 56, maxWidth: 1040, marginLeft: "auto", marginRight: "auto" }}>
-          <span style={{ color: "#1C46F2", fontSize: 12 }}>◆</span>
-          <p style={{ fontSize: 15, color: "#666", fontFamily: ff, margin: 0, textAlign: "center" }}>
+          <span style={{ color: "var(--sp-orange)", fontSize: 16 }}>◆</span>
+          <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, margin: 0, textAlign: "center" }}>
             Every solution is designed to make hotel operations simpler, faster, and more efficient.
           </p>
-          <span style={{ color: "#1C46F2", fontSize: 12 }}>◆</span>
+          <span style={{ color: "var(--sp-orange)", fontSize: 16 }}>◆</span>
         </div>
       </section>
 
       {/* Section 08 — Module showcase (HeroParallax) */}
-      <section style={{ background: "#1C46F2" }}>
+      <section style={{ background: "var(--sp-charcoal)" }}>
         <HeroParallax
           products={HOTELOGIX_MODULES}
           containerHeight="280vh"
           headerTitle="Reservations don't exist in isolation"
           headerSubtitle="Before redesigning the experience, I mapped the complete reservation lifecycle to understand how information flows between teams and systems."
-          headerFontFamily={ff}
+          headerFontFamily={ffHeading}
           compactHeader
           contentScale={1.15}
           headerGapBelow={560}
@@ -1266,7 +1284,7 @@ export default function HotelogixFrontdeskPreview() {
       </section>
 
       {/* Section 09 — Design System */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%" }}>
         <SectionEyebrow number="09" label="Design System" />
         <SectionHeading
           title="Building better interfaces with design systems."
@@ -1275,8 +1293,8 @@ export default function HotelogixFrontdeskPreview() {
         />
 
         <TiltMockup style={{
-          position: "relative", maxWidth: 1040, margin: "0 auto 20px", background: "#fff", borderRadius: 20,
-          border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 24px 64px rgba(0,0,0,0.08)", overflow: "hidden",
+          position: "relative", maxWidth: 1040, margin: "0 auto 20px", background: "var(--sp-cream)", borderRadius: 12,
+          border: "1.5px solid var(--sp-charcoal)", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", overflow: "hidden",
         }}>
           <ScreenshotPlaceholder label="Design system applied — component library mockup" height={666} src="/assets/hotelogix/Reservation card.png" fit="width" />
         </TiltMockup>
@@ -1288,8 +1306,8 @@ export default function HotelogixFrontdeskPreview() {
               <div style={{ display: "flex", gap: 6 }}>
                 {COLOR_PRIMARY.map((c) => (
                   <div key={c.hex} style={{ flex: 1 }}>
-                    <div style={{ height: 40, borderRadius: 8, background: c.hex, border: c.hex === "#dde3fd" ? "1px solid rgba(0,0,0,0.06)" : "none" }} />
-                    <div style={{ fontSize: 8, color: "#bbb", textAlign: "center", marginTop: 4, fontFamily: ff }}>{c.hex}</div>
+                    <div style={{ height: 40, borderRadius: 8, background: c.hex, border: c.hex === "#dde3fd" ? "1px solid rgba(23,23,23,0.06)" : "none" }} />
+                    <div style={{ fontSize: 8, color: "#8a8580", textAlign: "center", marginTop: 4, fontFamily: ff }}>{c.hex}</div>
                   </div>
                 ))}
               </div>
@@ -1300,7 +1318,7 @@ export default function HotelogixFrontdeskPreview() {
                 {COLOR_SEMANTIC.map((c) => (
                   <div key={c.hex} style={{ flex: 1 }}>
                     <div style={{ height: 22, borderRadius: 6, background: c.hex }} />
-                    <div style={{ fontSize: 8, color: "#bbb", textAlign: "center", marginTop: 3, fontFamily: ff }}>{c.label}</div>
+                    <div style={{ fontSize: 8, color: "#8a8580", textAlign: "center", marginTop: 3, fontFamily: ff }}>{c.label}</div>
                   </div>
                 ))}
               </div>
@@ -1309,26 +1327,26 @@ export default function HotelogixFrontdeskPreview() {
               <div style={dsLabel}>Neutral Scale</div>
               <div style={{ display: "flex", gap: 3 }}>
                 {NEUTRAL_SCALE.map((c, i) => (
-                  <div key={i} style={{ flex: 1, height: 20, borderRadius: 4, background: c, border: i === 7 ? "1px solid rgba(0,0,0,0.08)" : "none" }} />
+                  <div key={i} style={{ flex: 1, height: 20, borderRadius: 4, background: c, border: i === 7 ? "1px solid rgba(23,23,23,0.08)" : "none" }} />
                 ))}
               </div>
             </div>
           </DesignSystemCard>
 
-          <DesignSystemCard number="02" title="Typography — Manrope">
-            <div style={{ display: "flex", alignItems: "center", gap: 10, paddingBottom: 12, marginBottom: 8, borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-              <span style={{ fontFamily: ff, fontSize: 38, fontWeight: 400, color: "#111", lineHeight: 1 }}>Aa</span>
-              <span style={{ fontFamily: ff, fontSize: 13, fontWeight: 400, color: "#111" }}>Manrope</span>
+          <DesignSystemCard number="02" title="Typography — Geist">
+            <div style={{ display: "flex", alignItems: "center", gap: 10, paddingBottom: 12, marginBottom: 8, borderBottom: "1px solid rgba(23,23,23,0.06)" }}>
+              <span style={{ fontFamily: ff, fontSize: 38, fontWeight: 400, color: "var(--sp-charcoal)", lineHeight: 1 }}>Aa</span>
+              <span style={{ fontFamily: ff, fontSize: 16, fontWeight: 400, color: "var(--sp-charcoal)" }}>Geist</span>
             </div>
             {TYPE_SCALE.map((t, i) => (
               <div key={t.label} style={{
                 display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 0",
-                borderBottom: i < TYPE_SCALE.length - 1 ? "1px solid rgba(0,0,0,0.05)" : "none",
+                borderBottom: i < TYPE_SCALE.length - 1 ? "1px solid rgba(23,23,23,0.05)" : "none",
               }}>
-                <span style={{ fontFamily: ff, fontSize: 13, color: "#111" }}>{t.label}</span>
+                <span style={{ fontFamily: ff, fontSize: 16, color: "var(--sp-charcoal)" }}>{t.label}</span>
                 <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 10.5, color: "#999", fontFamily: ff }}>{t.size}</div>
-                  <div style={{ fontSize: 9.5, color: "#ccc", fontFamily: ff }}>{t.weight}</div>
+                  <div style={{ fontSize: 10.5, color: "#8a8580", fontFamily: ff }}>{t.size}</div>
+                  <div style={{ fontSize: 9.5, color: "#8a8580", fontFamily: ff }}>{t.weight}</div>
                 </div>
               </div>
             ))}
@@ -1338,9 +1356,9 @@ export default function HotelogixFrontdeskPreview() {
             <div style={dsLabel}>Spacing Scale</div>
             {SPACING_SCALE.map((v) => (
               <div key={v} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 7 }}>
-                <span style={{ width: 20, fontSize: 11, color: "#999", fontFamily: ff }}>{v}</span>
-                <div style={{ height: 7, borderRadius: 4, background: "#1C46F2", width: v * 2.2 }} />
-                <span style={{ fontSize: 11, color: "#999", fontFamily: ff }}>{v}px</span>
+                <span style={{ width: 20, fontSize: 11, color: "#8a8580", fontFamily: ff }}>{v}</span>
+                <div style={{ height: 7, borderRadius: 4, background: "var(--sp-orange)", width: v * 2.2 }} />
+                <span style={{ fontSize: 11, color: "#8a8580", fontFamily: ff }}>{v}px</span>
               </div>
             ))}
           </DesignSystemCard>
@@ -1348,18 +1366,18 @@ export default function HotelogixFrontdeskPreview() {
       </section>
 
       {/* Section 10 — Impact */}
-      <section style={{ background: "#f3f3f3", padding: "60px 8%" }}>
-        <div style={{ background: "#1C46F2", borderRadius: 28, padding: "56px 48px 48px", maxWidth: 1120, margin: "0 auto" }}>
-          <div style={{ fontSize: 13, fontWeight: 400, letterSpacing: "0.08em", color: "#fff", fontFamily: ff, marginBottom: 24 }}>
+      <section style={{ background: "var(--sp-cream)", padding: "60px 8%" }}>
+        <div style={{ background: "var(--sp-dew)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 12, padding: "56px 48px 48px", maxWidth: 1120, margin: "0 auto" }}>
+          <div style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.08em", color: "var(--sp-orange)", fontFamily: ff, marginBottom: 24 }}>
             10 — IMPACT
           </div>
           <h2 style={{
-            fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 400, color: "#fff", fontFamily: ff,
-            lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 16, maxWidth: 560,
+            fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading,
+            lineHeight: 1.2, textTransform: "capitalize", marginBottom: 16, maxWidth: 560,
           }}>
             Designed for measurable operational improvement.
           </h2>
-          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.75)", fontFamily: ff, lineHeight: 1.6, maxWidth: 480, margin: "0 0 40px" }}>
+          <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.6, maxWidth: 480, margin: "0 0 40px" }}>
             The redesign simplified everyday operations while supporting the complexity of enterprise hospitality management at scale.
           </p>
 

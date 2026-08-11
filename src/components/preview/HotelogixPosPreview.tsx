@@ -11,6 +11,7 @@ import { HeroParallax } from "@/components/ui/hero-parallax";
 import LessonsLearnedPremium, { type PremiumLesson } from "@/components/preview/LessonsLearnedPremium";
 import {
   ff,
+  ffHeading,
   SnapshotCard,
   SectionEyebrow,
   SectionHeading,
@@ -216,18 +217,18 @@ export default function HotelogixPosPreview() {
     <>
       {/* Section 01 — Overview */}
       <section style={{
-        background: "#f3f3f3",
+        background: "var(--sp-cream)",
         padding: "120px 8% 90px",
       }}>
         <h1 style={{
-          fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 400, color: "#111",
-          fontFamily: ff, textAlign: "center", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 22,
+          fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 600, color: "var(--sp-cocoa)",
+          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, textTransform: "capitalize", marginBottom: 22,
         }}>
           Point of Sale — Restaurant Operations
         </h1>
 
         <p style={{
-          fontSize: 16, color: "#6b7280", fontFamily: ff, textAlign: "center", lineHeight: 1.7,
+          fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: "center", lineHeight: 1.7,
           margin: "0 auto 32px",
         }}>
           Hotel restaurants operate at a pace that leaves no room for error — servers manage multiple
@@ -243,8 +244,9 @@ export default function HotelogixPosPreview() {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              fontFamily: ff, fontSize: 14, fontWeight: 400, color: "#fff", background: "#111",
-              border: "none", borderRadius: 12, padding: "13px 28px", cursor: "pointer",
+              fontFamily: ff, fontSize: 16, fontWeight: 500, color: "var(--sp-charcoal)", background: "var(--sp-cream)",
+              border: "1.5px solid var(--sp-charcoal)", borderRadius: 20, padding: "13px 28px", cursor: "pointer",
+              boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 2px 0px",
               display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none",
             }}
           >
@@ -256,8 +258,8 @@ export default function HotelogixPosPreview() {
         {/* Dashboard mockup */}
         <div style={{ position: "relative", maxWidth: 980, margin: "0 auto" }}>
           <div style={{
-            background: "#242424", borderRadius: 20,
-            boxShadow: "0 24px 64px rgba(0,0,0,0.10)", overflow: "hidden",
+            background: "var(--sp-dew)", borderRadius: 12,
+            boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", overflow: "hidden",
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 16px" }}>
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57" }} />
@@ -265,7 +267,7 @@ export default function HotelogixPosPreview() {
               <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840" }} />
             </div>
             <div style={{ padding: "0 10px 10px" }}>
-              <div style={{ background: "#fff", borderRadius: 10, overflow: "hidden" }}>
+              <div style={{ background: "var(--sp-cream)", borderRadius: 8, overflow: "hidden" }}>
                 <ScreenshotPlaceholder label="POS dashboard screenshot" height={653} />
               </div>
             </div>
@@ -274,20 +276,20 @@ export default function HotelogixPosPreview() {
       </section>
 
       {/* Project Snapshot — sits right after the hero, no numbered eyebrow */}
-      <section style={{ background: "#f3f3f3", padding: "60px 8% 90px" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "60px 8% 90px" }}>
         <p style={{
-          fontSize: 12, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase",
-          color: "#999", fontFamily: ff, textAlign: "center", marginBottom: 14,
+          fontSize: 16, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase",
+          color: "#8a8580", fontFamily: ff, textAlign: "center", marginBottom: 14,
         }}>
           Project Snapshot
         </p>
         <h2 style={{
-          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 400, color: "#111",
-          fontFamily: ff, textAlign: "center", letterSpacing: "-0.02em", marginBottom: 14,
+          fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
+          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
         }}>
           Built for restaurants that never slow down.
         </h2>
-        <p style={{ fontSize: 15.5, color: "#777", fontFamily: ff, textAlign: "center", lineHeight: 1.75, maxWidth: 620, margin: "0 auto 48px" }}>
+        <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, textAlign: "center", lineHeight: 1.75, maxWidth: 620, margin: "0 auto 48px" }}>
           Designed a modern Point of Sale system to simplify restaurant operations, helping staff manage tables, orders, and kitchen coordination during peak service hours.
         </p>
 
@@ -299,10 +301,10 @@ export default function HotelogixPosPreview() {
         </div>
 
         <div style={{
-          maxWidth: 1040, margin: "40px auto 0", background: "#fff", borderRadius: 20,
-          border: "1px solid rgba(0,0,0,0.07)", boxShadow: "0 4px 24px rgba(0,0,0,0.04)", padding: "36px 40px",
+          maxWidth: 1040, margin: "40px auto 0", background: "var(--sp-cream)", borderRadius: 12,
+          border: "1.5px solid var(--sp-charcoal)", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", padding: "36px 40px",
         }}>
-          <h3 style={{ fontSize: 20, fontWeight: 600, color: "#111", fontFamily: ff, marginBottom: 20 }}>
+          <h3 style={{ fontSize: 20, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
             What I Owned
           </h3>
           <ul style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px 32px", margin: 0, padding: 0, listStyle: "none" }}>
@@ -313,8 +315,8 @@ export default function HotelogixPosPreview() {
               "Collaborated with Product, Engineering, and Customer Success from discovery through implementation.",
             ].map((item, i) => (
               <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#1C46F2", flexShrink: 0, marginTop: 8 }} />
-                <span style={{ fontSize: 15.5, color: "#555", fontFamily: ff, lineHeight: 1.6 }}>{item}</span>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0, marginTop: 8 }} />
+                <span style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.6 }}>{item}</span>
               </li>
             ))}
           </ul>
@@ -322,7 +324,7 @@ export default function HotelogixPosPreview() {
       </section>
 
       {/* Section 02 — At a Glance */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%" }}>
         <SectionEyebrow number="02" label="At a Glance" />
 
         <SectionHeading
@@ -335,7 +337,7 @@ export default function HotelogixPosPreview() {
       </section>
 
       {/* Section 03 — The Challenge */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%" }}>
         <SectionEyebrow number="03" label="The Challenge" />
         <SectionHeading
           title="Peak-hour restaurant operations were slowing service."
@@ -347,7 +349,7 @@ export default function HotelogixPosPreview() {
       </section>
 
       {/* Section 04 — Operational Lifecycle */}
-      <section style={{ background: "#ffffff", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-dew)", padding: "90px 8%" }}>
         <SectionEyebrow number="04" label="Operational Lifecycle" />
         <SectionHeading
           title="Understanding restaurant operations end to end."
@@ -359,10 +361,10 @@ export default function HotelogixPosPreview() {
       </section>
 
       {/* Section 05 — Research Insights */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%", position: "relative", overflow: "hidden" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%", position: "relative", overflow: "hidden" }}>
         <div aria-hidden style={{
           position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(23,23,23,0.07) 1px, transparent 1px)",
           backgroundSize: "18px 18px",
           WebkitMaskImage: "radial-gradient(circle at 8% 92%, black 0%, transparent 40%)",
           maskImage: "radial-gradient(circle at 8% 92%, black 0%, transparent 40%)",
@@ -413,7 +415,7 @@ export default function HotelogixPosPreview() {
           <ResearchMethodsBar methods={RESEARCH_METHODS} />
 
           <div style={{ maxWidth: 1160, margin: "48px auto 0" }}>
-            <h3 style={{ fontSize: 22, fontWeight: 700, color: "#111", fontFamily: ff, marginBottom: 20 }}>
+            <h3 style={{ fontSize: 22, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
               What We Learned
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -424,7 +426,7 @@ export default function HotelogixPosPreview() {
       </section>
 
       {/* Section 07 — The Solution */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8% 110px" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8% 110px" }}>
         <SectionEyebrow number="07" label="The Solution" />
         <SectionHeading
           title="Designing a faster restaurant operating system."
@@ -475,7 +477,7 @@ export default function HotelogixPosPreview() {
       </section>
 
       {/* Section 08 — Ecosystem showcase (HeroParallax) */}
-      <section style={{ background: "#1C46F2" }}>
+      <section style={{ background: "var(--sp-charcoal)" }}>
         <HeroParallax
           products={POS_MODULES}
           containerHeight="280vh"
@@ -501,7 +503,7 @@ export default function HotelogixPosPreview() {
       </section>
 
       {/* Section 09 — Design System */}
-      <section style={{ background: "#f3f3f3", padding: "90px 8%" }}>
+      <section style={{ background: "var(--sp-cream)", padding: "90px 8%" }}>
         <SectionEyebrow number="09" label="Design System" />
         <SectionHeading
           title="Building better interfaces with design systems."
@@ -510,8 +512,8 @@ export default function HotelogixPosPreview() {
         />
 
         <TiltMockup style={{
-          position: "relative", maxWidth: 1040, margin: "0 auto 20px", background: "#fff", borderRadius: 20,
-          border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 24px 64px rgba(0,0,0,0.08)", overflow: "hidden",
+          position: "relative", maxWidth: 1040, margin: "0 auto 20px", background: "var(--sp-cream)", borderRadius: 12,
+          border: "1.5px solid var(--sp-charcoal)", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px", overflow: "hidden",
         }}>
           <ScreenshotPlaceholder label="Design system applied — POS component library mockup" height={666} fit="width" />
         </TiltMockup>
@@ -520,18 +522,18 @@ export default function HotelogixPosPreview() {
       </section>
 
       {/* Section 10 — Impact */}
-      <section style={{ background: "#f3f3f3", padding: "60px 8%" }}>
-        <div style={{ background: "#1C46F2", borderRadius: 28, padding: "56px 48px 48px", maxWidth: 1120, margin: "0 auto" }}>
-          <div style={{ fontSize: 13, fontWeight: 400, letterSpacing: "0.08em", color: "#fff", fontFamily: ff, marginBottom: 24 }}>
+      <section style={{ background: "var(--sp-cream)", padding: "60px 8%" }}>
+        <div style={{ background: "var(--sp-dew)", border: "1.5px solid var(--sp-charcoal)", borderRadius: 12, padding: "56px 48px 48px", maxWidth: 1120, margin: "0 auto" }}>
+          <div style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.08em", color: "var(--sp-orange)", fontFamily: ff, marginBottom: 24 }}>
             10 — IMPACT
           </div>
           <h2 style={{
-            fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 400, color: "#fff", fontFamily: ff,
+            fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize",
             lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 16, maxWidth: 560,
           }}>
             Designed for faster restaurant operations.
           </h2>
-          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.75)", fontFamily: ff, lineHeight: 1.6, maxWidth: 480, margin: "0 0 40px" }}>
+          <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.6, maxWidth: 480, margin: "0 0 40px" }}>
             The redesigned POS streamlined restaurant workflows, helping teams manage tables, orders, and payments more efficiently during peak service.
           </p>
 

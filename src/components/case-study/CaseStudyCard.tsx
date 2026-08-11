@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Calendar } from "lucide-react";
 import { Project } from "@/types";
 import { projectHref } from "@/data/projects";
+import { stickerTint } from "@/data/stickerPalette";
 
 interface CaseStudyCardProps {
   project: Project;
@@ -16,10 +17,9 @@ interface CaseStudyCardProps {
 // grid (mirrors how research pieces are always dark) rather than following
 // the site-wide theme toggle.
 export default function CaseStudyCard({ project, index, featured = false }: CaseStudyCardProps) {
-  // Single accent — the Superr reference uses marker orange as the only
-  // chromatic accent, not a per-card rainbow. Raw hex (not the CSS var)
-  // since this gets alpha-suffixed below for the gradient washes.
-  const accent = "#ff6f1e";
+  // FastHTML sticker-pack rotation — each card gets its own tinted surface
+  // + matching vivid accent instead of one repeated brand color.
+  const { surface, accent } = stickerTint(index);
 
   return (
     <motion.div
@@ -42,7 +42,7 @@ export default function CaseStudyCard({ project, index, featured = false }: Case
           {/* Visual panel */}
           <div
             className="relative flex items-center justify-center overflow-hidden"
-            style={{ aspectRatio: featured ? undefined : "16/10", minHeight: featured ? 220 : undefined, background: "#fafafa" }}
+            style={{ aspectRatio: featured ? undefined : "16/10", minHeight: featured ? 220 : undefined, background: surface }}
           >
             <div
               aria-hidden="true"

@@ -11,6 +11,17 @@
     --sp-dew: #f7efe9;
     --sp-orange: #ff6f1e;
     --sp-sienna: #ce500a;
+
+    /* FastHTML sticker-pack palette — card accent rotation */
+    --fh-sticker-green: #3cdd8c;
+    --fh-sticker-yellow: #ffc435;
+    --fh-sticker-pink: #e699d9;
+    --fh-periwinkle-violet: #7575f0;
+    --fh-mint-cream: #d4f7e6;
+    --fh-cotton-candy: #ffccf7;
+    --fh-butter-cream: #ffeecc;
+    --fh-lavender-mist: #e8e8fc;
+    --fh-dusty-mauve: #eddee9;
   }
 
   @media (min-width: 768px) {

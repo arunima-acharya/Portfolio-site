@@ -159,7 +159,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: `(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(t);})();` }} />
       </head>
-      <body className="antialiased" style={{ color: "var(--text-primary)", fontFamily: "var(--font-manrope), sans-serif" }}>
+      <body className="antialiased" style={{ color: "var(--text-primary)", fontFamily: "var(--font-geist), sans-serif" }}>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-[9999] bg-white text-black px-4 py-2 rounded-lg text-sm font-medium"

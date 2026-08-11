@@ -6,6 +6,7 @@ import { ArrowUpRight, Clock } from "lucide-react";
 import { Project } from "@/types";
 import { RESEARCH_META } from "@/data/researchMeta";
 import { projectHref } from "@/data/projects";
+import { stickerTint } from "@/data/stickerPalette";
 
 interface ResearchCardProps {
   project: Project;
@@ -15,9 +16,10 @@ interface ResearchCardProps {
 
 export default function ResearchCard({ project, index, featured = false }: ResearchCardProps) {
   const rawMeta = RESEARCH_META[project.slug] ?? { accent: "#ff6f1e", eyebrow: "Design Investigation", readTime: "" };
-  // Marker orange is the only chromatic accent per the Superr reference —
-  // override whatever per-project accent RESEARCH_META provides.
-  const meta = { ...rawMeta, accent: "#ff6f1e" };
+  // FastHTML sticker-pack rotation — each card gets its own tinted surface
+  // + matching vivid accent instead of one repeated brand color.
+  const { surface, accent: stickerAccent } = stickerTint(index);
+  const meta = { ...rawMeta, accent: stickerAccent };
   const topics = project.tags.filter((t) => t !== "Research");
 
   return (
@@ -37,7 +39,7 @@ export default function ResearchCard({ project, index, featured = false }: Resea
           {/* Visual panel */}
           <div
             className="relative flex items-center justify-center overflow-hidden"
-            style={{ aspectRatio: featured ? undefined : "16/10", minHeight: featured ? 220 : undefined }}
+            style={{ aspectRatio: featured ? undefined : "16/10", minHeight: featured ? 220 : undefined, background: surface }}
           >
             <div
               aria-hidden="true"

@@ -12,9 +12,9 @@ export default function Tag({
   variant = "default",
 }: TagProps) {
   const variants = {
-    default: "bg-white/5 text-zinc-400 border border-white/6",
-    outline: "border border-white/15 text-zinc-300",
-    solid: "bg-white/10 text-white border border-white/10",
+    default: "bg-[var(--sp-dew)] text-[#8a8580] border border-[rgba(23,23,23,0.12)]",
+    outline: "bg-[var(--sp-cream)] border border-[var(--sp-charcoal)] text-[var(--sp-charcoal)]",
+    solid: "bg-[var(--sp-charcoal)] text-[var(--sp-cream)] border border-[var(--sp-charcoal)]",
   };
 
   return (
@@ -24,6 +24,7 @@ export default function Tag({
         variants[variant],
         className
       )}
+      style={{ fontFamily: "var(--font-geist), sans-serif" }}
     >
       {children}
     </span>

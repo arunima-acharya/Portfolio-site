@@ -93,6 +93,7 @@ export default function Navbar() {
               })}
               <a
                 href="/assets/Arunima_Acharya_Resume.pdf"
+                download
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -222,6 +223,7 @@ export default function Navbar() {
           })}
           <a
             href="/assets/Arunima_Acharya_Resume.pdf"
+            download
             target="_blank"
             rel="noopener noreferrer"
             style={{

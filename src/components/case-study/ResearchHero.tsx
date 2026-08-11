@@ -137,7 +137,6 @@ export default function ResearchHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: EASE }}
           className="mt-10 flex flex-wrap gap-x-14 gap-y-6 pt-8 pb-2"
-          style={{ borderTop: `1px solid ${p.border}` }}
         >
           {meta.map(({ label, value }) => (
             <div key={label} className="space-y-1.5">

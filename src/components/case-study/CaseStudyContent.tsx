@@ -5,6 +5,9 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Project, KeyInsight } from "@/types";
 import Tag from "@/components/ui/Tag";
 
+const ff = "var(--font-geist), sans-serif";
+const ffHeading = "var(--font-fraunces), serif";
+
 /* ─── Shared primitives ─────────────────────────────────────────────── */
 
 function Section({
@@ -23,14 +26,15 @@ function Section({
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="py-20 border-t border-white/5"
+      className="py-20"
+      style={{ borderTop: "1.5px solid var(--sp-charcoal)" }}
     >
       <div className="space-y-10">
         <div className="space-y-2">
-          <span className="text-xs font-medium text-zinc-600 uppercase tracking-widest">
+          <span className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
             {label}
           </span>
-          <h2 className="text-2xl font-semibold text-white" style={{ fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>{title}</h2>
+          <h2 className="text-2xl font-semibold" style={{ color: "var(--sp-cocoa)", fontFamily: ffHeading, fontWeight: 600, textTransform: "capitalize" }}>{title}</h2>
         </div>
         {children}
       </div>
@@ -48,34 +52,37 @@ function MetricCard({
   description: string;
 }) {
   return (
-    <div className="p-6 rounded-xl border border-white/8 bg-white/[0.02] space-y-2">
-      <p className="fluid-text-2xl font-semibold text-white leading-none">{value}</p>
-      <p className="text-sm font-medium text-zinc-300">{label}</p>
-      <p className="text-xs text-zinc-500 leading-relaxed">{description}</p>
+    <div
+      className="p-6 rounded-xl space-y-2"
+      style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px" }}
+    >
+      <p className="fluid-text-2xl font-semibold leading-none" style={{ color: "var(--sp-charcoal)" }}>{value}</p>
+      <p className="text-[16px] font-medium" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{label}</p>
+      <p className="text-[16px] leading-relaxed" style={{ color: "#8a8580", fontFamily: ff }}>{description}</p>
     </div>
   );
 }
 
 function InsightRow({ index, text }: { index: number; text: string }) {
   return (
-    <div className="flex items-start gap-5 py-5 border-t border-white/5 first:border-0">
-      <span className="text-xs font-mono text-zinc-700 mt-1 flex-shrink-0 w-5">
+    <div className="flex items-start gap-5 py-5" style={{ borderTop: "1px solid rgba(23,23,23,0.08)" }}>
+      <span className="text-xs font-mono mt-1 flex-shrink-0 w-5" style={{ color: "#8a8580" }}>
         {String(index + 1).padStart(2, "0")}
       </span>
-      <p className="text-[16px] text-zinc-300 leading-relaxed">{text}</p>
+      <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{text}</p>
     </div>
   );
 }
 
 function KeyInsightRow({ index, insight }: { index: number; insight: KeyInsight }) {
   return (
-    <div className="flex items-start gap-5 py-6 border-t border-white/5 first:border-0">
-      <span className="text-xs font-mono text-zinc-700 mt-1.5 flex-shrink-0 w-5">
+    <div className="flex items-start gap-5 py-6" style={{ borderTop: "1px solid rgba(23,23,23,0.08)" }}>
+      <span className="text-xs font-mono mt-1.5 flex-shrink-0 w-5" style={{ color: "#8a8580" }}>
         {String(index + 1).padStart(2, "0")}
       </span>
       <div className="space-y-2">
-        <p className="text-[16px] font-medium text-white leading-snug">{insight.title}</p>
-        <p className="text-[16px] text-zinc-500 leading-relaxed">{insight.description}</p>
+        <p className="text-[16px] font-medium leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{insight.title}</p>
+        <p className="text-[16px] leading-relaxed" style={{ color: "#8a8580", fontFamily: ff }}>{insight.description}</p>
       </div>
     </div>
   );
@@ -97,9 +104,9 @@ function RichCaseStudy({ project }: { project: Project }) {
     <>
       {/* ── Hero intro prose ── */}
       {project.heroIntro && (
-        <div className="py-16 border-t border-white/5 space-y-5">
+        <div className="py-16 space-y-5" style={{ borderTop: "1.5px solid var(--sp-charcoal)" }}>
           {project.heroIntro.split("\n\n").map((para, i) => (
-            <p key={i} className="text-[16px] text-zinc-400 leading-[1.85]">
+            <p key={i} className="text-[16px] leading-[1.85]" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>
               {para}
             </p>
           ))}
@@ -109,49 +116,49 @@ function RichCaseStudy({ project }: { project: Project }) {
       {/* ── 2. Project Snapshot ── */}
       <Section label="At a Glance" title="Project Snapshot">
         {/* Top row — 3 primary fields */}
-        <div className="grid grid-cols-1 md:grid-cols-3 border-t border-white/5">
+        <div className="grid grid-cols-1 md:grid-cols-3" style={{ borderTop: "1px solid rgba(23,23,23,0.08)" }}>
           {[
             { label: "Role", value: project.role },
             { label: "Duration", value: project.timeline },
             { label: "Platform", value: project.platform ?? project.category },
           ].map(({ label, value }) => (
             <div key={label} className="py-2 pr-8 space-y-1.5">
-              <p className="text-[14px] font-normal text-zinc-500 uppercase tracking-[0.12em]">
+              <p className="text-[14px] font-normal uppercase tracking-[0.12em]" style={{ color: "#8a8580", fontFamily: ff }}>
                 {label}
               </p>
-              <p className="text-[16px] leading-snug whitespace-pre-line" style={{ color: "lab(65.6464% 1.53494 -5.42429)" }}>{value}</p>
+              <p className="text-[16px] leading-snug whitespace-pre-line" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{value}</p>
             </div>
           ))}
         </div>
 
         {/* Bottom row — secondary fields */}
-        <div className="grid grid-cols-1 md:grid-cols-3 border-t border-white/5">
+        <div className="grid grid-cols-1 md:grid-cols-3" style={{ borderTop: "1px solid rgba(23,23,23,0.08)" }}>
           {[
             { label: "Industry", value: project.industry },
             { label: "Company", value: getCompany(project.slug) },
             { label: "Users", value: project.users ?? project.team.join(", ") },
           ].map(({ label, value }) => (
             <div key={label} className="py-2 pr-8 space-y-1.5">
-              <p className="text-[14px] font-normal text-zinc-500 uppercase tracking-[0.12em]">
+              <p className="text-[14px] font-normal uppercase tracking-[0.12em]" style={{ color: "#8a8580", fontFamily: ff }}>
                 {label}
               </p>
-              <p className="text-[17px] leading-snug" style={{ color: "lab(65.6464% 1.53494 -5.42429)" }}>{value}</p>
+              <p className="text-[17px] leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{value}</p>
             </div>
           ))}
         </div>
 
         {/* Responsibilities row */}
         {project.responsibilities && project.responsibilities.length > 0 && (
-          <div className="border-t border-white/5 py-2 space-y-3">
-            <p className="text-[14px] font-normal text-zinc-500 uppercase tracking-[0.12em]">
+          <div className="py-2 space-y-3" style={{ borderTop: "1px solid rgba(23,23,23,0.08)" }}>
+            <p className="text-[14px] font-normal uppercase tracking-[0.12em]" style={{ color: "#8a8580", fontFamily: ff }}>
               Responsibilities
             </p>
             <div className="flex flex-wrap gap-2">
               {project.responsibilities.map((r) => (
                 <span
                   key={r}
-                  className="px-3 py-1.5 rounded-full text-[14.3px] font-medium text-[#e8510a]"
-                  style={{ border: "1px solid #e8510a", backgroundColor: "rgba(232, 81, 10, 0.15)" }}
+                  className="px-3 py-1.5 rounded-full text-[14.3px] font-medium"
+                  style={{ color: "var(--sp-orange)", border: "1px solid var(--sp-orange)", backgroundColor: "rgba(255,111,30,0.12)", fontFamily: ff }}
                 >
                   {r}
                 </span>
@@ -164,19 +171,19 @@ function RichCaseStudy({ project }: { project: Project }) {
       {/* ── 3. The Challenge ── */}
       <Section label="Challenge" title="The Challenge">
         {/* Two-column challenges */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 divide-y divide-white/5 lg:divide-y-0 lg:divide-x lg:divide-white/5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x" style={{ borderColor: "rgba(23,23,23,0.08)" }}>
           {/* Business */}
-          <div className="lg:pr-10">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-[0.14em] mb-4">
+          <div className="lg:pr-10" style={{ borderBottom: "1px solid rgba(23,23,23,0.08)" }}>
+            <p className="text-[11px] font-medium uppercase tracking-[0.14em] mb-4" style={{ color: "#8a8580", fontFamily: ff }}>
               Business
             </p>
             <ul>
               {(project.businessChallenges ?? project.businessContext.challenges).map((item, i) => (
-                <li key={i} className="flex items-start gap-5 py-4 border-t border-white/5 first:border-0">
-                  <span className="text-[11px] font-mono text-zinc-600 mt-0.5 flex-shrink-0 w-4">
+                <li key={i} className="flex items-start gap-5 py-4" style={{ borderTop: i === 0 ? "none" : "1px solid rgba(23,23,23,0.08)" }}>
+                  <span className="text-[11px] font-mono mt-0.5 flex-shrink-0 w-4" style={{ color: "#8a8580" }}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-[16px] leading-relaxed" style={{ color: "lab(65.6464% 1.53494 -5.42429)" }}>{item}</p>
+                  <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{item}</p>
                 </li>
               ))}
             </ul>
@@ -184,16 +191,16 @@ function RichCaseStudy({ project }: { project: Project }) {
 
           {/* User */}
           <div className="lg:pl-10 pt-8 lg:pt-0">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-[0.14em] mb-4">
+            <p className="text-[11px] font-medium uppercase tracking-[0.14em] mb-4" style={{ color: "#8a8580", fontFamily: ff }}>
               User
             </p>
             <ul>
               {(project.userChallenges ?? project.businessContext.constraints).map((item, i) => (
-                <li key={i} className="flex items-start gap-5 py-4 border-t border-white/5 first:border-0">
-                  <span className="text-[11px] font-mono text-zinc-600 mt-0.5 flex-shrink-0 w-4">
+                <li key={i} className="flex items-start gap-5 py-4" style={{ borderTop: i === 0 ? "none" : "1px solid rgba(23,23,23,0.08)" }}>
+                  <span className="text-[11px] font-mono mt-0.5 flex-shrink-0 w-4" style={{ color: "#8a8580" }}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-[16px] leading-relaxed" style={{ color: "lab(65.6464% 1.53494 -5.42429)" }}>{item}</p>
+                  <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{item}</p>
                 </li>
               ))}
             </ul>
@@ -201,11 +208,11 @@ function RichCaseStudy({ project }: { project: Project }) {
         </div>
 
         {/* Problem Statement — editorial pull quote */}
-        <div className="border-t border-white/5 pt-10">
-          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-[0.14em] mb-5">
+        <div className="pt-10" style={{ borderTop: "1px solid rgba(23,23,23,0.08)" }}>
+          <p className="text-[11px] font-medium uppercase tracking-[0.14em] mb-5" style={{ color: "#8a8580", fontFamily: ff }}>
             Problem Statement
           </p>
-          <blockquote className="text-[22px] font-medium leading-relaxed italic text-center text-[#e8510a] w-full">
+          <blockquote className="text-[22px] font-medium leading-relaxed italic text-center w-full" style={{ color: "var(--sp-orange)", fontFamily: ffHeading }}>
             &ldquo;{project.problemStatement}&rdquo;
           </blockquote>
         </div>
@@ -217,7 +224,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
           {/* Research Activities */}
           <div className="space-y-4">
-            <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-widest">
+            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
               Research Activities
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -225,8 +232,8 @@ function RichCaseStudy({ project }: { project: Project }) {
                 (activity, i) => (
                   <span
                     key={i}
-                    className="px-4 py-2 rounded-full text-[14px] text-zinc-600"
-                    style={{ backgroundColor: "#ebebeb" }}
+                    className="px-4 py-2 rounded-full text-[14px]"
+                    style={{ backgroundColor: "var(--sp-dew)", color: "var(--sp-charcoal)", fontFamily: ff }}
                   >
                     {activity}
                   </span>
@@ -237,7 +244,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
           {/* Key Insights */}
           <div className="space-y-6">
-            <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-widest">
+            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
               Key Insights
             </h3>
             <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
@@ -245,22 +252,22 @@ function RichCaseStudy({ project }: { project: Project }) {
                 <div
                   key={i}
                   className="group relative min-h-[320px] flex flex-col justify-between p-6 rounded-3xl overflow-hidden cursor-default"
-                  style={{ backgroundColor: "#ebebeb", boxShadow: "none" }}
+                  style={{ backgroundColor: "var(--sp-dew)", boxShadow: "none" }}
                 >
                   {/* Hover gradient overlay */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: "linear-gradient(to top, rgba(232,81,10,0.2) 0%, rgba(255,255,255,0) 100%)" }}
+                    style={{ background: "linear-gradient(to top, rgba(255,111,30,0.18) 0%, rgba(255,255,255,0) 100%)" }}
                     aria-hidden="true"
                   />
 
                   {/* Top: title + description */}
                   <div className="relative z-10 space-y-3">
-                    <p className="text-[17px] font-semibold leading-snug text-zinc-800 group-hover:text-zinc-800 transition-colors duration-300">
+                    <p className="text-[17px] font-semibold leading-snug transition-colors duration-300" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>
                       {"title" in insight ? insight.title : String(insight)}
                     </p>
                     {"description" in insight && insight.description && (
-                      <p className="text-[12.5px] leading-relaxed text-zinc-500 group-hover:text-zinc-600 transition-colors duration-300">
+                      <p className="text-[16px] leading-relaxed transition-colors duration-300" style={{ color: "#8a8580", fontFamily: ff }}>
                         {insight.description}
                       </p>
                     )}
@@ -268,7 +275,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
                   {/* Bottom: index */}
                   <div className="relative z-10 mt-6">
-                    <span className="text-[11px] font-medium text-zinc-400 group-hover:text-[#e8510a] transition-colors duration-300 uppercase tracking-widest">
+                    <span className="text-[11px] font-medium transition-colors duration-300 uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
                       Insight {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
@@ -284,27 +291,27 @@ function RichCaseStudy({ project }: { project: Project }) {
       <Section label="Goals" title="Defining Success">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-5">
-            <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-widest">
+            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
               Business Success
             </h3>
             <ul className="space-y-4">
               {(project.businessSuccess ?? project.businessContext.goals).map((item, i) => (
                 <li key={i} className="flex items-start gap-4">
-                  <span className="mt-3 w-1 h-1 rounded-full bg-zinc-600 flex-shrink-0" />
-                  <p className="text-[16px] text-zinc-400 leading-relaxed">{item}</p>
+                  <span className="mt-3 w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--sp-orange)" }} />
+                  <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{item}</p>
                 </li>
               ))}
             </ul>
           </div>
           <div className="space-y-5">
-            <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-widest">
+            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
               User Success
             </h3>
             <ul className="space-y-4">
               {(project.userSuccess ?? project.outcomes.learnings).map((item, i) => (
                 <li key={i} className="flex items-start gap-4">
-                  <span className="mt-3 w-1 h-1 rounded-full bg-zinc-600 flex-shrink-0" />
-                  <p className="text-[16px] text-zinc-400 leading-relaxed">{item}</p>
+                  <span className="mt-3 w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--sp-orange)" }} />
+                  <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{item}</p>
                 </li>
               ))}
             </ul>
@@ -318,15 +325,16 @@ function RichCaseStudy({ project }: { project: Project }) {
           {project.designPrinciples.map((principle, i) => (
             <div
               key={i}
-              className="p-7 rounded-xl border border-white/6 bg-white/[0.015] space-y-3"
+              className="p-7 rounded-xl space-y-3"
+              style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}
             >
               <div className="flex items-center gap-3">
-                <span className="text-xs font-mono text-zinc-700 flex-shrink-0">
+                <span className="text-xs font-mono flex-shrink-0" style={{ color: "#8a8580" }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="text-sm font-semibold text-white">{principle.title}</h3>
+                <h3 className="text-[16px] font-semibold" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{principle.title}</h3>
               </div>
-              <p className="text-[16px] text-zinc-500 leading-relaxed pl-7">
+              <p className="text-[16px] leading-relaxed pl-7" style={{ color: "#8a8580", fontFamily: ff }}>
                 {principle.description}
               </p>
             </div>
@@ -341,29 +349,30 @@ function RichCaseStudy({ project }: { project: Project }) {
             {project.solutionEvolution.map((step, i) => (
               <div
                 key={i}
-                className="grid grid-cols-1 lg:grid-cols-[80px_1fr] gap-6 lg:gap-10 py-10 border-t border-white/5 first:border-0"
+                className="grid grid-cols-1 lg:grid-cols-[80px_1fr] gap-6 lg:gap-10 py-10"
+                style={{ borderTop: i === 0 ? "none" : "1px solid rgba(23,23,23,0.08)" }}
               >
-                <span className="text-xs font-mono text-zinc-700">
+                <span className="text-xs font-mono" style={{ color: "#8a8580" }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="space-y-2">
-                    <p className="text-xs font-medium text-zinc-600 uppercase tracking-widest">
+                    <p className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
                       Challenge
                     </p>
-                    <p className="text-[16px] text-zinc-400 leading-relaxed">{step.challenge}</p>
+                    <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{step.challenge}</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-xs font-medium text-zinc-600 uppercase tracking-widest">
+                    <p className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
                       Decision
                     </p>
-                    <p className="text-[16px] text-zinc-300 leading-relaxed">{step.decision}</p>
+                    <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{step.decision}</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-xs font-medium text-zinc-600 uppercase tracking-widest">
+                    <p className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
                       Outcome
                     </p>
-                    <p className="text-[16px] text-zinc-400 leading-relaxed">{step.outcome}</p>
+                    <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{step.outcome}</p>
                   </div>
                 </div>
               </div>
@@ -386,10 +395,10 @@ function RichCaseStudy({ project }: { project: Project }) {
             <div
               key={i}
               className="flex flex-col p-8 rounded-2xl min-h-[420px]"
-              style={{ backgroundColor: "#ebebeb" }}
+              style={{ backgroundColor: "var(--sp-dew)" }}
             >
               {/* Title at top */}
-              <h3 className="text-[22px] font-semibold text-zinc-800 leading-snug" style={{ fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>
+              <h3 className="text-[22px] font-semibold leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ffHeading, fontWeight: 600, textTransform: "capitalize" }}>
                 {feature.title}
               </h3>
 
@@ -398,11 +407,11 @@ function RichCaseStudy({ project }: { project: Project }) {
 
               {/* Orange tagline + description pinned to bottom */}
               <div className="space-y-3">
-                <p className="text-[14px] font-semibold text-[#e8510a]">
+                <p className="text-[14px] font-semibold" style={{ color: "var(--sp-orange)", fontFamily: ff }}>
                   {"tagline" in feature && feature.tagline ? feature.tagline : "A key part of the redesign."}
                 </p>
                 {"description" in feature && feature.description && (
-                  <p className="text-[14px] leading-relaxed text-zinc-500">{feature.description}</p>
+                  <p className="text-[14px] leading-relaxed" style={{ color: "#8a8580", fontFamily: ff }}>{feature.description}</p>
                 )}
               </div>
             </div>
@@ -421,23 +430,23 @@ function RichCaseStudy({ project }: { project: Project }) {
           ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
-          <div className="p-6 rounded-xl border border-white/8 bg-white/[0.02] space-y-3">
-            <h3 className="text-xs font-medium text-zinc-600 uppercase tracking-widest">
+          <div className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
               Business Impact
             </h3>
-            <p className="text-[16px] text-zinc-300 leading-relaxed">
+            <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>
               {project.outcomes.businessImpact}
             </p>
           </div>
-          <div className="p-6 rounded-xl border border-white/8 bg-white/[0.02] space-y-3">
-            <h3 className="text-xs font-medium text-zinc-600 uppercase tracking-widest">
+          <div className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
               Learnings
             </h3>
             <ul className="space-y-3">
               {project.outcomes.learnings.map((learning, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="mt-3 w-1 h-1 rounded-full bg-zinc-700 flex-shrink-0" />
-                  <p className="text-[16px] text-zinc-400 leading-relaxed">{learning}</p>
+                  <span className="mt-3 w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--sp-orange)" }} />
+                  <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{learning}</p>
                 </li>
               ))}
             </ul>
@@ -448,21 +457,21 @@ function RichCaseStudy({ project }: { project: Project }) {
       {/* ── 10. Reflection ── */}
       {project.reflection && project.reflection.length > 0 && (
         <Section label="Reflection" title="What This Project Taught Me">
-          <div className="divide-y divide-white/5">
+          <div>
             {project.reflection.map((paragraph, i) => (
-              <div key={i} className="grid grid-cols-[100px_1fr] items-center">
+              <div key={i} className="grid grid-cols-[100px_1fr] items-center" style={{ borderTop: i === 0 ? "none" : "1px solid rgba(23,23,23,0.08)" }}>
                 {/* Large number */}
                 <div className="flex items-center">
                   <span
                     className="font-bold leading-none select-none"
-                    style={{ fontSize: "clamp(4rem, 8vw, 7rem)", color: "#e8510a" }}
+                    style={{ fontSize: "clamp(4rem, 8vw, 7rem)", color: "var(--sp-orange)", fontFamily: ffHeading }}
                   >
                     {i + 1}
                   </span>
                 </div>
                 {/* Text */}
                 <div className="py-10 pr-4">
-                  <p className="text-[16px] leading-[1.8]" style={{ color: "lab(65.6464% 1.53494 -5.42429)" }}>
+                  <p className="text-[16px] leading-[1.8]" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>
                     {paragraph}
                   </p>
                 </div>
@@ -489,9 +498,9 @@ function StandardCaseStudy({ project }: { project: Project }) {
             { label: "Industry", value: project.industry },
             { label: "Type", value: project.category },
           ].map(({ label, value }) => (
-            <div key={label} className="p-5 rounded-xl border border-white/6 bg-white/[0.02] space-y-2">
-              <p className="text-xs font-medium text-zinc-600 uppercase tracking-widest">{label}</p>
-              <p className="text-sm text-zinc-200 leading-snug">{value}</p>
+            <div key={label} className="p-5 rounded-xl space-y-2" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+              <p className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>{label}</p>
+              <p className="text-[16px] leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{value}</p>
             </div>
           ))}
         </div>
@@ -514,26 +523,26 @@ function StandardCaseStudy({ project }: { project: Project }) {
 
       <Section label="Challenge" title="The Challenge">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          <p className="text-[16px] text-zinc-400 leading-relaxed">{project.overview}</p>
-          <div className="p-6 rounded-xl border border-white/8 bg-white/[0.02]">
-            <p className="text-xs font-medium text-zinc-600 uppercase tracking-widest mb-3">Problem Statement</p>
-            <p className="text-[16px] text-zinc-300 leading-relaxed italic">
+          <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{project.overview}</p>
+          <div className="p-6 rounded-xl" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+            <p className="text-[16px] font-medium uppercase tracking-widest mb-3" style={{ color: "#8a8580", fontFamily: ff }}>Problem Statement</p>
+            <p className="text-[16px] leading-relaxed italic" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>
               &ldquo;{project.problemStatement}&rdquo;
             </p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[
-            { title: "Challenges", items: project.businessContext.challenges, color: "text-zinc-300" },
-            { title: "Constraints", items: project.businessContext.constraints, color: "text-zinc-400" },
-          ].map(({ title, items, color }) => (
-            <div key={title} className="p-6 rounded-xl border border-white/6 bg-white/[0.015] space-y-4">
-              <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">{title}</h3>
+            { title: "Challenges", items: project.businessContext.challenges },
+            { title: "Constraints", items: project.businessContext.constraints },
+          ].map(({ title, items }) => (
+            <div key={title} className="p-6 rounded-xl space-y-4" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+              <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{title}</h3>
               <ul className="space-y-2.5">
                 {items.map((item, i) => (
-                  <li key={i} className={`flex items-start gap-3 ${color}`}>
-                    <span className="mt-3 w-1 h-1 rounded-full bg-current flex-shrink-0" />
-                    <p className="text-[16px] leading-relaxed">{item}</p>
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="mt-3 w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--sp-orange)" }} />
+                    <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{item}</p>
                   </li>
                 ))}
               </ul>
@@ -545,23 +554,23 @@ function StandardCaseStudy({ project }: { project: Project }) {
       <Section label="Discovery" title="Understanding the Problem">
         <div className="space-y-10">
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Key Insights</h3>
+            <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "#8a8580", fontFamily: ff }}>Key Insights</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.research.userInsights.map((insight, i) => (
-                <div key={i} className="flex items-start gap-4 p-5 rounded-xl border border-white/6 bg-white/[0.02]">
-                  <span className="text-xs font-mono text-zinc-700 mt-1 flex-shrink-0">
+                <div key={i} className="flex items-start gap-4 p-5 rounded-xl" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+                  <span className="text-xs font-mono mt-1 flex-shrink-0" style={{ color: "#8a8580" }}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-[16px] text-zinc-300 leading-relaxed">{insight}</p>
+                  <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{insight}</p>
                 </div>
               ))}
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider">Pain Points</h3>
+            <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "#8a8580", fontFamily: ff }}>Pain Points</h3>
             <div className="flex flex-wrap gap-3">
               {project.research.painPoints.map((pain, i) => (
-                <div key={i} className="px-4 py-3 rounded-lg border border-white/6 bg-white/[0.02] text-[16px] text-zinc-400">
+                <div key={i} className="px-4 py-3 rounded-lg text-[16px]" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)", color: "var(--sp-charcoal)", fontFamily: ff }}>
                   {pain}
                 </div>
               ))}
@@ -573,11 +582,11 @@ function StandardCaseStudy({ project }: { project: Project }) {
       <Section label="Goals" title="Defining Success">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {project.businessContext.goals.map((goal, i) => (
-            <div key={i} className="p-6 rounded-xl border border-white/8 bg-white/[0.02] flex items-start gap-4">
-              <span className="text-xs font-mono text-zinc-700 mt-1 flex-shrink-0">
+            <div key={i} className="p-6 rounded-xl flex items-start gap-4" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+              <span className="text-xs font-mono mt-1 flex-shrink-0" style={{ color: "#8a8580" }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <p className="text-[16px] text-zinc-300 leading-relaxed">{goal}</p>
+              <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{goal}</p>
             </div>
           ))}
         </div>
@@ -586,14 +595,14 @@ function StandardCaseStudy({ project }: { project: Project }) {
       <Section label="Principles" title="Design Principles">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {project.designPrinciples.map((principle, i) => (
-            <div key={i} className="p-7 rounded-xl border border-white/6 bg-white/[0.015] space-y-3">
+            <div key={i} className="p-7 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
               <div className="flex items-center gap-3">
-                <span className="text-xs font-mono text-zinc-700 flex-shrink-0">
+                <span className="text-xs font-mono flex-shrink-0" style={{ color: "#8a8580" }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="text-sm font-semibold text-white">{principle.title}</h3>
+                <h3 className="text-[16px] font-semibold" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{principle.title}</h3>
               </div>
-              <p className="text-[16px] text-zinc-500 leading-relaxed pl-7">{principle.description}</p>
+              <p className="text-[16px] leading-relaxed pl-7" style={{ color: "#8a8580", fontFamily: ff }}>{principle.description}</p>
             </div>
           ))}
         </div>
@@ -606,16 +615,16 @@ function StandardCaseStudy({ project }: { project: Project }) {
             { label: "Flows", content: project.designProcess.flows },
             { label: "Iterations", content: project.designProcess.iterations },
           ].map(({ label, content }) => (
-            <div key={label} className="p-6 rounded-xl border border-white/6 bg-white/[0.015] space-y-3">
-              <h3 className="text-sm font-semibold text-white">{label}</h3>
-              <p className="text-[16px] text-zinc-500 leading-relaxed">{content}</p>
+            <div key={label} className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+              <h3 className="text-[16px] font-semibold" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{label}</h3>
+              <p className="text-[16px] leading-relaxed" style={{ color: "#8a8580", fontFamily: ff }}>{content}</p>
             </div>
           ))}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="h-40 rounded-xl border border-white/6 bg-white/[0.01] flex items-center justify-center">
-              <span className="text-xs text-zinc-800 font-mono">Design artifacts</span>
+            <div key={n} className="h-40 rounded-xl flex items-center justify-center" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-dew)" }}>
+              <span className="text-xs font-mono" style={{ color: "#8a8580" }}>Design artifacts</span>
             </div>
           ))}
         </div>
@@ -624,20 +633,20 @@ function StandardCaseStudy({ project }: { project: Project }) {
       <Section label="Solution" title="The Solution">
         <div className="space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <p className="text-[16px] text-zinc-400 leading-relaxed">{project.solution.description}</p>
+            <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{project.solution.description}</p>
             <ul className="space-y-3">
               {project.solution.keyFeatures.map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 p-4 rounded-xl border border-white/6 bg-white/[0.02]">
-                  <span className="text-xs font-mono text-zinc-700 mt-1 flex-shrink-0">
+                <li key={i} className="flex items-start gap-3 p-4 rounded-xl" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+                  <span className="text-xs font-mono mt-1 flex-shrink-0" style={{ color: "#8a8580" }}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <p className="text-[16px] text-zinc-300 leading-relaxed">{feature}</p>
+                  <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{feature}</p>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="h-72 md:h-96 rounded-2xl border border-white/6 bg-zinc-950 flex items-center justify-center">
-            <span className="text-xs text-zinc-800 font-mono tracking-widest uppercase">Final solution showcase</span>
+          <div className="h-72 md:h-96 rounded-2xl flex items-center justify-center" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-dew)" }}>
+            <span className="text-xs font-mono tracking-widest uppercase" style={{ color: "#8a8580" }}>Final solution showcase</span>
           </div>
         </div>
       </Section>
@@ -650,17 +659,17 @@ function StandardCaseStudy({ project }: { project: Project }) {
             ))}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="p-6 rounded-xl border border-white/8 bg-white/[0.02] space-y-3">
-              <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">Business Impact</h3>
-              <p className="text-[16px] text-zinc-300 leading-relaxed">{project.outcomes.businessImpact}</p>
+            <div className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+              <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "#8a8580", fontFamily: ff }}>Business Impact</h3>
+              <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{project.outcomes.businessImpact}</p>
             </div>
-            <div className="p-6 rounded-xl border border-white/8 bg-white/[0.02] space-y-3">
-              <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider">Key Learnings</h3>
+            <div className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
+              <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "#8a8580", fontFamily: ff }}>Key Learnings</h3>
               <ul className="space-y-3">
                 {project.outcomes.learnings.map((learning, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <span className="mt-3 w-1 h-1 rounded-full bg-zinc-700 flex-shrink-0" />
-                    <p className="text-[16px] text-zinc-400 leading-relaxed">{learning}</p>
+                    <span className="mt-3 w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--sp-orange)" }} />
+                    <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{learning}</p>
                   </li>
                 ))}
               </ul>

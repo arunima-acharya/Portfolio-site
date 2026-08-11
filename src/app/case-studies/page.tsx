@@ -89,10 +89,10 @@ export default function CaseStudiesPage() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col gap-4 items-start"
+          className="flex flex-wrap gap-4 items-center"
         >
           {/* Search */}
-          <div className="relative w-full md:w-64">
+          <div className="relative w-full sm:w-64 flex-shrink-0">
             <Search
               size={14}
               className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"

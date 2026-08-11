@@ -231,8 +231,8 @@ export const Header = ({
   align = "center",
   eyebrowNumber,
   eyebrowLabel,
-  eyebrowColor = "#1C46F2",
-  eyebrowLabelColor = "#a3a3a3",
+  eyebrowColor = "var(--sp-orange)",
+  eyebrowLabelColor = "#8a8580",
   maxWidth = 1280,
 }: {
   title?: React.ReactNode;
@@ -288,7 +288,7 @@ export const Header = ({
         style={{
           fontSize: compact ? "clamp(29px, 3.64vw, 44px)" : "clamp(28px, 3.5vw, 42px)",
           fontWeight: 400, letterSpacing: "-0.02em", lineHeight: 1.15,
-          fontFamily, color: titleColor ?? "#171717",
+          fontFamily, color: titleColor ?? "var(--sp-cocoa)",
         }}
       >
         {title ?? (
@@ -305,7 +305,7 @@ export const Header = ({
           wider heading above it. */}
       <p
         className={`max-w-2xl ${marginClass} ${compact ? "mt-3" : "mt-8"}`}
-        style={{ fontSize: 15.5, lineHeight: 1.75, fontFamily, color: subtitleColor ?? "#525252" }}
+        style={{ fontSize: 16, lineHeight: 1.75, fontFamily, color: subtitleColor ?? "#8a8580" }}
       >
         {subtitle ??
           "We build beautiful products with the latest technologies and frameworks. We are a team of passionate developers and designers that love to build amazing products."}
@@ -329,14 +329,15 @@ export const ProductCard = ({
     <motion.div
       style={{
         x: translate,
-        background: "#ffffff",
+        background: "var(--sp-cream)",
+        border: "1.5px solid var(--sp-charcoal)",
         boxShadow: "0 14px 28px rgba(0,0,0,0.18)",
       }}
       whileHover={{
         y: -20,
       }}
       key={product.title}
-      className="group/product h-[410px] w-[576px] relative shrink-0 overflow-hidden rounded-[15px]"
+      className="group/product h-[410px] w-[576px] relative shrink-0 overflow-hidden rounded-xl"
     >
       {/* Browser-chrome mockup frame — same styling as the hero/Section 05
           desktop mockups (dark bezel, traffic-light dots, inset white
@@ -351,7 +352,7 @@ export const ProductCard = ({
         className="block group-hover/product:shadow-2xl"
         style={{ padding: "0 10px 10px" }}
       >
-        <div style={{ background: "#fff", borderRadius: 8, overflow: "hidden", position: "relative" }}>
+        <div style={{ background: "var(--sp-cream)", borderRadius: 8, overflow: "hidden", position: "relative" }}>
           {/* eslint-disable-next-line @next/next/no-img-element -- external thumbnail URLs, no next/image remote pattern configured */}
           <img
             src={product.thumbnail}
