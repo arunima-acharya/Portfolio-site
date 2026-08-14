@@ -67,7 +67,7 @@ const SvgStackItem = forwardRef<
         <img
           src={PAPER_SVG}
           alt=""
-          style={{ position: "absolute", top: "6%", left: "4%", width: "56%", height: "auto", display: "block" }}
+          style={{ position: "absolute", top: "6%", left: "-1%", width: "61.6%", height: "auto", display: "block" }}
         />
 
         {/* Same data as ProjectCard's content panel, confined to the paper's face */}
@@ -75,9 +75,9 @@ const SvgStackItem = forwardRef<
           style={{
             position: "absolute",
             top: "6%",
-            left: "4%",
-            width: "56%",
-            height: "65%",
+            left: "-1%",
+            width: "61.6%",
+            height: "71.5%",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
