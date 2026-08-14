@@ -20,6 +20,10 @@ const WORK_BG_SVGS = [
 
 const SVG_TILT_DEGREES = [-3, 5, -6, 7];
 
+// Torn-paper card face laid on top of each colored bg svg — same file for
+// all four, positioned/sized to match the reference (top-left, ~56% width).
+const PAPER_SVG = "/assets/work%20bg/paper%20image.svg";
+
 function stickyTop(index: number) {
   return 160 + index * 28;
 }
@@ -59,14 +63,25 @@ const SvgStackItem = forwardRef<
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
 
-        {/* Same data as ProjectCard's content panel, overlaid on the SVG itself */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={PAPER_SVG}
+          alt=""
+          style={{ position: "absolute", top: "6%", left: "4%", width: "56%", height: "auto", display: "block" }}
+        />
+
+        {/* Same data as ProjectCard's content panel, confined to the paper's face */}
         <div
           style={{
             position: "absolute",
-            inset: 0,
+            top: "6%",
+            left: "4%",
+            width: "56%",
+            height: "65%",
             display: "flex",
             flexDirection: "column",
-            padding: "9% 10%",
+            overflow: "hidden",
+            padding: "8%",
             color: "var(--sp-charcoal)",
           }}
         >
