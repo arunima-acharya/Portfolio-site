@@ -38,9 +38,8 @@ const SvgStackItem = forwardRef<
   { src: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean }
 >(function SvgStackItem({ src, project, index, isTop }, ref) {
   const tags = project.tags.slice(0, 3);
-  const tilt = SVG_TILT_DEGREES[index] ?? 0;
-  const textAlign: "left" | "right" = tilt > 0 ? "right" : "left";
-  const rowJustify = tilt > 0 ? "flex-end" : "flex-start";
+  const textAlign = "left" as const;
+  const rowJustify = "flex-start" as const;
 
   return (
     <motion.div
