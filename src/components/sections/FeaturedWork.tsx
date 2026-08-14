@@ -434,7 +434,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
       {/* View all */}
       <div className="flex justify-center" style={{ marginTop: 48 }}>
         <Link
-          href="/case-studies"
+          href={isMobile ? "/m/case-studies" : "/case-studies"}
           style={{
             display: "inline-flex", alignItems: "center", gap: 6,
             background: "var(--sp-cream)", color: "var(--sp-charcoal)",

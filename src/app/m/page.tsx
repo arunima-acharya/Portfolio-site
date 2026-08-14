@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { getFeaturedProjects, projectHref } from "@/data/projects";
+import FeaturedWork from "@/components/sections/FeaturedWork";
 
 const SERVICES = ["Product Design", "UX/UI Design", "SaaS & Enterprise", "Design Systems", "UX Research", "Design Consulting"];
 
@@ -17,8 +16,6 @@ const NOTE_SVGS = [
 ];
 
 export default function MobileHome() {
-  const projects = getFeaturedProjects().slice(0, 4);
-
   return (
     <main style={{ paddingBottom: 48 }}>
       {/* Hero */}
@@ -91,65 +88,11 @@ export default function MobileHome() {
         </div>
       </section>
 
-      {/* Featured work */}
-      <section style={{ padding: "36px 20px 8px" }}>
-        <h2
-          style={{
-            fontFamily: "var(--font-gelica)",
-            fontSize: 22,
-            fontWeight: 600,
-            color: "var(--sp-cocoa)",
-            margin: "0 0 16px",
-          }}
-        >
-          selected work
-        </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          {projects.map((project) => (
-            <Link
-              key={project.id}
-              href={projectHref(project)}
-              style={{
-                display: "block",
-                textDecoration: "none",
-                border: "1.5px solid var(--sp-charcoal)",
-                borderRadius: "var(--radius-xl)",
-                padding: "18px 18px 16px",
-                background: "var(--sp-cream)",
-                boxShadow: "var(--shadow-lg)",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", marginBottom: 8 }}>
-                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0 }} />
-                <span style={{ fontSize: 13, fontWeight: 600, color: "var(--sp-orange)", fontFamily: "var(--font-geist), sans-serif" }}>
-                  {project.category}
-                </span>
-              </div>
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
-                <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", lineHeight: 1.25, margin: 0 }}>
-                  {project.title.toLowerCase()}
-                </h3>
-                <ArrowUpRight size={16} style={{ color: "var(--sp-orange)", flexShrink: 0, marginTop: 3 }} />
-              </div>
-              <p style={{ fontSize: 14, color: "#666", lineHeight: 1.5, margin: "8px 0 0", fontFamily: "var(--font-geist), sans-serif" }}>
-                {project.shortDescription}
-              </p>
-            </Link>
-          ))}
-        </div>
-        <Link
-          href="/m/case-studies"
-          style={{
-            display: "block", textAlign: "center", marginTop: 18,
-            fontSize: 15, fontWeight: 500, color: "var(--sp-charcoal)",
-            fontFamily: "var(--font-gelica)", textDecoration: "none",
-            border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl-2)",
-            padding: "12px 0", background: "var(--sp-cream)",
-          }}
-        >
-          view all case studies
-        </Link>
-      </section>
+      {/* Featured work — same FeaturedWork component desktop uses (SVG
+          scroll-stack cards), so mobile automatically stays in sync with
+          it instead of maintaining a separate, drifting mobile version.
+          Its own "view all" CTA links to /m/case-studies here (isMobile). */}
+      <FeaturedWork useSvgs />
 
       {/* Services */}
       <section style={{ padding: "36px 20px 8px" }}>
