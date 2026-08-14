@@ -13,8 +13,8 @@ const CARD_HEIGHT = 400;
 const WORK_BG_SVGS = [
   "/assets/work%20bg/bg%201.svg",
   "/assets/work%20bg/bg%202.svg",
-  "/assets/work%20bg/bg3.svg",
-  "/assets/work%20bg/bg4.svg",
+  "/assets/work%20bg/bg%203.svg",
+  "/assets/work%20bg/bg%204.svg",
 ];
 
 // Same sticky-stack scroll choreography as ProjectCard (position: sticky,
