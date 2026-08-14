@@ -76,7 +76,7 @@ const SvgStackItem = forwardRef<
           style={{
             position: "absolute",
             top: "8%",
-            left: "57%",
+            left: "59%",
             width: "33.8%",
             height: "84%",
             display: "flex",
