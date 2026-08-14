@@ -30,7 +30,18 @@ function SvgStackItem({ src, index }: { src: string; index: number }) {
       style={{ position: "sticky", top: `${160 + index * 28}px`, zIndex: index + 1 }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
+      <img
+        src={src}
+        alt=""
+        style={{
+          width: "100%",
+          height: "auto",
+          display: "block",
+          filter: "drop-shadow(0 10px 22px rgba(0,0,0,0.22))",
+          transform: "rotate(4deg)",
+          transformOrigin: "top left",
+        }}
+      />
     </motion.div>
   );
 }
