@@ -38,7 +38,7 @@ export default function FunFacts() {
               letterSpacing: "0.14em",
               textTransform: "uppercase",
               fontFamily: "var(--font-manrope), sans-serif",
-              marginBottom: "12px",
+              marginBottom: "var(--spacing-12)",
             }}
           >
             ★ Personal Notes
@@ -65,17 +65,17 @@ export default function FunFacts() {
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
             gridTemplateRows: "auto",
-            gap: "12px",
+            gap: "var(--spacing-12)",
             alignItems: "stretch",
           }}
         >
           {/* Left column — 2 stacked images */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
             {/* Books */}
             <div
               style={{
                 position: "relative",
-                borderRadius: "12px",
+                borderRadius: "var(--radius-xl)",
                 overflow: "hidden",
                 aspectRatio: "16/9",
               }}
@@ -94,7 +94,7 @@ export default function FunFacts() {
             <div
               style={{
                 position: "relative",
-                borderRadius: "12px",
+                borderRadius: "var(--radius-xl)",
                 overflow: "hidden",
                 aspectRatio: "16/9",
               }}
@@ -114,7 +114,7 @@ export default function FunFacts() {
           <div
             style={{
               position: "relative",
-              borderRadius: "12px",
+              borderRadius: "var(--radius-xl)",
               overflow: "hidden",
               minHeight: "400px",
             }}
@@ -154,7 +154,7 @@ function Caption({ text }: { text: string }) {
           left: "16px",
           background: "rgba(255,255,255,0.92)",
           backdropFilter: "blur(6px)",
-          borderRadius: "8px",
+          borderRadius: "var(--radius-lg)",
           padding: "6px 14px",
           fontSize: "13px",
           fontWeight: 500,

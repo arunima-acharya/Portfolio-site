@@ -30,16 +30,16 @@ export default function ContactCTA() {
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "16px",
+              gap: "var(--spacing-16)",
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
               fontWeight: 600,
               color: "var(--sp-cocoa)",
-              fontFamily: "var(--font-fraunces), serif",
+              fontFamily: "var(--font-gelica)",
               textTransform: "capitalize",
               letterSpacing: "normal",
               lineHeight: 1.15,
               textDecoration: "none",
-              marginBottom: "24px",
+              marginBottom: "var(--spacing-24)",
               transition: "color 0.18s",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "var(--sp-orange)")}

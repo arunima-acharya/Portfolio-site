@@ -26,7 +26,7 @@ export default function DashboardShowcase() {
       style={{
         marginLeft: "calc(-1 * var(--gutter))",
         marginRight: "calc(-1 * var(--gutter))",
-        paddingTop: "20px",
+        paddingTop: "var(--spacing-20)",
         paddingBottom: "30px",
         paddingLeft: "var(--gutter)",
         paddingRight: "var(--gutter)",

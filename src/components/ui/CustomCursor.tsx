@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
 function CursorInner() {
@@ -34,7 +35,7 @@ function CursorInner() {
       ringY += (mouseY - ringY) * 0.1;
 
       const state = cursorStateRef.current;
-      const color = isWhiteRef.current ? "#fff" : "#e8510a";
+      const color = isWhiteRef.current ? "#fff" : "#ff6f1e";
 
       if (dotRef.current) {
         dotRef.current.style.transform = `translate(${dotX - 8}px, ${dotY - 8}px)`;
@@ -117,7 +118,7 @@ function CursorInner() {
           width: 16,
           height: 16,
           borderRadius: "50%",
-          backgroundColor: "#e8510a",
+          backgroundColor: "#ff6f1e",
           transition: "opacity 0.2s ease",
         }}
       />
@@ -129,7 +130,7 @@ function CursorInner() {
           width: 43,
           height: 43,
           borderRadius: "50%",
-          border: "3px solid #e8510a",
+          border: "3px solid #ff6f1e",
           transition: "opacity 0.2s ease",
         }}
       />
@@ -141,7 +142,7 @@ function CursorInner() {
           width: 62,
           height: 62,
           borderRadius: "50%",
-          backgroundColor: "#e8510a",
+          backgroundColor: "#ff6f1e",
           color: "#fff",
           fontSize: 12,
           fontWeight: 600,
@@ -160,6 +161,7 @@ function CursorInner() {
 
 export default function CustomCursor() {
   const isMobile = useIsMobile();
-  if (isMobile) return null;
+  const pathname = usePathname();
+  if (isMobile || pathname?.startsWith("/m")) return null;
   return <CursorInner />;
 }

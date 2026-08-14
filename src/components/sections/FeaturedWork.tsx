@@ -43,7 +43,7 @@ function ProjectCard({
         style={{
           background: "var(--sp-cream)",
           border: "1.5px solid var(--sp-charcoal)",
-          boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
+          boxShadow: "var(--shadow-lg)",
           minHeight: isMobile ? undefined : CARD_HEIGHT,
           // Hard cap on mobile — image below is shrunk and copy is clamped
           // so real content should fit well under this, but this guarantees
@@ -82,14 +82,14 @@ function ProjectCard({
         {/* Content panel */}
         <div className="flex flex-col" style={{ padding: isMobile ? "18px 20px" : "40px 48px", overflow: isMobile ? "hidden" : undefined }}>
           <div style={{ minHeight: 0, overflow: isMobile ? "hidden" : undefined }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: isMobile ? 8 : 16 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", marginBottom: isMobile ? 8 : 16 }}>
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0 }} />
-              <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sp-orange)" }}>
+              <span style={{ fontSize: 16, fontWeight: 700, color: "var(--sp-orange)" }}>
                 {project.category}
               </span>
             </div>
 
-            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 600, textTransform: "capitalize", color: "var(--sp-cocoa)", lineHeight: 1.1, letterSpacing: "normal", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-fraunces), serif" }}>
+            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 600, textTransform: "lowercase", color: "var(--sp-cocoa)", lineHeight: 1.1, letterSpacing: "normal", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-gelica)" }}>
               {project.title}
             </h3>
 
@@ -101,7 +101,7 @@ function ProjectCard({
             </p>
 
             {tags.length > 0 && (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: isMobile ? 0 : 24 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--spacing-8)", marginBottom: isMobile ? 0 : 24 }}>
                 {tags.map((tag) => (
                   <span
                     key={tag}
@@ -154,14 +154,14 @@ export default function FeaturedWork() {
   const filtered = getFeaturedProjects().filter((p) => FEATURED_SLUGS.includes(p.slug));
 
   const mutedColor = "rgba(0,0,0,0.4)";
-  const textColor = "#111";
+  const textColor = "var(--sp-cocoa)";
 
   return (
     <section
       className="py-[86px] md:py-[115px]"
       aria-labelledby="work-heading"
       style={{
-        backgroundColor: "#fff",
+        backgroundColor: "var(--sp-cream)",
         paddingLeft: isMobile ? "18px" : "18%",
         paddingRight: isMobile ? "18px" : "18%",
       }}
@@ -180,10 +180,10 @@ export default function FeaturedWork() {
             lineHeight: 1,
             letterSpacing: 0,
             color: textColor,
-            fontFamily: "var(--font-fraunces), serif",
+            fontFamily: "var(--font-gelica)",
           }}
         >
-          Selected Works
+          selected works
         </motion.h2>
 
         <motion.p
@@ -199,7 +199,7 @@ export default function FeaturedWork() {
       </div>
 
       {/* Cards — one wide card per row */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
         {filtered.map((project, i) => (
           <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
         ))}
@@ -211,16 +211,17 @@ export default function FeaturedWork() {
           href="/case-studies"
           style={{
             display: "inline-flex", alignItems: "center", gap: 6,
-            background: "transparent", color: "#111",
-            border: "1px solid rgba(0,0,0,0.2)", borderRadius: 9999,
-            padding: "0.7em 1.5em", fontSize: "16px", fontWeight: 600,
-            fontFamily: "var(--font-geist), sans-serif", textDecoration: "none",
-            transition: "background 0.2s, color 0.2s, border-color 0.2s",
+            background: "var(--sp-cream)", color: "var(--sp-charcoal)",
+            border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl-2)",
+            padding: "0.7em 1.5em", fontSize: "16px", fontWeight: 500,
+            fontFamily: "var(--font-gelica)", textDecoration: "none",
+            boxShadow: "var(--shadow-subtle)",
+            transition: "opacity 0.2s",
           }}
-          onMouseEnter={e => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}
-          onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#111"; }}
+          onMouseEnter={e => { e.currentTarget.style.opacity = "0.7"; }}
+          onMouseLeave={e => { e.currentTarget.style.opacity = "1"; }}
         >
-          View all ↗
+          view all ↗
         </Link>
       </div>
     </section>

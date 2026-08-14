@@ -229,12 +229,12 @@ export default function DesignProcess3D() {
   // Mobile: static list
   if (isMobile) {
     return (
-      <section style={{ minHeight: "100dvh", boxSizing: "border-box", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "96px", paddingBottom: "48px", paddingLeft: "20px", paddingRight: "20px", backgroundColor: "var(--sp-cream)" }}>
-        <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, textTransform: "capitalize", color: "var(--sp-cocoa)", fontFamily: "var(--font-fraunces), serif", marginBottom: "20px" }}>
-          Own the process.
-          <span style={{ display: "block" }}>Deliver impact.</span>
+      <section style={{ minHeight: "100dvh", boxSizing: "border-box", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "96px", paddingBottom: "var(--spacing-48)", paddingLeft: "var(--spacing-20)", paddingRight: "var(--spacing-20)", backgroundColor: "var(--sp-cream)" }}>
+        <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", marginBottom: "var(--spacing-20)" }}>
+          own the process.
+          <span style={{ display: "block" }}>deliver impact.</span>
         </h2>
-        <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, marginBottom: "32px" }}>
+        <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, marginBottom: "var(--spacing-32)" }}>
           Every great product starts with deep research and clear thinking.
           My design methodology is built on precision, empathy, and collaboration
           — creating experiences that users love and businesses value.
@@ -269,7 +269,7 @@ export default function DesignProcess3D() {
                     </span>
                   </div>
                   {!last && (
-                    <div style={{ width: 2, flex: 1, minHeight: "36px", background: "rgba(0,0,0,0.10)", marginTop: "8px" }} />
+                    <div style={{ width: 2, flex: 1, minHeight: "36px", background: "rgba(0,0,0,0.10)", marginTop: "var(--spacing-8)" }} />
                   )}
                 </div>
 
@@ -278,20 +278,19 @@ export default function DesignProcess3D() {
                   <p style={{
                     fontSize: "16px",
                     fontWeight: 700,
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
                     color: layer.color,
                     fontFamily: "var(--font-geist), sans-serif",
                     marginBottom: "6px",
                   }}>
-                    Step {String(i + 1).padStart(2, "0")}
+                    step {String(i + 1).padStart(2, "0")}
                   </p>
                   <h3 style={{
                     fontSize: "20px",
                     fontWeight: 400,
                     color: textPrimary,
-                    fontFamily: "var(--font-fraunces), serif",
-                    marginBottom: "8px",
+                    fontFamily: "var(--font-gelica)",
+                    textTransform: "lowercase",
+                    marginBottom: "var(--spacing-8)",
                   }}>
                     {layer.title}
                   </h3>
@@ -361,12 +360,12 @@ export default function DesignProcess3D() {
           }}
         >
           {/* Col 1: Static heading */}
-          <motion.div style={{ flex: "0 0 38%", paddingRight: "48px", marginTop: `calc(-${STACK_H * 0.10}px + 20vh)`, y: headingParallaxY }}>
-            <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, textTransform: "capitalize", color: "var(--sp-cocoa)", fontFamily: "var(--font-fraunces), serif", marginBottom: "20px" }}>
-              Own the process.
-              <span style={{ display: "block" }}>Deliver impact.</span>
+          <motion.div style={{ flex: "0 0 38%", paddingRight: "var(--spacing-48)", marginTop: `calc(-${STACK_H * 0.10}px + 20vh)`, y: headingParallaxY }}>
+            <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", marginBottom: "var(--spacing-20)" }}>
+              own the process.
+              <span style={{ display: "block" }}>deliver impact.</span>
             </h2>
-            <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, maxWidth: "38ch", marginBottom: "24px" }}>
+            <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, maxWidth: "38ch", marginBottom: "var(--spacing-24)" }}>
               Every great product starts with deep research and clear thinking.
               My design methodology is built on precision, empathy, and collaboration
               — creating experiences that users love and businesses value.
@@ -388,9 +387,9 @@ export default function DesignProcess3D() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                  style={{ position: "absolute", top: activeIdx !== null ? visualCenterY(activeIdx) - 40 : 0, width: "100%", background: "rgba(255,255,255,0.20)", borderRadius: "16px", padding: "16px", backdropFilter: "blur(8px)" }}
+                  style={{ position: "absolute", top: activeIdx !== null ? visualCenterY(activeIdx) - 40 : 0, width: "100%", background: "rgba(255,255,255,0.20)", borderRadius: "var(--radius-2xl)", padding: "var(--spacing-16)", backdropFilter: "blur(8px)" }}
                 >
-                  <p style={{ fontSize: "16px", fontWeight: 600, color: activeLayer.color, fontFamily: "var(--font-geist), sans-serif", marginBottom: "10px", letterSpacing: "-0.01em" }}>
+                  <p style={{ fontSize: "16px", fontWeight: 600, color: activeLayer.color, fontFamily: "var(--font-geist), sans-serif", marginBottom: "10px", letterSpacing: "-0.01em", textTransform: "lowercase" }}>
                     {activeLayer.title}
                   </p>
                   <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.7, maxWidth: "26ch" }}>
@@ -418,6 +417,7 @@ export default function DesignProcess3D() {
                         fontWeight: 500,
                         color: layer.color,
                         letterSpacing: "-0.01em",
+                        textTransform: "lowercase",
                       }}
                     >
                       {layer.title}

@@ -24,24 +24,30 @@ export default function Navbar() {
     return () => { document.body.style.overflow = prev; };
   }, [open]);
 
+  // /m/* routes are the standalone mobile experience with its own chrome —
+  // this desktop/tablet nav shouldn't render there at all. Checked after
+  // every hook above so hook call order stays stable across client-side
+  // navigations into/out of /m.
+  if (pathname?.startsWith("/m")) return null;
+
   if (isMobile) {
     return (
-      <div data-navbar style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "16px" }}>
+      <div data-navbar style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "var(--spacing-16)" }}>
         <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
           <a
             href="/"
             style={{
-              display: "inline-flex", alignItems: "center", gap: "8px",
+              display: "inline-flex", alignItems: "center", gap: "var(--spacing-8)",
               padding: "8px 14px 8px 10px", borderRadius: 9999,
               background: "rgba(253,251,249,0.7)", backdropFilter: "blur(20px) saturate(180%)",
               WebkitBackdropFilter: "blur(20px) saturate(180%)",
               fontFamily: "var(--font-geist), sans-serif", fontSize: 16, fontWeight: 700,
-              color: "var(--sp-charcoal)", textDecoration: "none", textTransform: "uppercase",
-              letterSpacing: "0.02em", whiteSpace: "nowrap",
+              color: "var(--sp-charcoal)", textDecoration: "none",
+              whiteSpace: "nowrap",
             }}
           >
             <Sparkle size={16} strokeWidth={2} fill="var(--sp-charcoal)" style={{ flexShrink: 0 }} />
-            Arunima
+            arunima
           </a>
 
           <button
@@ -67,7 +73,7 @@ export default function Navbar() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                marginTop: 12, background: "var(--sp-cream)", borderRadius: 20,
+                marginTop: "var(--spacing-12)", background: "var(--sp-cream)", borderRadius: "var(--radius-2xl-2)",
                 border: "1.5px solid var(--sp-charcoal)", overflow: "hidden",
               }}
             >
@@ -79,7 +85,7 @@ export default function Navbar() {
                     href={href}
                     onClick={() => setOpen(false)}
                     style={{
-                      display: "flex", alignItems: "center", gap: 8,
+                      display: "flex", alignItems: "center", gap: "var(--spacing-8)",
                       minHeight: 52, padding: "0 20px",
                       fontFamily: "var(--font-geist), sans-serif", fontSize: 16,
                       fontWeight: active ? 600 : 400, color: active ? "var(--sp-charcoal)" : "#555",
@@ -108,9 +114,9 @@ export default function Navbar() {
                 href="/contact"
                 onClick={() => setOpen(false)}
                 style={{
-                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--spacing-8)",
                   minHeight: 52, padding: "0 20px",
-                  fontFamily: "var(--font-geist), sans-serif", fontSize: 16, fontWeight: 500,
+                  fontFamily: "var(--font-gelica)", fontSize: 16, fontWeight: 500,
                   color: "var(--sp-charcoal)", background: "var(--sp-cream)", borderTop: "1.5px solid var(--sp-charcoal)", textDecoration: "none",
                 }}
               >
@@ -133,7 +139,7 @@ export default function Navbar() {
         left: 0,
         right: 0,
         zIndex: 100,
-        padding: "16px",
+        padding: "var(--spacing-16)",
         pointerEvents: "none",
       }}
     >
@@ -144,7 +150,7 @@ export default function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
-          gap: "12px",
+          gap: "var(--spacing-12)",
         }}
       >
         {/* Logo — a light frosted backdrop rather than fully transparent,
@@ -157,7 +163,7 @@ export default function Navbar() {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "8px",
+            gap: "var(--spacing-8)",
             padding: "8px 14px 8px 10px",
             borderRadius: 9999,
             background: "rgba(253,251,249,0.7)",
@@ -168,13 +174,11 @@ export default function Navbar() {
             fontWeight: 700,
             color: "var(--sp-charcoal)",
             textDecoration: "none",
-            textTransform: "uppercase",
-            letterSpacing: "0.02em",
             whiteSpace: "nowrap",
           }}
         >
           <Sparkle size={16} strokeWidth={2} fill="var(--sp-charcoal)" style={{ flexShrink: 0 }} />
-          Arunima
+          arunima
         </a>
 
         {/* Center — plain-text links in a solid white pill; the active
@@ -188,7 +192,7 @@ export default function Navbar() {
             gap: "clamp(4px, 2vw, 8px)",
             background: "var(--sp-cream)",
             border: "1.5px solid var(--sp-charcoal)",
-            borderRadius: 20,
+            borderRadius: "var(--radius-2xl-2)",
             padding: "10px clamp(16px, 3vw, 24px)",
           }}
         >
@@ -253,14 +257,14 @@ export default function Navbar() {
             background: "var(--sp-cream)",
             color: "var(--sp-charcoal)",
             border: "1.5px solid var(--sp-charcoal)",
-            borderRadius: 20,
+            borderRadius: "var(--radius-2xl-2)",
             padding: "10px 10px 10px 20px",
             fontSize: 16,
-            fontFamily: "var(--font-geist), sans-serif",
+            fontFamily: "var(--font-gelica)",
             fontWeight: 500,
             textDecoration: "none",
             whiteSpace: "nowrap",
-            boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 2px 0px",
+            boxShadow: "var(--shadow-subtle)",
           }}
         >
           Let&apos;s chat

@@ -6,7 +6,7 @@ import { Project, KeyInsight } from "@/types";
 import Tag from "@/components/ui/Tag";
 
 const ff = "var(--font-geist), sans-serif";
-const ffHeading = "var(--font-fraunces), serif";
+const ffHeading = "var(--font-gelica)";
 
 /* ─── Shared primitives ─────────────────────────────────────────────── */
 
@@ -31,10 +31,10 @@ function Section({
     >
       <div className="space-y-10">
         <div className="space-y-2">
-          <span className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+          <span className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
             {label}
           </span>
-          <h2 className="text-2xl font-semibold" style={{ color: "var(--sp-cocoa)", fontFamily: ffHeading, fontWeight: 600, textTransform: "capitalize" }}>{title}</h2>
+          <h2 className="text-2xl font-semibold" style={{ color: "var(--sp-cocoa)", fontFamily: ffHeading, fontWeight: 600, textTransform: "lowercase" }}>{title}</h2>
         </div>
         {children}
       </div>
@@ -54,7 +54,7 @@ function MetricCard({
   return (
     <div
       className="p-6 rounded-xl space-y-2"
-      style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px" }}
+      style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)", boxShadow: "var(--shadow-lg)" }}
     >
       <p className="fluid-text-2xl font-semibold leading-none" style={{ color: "var(--sp-charcoal)" }}>{value}</p>
       <p className="text-[16px] font-medium" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{label}</p>
@@ -123,7 +123,7 @@ function RichCaseStudy({ project }: { project: Project }) {
             { label: "Platform", value: project.platform ?? project.category },
           ].map(({ label, value }) => (
             <div key={label} className="py-2 pr-8 space-y-1.5">
-              <p className="text-[14px] font-normal uppercase tracking-[0.12em]" style={{ color: "#8a8580", fontFamily: ff }}>
+              <p className="text-[14px] font-normal" style={{ color: "#8a8580", fontFamily: ff }}>
                 {label}
               </p>
               <p className="text-[16px] leading-snug whitespace-pre-line" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{value}</p>
@@ -139,7 +139,7 @@ function RichCaseStudy({ project }: { project: Project }) {
             { label: "Users", value: project.users ?? project.team.join(", ") },
           ].map(({ label, value }) => (
             <div key={label} className="py-2 pr-8 space-y-1.5">
-              <p className="text-[14px] font-normal uppercase tracking-[0.12em]" style={{ color: "#8a8580", fontFamily: ff }}>
+              <p className="text-[14px] font-normal" style={{ color: "#8a8580", fontFamily: ff }}>
                 {label}
               </p>
               <p className="text-[17px] leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{value}</p>
@@ -150,7 +150,7 @@ function RichCaseStudy({ project }: { project: Project }) {
         {/* Responsibilities row */}
         {project.responsibilities && project.responsibilities.length > 0 && (
           <div className="py-2 space-y-3" style={{ borderTop: "1px solid rgba(23,23,23,0.08)" }}>
-            <p className="text-[14px] font-normal uppercase tracking-[0.12em]" style={{ color: "#8a8580", fontFamily: ff }}>
+            <p className="text-[14px] font-normal" style={{ color: "#8a8580", fontFamily: ff }}>
               Responsibilities
             </p>
             <div className="flex flex-wrap gap-2">
@@ -174,7 +174,7 @@ function RichCaseStudy({ project }: { project: Project }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x" style={{ borderColor: "rgba(23,23,23,0.08)" }}>
           {/* Business */}
           <div className="lg:pr-10" style={{ borderBottom: "1px solid rgba(23,23,23,0.08)" }}>
-            <p className="text-[11px] font-medium uppercase tracking-[0.14em] mb-4" style={{ color: "#8a8580", fontFamily: ff }}>
+            <p className="text-[11px] font-medium mb-4" style={{ color: "#8a8580", fontFamily: ff }}>
               Business
             </p>
             <ul>
@@ -191,7 +191,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
           {/* User */}
           <div className="lg:pl-10 pt-8 lg:pt-0">
-            <p className="text-[11px] font-medium uppercase tracking-[0.14em] mb-4" style={{ color: "#8a8580", fontFamily: ff }}>
+            <p className="text-[11px] font-medium mb-4" style={{ color: "#8a8580", fontFamily: ff }}>
               User
             </p>
             <ul>
@@ -209,7 +209,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
         {/* Problem Statement — editorial pull quote */}
         <div className="pt-10" style={{ borderTop: "1px solid rgba(23,23,23,0.08)" }}>
-          <p className="text-[11px] font-medium uppercase tracking-[0.14em] mb-5" style={{ color: "#8a8580", fontFamily: ff }}>
+          <p className="text-[11px] font-medium mb-5" style={{ color: "#8a8580", fontFamily: ff }}>
             Problem Statement
           </p>
           <blockquote className="text-[22px] font-medium leading-relaxed italic text-center w-full" style={{ color: "var(--sp-orange)", fontFamily: ffHeading }}>
@@ -224,7 +224,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
           {/* Research Activities */}
           <div className="space-y-4">
-            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+            <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
               Research Activities
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -244,7 +244,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
           {/* Key Insights */}
           <div className="space-y-6">
-            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+            <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
               Key Insights
             </h3>
             <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
@@ -275,7 +275,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
                   {/* Bottom: index */}
                   <div className="relative z-10 mt-6">
-                    <span className="text-[11px] font-medium transition-colors duration-300 uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+                    <span className="text-[11px] font-medium transition-colors duration-300" style={{ color: "#8a8580", fontFamily: ff }}>
                       Insight {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
@@ -291,7 +291,7 @@ function RichCaseStudy({ project }: { project: Project }) {
       <Section label="Goals" title="Defining Success">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-5">
-            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+            <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
               Business Success
             </h3>
             <ul className="space-y-4">
@@ -304,7 +304,7 @@ function RichCaseStudy({ project }: { project: Project }) {
             </ul>
           </div>
           <div className="space-y-5">
-            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+            <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
               User Success
             </h3>
             <ul className="space-y-4">
@@ -357,19 +357,19 @@ function RichCaseStudy({ project }: { project: Project }) {
                 </span>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="space-y-2">
-                    <p className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+                    <p className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
                       Challenge
                     </p>
                     <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{step.challenge}</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+                    <p className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
                       Decision
                     </p>
                     <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{step.decision}</p>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+                    <p className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
                       Outcome
                     </p>
                     <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{step.outcome}</p>
@@ -398,7 +398,7 @@ function RichCaseStudy({ project }: { project: Project }) {
               style={{ backgroundColor: "var(--sp-dew)" }}
             >
               {/* Title at top */}
-              <h3 className="text-[22px] font-semibold leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ffHeading, fontWeight: 600, textTransform: "capitalize" }}>
+              <h3 className="text-[22px] font-semibold leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ffHeading, fontWeight: 600, textTransform: "lowercase" }}>
                 {feature.title}
               </h3>
 
@@ -431,7 +431,7 @@ function RichCaseStudy({ project }: { project: Project }) {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
           <div className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
-            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+            <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
               Business Impact
             </h3>
             <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>
@@ -439,7 +439,7 @@ function RichCaseStudy({ project }: { project: Project }) {
             </p>
           </div>
           <div className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
-            <h3 className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
+            <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
               Learnings
             </h3>
             <ul className="space-y-3">
@@ -499,7 +499,7 @@ function StandardCaseStudy({ project }: { project: Project }) {
             { label: "Type", value: project.category },
           ].map(({ label, value }) => (
             <div key={label} className="p-5 rounded-xl space-y-2" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
-              <p className="text-[16px] font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>{label}</p>
+              <p className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>{label}</p>
               <p className="text-[16px] leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{value}</p>
             </div>
           ))}
@@ -525,7 +525,7 @@ function StandardCaseStudy({ project }: { project: Project }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{project.overview}</p>
           <div className="p-6 rounded-xl" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
-            <p className="text-[16px] font-medium uppercase tracking-widest mb-3" style={{ color: "#8a8580", fontFamily: ff }}>Problem Statement</p>
+            <p className="text-[16px] font-medium mb-3" style={{ color: "#8a8580", fontFamily: ff }}>Problem Statement</p>
             <p className="text-[16px] leading-relaxed italic" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>
               &ldquo;{project.problemStatement}&rdquo;
             </p>
@@ -537,7 +537,7 @@ function StandardCaseStudy({ project }: { project: Project }) {
             { title: "Constraints", items: project.businessContext.constraints },
           ].map(({ title, items }) => (
             <div key={title} className="p-6 rounded-xl space-y-4" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
-              <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{title}</h3>
+              <h3 className="text-[16px] font-semibold" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{title}</h3>
               <ul className="space-y-2.5">
                 {items.map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
@@ -554,7 +554,7 @@ function StandardCaseStudy({ project }: { project: Project }) {
       <Section label="Discovery" title="Understanding the Problem">
         <div className="space-y-10">
           <div className="space-y-4">
-            <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "#8a8580", fontFamily: ff }}>Key Insights</h3>
+            <h3 className="text-[16px] font-semibold" style={{ color: "#8a8580", fontFamily: ff }}>Key Insights</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {project.research.userInsights.map((insight, i) => (
                 <div key={i} className="flex items-start gap-4 p-5 rounded-xl" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
@@ -567,7 +567,7 @@ function StandardCaseStudy({ project }: { project: Project }) {
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "#8a8580", fontFamily: ff }}>Pain Points</h3>
+            <h3 className="text-[16px] font-semibold" style={{ color: "#8a8580", fontFamily: ff }}>Pain Points</h3>
             <div className="flex flex-wrap gap-3">
               {project.research.painPoints.map((pain, i) => (
                 <div key={i} className="px-4 py-3 rounded-lg text-[16px]" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)", color: "var(--sp-charcoal)", fontFamily: ff }}>
@@ -646,7 +646,7 @@ function StandardCaseStudy({ project }: { project: Project }) {
             </ul>
           </div>
           <div className="h-72 md:h-96 rounded-2xl flex items-center justify-center" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-dew)" }}>
-            <span className="text-xs font-mono tracking-widest uppercase" style={{ color: "#8a8580" }}>Final solution showcase</span>
+            <span className="text-xs font-mono" style={{ color: "#8a8580" }}>Final solution showcase</span>
           </div>
         </div>
       </Section>
@@ -660,11 +660,11 @@ function StandardCaseStudy({ project }: { project: Project }) {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
-              <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "#8a8580", fontFamily: ff }}>Business Impact</h3>
+              <h3 className="text-[16px] font-semibold" style={{ color: "#8a8580", fontFamily: ff }}>Business Impact</h3>
               <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{project.outcomes.businessImpact}</p>
             </div>
             <div className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
-              <h3 className="text-[16px] font-semibold uppercase tracking-wider" style={{ color: "#8a8580", fontFamily: ff }}>Key Learnings</h3>
+              <h3 className="text-[16px] font-semibold" style={{ color: "#8a8580", fontFamily: ff }}>Key Learnings</h3>
               <ul className="space-y-3">
                 {project.outcomes.learnings.map((learning, i) => (
                   <li key={i} className="flex items-start gap-3">

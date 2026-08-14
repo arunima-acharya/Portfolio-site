@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, Anton, Manrope, Kanit, Source_Serif_4, Instrument_Serif, Playfair_Display, Caveat, Fraunces, Geist } from "next/font/google";
+import { Inter, Inter_Tight, Anton, Manrope, Kanit, Source_Serif_4, Instrument_Serif, Playfair_Display, Caveat, Fraunces, Geist, Patrick_Hand } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -87,6 +87,15 @@ const geist = Geist({
   display: "swap",
 });
 
+// Closest legitimately-licensed substitute for Figma's own (non-embeddable)
+// "Figma Hand" sticky-note font — used for the testimonial-card quotes.
+const patrickHand = Patrick_Hand({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-patrick-hand",
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -155,8 +164,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${interTight.variable} ${anton.variable} ${manrope.variable} ${kanit.variable} ${sourceSerif4.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${caveat.variable} ${fraunces.variable} ${geist.variable} light`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${interTight.variable} ${anton.variable} ${manrope.variable} ${kanit.variable} ${sourceSerif4.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${caveat.variable} ${fraunces.variable} ${geist.variable} ${patrickHand.variable} light`} suppressHydrationWarning>
       <head>
+        <link rel="stylesheet" href="https://use.typekit.net/cym0usy.css" />
         <script dangerouslySetInnerHTML={{ __html: `(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(t);})();` }} />
       </head>
       <body className="antialiased" style={{ color: "var(--text-primary)", fontFamily: "var(--font-geist), sans-serif" }}>

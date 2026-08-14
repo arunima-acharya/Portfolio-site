@@ -33,7 +33,7 @@ export default function ResearchCard({ project, index, featured = false }: Resea
         href={projectHref(project)}
         className="group relative block overflow-hidden rounded-xl"
         aria-label={`Read investigation: ${project.title}`}
-        style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px" }}
+        style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)", boxShadow: "var(--shadow-lg)" }}
       >
         <div className={featured ? "md:grid md:grid-cols-[1.1fr_0.9fr]" : ""}>
           {/* Visual panel */}
@@ -60,14 +60,14 @@ export default function ResearchCard({ project, index, featured = false }: Resea
           {/* Content panel */}
           <div className={`relative flex flex-col justify-center p-7 ${featured ? "md:p-9" : ""}`}>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-[16px] font-semibold uppercase tracking-[0.16em]" style={{ color: meta.accent, fontFamily: "var(--font-geist), sans-serif" }}>
+              <span className="text-[16px] font-semibold" style={{ color: "var(--sp-orange)", fontFamily: "var(--font-geist), sans-serif" }}>
                 {meta.eyebrow}
               </span>
             </div>
 
             <h3
-              className="font-semibold tracking-tight leading-tight"
-              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "var(--sp-cocoa)", fontFamily: "var(--font-fraunces), serif", fontWeight: 600, textTransform: "capitalize" }}
+              className="font-semibold leading-tight"
+              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", fontWeight: 600, textTransform: "lowercase" }}
             >
               {project.title}
             </h3>
@@ -112,7 +112,7 @@ export default function ResearchCard({ project, index, featured = false }: Resea
                   <ArrowUpRight
                     size={14}
                     className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    style={{ color: meta.accent }}
+                    style={{ color: "var(--sp-orange)" }}
                   />
                 </span>
               </span>

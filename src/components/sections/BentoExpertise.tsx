@@ -71,7 +71,7 @@ function BentoCard({ cat, globalIdx, isInView, colors, fan, fanned }: { cat: Cat
   const bg       = active ? "var(--sp-dew)" : colors.cardBg;
   const border   = active ? "var(--sp-orange)" : colors.cardBorder;
   const shadow   = active
-    ? "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px"
+    ? "var(--shadow-lg)"
     : fanned ? "0 16px 36px rgba(0,0,0,0.14)" : colors.cardShadow;
   const title    = colors.textPrimary;
   const arrow    = active ? "var(--sp-orange)" : colors.arrowBorder;
@@ -105,18 +105,18 @@ function BentoCard({ cat, globalIdx, isInView, colors, fan, fanned }: { cat: Cat
           position: "relative",
           background: bg,
           border: `1.5px solid ${border}`,
-          borderRadius: "12px",
-          padding: "28px",
+          borderRadius: "var(--radius-xl)",
+          padding: "var(--spacing-28)",
           display: "flex",
           flexDirection: "column",
-          gap: "20px",
+          gap: "var(--spacing-20)",
           cursor: "default",
           boxShadow: shadow,
           transition: t,
           transformOrigin: "bottom center",
         }}
       >
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "var(--spacing-16)" }}>
           <h3 style={{
             fontSize: cat.large ? "clamp(20px, 2.2vw, 28px)" : "clamp(16px, 1.8vw, 22px)",
             fontWeight: 500,
@@ -142,7 +142,7 @@ function BentoCard({ cat, globalIdx, isInView, colors, fan, fanned }: { cat: Cat
             <span key={tag} style={{
               display: "inline-block",
               padding: "7px 15px",
-              borderRadius: "20px",
+              borderRadius: "var(--radius-2xl-2)",
               background: pill,
               border: `1px solid ${pillBdr}`,
               color: pillTxt,
@@ -189,7 +189,7 @@ export default function BentoExpertise() {
   const textMuted    = isLight ? "#8a8580"                     : "rgba(255,255,255,0.4)";
   const cardBg       = isLight ? "var(--sp-cream)"             : "#1a1a1a";
   const cardBorder   = isLight ? "var(--sp-charcoal)"          : "rgba(255,255,255,0.07)";
-  const cardShadow   = isLight ? "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px" : "0 2px 12px rgba(0,0,0,0.2)";
+  const cardShadow   = isLight ? "var(--shadow-lg)" : "0 2px 12px rgba(0,0,0,0.2)";
   const pillBg       = isLight ? "var(--sp-dew)"               : "rgba(255,255,255,0.07)";
   const pillBorder   = isLight ? "var(--sp-charcoal)"          : "rgba(255,255,255,0.07)";
   const pillText     = isLight ? "var(--sp-charcoal)"          : "rgba(255,255,255,0.6)";
@@ -244,7 +244,7 @@ export default function BentoExpertise() {
             textTransform: "capitalize",
             lineHeight: 1,
             color: "var(--sp-cocoa)",
-            fontFamily: "var(--font-fraunces), serif",
+            fontFamily: "var(--font-gelica)",
           }}
         >
           What I bring to the table.
@@ -271,7 +271,7 @@ export default function BentoExpertise() {
         // existing static translateY(15%) positioning untouched — nested on
         // separate elements so the two transforms compose instead of fighting.
         <motion.div ref={fanParallaxRef} style={{ y: fanY }}>
-          <div style={{ display: "flex", justifyContent: "center", paddingTop: "20px", paddingBottom: "36px", transform: "translateY(15%)" }}>
+          <div style={{ display: "flex", justifyContent: "center", paddingTop: "var(--spacing-20)", paddingBottom: "36px", transform: "translateY(15%)" }}>
             {CATEGORIES.map((cat, i) => (
               <div key={cat.title} style={{ flex: "0 0 280px", marginLeft: i === 0 ? 0 : i === 1 ? "-46px" : "-26px" }}>
                 <BentoCard

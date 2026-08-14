@@ -320,7 +320,7 @@ export default function BookShelf() {
                       }}
                     />
 
-                    <div style={{ marginTop: "8px" }}>
+                    <div style={{ marginTop: "var(--spacing-8)" }}>
                       <p
                         style={{
                           fontSize: "8px",
@@ -366,13 +366,13 @@ export default function BookShelf() {
                           fontSize: "10px",
                           fontWeight: 700,
                           color: book.accent,
-                          marginBottom: "8px",
+                          marginBottom: "var(--spacing-8)",
                         }}
                       >
                         {book.outcome}
                       </p>
                       <div
-                        style={{ display: "flex", flexWrap: "wrap", gap: "3px", marginBottom: "12px" }}
+                        style={{ display: "flex", flexWrap: "wrap", gap: "3px", marginBottom: "var(--spacing-12)" }}
                       >
                         {book.tags.map((tag) => (
                           <span
@@ -380,7 +380,7 @@ export default function BookShelf() {
                             style={{
                               fontSize: "8px",
                               padding: "2px 6px",
-                              borderRadius: "20px",
+                              borderRadius: "var(--radius-2xl-2)",
                               border: `1px solid ${book.accent}45`,
                               color: book.accent,
                             }}

@@ -48,7 +48,7 @@ export default function Skills() {
         initial={{ opacity: 0, y: 16 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        style={{ marginBottom: "48px" }}
+        style={{ marginBottom: "var(--spacing-48)" }}
       >
         <span
           id="skills-heading"
@@ -97,8 +97,8 @@ export default function Skills() {
             style={{
               background: cardBg,
               border: `1px solid ${cardBorder}`,
-              borderRadius: "16px",
-              padding: "24px",
+              borderRadius: "var(--radius-2xl)",
+              padding: "var(--spacing-24)",
               display: "flex",
               flexDirection: "column",
               gap: "14px",

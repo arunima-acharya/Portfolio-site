@@ -85,7 +85,7 @@ export default function StatsSection({ dark = false }: { dark?: boolean }) {
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1.3fr",
-          gap: "64px",
+          gap: "var(--spacing-64)",
           alignItems: "start",
         }}
       >
@@ -97,7 +97,7 @@ export default function StatsSection({ dark = false }: { dark?: boolean }) {
           style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "420px" }}
         >
           {/* Top group */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-20)" }}>
             {/* Pill label */}
             <div style={{
               display: "inline-flex",
@@ -186,19 +186,19 @@ export default function StatsSection({ dark = false }: { dark?: boolean }) {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+          style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}
         >
           {/* Wide top card */}
           <div style={{
             background: cardBg,
             border: `1px solid ${border}`,
-            borderRadius: "16px",
+            borderRadius: "var(--radius-2xl)",
             padding: "28px 32px",
             display: "flex",
             flexDirection: "column",
-            gap: "40px",
+            gap: "var(--spacing-40)",
           }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
               <GreenSquareIcon />
               <span style={{ fontSize: "14px", fontWeight: 500, color: textPri }}>
                 {stats[0].label}
@@ -215,21 +215,21 @@ export default function StatsSection({ dark = false }: { dark?: boolean }) {
           </div>
 
           {/* Two smaller cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--spacing-12)" }}>
             {stats.slice(1).map((stat) => (
               <div
                 key={stat.label}
                 style={{
                   background: cardBg,
                   border: `1px solid ${border}`,
-                  borderRadius: "16px",
+                  borderRadius: "var(--radius-2xl)",
                   padding: "24px 28px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "32px",
+                  gap: "var(--spacing-32)",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)" }}>
                   <GreenSquareIcon />
                   <span style={{ fontSize: "13px", fontWeight: 500, color: textPri }}>
                     {stat.label}
@@ -239,7 +239,7 @@ export default function StatsSection({ dark = false }: { dark?: boolean }) {
                   <div style={{ fontSize: "clamp(40px, 5vw, 60px)", fontWeight: 700, letterSpacing: "-0.04em", color: textPri, lineHeight: 1 }}>
                     {stat.value}
                   </div>
-                  <div style={{ fontSize: "13px", color: textMuted, marginTop: "8px" }}>
+                  <div style={{ fontSize: "13px", color: textMuted, marginTop: "var(--spacing-8)" }}>
                     {stat.description}
                   </div>
                 </div>

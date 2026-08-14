@@ -66,7 +66,10 @@ export default async function ResearchArticlePage({ params }: PageProps) {
 
   const meta = RESEARCH_META[slug];
   const extras = researchExtras[slug];
-  const isLight = meta.light ?? false;
+  // Site is light-mode only — the dark editorial treatment (DARK_PALETTE in
+  // ResearchAccent.tsx) is no longer reachable, regardless of a piece's own
+  // `light` flag in researchMeta.ts.
+  const isLight = true;
 
   return (
     <ResearchAccentProvider value={meta.accent}>
@@ -77,7 +80,7 @@ export default async function ResearchArticlePage({ params }: PageProps) {
             rest of the site is toggled to the other. */}
         <div
           className={isLight ? "research-light" : "research-dark"}
-          style={{ background: isLight ? "#fdfbf9" : "#0a0a0a", color: isLight ? "#171717" : "#ffffff" }}
+          style={{ background: isLight ? "var(--color-cream-paper)" : "#0a0a0a", color: isLight ? "var(--color-charcoal)" : "#ffffff" }}
         >
           <ReadingProgress />
           <ResearchHero

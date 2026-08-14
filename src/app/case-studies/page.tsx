@@ -67,16 +67,16 @@ export default function CaseStudiesPage() {
           className="space-y-4"
         >
           <span
-            className="text-[16px] font-medium uppercase tracking-widest"
+            className="text-[16px] font-medium"
             style={{ color: textMuted, fontFamily: "var(--font-geist), sans-serif" }}
           >
-            Portfolio
+            portfolio
           </span>
           <h1
             className="fluid-text-3xl font-semibold leading-tight"
-            style={{ color: isLight ? "var(--sp-cocoa)" : textDark, fontFamily: "var(--font-fraunces), serif", fontWeight: 600, textTransform: "capitalize" }}
+            style={{ color: isLight ? "var(--sp-cocoa)" : textDark, fontFamily: "var(--font-gelica)", fontWeight: 600 }}
           >
-            Case studies
+            case studies
           </h1>
           <p className="text-base max-w-lg leading-relaxed" style={{ color: textMuted }}>
             A selection of projects spanning product design, design systems, UX
@@ -109,7 +109,7 @@ export default function CaseStudiesPage() {
                 width: "100%",
                 background: isLight ? "var(--sp-cream)" : bg,
                 border: `1.5px solid ${border}`,
-                borderRadius: "8px",
+                borderRadius: "var(--radius-lg)",
                 paddingLeft: "36px",
                 paddingRight: search ? "36px" : "16px",
                 paddingTop: "9px",
@@ -154,7 +154,7 @@ export default function CaseStudiesPage() {
                   aria-pressed={isActive}
                   style={{
                     padding: "7px 16px",
-                    borderRadius: "20px",
+                    borderRadius: "var(--radius-2xl-2)",
                     fontSize: "16px",
                     fontWeight: isActive ? 600 : 500,
                     fontFamily: "var(--font-geist), sans-serif",

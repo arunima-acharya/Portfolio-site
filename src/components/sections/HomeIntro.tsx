@@ -141,19 +141,19 @@ export default function HomeIntro() {
             viewport={{ once: true, margin: "-5%" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
-            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "16px" }}>
+            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "var(--spacing-16)" }}>
               <strong style={{ color: "#111", fontWeight: 600 }}>Engineer</strong> turned <strong style={{ color: "#111", fontWeight: 600 }}>Product Designer</strong> with <strong style={{ color: "#111", fontWeight: 600 }}>3+ years of experience</strong> designing and scaling <strong style={{ color: "#111", fontWeight: 600 }}>0→1 B2B SaaS and AI products</strong> across hospitality, enterprise software, and emerging technologies.
             </p>
 
-            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "16px" }}>
+            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "var(--spacing-16)" }}>
               I&apos;ve led the end-to-end design of <strong style={{ color: "#111", fontWeight: 600 }}>6+ products</strong>, partnering closely with founders, product managers, and engineers to build scalable design systems, simplify complex workflows, and create enterprise experiences used by hotel teams across thousands of properties worldwide.
             </p>
 
-            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "32px" }}>
+            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "var(--spacing-32)" }}>
               With a background in <strong style={{ color: "#111", fontWeight: 600 }}>Computer Science Engineering</strong>, I work at the intersection of <strong style={{ color: "#111", fontWeight: 600 }}>design, product, and technology</strong>. I care deeply about <strong style={{ color: "#111", fontWeight: 600 }}>product thinking, systems thinking, interaction design, accessibility, and craftsmanship</strong>, building experiences that are intuitive, scalable, and create measurable business impact.
             </p>
 
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "12px", background: "#e8e8e8", borderRadius: "9999px", padding: "8px 20px 8px 8px", marginBottom: "28px" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "var(--spacing-12)", background: "#e8e8e8", borderRadius: "9999px", padding: "8px 20px 8px 8px", marginBottom: "var(--spacing-28)" }}>
               <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "#c0c0c0", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", fontWeight: 700, color: "#fff" }}>A</div>
               <div>
                 <p style={{ fontSize: "11px", color: "#888", fontFamily: "var(--font-inter), sans-serif", margin: 0 }}>Schedule a call with the Designer</p>

@@ -1,4 +1,4 @@
-import { MenstaData } from "@/components/preview/MenstaTemplate";
+import { MenstaData } from "@/components/case-study/MenstaTemplate";
 
 export const pocketPmsData: MenstaData = {
   appName: "Pocket PMS",

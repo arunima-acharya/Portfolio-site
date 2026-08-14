@@ -9,7 +9,7 @@ import { Project } from "@/types";
 // text (h1) reads from `ffHeading` (Fraunces), matching the convention used
 // throughout the rest of the codebase.
 const ff = "var(--font-geist), sans-serif";
-const ffHeading = "var(--font-fraunces), serif";
+const ffHeading = "var(--font-gelica)";
 
 interface CaseStudyHeroProps {
   project: Project;
@@ -65,8 +65,8 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
             <h1
               className="fluid-text-3xl"
               style={project.slug === "hotelogix-frontdesk"
-                ? { fontSize: "clamp(2.464rem, 6.899vw, 4.928rem)", lineHeight: 1, fontFamily: ffHeading, fontWeight: 600, color: "var(--sp-cocoa)", textTransform: "capitalize" }
-                : { lineHeight: 1, fontFamily: ffHeading, fontWeight: 600, color: "var(--sp-cocoa)", textTransform: "capitalize" }}
+                ? { fontSize: "clamp(2.464rem, 6.899vw, 4.928rem)", lineHeight: 1, fontFamily: ffHeading, fontWeight: 600, color: "var(--sp-cocoa)", textTransform: "lowercase" }
+                : { lineHeight: 1, fontFamily: ffHeading, fontWeight: 600, color: "var(--sp-cocoa)", textTransform: "lowercase" }}
             >
               {project.slug === "hotelogix-frontdesk" ? (
                 <>Reservation Management System</>
@@ -95,8 +95,8 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
               { label: "Industry", value: project.industry },
             ].map(({ label, value }) => (
               <div key={label} className="space-y-2">
-                <p className="text-sm font-medium uppercase tracking-widest" style={{ color: "#8a8580", fontFamily: ff }}>
-                  {label}
+                <p className="text-sm font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
+                  {label.toLowerCase()}
                 </p>
                 <p className="text-[19px] leading-relaxed whitespace-pre-line" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{value}</p>
               </div>
@@ -114,7 +114,7 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
       >
         <div
           className="relative h-[360px] md:h-[480px] rounded-2xl overflow-hidden"
-          style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-dew)", boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px" }}
+          style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-dew)", boxShadow: "var(--shadow-lg)" }}
         >
           {/* Placeholder gradient visual */}
           <div
@@ -125,8 +125,8 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
             aria-hidden="true"
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <p className="text-sm font-mono tracking-widest uppercase" style={{ color: "#8a8580", fontFamily: ff }}>
-              {project.title} — Cover
+            <p className="text-sm font-mono" style={{ color: "#8a8580", fontFamily: ff }}>
+              {project.title} — cover
             </p>
           </div>
         </div>

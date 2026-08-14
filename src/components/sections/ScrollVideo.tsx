@@ -150,7 +150,7 @@ export default function ScrollVideo() {
           Leveraging insights in user psychology and design principles, my approach enhances functionality with visual elegance, crafting intuitive digital products that people love to use.
         </p>
 
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', pointerEvents: 'auto' }}>
+        <div style={{ display: 'flex', gap: "var(--spacing-12)", flexWrap: 'wrap', pointerEvents: 'auto' }}>
           <a
             href="/case-studies"
             style={{

@@ -4,7 +4,6 @@ import FeaturedWork from "@/components/sections/FeaturedWork";
 import Services from "@/components/sections/Services";
 import Testimonials from "@/components/sections/Testimonials";
 import ToolkitTestimonialsOverlap from "@/components/sections/ToolkitTestimonialsOverlap";
-import BentoExpertise from "@/components/sections/BentoExpertise";
 import HiIntro from "@/components/sections/HiIntro";
 import HeroSectionsWrapper from "@/components/sections/HeroSectionsWrapper";
 import DesignProcess3D from "@/components/sections/DesignProcess3D";
@@ -20,8 +19,9 @@ import HeroBgSticky from "@/components/sections/HeroBgSticky";
 // 15% — Services/BentoExpertise already add their own ~20px mobile padding inside, so a fixed
 // 15% here was stacking with it and over-cramping content on phones.
 const PAD = { paddingLeft: "var(--gutter)", paddingRight: "var(--gutter)" } as const;
-const PAD_WHITE = { ...PAD, backgroundColor: "#fff" } as const;
-const PAD_SERVICES = { ...PAD, backgroundColor: "#FFF7EE" } as const;
+// No right padding — the Services section's notebook visual runs to the
+// true viewport edge on its right side, matching the reference design.
+const PAD_SERVICES = { ...PAD, paddingRight: 0, backgroundColor: "var(--sp-cream)" } as const;
 
 export const metadata: Metadata = {
   title: "Arunima Acharya — Senior Product Designer",
@@ -44,14 +44,11 @@ export default function HomePage() {
       {/* Selected Works */}
       <FeaturedWork />
 
-      {/* Section 5 — Services (padded, bg spans full width incl. gutters) */}
+      {/* Section 5 — Services (padded, bg spans full width incl. gutters) —
+          includes the SuperrBook vector-flip notebook animation on its
+          right side */}
       <div style={PAD_SERVICES}>
         <section id="services"><Services /></section>
-      </div>
-
-      {/* Section 6 — BentoExpertise (padded, white bg spans full width incl. gutters) */}
-      <div style={PAD_WHITE}>
-        <BentoExpertise />
       </div>
 
       {/* Section 7 — DesignProcess3D (full width) */}

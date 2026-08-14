@@ -37,15 +37,14 @@ export default function TypographyZoom() {
         <div
           style={{
             fontSize:   isMobile ? "1.56rem" : "clamp(1.2rem, 3.6vw, 3rem)",
-            fontFamily: "var(--font-fraunces), serif",
+            fontFamily: "var(--font-gelica)",
             fontWeight: 600,
             color:      "var(--sp-cocoa)",
-            textTransform: "capitalize",
             lineHeight: 1,
             whiteSpace: "nowrap",
           }}
         >
-          What&apos;s on My Desk
+          what&apos;s on my desk
         </div>
         <span
           style={{
@@ -56,13 +55,11 @@ export default function TypographyZoom() {
             fontFamily:    "var(--font-geist), sans-serif",
             fontSize:      "16px",
             fontWeight:    500,
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
             color:         "var(--sp-charcoal)",
             whiteSpace:    "nowrap",
           }}
         >
-          Product Designer Edition
+          product designer edition
         </span>
       </div>
 
@@ -91,12 +88,10 @@ export default function TypographyZoom() {
               fontFamily:    "var(--font-geist), sans-serif",
               fontSize:      "16px",
               fontWeight:    700,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
               color:         "var(--sp-orange)",
             }}
           >
-            Rearrange my desk!
+            rearrange my desk!
           </p>
           <p
             style={{
@@ -104,8 +99,6 @@ export default function TypographyZoom() {
               fontFamily:    "var(--font-geist), sans-serif",
               fontSize:      "16px",
               fontWeight:    500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
               lineHeight:    1.9,
               color:         "#5C5955",
             }}

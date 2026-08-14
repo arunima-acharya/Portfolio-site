@@ -47,7 +47,7 @@ export default function HiIntro() {
           lineHeight: 1.5,
           letterSpacing: "-0.02em",
           margin: 0,
-          marginBottom: "32px",
+          marginBottom: "var(--spacing-32)",
           wordWrap: "break-word",
           overflowWrap: "break-word",
         }}

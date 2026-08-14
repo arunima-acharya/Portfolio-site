@@ -106,15 +106,15 @@ export default function ToolsGrid() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-3 mb-14"
           >
-            <span className="text-[16px] font-medium text-zinc-500 uppercase tracking-widest">
-              Toolkit
+            <span className="text-[16px] font-medium" style={{ color: "rgba(23,23,23,0.45)" }}>
+              toolkit
             </span>
             <h2
               id="tools-heading"
               className="fluid-text-2xl"
-              style={{ color: isLight ? "var(--sp-cocoa)" : "#fff", lineHeight: 1, fontFamily: "var(--font-fraunces), serif", fontWeight: 600, textTransform: "capitalize" }}
+              style={{ color: isLight ? "var(--sp-cocoa)" : "#fff", lineHeight: 1, fontFamily: "var(--font-gelica)", fontWeight: 600 }}
             >
-              The tools that power
+              the tools that power
               <br className="hidden sm:block" /> every project
             </h2>
           </motion.div>
@@ -143,7 +143,7 @@ export default function ToolsGrid() {
               <div
                 style={{
                   background: cardBg,
-                  borderRadius: "12px",
+                  borderRadius: "var(--radius-xl)",
                   padding: isMobile ? "20px 12px" : "20px 22px",
                   display: "flex",
                   flexDirection: isMobile ? "column" : "row",
@@ -151,7 +151,7 @@ export default function ToolsGrid() {
                   gap: isMobile ? "12px" : "16px",
                   cursor: "default",
                   border: `1.5px solid ${cardBorder}`,
-                  boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
+                  boxShadow: "var(--shadow-lg)",
                 }}
               >
                 <CardInner tool={tool} isMobile={isMobile} nameColor={nameColor} catColor={catColor} />

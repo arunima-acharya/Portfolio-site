@@ -13,6 +13,8 @@ const TESTIMONIALS = [
     company: "Fintech Co.",
     quote:
       "Arunima transformed our complex fintech flows into an experience users actually love. Conversion jumped 40% in the first quarter and the whole team felt the difference.",
+    color: "#FFACB0",
+    rotate: -3,
   },
   {
     name: "James R.",
@@ -20,6 +22,8 @@ const TESTIMONIALS = [
     company: "HealthApp",
     quote:
       "She brought structure and clarity to a chaotic product backlog. The design system she built saved us months of engineering time. Highly recommend!",
+    color: "#86CBCA",
+    rotate: 2,
   },
   {
     name: "Priya K.",
@@ -27,6 +31,8 @@ const TESTIMONIALS = [
     company: "SaaS Startup",
     quote:
       "Working with Arunima felt like having a strategic design partner. She asks the right questions and delivers pixel-perfect results that exceeded our expectations.",
+    color: "#F9C660",
+    rotate: -2,
   },
   {
     name: "Tom L.",
@@ -34,6 +40,8 @@ const TESTIMONIALS = [
     company: "Agency",
     quote:
       "Her UX research uncovered pain points we had missed for years. The redesign led to a 30% drop in support tickets overnight.",
+    color: "#FF866B",
+    rotate: 3,
   },
 ];
 
@@ -118,22 +126,21 @@ export default function TestimonialsGrid() {
         <motion.h2
           ref={headingParallaxRef}
           style={{
-            fontFamily: "var(--font-fraunces), serif",
+            fontFamily: "var(--font-gelica)",
             fontSize: isMobile ? "32px" : "clamp(32px, 3.4vw, 44px)",
             fontWeight: 600,
-            textTransform: "capitalize",
             lineHeight: 1.15,
             color: "var(--sp-cocoa)",
             margin: 0,
             y: headingY,
           }}
         >
-          What People Say
+          what people say
           <br />
-          <span style={{ fontStyle: "italic" }}>Working With Me</span>
+          <span style={{ fontStyle: "italic" }}>working with me</span>
         </motion.h2>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: 300 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-20)", maxWidth: 300 }}>
           <p
             style={{
               fontFamily: "var(--font-geist), sans-serif",
@@ -161,28 +168,37 @@ export default function TestimonialsGrid() {
         }}
       >
         {visible.map((t, i) => (
-          <div
+          <motion.div
             key={`${t.name}-${startIndex}-${i}`}
+            initial={false}
+            animate={{ rotate: t.rotate }}
+            whileHover={{ rotate: 0, scale: 1.04 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             style={{
-              background: "var(--sp-cream)",
-              border: "1.5px solid var(--sp-charcoal)",
-              boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
-              borderRadius: 12,
+              position: "relative",
+              background: t.color,
+              boxShadow: "rgba(0, 0, 0, 0.18) 0px 10px 24px 0px",
+              borderRadius: 4,
               padding: "28px 26px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
               minHeight: isMobile ? undefined : 340,
+              cursor: "default",
             }}
           >
+            {/* Tape corners */}
+            <span style={{ position: "absolute", top: -10, left: 18, width: 56, height: 22, background: "rgba(255,111,30,0.55)", border: "1px solid rgba(255,111,30,0.7)", transform: "rotate(-8deg)" }} />
+            <span style={{ position: "absolute", top: -10, right: 18, width: 56, height: 22, background: "rgba(255,111,30,0.55)", border: "1px solid rgba(255,111,30,0.7)", transform: "rotate(6deg)" }} />
+
             <div>
               <span
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "7px",
-                  background: "var(--sp-dew)",
-                  borderRadius: 20,
+                  background: "rgba(255,255,255,0.55)",
+                  borderRadius: "var(--radius-2xl-2)",
                   padding: "6px 14px",
                   fontFamily: "var(--font-geist), sans-serif",
                   fontSize: 16,
@@ -197,10 +213,10 @@ export default function TestimonialsGrid() {
 
               <p
                 style={{
-                  fontFamily: "var(--font-geist), sans-serif",
-                  fontSize: 16,
+                  fontFamily: "var(--font-patrick-hand), cursive",
+                  fontSize: 18,
                   lineHeight: 1.6,
-                  color: "var(--sp-cocoa)",
+                  color: "var(--sp-charcoal)",
                   margin: 0,
                 }}
               >
@@ -213,16 +229,16 @@ export default function TestimonialsGrid() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                marginTop: "24px",
+                marginTop: "var(--spacing-24)",
                 fontFamily: "var(--font-geist), sans-serif",
                 fontSize: 16,
-                color: "rgba(0,0,0,0.4)",
+                color: "rgba(23,23,23,0.55)",
               }}
             >
               <span>{t.role}</span>
               <span>{t.company}</span>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

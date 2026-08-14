@@ -25,12 +25,12 @@ export default function ResearchPage() {
         >
           <div className="flex items-center gap-2.5">
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--sp-orange)" }} />
-            <span className="text-[16px] font-semibold uppercase tracking-[0.2em]" style={{ color: textMuted, fontFamily: "var(--font-geist), sans-serif" }}>
-              Design Investigations
+            <span className="text-[16px] font-semibold" style={{ color: textMuted, fontFamily: "var(--font-geist), sans-serif" }}>
+              design investigations
             </span>
           </div>
-          <h1 className="fluid-text-3xl font-semibold leading-tight tracking-tight" style={{ color: isLight ? "var(--sp-cocoa)" : textDark, fontFamily: "var(--font-fraunces), serif", fontWeight: 600, textTransform: "capitalize" }}>
-            Research
+          <h1 className="fluid-text-3xl font-semibold leading-tight" style={{ color: isLight ? "var(--sp-cocoa)" : textDark, fontFamily: "var(--font-gelica)", fontWeight: 600 }}>
+            research
           </h1>
           <p className="text-base max-w-lg leading-relaxed" style={{ color: textMuted }}>
             Independent investigations into design systems, interaction patterns, and emerging product

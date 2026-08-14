@@ -49,8 +49,8 @@ function TestimonialCard({ t }: { t: typeof TESTIMONIALS[0] }) {
   const base: React.CSSProperties = {
     background: "#fff",
     border: "1px solid rgba(0,0,0,0.07)",
-    borderRadius: 16,
-    padding: "24px",
+    borderRadius: "var(--radius-2xl)",
+    padding: "var(--spacing-24)",
     display: "flex",
     flexDirection: "column",
     height: "100%",
@@ -170,14 +170,14 @@ export default function ExperiencesBento() {
       <h2 style={{ fontSize: "clamp(64px, 8vw, 96px)", fontWeight: 800, letterSpacing: "-0.04em", lineHeight: 1, color: "#0a0a0a", margin: 0, marginBottom: 8 }}>
         Experiences.
       </h2>
-      <p style={{ fontSize: 13, color: "#888", marginBottom: 48, marginTop: 4 }}>©2025</p>
+      <p style={{ fontSize: 13, color: "#888", marginBottom: "var(--spacing-48)", marginTop: 4 }}>©2025</p>
 
       {/* Layout */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 2.6fr", gap: 12, alignItems: "start" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 2.6fr", gap: "var(--spacing-12)", alignItems: "start" }}>
 
         {/* Sticky rating card */}
         <div style={{ position: "sticky", top: 100 }}>
-          <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.07)", borderRadius: 16, padding: "24px", display: "flex", flexDirection: "column", gap: 20 }}>
+          <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.07)", borderRadius: "var(--radius-2xl)", padding: "var(--spacing-24)", display: "flex", flexDirection: "column", gap: 20 }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
               <span style={{ fontSize: 52, fontWeight: 800, letterSpacing: "-0.04em", color: "#0a0a0a", lineHeight: 1 }}>4.9</span>
               <span style={{ fontSize: 16, color: "#aaa", fontWeight: 500 }}>/5</span>

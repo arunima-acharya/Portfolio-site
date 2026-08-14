@@ -107,7 +107,7 @@ export default function TextMaskReveal() {
             display: "flex",
             flexDirection: "column",
             padding: "80px 15%",
-            gap: "24px",
+            gap: "var(--spacing-24)",
             willChange: "transform, opacity",
           }}
         >
@@ -122,15 +122,15 @@ export default function TextMaskReveal() {
           }}>
             Selected Works
           </p>
-          <div style={{ display: "flex", gap: "20px", flex: 1 }}>
+          <div style={{ display: "flex", gap: "var(--spacing-20)", flex: 1 }}>
             {PREVIEW_CARDS.map((card) => (
               <div
                 key={card.title}
                 style={{
                   flex: 1,
-                  borderRadius: "20px",
+                  borderRadius: "var(--radius-2xl-2)",
                   background: card.gradient,
-                  padding: "28px",
+                  padding: "var(--spacing-28)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "flex-end",

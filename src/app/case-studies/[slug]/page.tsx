@@ -7,14 +7,14 @@ import CaseStudyContent from "@/components/case-study/CaseStudyContent";
 import ProjectNavigation from "@/components/case-study/ProjectNavigation";
 import OtherCaseStudies from "@/components/case-study/OtherCaseStudies";
 import ContactCTA from "@/components/sections/ContactCTA";
-import MenstaTemplate, { MenstaData } from "@/components/preview/MenstaTemplate";
+import MenstaTemplate, { MenstaData } from "@/components/case-study/MenstaTemplate";
 import { pocketPmsData } from "@/data/pocketPmsData";
 import { axiesRoomData } from "@/data/axiesRoomData";
-import HotelogixFrontdeskPreview from "@/components/preview/HotelogixFrontdeskPreview";
-import HotelogixCroPreview from "@/components/preview/HotelogixCroPreview";
-import HotelogixPosPreview from "@/components/preview/HotelogixPosPreview";
-import ContactMePreview from "@/components/preview/ContactMePreview";
-import PositivityMentalHealthPreview from "@/components/preview/PositivityMentalHealthPreview";
+import HotelogixFrontdeskPreview from "@/components/case-study/HotelogixFrontdeskPreview";
+import HotelogixCroPreview from "@/components/case-study/HotelogixCroPreview";
+import HotelogixPosPreview from "@/components/case-study/HotelogixPosPreview";
+import ContactMePreview from "@/components/case-study/ContactMePreview";
+import PositivityMentalHealthPreview from "@/components/case-study/PositivityMentalHealthPreview";
 
 const menstaTemplateData: Record<string, MenstaData> = {
   "pocket-pms": pocketPmsData,

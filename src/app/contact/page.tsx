@@ -17,7 +17,7 @@ export default function ContactPage() {
   const inputStyle: React.CSSProperties = {
     background: "var(--sp-cream)",
     border: "1.5px solid var(--sp-charcoal)",
-    borderRadius: "8px",
+    borderRadius: "var(--radius-lg)",
     padding: "12px 16px",
     fontSize: "16px",
     color: "var(--sp-charcoal)",
@@ -40,10 +40,10 @@ export default function ContactPage() {
         {/* Header */}
         <div className="mb-10">
           <span
-            className="text-[16px] font-semibold tracking-widest uppercase"
+            className="text-[16px] font-semibold"
             style={{ color: "var(--sp-orange)", fontFamily: "var(--font-geist), sans-serif" }}
           >
-            Get in touch
+            get in touch
           </span>
           <h1
             className="mt-2 mb-3"
@@ -52,11 +52,10 @@ export default function ContactPage() {
               lineHeight: 1.1,
               fontWeight: 600,
               color: "var(--sp-cocoa)",
-              fontFamily: "var(--font-fraunces), serif",
-              textTransform: "capitalize",
+              fontFamily: "var(--font-gelica)",
             }}
           >
-            Contact Me
+            contact me
           </h1>
           <p
             className="max-w-lg leading-relaxed"
@@ -99,10 +98,10 @@ export default function ContactPage() {
             className="text-center"
             style={{
               border: "1.5px solid var(--sp-charcoal)",
-              borderRadius: "12px",
+              borderRadius: "var(--radius-xl)",
               background: "var(--sp-dew)",
-              padding: "32px",
-              boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
+              padding: "var(--spacing-32)",
+              boxShadow: "var(--shadow-lg)",
             }}
           >
             <div className="text-4xl mb-3" style={{ color: "var(--sp-orange)" }}>✓</div>
@@ -124,10 +123,10 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="flex flex-col gap-1.5">
                 <label
-                  className="font-semibold uppercase tracking-wider"
+                  className="font-semibold"
                   style={{ fontSize: "13px", color: "var(--sp-charcoal)", fontFamily: "var(--font-geist), sans-serif" }}
                 >
-                  Name
+                  name
                 </label>
                 <input
                   required
@@ -142,10 +141,10 @@ export default function ContactPage() {
               </div>
               <div className="flex flex-col gap-1.5">
                 <label
-                  className="font-semibold uppercase tracking-wider"
+                  className="font-semibold"
                   style={{ fontSize: "13px", color: "var(--sp-charcoal)", fontFamily: "var(--font-geist), sans-serif" }}
                 >
-                  Email
+                  email
                 </label>
                 <input
                   required
@@ -161,10 +160,10 @@ export default function ContactPage() {
             </div>
             <div className="flex flex-col gap-1.5">
               <label
-                className="font-semibold uppercase tracking-wider"
+                className="font-semibold"
                 style={{ fontSize: "13px", color: "var(--sp-charcoal)", fontFamily: "var(--font-geist), sans-serif" }}
               >
-                Message
+                message
               </label>
               <textarea
                 required
@@ -183,13 +182,13 @@ export default function ContactPage() {
               style={{
                 background: "var(--sp-cream)",
                 border: "1.5px solid var(--sp-charcoal)",
-                borderRadius: "20px",
+                borderRadius: "var(--radius-2xl-2)",
                 padding: "11px 28px",
                 fontSize: "16px",
                 fontWeight: 500,
                 color: "var(--sp-charcoal)",
-                fontFamily: "var(--font-geist), sans-serif",
-                boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 2px 0px",
+                fontFamily: "var(--font-gelica)",
+                boxShadow: "var(--shadow-subtle)",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--sp-orange)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--sp-charcoal)")}

@@ -352,7 +352,7 @@ export const ProductCard = ({
         className="block group-hover/product:shadow-2xl"
         style={{ padding: "0 10px 10px" }}
       >
-        <div style={{ background: "var(--sp-cream)", borderRadius: 8, overflow: "hidden", position: "relative" }}>
+        <div style={{ background: "var(--sp-cream)", borderRadius: "var(--radius-lg)", overflow: "hidden", position: "relative" }}>
           {/* eslint-disable-next-line @next/next/no-img-element -- external thumbnail URLs, no next/image remote pattern configured */}
           <img
             src={product.thumbnail}

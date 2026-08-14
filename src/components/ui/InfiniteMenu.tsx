@@ -40,7 +40,7 @@ export default function InfiniteMenu({ items }: InfiniteMenuProps) {
     <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", overflow: "hidden" }}>
       <div
         ref={trackRef}
-        style={{ display: "flex", gap: "28px", willChange: "transform", paddingLeft: "28px" }}
+        style={{ display: "flex", gap: "var(--spacing-28)", willChange: "transform", paddingLeft: "var(--spacing-28)" }}
       >
         {doubled.map((item, i) => (
           <div

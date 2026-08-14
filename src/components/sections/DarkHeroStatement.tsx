@@ -79,7 +79,7 @@ function KpiCard({ label, num, delta, sub, accent, isActive }: { label: string; 
       style={{
         background: accent ? "var(--sp-orange)" : "#ffffff",
         border: accent ? "none" : "1px solid rgba(23,23,23,0.10)",
-        borderRadius: 12,
+        borderRadius: "var(--radius-xl)",
         padding: "14px 16px",
         display: "flex",
         flexDirection: "column",
@@ -250,7 +250,7 @@ export default function DarkHeroStatement() {
           }}
         >
           {/* Left */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-20)" }}>
 
             {/* Heading */}
             <h2 style={{
@@ -258,12 +258,11 @@ export default function DarkHeroStatement() {
               fontWeight: 600,
               lineHeight: 1,
               letterSpacing: 0,
-              textTransform: "capitalize",
               color: "var(--sp-cocoa)",
               margin: 0,
-              fontFamily: "var(--font-fraunces), serif",
+              fontFamily: "var(--font-gelica)",
             }}>
-              Building Products That<br />People Actually Use
+              building products that<br />people actually use
             </h2>
 
             {/* Subtitle */}
@@ -280,7 +279,7 @@ export default function DarkHeroStatement() {
             </p>
 
             {/* Buttons */}
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "4px", flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-12)", marginTop: "var(--spacing-4)", flexWrap: "wrap" }}>
               <a
                 href="#contact"
                 aria-label="Connect on a call"
@@ -288,16 +287,16 @@ export default function DarkHeroStatement() {
                   display: "inline-flex",
                   alignItems: "center",
                   padding: "10px 22px",
-                  borderRadius: "20px",
+                  borderRadius: "var(--radius-2xl-2)",
                   border: "1.5px solid var(--sp-charcoal)",
                   backgroundColor: "var(--sp-cream)",
                   color: "var(--sp-charcoal)",
                   fontSize: "16px",
                   fontWeight: 500,
+                  fontFamily: "var(--font-gelica)",
                   textDecoration: "none",
-                  letterSpacing: "-0.01em",
                   minHeight: "44px",
-                  boxShadow: "rgba(0, 0, 0, 0.25) 0px 1px 2px 0px",
+                  boxShadow: "var(--shadow-subtle)",
                 }}
               >
                 Connect on a Call
@@ -311,7 +310,7 @@ export default function DarkHeroStatement() {
                   display: "inline-flex",
                   alignItems: "center",
                   padding: "10px 22px",
-                  borderRadius: "20px",
+                  borderRadius: "var(--radius-2xl-2)",
                   border: "1px solid rgba(23,23,23,0.25)",
                   backgroundColor: "transparent",
                   color: "rgba(23,23,23,0.75)",
@@ -378,9 +377,15 @@ export default function DarkHeroStatement() {
             className="frozen-grid"
             style={{
               marginTop: isMobile ? "48px" : "112px",
-              marginLeft: isMobile ? 0 : "-5%",
-              marginRight: isMobile ? 0 : "-5%",
-              width: isMobile ? DASHBOARD_DESIGN_WIDTH : undefined,
+              marginLeft: isMobile ? 0 : "auto",
+              marginRight: isMobile ? 0 : "auto",
+              // Fixed design width on both breakpoints — previously desktop
+              // left width unset, so it stretched to fill its (percentage-
+              // based) container while zoom stayed a constant 0.9, distorting
+              // the aspect ratio as the viewport grew. A fixed width + zoom
+              // keeps the mockup's rendered size (and aspect ratio) constant
+              // regardless of viewport, matching the mobile behavior above.
+              width: DASHBOARD_DESIGN_WIDTH,
               zoom: isMobile ? mobileZoom : 0.9,
               cursor: "default",
               // The mouse-tilt 3D transforms below (perspective/rotateX/
@@ -399,7 +404,7 @@ export default function DarkHeroStatement() {
           >
             <motion.div style={{
               background: "#ffffff",
-              borderRadius: "20px",
+              borderRadius: "var(--radius-2xl-2)",
               overflow: "hidden",
               fontFamily: "var(--font-geist), sans-serif",
               boxShadow,
@@ -410,7 +415,7 @@ export default function DarkHeroStatement() {
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", background: "#ffffff", borderBottom: "1px solid rgba(23,23,23,0.08)", height: 46 }}>
                 {/* Logo */}
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <div style={{ width: 26, height: 26, borderRadius: 8, background: "var(--sp-orange)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div style={{ width: 26, height: 26, borderRadius: "var(--radius-lg)", background: "var(--sp-orange)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1" width="4.5" height="4.5" rx="1.2" fill="#fff"/><rect x="7.5" y="1" width="4.5" height="4.5" rx="1.2" fill="rgba(255,255,255,0.5)"/><rect x="1" y="7.5" width="4.5" height="4.5" rx="1.2" fill="rgba(255,255,255,0.5)"/><rect x="7.5" y="7.5" width="4.5" height="4.5" rx="1.2" fill="rgba(255,255,255,0.25)"/></svg>
                   </div>
                   <span style={{ fontSize: 13, fontWeight: 700, color: "var(--sp-charcoal)" }}>Finexy</span>
@@ -418,7 +423,7 @@ export default function DarkHeroStatement() {
                 {/* Nav tabs */}
                 <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
                   {["Overview","Activity","Manage","Program","Account","Reports"].map((t, i) => (
-                    <div key={t} style={{ padding: "5px 12px", borderRadius: 8, background: i === 0 ? "var(--sp-orange)" : "transparent", cursor: "default" }}>
+                    <div key={t} style={{ padding: "5px 12px", borderRadius: "var(--radius-lg)", background: i === 0 ? "var(--sp-orange)" : "transparent", cursor: "default" }}>
                       <span style={{ fontSize: 11, color: i === 0 ? "#fff" : "rgba(23,23,23,0.45)", fontWeight: i === 0 ? 600 : 400 }}>{t}</span>
                     </div>
                   ))}
@@ -444,7 +449,7 @@ export default function DarkHeroStatement() {
               <div className="grid grid-cols-[48px_1fr]" style={{ minHeight: 580 }}>
 
                 {/* Icon sidebar */}
-                <div style={{ background: "#ffffff", borderRight: "1px solid rgba(23,23,23,0.08)", display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 16, gap: 6 }}>
+                <div style={{ background: "#ffffff", borderRight: "1px solid rgba(23,23,23,0.08)", display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "var(--spacing-16)", gap: 6 }}>
                   {[
                     "M3 5h8M3 9h8M3 13h4",
                     "M2 3h10v8a2 2 0 01-2 2H4a2 2 0 01-2-2V3zM5 3V1h4v2",
@@ -455,13 +460,13 @@ export default function DarkHeroStatement() {
                     "M2 12l2-5 3 3 3-6 3 4",
                     "M7 1a6 6 0 100 12A6 6 0 007 1zM7 4v3l2 2",
                   ].map((d, i) => (
-                    <div key={i} style={{ width: 32, height: 32, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", background: i === 0 ? "rgba(232,81,10,0.15)" : "transparent", cursor: "default" }}>
+                    <div key={i} style={{ width: 32, height: 32, borderRadius: "var(--radius-lg)", display: "flex", alignItems: "center", justifyContent: "center", background: i === 0 ? "rgba(232,81,10,0.15)" : "transparent", cursor: "default" }}>
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke={i === 0 ? "var(--sp-orange)" : "rgba(23,23,23,0.3)"} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><path d={d}/></svg>
                     </div>
                   ))}
                   <div style={{ marginTop: "auto", marginBottom: 14, display: "flex", flexDirection: "column", gap: 6 }}>
                     {["M1 13L5 2l2 4 2-4 4 11","M7 1v12M1 7h12"].map((d, i) => (
-                      <div key={i} style={{ width: 32, height: 32, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", cursor: "default" }}>
+                      <div key={i} style={{ width: 32, height: 32, borderRadius: "var(--radius-lg)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "default" }}>
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="rgba(23,23,23,0.25)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><path d={d}/></svg>
                       </div>
                     ))}
@@ -478,7 +483,7 @@ export default function DarkHeroStatement() {
                   </div>
 
                   {/* Row 1: Balance | 2×2 KPIs | Chart */}
-                  <div className="grid grid-cols-[1.1fr_1fr_1.4fr]" style={{ gap: 12, alignItems: "stretch" }}>
+                  <div className="grid grid-cols-[1.1fr_1fr_1.4fr]" style={{ gap: "var(--spacing-12)", alignItems: "stretch" }}>
 
                     {/* Col 1 — Total Balance */}
                     <motion.div
@@ -499,11 +504,11 @@ export default function DarkHeroStatement() {
                         <div style={{ fontSize: 10, color: "#22c55e", marginTop: 4 }}>↑ 5%  <span style={{ color: "rgba(23,23,23,0.4)" }}>than last month</span></div>
                       </div>
                       <div style={{ display: "flex", gap: 8 }}>
-                        <motion.div whileHover={{ background: "#28374a" }} transition={{ duration: 0.15 }} style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 5, background: "var(--sp-charcoal)", borderRadius: 8, padding: "7px 0", cursor: "default" }}>
+                        <motion.div whileHover={{ background: "#28374a" }} transition={{ duration: 0.15 }} style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 5, background: "var(--sp-charcoal)", borderRadius: "var(--radius-lg)", padding: "7px 0", cursor: "default" }}>
                           <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"><path d="M1 5.5h9M6 1l4 4.5L6 10"/></svg>
                           <span style={{ fontSize: 11, fontWeight: 600, color: "#fff" }}>Transfer</span>
                         </motion.div>
-                        <motion.div whileHover={{ background: "rgba(23,23,23,0.1)" }} transition={{ duration: 0.15 }} style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 5, background: "rgba(23,23,23,0.06)", borderRadius: 8, padding: "7px 0", cursor: "default" }}>
+                        <motion.div whileHover={{ background: "rgba(23,23,23,0.1)" }} transition={{ duration: 0.15 }} style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 5, background: "rgba(23,23,23,0.06)", borderRadius: "var(--radius-lg)", padding: "7px 0", cursor: "default" }}>
                           <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="rgba(23,23,23,0.65)" strokeWidth="1.5" strokeLinecap="round"><path d="M10 5.5H1M5 1L1 5.5 5 10"/></svg>
                           <span style={{ fontSize: 11, fontWeight: 500, color: "rgba(23,23,23,0.65)" }}>Request</span>
                         </motion.div>
@@ -537,7 +542,7 @@ export default function DarkHeroStatement() {
                     </motion.div>
 
                     {/* Col 2 — 2×2 KPI grid only */}
-                    <div className="grid grid-cols-2" style={{ gap: 8, alignContent: "stretch" }}>
+                    <div className="grid grid-cols-2" style={{ gap: "var(--spacing-8)", alignContent: "stretch" }}>
                       {[
                         { label: "Total Earnings", num: 950,  delta: "↑ 7%", sub: "This month", accent: true },
                         { label: "Total Spending", num: 700,  delta: "↓ 5%", sub: "This month", accent: false },
@@ -549,7 +554,7 @@ export default function DarkHeroStatement() {
                     </div>
 
                     {/* Col 3 — Total Income chart */}
-                    <div style={{ background: "#ffffff", border: "1px solid rgba(23,23,23,0.10)", borderRadius: 14, padding: "16px 18px", display: "flex", flexDirection: "column", gap: 12, height: "100%" }}>
+                    <div style={{ background: "#ffffff", border: "1px solid rgba(23,23,23,0.10)", borderRadius: 14, padding: "16px 18px", display: "flex", flexDirection: "column", gap: "var(--spacing-12)", height: "100%" }}>
                       <div>
                         <div style={{ fontSize: 13, fontWeight: 600, color: "var(--sp-charcoal)" }}>Total Income</div>
                         <div style={{ fontSize: 10, color: "rgba(23,23,23,0.4)", marginTop: 2 }}>View your income in a certain period of time</div>
@@ -559,7 +564,7 @@ export default function DarkHeroStatement() {
                         <div style={{ display: "flex", gap: 10 }}>
                           {[{ label: "Profit", color: "var(--sp-orange)" },{ label: "Loss", color: "rgba(23,23,23,0.22)" }].map(l => (
                             <div key={l.label} style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                              <div style={{ width: 8, height: 8, borderRadius: 2, background: l.color }} />
+                              <div style={{ width: 8, height: 8, borderRadius: "var(--radius-sm)", background: l.color }} />
                               <span style={{ fontSize: 9.5, color: "rgba(23,23,23,0.45)" }}>{l.label}</span>
                             </div>
                           ))}
@@ -593,7 +598,7 @@ export default function DarkHeroStatement() {
                   </div>
 
                   {/* Row 2: Spending+Cards | Recent Activities */}
-                  <div className="grid grid-cols-[1.1fr_2.4fr]" style={{ gap: 12, alignItems: "start" }}>
+                  <div className="grid grid-cols-[1.1fr_2.4fr]" style={{ gap: "var(--spacing-12)", alignItems: "start" }}>
 
                     {/* Col 1 — Monthly Spending + My Cards */}
                     <div style={{ display: "flex", flexDirection: "column", gap: 10, alignSelf: "stretch" }}>
@@ -602,7 +607,7 @@ export default function DarkHeroStatement() {
                           ? { scale: 1.03, boxShadow: "0 16px 40px rgba(23,23,23,0.14), 0 0 0 1px rgba(23,23,23,0.14)" }
                           : { scale: 1,    boxShadow: "0 0px 0px rgba(0,0,0,0)" }}
                         transition={{ duration: 0.25, ease: "easeOut" }}
-                        style={{ background: "#ffffff", border: "1px solid rgba(23,23,23,0.10)", borderRadius: 12, padding: "14px 16px", transformOrigin: "center center" }}
+                        style={{ background: "#ffffff", border: "1px solid rgba(23,23,23,0.10)", borderRadius: "var(--radius-xl)", padding: "14px 16px", transformOrigin: "center center" }}
                       >
                         <div style={{ fontSize: 11, fontWeight: 600, color: "var(--sp-charcoal)", marginBottom: 14 }}>Monthly Spending Limit</div>
                         <div style={{ height: 6, borderRadius: 9999, background: "rgba(23,23,23,0.08)", marginBottom: 10 }}>
@@ -618,7 +623,7 @@ export default function DarkHeroStatement() {
                           ? { scale: 1.03, boxShadow: "0 16px 40px rgba(23,23,23,0.14), 0 0 0 1px rgba(23,23,23,0.14)" }
                           : { scale: 1,    boxShadow: "0 0px 0px rgba(0,0,0,0)" }}
                         transition={{ duration: 0.25, ease: "easeOut" }}
-                        style={{ background: "#ffffff", border: "1px solid rgba(23,23,23,0.10)", borderRadius: 12, padding: "14px", flex: 1, display: "flex", flexDirection: "column", transformOrigin: "center center" }}
+                        style={{ background: "#ffffff", border: "1px solid rgba(23,23,23,0.10)", borderRadius: "var(--radius-xl)", padding: "14px", flex: 1, display: "flex", flexDirection: "column", transformOrigin: "center center" }}
                       >
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
                           <span style={{ fontSize: 11, fontWeight: 600, color: "var(--sp-charcoal)" }}>My Cards</span>
@@ -647,8 +652,8 @@ export default function DarkHeroStatement() {
                             </svg>
                           </div>
                           <div style={{ position: "relative", zIndex: 1 }}>
-                            <div style={{ width: 28, height: 20, borderRadius: 4, background: "rgba(255,255,255,0.3)", border: "1px solid rgba(255,255,255,0.4)", marginBottom: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                              <div className="grid grid-cols-2" style={{ width: 16, height: 12, borderRadius: 2, border: "1px solid rgba(255,255,255,0.5)", gap: 1, padding: 2 }}>
+                            <div style={{ width: 28, height: 20, borderRadius: 4, background: "rgba(255,255,255,0.3)", border: "1px solid rgba(255,255,255,0.4)", marginBottom: "var(--spacing-12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                              <div className="grid grid-cols-2" style={{ width: 16, height: 12, borderRadius: "var(--radius-sm)", border: "1px solid rgba(255,255,255,0.5)", gap: 1, padding: 2 }}>
                                 <div style={{ background: "rgba(255,255,255,0.4)", borderRadius: 1 }} />
                                 <div style={{ background: "rgba(255,255,255,0.4)", borderRadius: 1 }} />
                                 <div style={{ background: "rgba(255,255,255,0.4)", borderRadius: 1 }} />
@@ -682,11 +687,11 @@ export default function DarkHeroStatement() {
                       <div style={{ padding: "14px 18px", borderBottom: "1px solid rgba(23,23,23,0.08)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <span style={{ fontSize: 12, fontWeight: 600, color: "var(--sp-charcoal)" }}>Recent Activities</span>
                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(23,23,23,0.04)", border: "1px solid rgba(23,23,23,0.10)", borderRadius: 8, padding: "5px 11px" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 6, background: "rgba(23,23,23,0.04)", border: "1px solid rgba(23,23,23,0.10)", borderRadius: "var(--radius-lg)", padding: "5px 11px" }}>
                             <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="rgba(23,23,23,0.35)" strokeWidth="1.3" strokeLinecap="round"><circle cx="5" cy="5" r="3.5"/><path d="M8.5 8.5l2 2"/></svg>
                             <span style={{ fontSize: 10, color: "rgba(23,23,23,0.3)" }}>Search</span>
                           </div>
-                          <div style={{ display: "flex", alignItems: "center", gap: 5, background: "rgba(23,23,23,0.04)", border: "1px solid rgba(23,23,23,0.10)", borderRadius: 8, padding: "5px 11px", cursor: "default" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 5, background: "rgba(23,23,23,0.04)", border: "1px solid rgba(23,23,23,0.10)", borderRadius: "var(--radius-lg)", padding: "5px 11px", cursor: "default" }}>
                             <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="rgba(23,23,23,0.45)" strokeWidth="1.3" strokeLinecap="round"><path d="M1 3h10M3 6h6M5 9h2"/></svg>
                             <span style={{ fontSize: 10, color: "rgba(23,23,23,0.45)" }}>Filter</span>
                           </div>
@@ -712,7 +717,7 @@ export default function DarkHeroStatement() {
                             : { backgroundColor: "rgba(23,23,23,0)",     x: 0 }}
                           transition={{ duration: 0.18, ease: "easeOut" }}
                           className="grid grid-cols-[28px_1fr_1.8fr_0.8fr_0.9fr_1fr]"
-                          style={{ padding: "10px 18px", borderBottom: "1px solid rgba(23,23,23,0.05)", alignItems: "center", gap: 8, cursor: "default" }}
+                          style={{ padding: "10px 18px", borderBottom: "1px solid rgba(23,23,23,0.05)", alignItems: "center", gap: "var(--spacing-8)", cursor: "default" }}
                         >
                           <div style={{ width: 14, height: 14, border: "1.5px solid rgba(23,23,23,0.18)", borderRadius: 3 }} />
                           <span style={{ fontSize: 10.5, color: "rgba(23,23,23,0.5)", fontWeight: 500 }}>{r.id}</span>

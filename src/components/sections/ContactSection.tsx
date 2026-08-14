@@ -23,11 +23,11 @@ export default function ContactSection() {
         paddingRight: isMobile ? "20px" : "15%",
       }}
     >
-      <motion.p {...fadeUp(0)} style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", fontFamily: "var(--font-manrope), sans-serif", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "20px" }}>
+      <motion.p {...fadeUp(0)} style={{ fontSize: "12px", color: "rgba(255,255,255,0.35)", fontFamily: "var(--font-manrope), sans-serif", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "var(--spacing-20)" }}>
         Contact
       </motion.p>
 
-      <motion.h2 {...fadeUp(0.06)} style={{ fontSize: isMobile ? "32px" : "clamp(32px, 4vw, 52px)", fontWeight: 400, lineHeight: 1.12, letterSpacing: "-0.03em", color: "#f0f0f0", fontFamily: "var(--font-manrope), sans-serif", marginBottom: "20px" }}>
+      <motion.h2 {...fadeUp(0.06)} style={{ fontSize: isMobile ? "32px" : "clamp(32px, 4vw, 52px)", fontWeight: 400, lineHeight: 1.12, letterSpacing: "-0.03em", color: "#f0f0f0", fontFamily: "var(--font-manrope), sans-serif", marginBottom: "var(--spacing-20)" }}>
         Let&apos;s build your<br />plan together!
       </motion.h2>
 

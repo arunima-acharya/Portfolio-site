@@ -70,7 +70,7 @@ export default function Philosophy() {
               top: step.y,
               background: cardBg,
               border: `1.5px solid ${border}`,
-              borderRadius: 12,
+              borderRadius: "var(--radius-xl)",
               padding: "12px 18px 14px",
               minWidth: "clamp(150px, 22vw, 220px)",
               boxShadow: isLight

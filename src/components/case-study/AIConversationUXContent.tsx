@@ -159,9 +159,9 @@ export default function AIConversationUXContent() {
               <table className="w-full min-w-[640px] border-collapse text-left">
                 <thead>
                   <tr className="border-b border-white/10">
-                    <th className="py-3 pr-4 text-xs font-semibold uppercase tracking-widest text-zinc-600">Product</th>
-                    <th className="py-3 pr-4 text-xs font-semibold uppercase tracking-widest text-zinc-600">Primary Design Philosophy</th>
-                    <th className="py-3 text-xs font-semibold uppercase tracking-widest text-zinc-600">Best Experience</th>
+                    <th className="py-3 pr-4 text-xs font-semibold text-zinc-600">Product</th>
+                    <th className="py-3 pr-4 text-xs font-semibold text-zinc-600">Primary Design Philosophy</th>
+                    <th className="py-3 text-xs font-semibold text-zinc-600">Best Experience</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -241,7 +241,7 @@ export default function AIConversationUXContent() {
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: severity.medium }} />
-              <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: severity.medium }}>Medium Friction</span>
+              <span className="text-xs font-semibold" style={{ color: severity.medium }}>Medium Friction</span>
             </div>
             <Bullets
               items={[
@@ -256,7 +256,7 @@ export default function AIConversationUXContent() {
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
-              <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Low Friction</span>
+              <span className="text-xs font-semibold text-zinc-400">Low Friction</span>
             </div>
             <Bullets items={["Suggested follow-up prompts", "Markdown formatting", "File uploads", "Voice interaction", "Quick message editing"]} />
           </div>

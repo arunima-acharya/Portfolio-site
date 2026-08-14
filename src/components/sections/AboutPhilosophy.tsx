@@ -34,7 +34,7 @@ export default function AboutPhilosophy() {
           <div
             style={{
               aspectRatio: "4/3",
-              borderRadius: "12px",
+              borderRadius: "var(--radius-xl)",
               background: "linear-gradient(135deg, #d0d0d0 0%, #e8e8e8 40%, #c8cdd4 100%)",
               overflow: "hidden",
               position: "relative",
@@ -62,7 +62,7 @@ export default function AboutPhilosophy() {
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 fontFamily: "var(--font-manrope), sans-serif",
-                marginBottom: "20px",
+                marginBottom: "var(--spacing-20)",
               }}
             >
               ★ Design Philosophy

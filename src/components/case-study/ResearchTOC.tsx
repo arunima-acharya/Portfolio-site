@@ -91,7 +91,7 @@ export function ResearchTOCBar({ items }: { items: TOCItem[] }) {
         WebkitBackdropFilter: "blur(20px) saturate(180%)",
         border: `1px solid ${p.cardBorderStrong}`,
         borderRadius: 28,
-        padding: 8,
+        padding: "var(--spacing-8)",
         boxShadow: p.dockShadow,
       }}
     >

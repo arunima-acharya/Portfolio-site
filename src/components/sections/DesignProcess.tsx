@@ -81,7 +81,7 @@ export default function DesignProcess() {
             <div
               key={step.number}
               className="flex-shrink-0 flex flex-col justify-between border border-[var(--text-primary)] rounded-sm bg-transparent"
-              style={{ width: 220, minHeight: 320, padding: "16px" }}
+              style={{ width: 220, minHeight: 320, padding: "var(--spacing-16)" }}
             >
               {/* Top row */}
               <div className="flex items-start justify-between gap-2">

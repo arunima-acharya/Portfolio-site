@@ -22,6 +22,7 @@ const BOTTOM_LINKS = [
 export default function Footer() {
   const year = new Date().getFullYear();
   const pathname = usePathname();
+  if (pathname?.startsWith("/m")) return null;
   const isHome = pathname === "/";
 
   const bg = isHome ? "var(--sp-orange)" : "var(--sp-charcoal)";
@@ -40,8 +41,7 @@ export default function Footer() {
         width: "100%",
         position: "relative",
         overflow: "hidden",
-        borderTopLeftRadius: 56,
-        borderTopRightRadius: 56,
+        borderRadius: "var(--radius-footer) var(--radius-footer) 0 0",
       }}
     >
       {/* Main body */}
@@ -57,14 +57,13 @@ export default function Footer() {
             fontWeight: 600,
             lineHeight: 1.12,
             letterSpacing: "normal",
-            textTransform: "capitalize",
             color: fg,
-            fontFamily: "var(--font-fraunces), serif",
+            fontFamily: "var(--font-gelica)",
             maxWidth: "16ch",
-            marginBottom: "64px",
+            marginBottom: "var(--spacing-64)",
           }}
         >
-          I design products people love. Let&apos;s work together.
+          i design products people love. let&apos;s work together.
         </h2>
 
         {/* Middle nav row */}
@@ -111,8 +110,8 @@ export default function Footer() {
           style={{
             alignItems: "flex-end",
             justifyContent: "space-between",
-            paddingTop: "48px",
-            paddingBottom: "48px",
+            paddingTop: "var(--spacing-48)",
+            paddingBottom: "var(--spacing-48)",
           }}
         >
           {/* Brand name */}
@@ -121,18 +120,17 @@ export default function Footer() {
               fontSize: "clamp(22px, 3vw, 36px)",
               fontWeight: 500,
               letterSpacing: "normal",
-              textTransform: "capitalize",
               lineHeight: 1.15,
               color: fg,
-              fontFamily: "var(--font-fraunces), serif",
+              fontFamily: "var(--font-gelica)",
             }}
           >
-            Arunima
+            arunima
             <br />
-            Acharya
+            acharya
             <br />
             <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              Design
+              design
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ marginBottom: "2px" }}>
                 <path d="M4 16L16 4M16 4H8M16 4V12" stroke={fg} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

@@ -67,7 +67,7 @@ export default function AboutHero() {
             style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "8px",
+                gap: "var(--spacing-8)",
                 background: "#111",
                 color: "#fff",
                 fontSize: "13px",

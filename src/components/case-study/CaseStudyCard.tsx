@@ -35,7 +35,7 @@ export default function CaseStudyCard({ project, index, featured = false }: Case
         style={{
           border: "1.5px solid var(--sp-charcoal)",
           background: "var(--sp-cream)",
-          boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 20px 0px",
+          boxShadow: "var(--shadow-lg)",
         }}
       >
         <div className={featured ? "md:grid md:grid-cols-[1.1fr_0.9fr]" : ""}>
@@ -75,15 +75,15 @@ export default function CaseStudyCard({ project, index, featured = false }: Case
           {/* Content panel */}
           <div className={`relative flex flex-col justify-center p-7 ${featured ? "md:p-9" : ""}`}>
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: accent }} />
-              <span className="text-[16px] font-semibold uppercase tracking-[0.16em]" style={{ color: accent, fontFamily: "var(--font-geist), sans-serif" }}>
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "var(--sp-orange)" }} />
+              <span className="text-[16px] font-semibold" style={{ color: "var(--sp-orange)", fontFamily: "var(--font-geist), sans-serif" }}>
                 {project.category}
               </span>
             </div>
 
             <h3
               className="font-semibold tracking-tight leading-tight"
-              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "var(--sp-cocoa)", fontFamily: "var(--font-fraunces), serif", fontWeight: 600, textTransform: "capitalize" }}
+              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", fontWeight: 600, textTransform: "lowercase" }}
             >
               {project.title}
             </h3>
@@ -128,7 +128,7 @@ export default function CaseStudyCard({ project, index, featured = false }: Case
                   <ArrowUpRight
                     size={14}
                     className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    style={{ color: accent }}
+                    style={{ color: "var(--sp-orange)" }}
                   />
                 </span>
               </span>
