@@ -129,16 +129,21 @@ const SvgStackItem = forwardRef<
           )}
         </div>
 
-        {/* Timeline + CTA — normal flow (not absolutely positioned), so it
-            sits below the whole bg svg card and spans its full width
-            instead of being confined to the right-side text column. */}
+        {/* Timeline + CTA — absolutely positioned like the paper/text layers
+            (NOT normal flow: adding flow height here would grow the Link's
+            own box and throw off the rotate/scale pivot, swinging the whole
+            card sideways into the next stacked item). Sits just below the
+            paper and text column, spanning the full card width. */}
         <div
           style={{
+            position: "absolute",
+            top: "85%",
+            left: 0,
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             width: "100%",
-            padding: "5% 6%",
+            padding: "0 6%",
             borderTop: "1px solid rgba(0,0,0,0.2)",
             color: "var(--sp-charcoal)",
           }}
