@@ -4,6 +4,29 @@ import { getFeaturedProjects, projectHref } from "@/data/projects";
 
 const SERVICES = ["Product Design", "UX/UI Design", "SaaS & Enterprise", "Design Systems", "UX Research", "Design Consulting"];
 
+// Desktop shows these as illustrated sticky notes on a 3D flip-book
+// notebook. Mobile skips the notebook + decorative stickers entirely (too
+// heavy/novelty for a phone) and just lists the same content as plain
+// stacked cards, top to bottom.
+const EXPERTISE = [
+  {
+    title: "Product Design",
+    items: ["End-to-End Product Design", "Interaction Design", "Wireframing", "Prototyping", "Visual Design", "Information Architecture"],
+  },
+  {
+    title: "Research & Testing",
+    items: ["User Research", "Usability Testing", "Heuristic Evaluation", "User Personas", "Journey Mapping"],
+  },
+  {
+    title: "Systems & Strategy",
+    items: ["Design Systems (25 → 50+ components)", "Accessibility (WCAG)", "Product Strategy", "Zero-to-One Design", "Data-Informed Design"],
+  },
+  {
+    title: "Collaboration",
+    items: ["Cross-Functional Collaboration", "Developer Handoff", "Agile / Scrum", "Stakeholder Management"],
+  },
+];
+
 export default function MobileHome() {
   const projects = getFeaturedProjects().slice(0, 4);
 
@@ -164,6 +187,56 @@ export default function MobileHome() {
             >
               {s}
             </span>
+          ))}
+        </div>
+      </section>
+
+      {/* What I bring to the table — same content as the desktop notebook's
+          sticky notes, without the notebook/stickers: plain cards stacked
+          top to bottom. */}
+      <section style={{ padding: "36px 20px 8px" }}>
+        <h2
+          style={{
+            fontFamily: "var(--font-gelica)",
+            fontSize: 22,
+            fontWeight: 600,
+            color: "var(--sp-cocoa)",
+            margin: "0 0 16px",
+          }}
+        >
+          what i bring to the table
+        </h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {EXPERTISE.map((group) => (
+            <div
+              key={group.title}
+              style={{
+                border: "1.5px solid var(--sp-charcoal)",
+                borderRadius: "var(--radius-cards)",
+                padding: "18px 18px 16px",
+                background: "var(--sp-cream)",
+                boxShadow: "var(--shadow-lg)",
+              }}
+            >
+              <h3 style={{ fontFamily: "var(--font-gelica)", fontSize: 17, fontWeight: 600, color: "var(--sp-cocoa)", margin: "0 0 10px" }}>
+                {group.title}
+              </h3>
+              <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
+                {group.items.map((item) => (
+                  <li
+                    key={item}
+                    style={{
+                      display: "flex", alignItems: "flex-start", gap: 8,
+                      fontSize: 14, color: "rgba(23,23,23,0.75)", lineHeight: 1.5,
+                      fontFamily: "var(--font-geist), sans-serif",
+                    }}
+                  >
+                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0, marginTop: 7 }} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </section>
