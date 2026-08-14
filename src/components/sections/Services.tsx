@@ -30,7 +30,7 @@ function NotesStack() {
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, width: "100%" }}>
       {noteSvgs.map((svg) => (
         // eslint-disable-next-line @next/next/no-img-element
-        <img key={svg} src={svg} alt="" style={{ width: "80%", height: "auto", display: "block" }} />
+        <img key={svg} src={svg} alt="" style={{ width: "80%", height: "auto", display: "block", filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.18))" }} />
       ))}
     </div>
   );
