@@ -1,6 +1,5 @@
 "use client";
 
-import { Fragment } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Calendar } from "lucide-react";
@@ -9,15 +8,6 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { useParallax } from "@/hooks/useParallax";
 
 const CARD_HEIGHT = 400;
-
-// One decorative stamp-edge accent per featured card, in the same order as
-// FEATURED_SLUGS below.
-const WORK_BG_SVGS = [
-  "/assets/work%20bg/bg%201.svg",
-  "/assets/work%20bg/bg%202.svg",
-  "/assets/work%20bg/bg3.svg",
-  "/assets/work%20bg/bg4.svg",
-];
 
 function ProjectCard({
   project,
@@ -208,19 +198,10 @@ export default function FeaturedWork() {
         </motion.p>
       </div>
 
-      {/* Cards — one wide card per row, each followed by its own SVG at native aspect ratio */}
+      {/* Cards — one wide card per row */}
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
         {filtered.map((project, i) => (
-          <Fragment key={project.id}>
-            <ProjectCard project={project} index={i} isMobile={isMobile} />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={WORK_BG_SVGS[i]}
-              alt=""
-              aria-hidden="true"
-              style={{ width: "50%", height: "auto", display: "block", marginLeft: "auto", marginRight: "auto" }}
-            />
-          </Fragment>
+          <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
         ))}
       </div>
 

@@ -38,6 +38,9 @@ export default function HomePage() {
       {/* Selected Works */}
       <FeaturedWork />
 
+      {/* Selected Works (duplicate) */}
+      <FeaturedWork />
+
       {/* Section 5 — Services (padded, bg spans full width incl. gutters) —
           includes the SuperrBook vector-flip notebook animation on its
           right side */}
