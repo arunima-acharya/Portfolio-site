@@ -61,7 +61,7 @@ const SvgStackItem = forwardRef<
           display: "block",
           position: "relative",
           textDecoration: "none",
-          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(0.95)`,
+          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(0.855)`,
           filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
         }}
       >
