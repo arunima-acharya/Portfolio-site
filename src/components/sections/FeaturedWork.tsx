@@ -12,10 +12,10 @@ const CARD_HEIGHT = 400;
 
 // Same order as FEATURED_SLUGS below.
 const WORK_BG_SVGS = [
-  "/assets/work%20bg/bg%201.svg",
-  "/assets/work%20bg/bg%202.svg",
-  "/assets/work%20bg/bg%203.svg",
-  "/assets/work%20bg/bg%204.svg",
+  "/assets/work%20bg/bg/bg%201.svg",
+  "/assets/work%20bg/bg/bg%202.svg",
+  "/assets/work%20bg/bg/bg%203.svg",
+  "/assets/work%20bg/bg/bg%204.svg",
 ];
 
 const SVG_TILT_DEGREES = [-3, 5, -6, 7];
