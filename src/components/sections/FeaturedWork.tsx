@@ -127,40 +127,44 @@ const SvgStackItem = forwardRef<
               ))}
             </div>
           )}
+        </div>
 
-          <div
-            style={{
-              marginTop: "auto",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              paddingTop: 20,
-              borderTop: "1px solid rgba(0,0,0,0.2)",
-            }}
-          >
-            {project.timeline && (
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 16 }}>
-                <Calendar size={12} />
-                {project.timeline}
-              </span>
-            )}
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 16, fontWeight: 500, marginLeft: "auto" }}>
-              View case study
-              <span
-                style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "rgba(255,255,255,0.35)",
-                }}
-              >
-                <ArrowUpRight size={14} />
-              </span>
+        {/* Timeline + CTA — normal flow (not absolutely positioned), so it
+            sits below the whole bg svg card and spans its full width
+            instead of being confined to the right-side text column. */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+            padding: "5% 6%",
+            borderTop: "1px solid rgba(0,0,0,0.2)",
+            color: "var(--sp-charcoal)",
+          }}
+        >
+          {project.timeline && (
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 16 }}>
+              <Calendar size={12} />
+              {project.timeline}
             </span>
-          </div>
+          )}
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 16, fontWeight: 500, marginLeft: "auto" }}>
+            View case study
+            <span
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(255,255,255,0.35)",
+              }}
+            >
+              <ArrowUpRight size={14} />
+            </span>
+          </span>
         </div>
       </Link>
     </motion.div>
