@@ -38,6 +38,9 @@ const SvgStackItem = forwardRef<
   { src: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean }
 >(function SvgStackItem({ src, project, index, isTop }, ref) {
   const tags = project.tags.slice(0, 3);
+  const tilt = SVG_TILT_DEGREES[index] ?? 0;
+  const textAlign: "left" | "right" = tilt > 0 ? "right" : "left";
+  const rowJustify = tilt > 0 ? "flex-end" : "flex-start";
 
   return (
     <motion.div
@@ -84,9 +87,10 @@ const SvgStackItem = forwardRef<
             overflow: "hidden",
             padding: "4%",
             color: "var(--sp-charcoal)",
+            textAlign,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", marginBottom: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: rowJustify, gap: "var(--spacing-8)", marginBottom: 16 }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
             <span style={{ fontSize: 16, fontWeight: 700 }}>{project.category}</span>
           </div>
@@ -109,7 +113,7 @@ const SvgStackItem = forwardRef<
           </p>
 
           {tags.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--spacing-8)", marginBottom: 24 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: rowJustify, gap: "var(--spacing-8)", marginBottom: 24 }}>
               {tags.map((tag) => (
                 <span
                   key={tag}
