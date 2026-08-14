@@ -1,16 +1,10 @@
 ﻿import type { Metadata } from "next";
-import JackPortfolio from "@/components/jack";
 import FeaturedWork from "@/components/sections/FeaturedWork";
 import Services from "@/components/sections/Services";
-import Testimonials from "@/components/sections/Testimonials";
 import ToolkitTestimonialsOverlap from "@/components/sections/ToolkitTestimonialsOverlap";
-import HiIntro from "@/components/sections/HiIntro";
-import HeroSectionsWrapper from "@/components/sections/HeroSectionsWrapper";
 import DesignProcess3D from "@/components/sections/DesignProcess3D";
-import ExperiencesBento from "@/components/sections/ExperiencesBento";
 import HomeClient from "./HomeClient";
 import DarkHeroStatement from "@/components/sections/DarkHeroStatement";
-import MacbookScrollDemo from "@/components/MacbookScrollDemo";
 import TypographyZoom from "@/components/sections/TypographyZoom";
 import MainframeHero from "@/components/sections/MainframeHero";
 import HeroBgSticky from "@/components/sections/HeroBgSticky";

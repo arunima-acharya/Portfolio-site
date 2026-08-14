@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import VariableProximity from "@/components/ui/VariableProximity";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useParallax } from "@/hooks/useParallax";
 import dynamic from "next/dynamic";

@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef, useContext, createContext } from "react";
-import BorderGlow from "@/components/ui/BorderGlow.jsx";
 import { projects, projectHref } from "@/data/projects";
 
 const AccentContext = createContext<string>("#2856A2");
@@ -385,17 +384,6 @@ function CheckIcon() {
   );
 }
 
-function StarRow() {
-  return (
-    <div style={{ display: "flex", gap: 2 }}>
-      {[...Array(5)].map((_, i) => (
-        <svg key={i} width="14" height="14" viewBox="0 0 14 14" fill="#F59E0B">
-          <path d="M7 1l1.5 4.5H13L9.5 8l1.5 4.5L7 10 3 12.5 4.5 8 1 5.5h4.5z" />
-        </svg>
-      ))}
-    </div>
-  );
-}
 
 // ─── Sections ────────────────────────────────────────────────
 
@@ -488,25 +476,6 @@ function HeroSection({ data }: { data: MenstaData["hero"] }) {
       <PhoneCarousel />
 
 
-    </section>
-  );
-}
-
-function TrustedSection({ data }: { data: MenstaData["trusted"] }) {
-  return (
-    <section style={{ background: "var(--sp-dew)", padding: "40px 32px 15%" }}>
-      <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
-        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textAlign: "center", marginBottom: "var(--spacing-24)"  }}>
-          {data.text}
-        </p>
-        <div style={{ display: "flex", gap: "var(--spacing-32)", flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
-          {data.logos.map(logo => (
-            <div key={logo} style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, color: "#8a8580", padding: "6px 16px", border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-lg)", background: "var(--sp-cream)" }}>
-              {logo}
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }
@@ -1041,16 +1010,6 @@ function ApproachSection({ data, active }: { data: NonNullable<MenstaData["appro
 }
 
 // ── Core Experience ───────────────────────────────────────────
-const SCREEN_LABELS = [
-  "Single Reservations",
-  "Group Reservations",
-  "Consolidated Accounts",
-  "Accounts",
-  "Housekeeping",
-  "POS 2.0",
-  "Management Dashboard",
-  "Night Audit",
-];
 
 function CoreExperiencePhone({ activeIndex }: { activeIndex: number }) {
   const SCREENS = useContext(ScreensContext);
@@ -1058,7 +1017,6 @@ function CoreExperiencePhone({ activeIndex }: { activeIndex: number }) {
 }
 
 function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData["coreExperience"]>, active: boolean }) {
-  const PRP = useContext(AccentContext), GRN = "#10b981", ORG = PRP;
   const [activeIndex, setActiveIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   useEffect(() => { if (active) setRevealed(true); }, [active]);
@@ -1067,38 +1025,6 @@ function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData[
     return () => clearInterval(t);
   }, []);
 
-  // Left card circle icons (white on purple)
-  const leftCircleIcons = [
-    <svg key="0" width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="4" width="18" height="16" rx="2" stroke="white" strokeWidth="1.8"/><line x1="2" y1="9" x2="20" y2="9" stroke="white" strokeWidth="1.8"/><line x1="7" y1="2" x2="7" y2="6" stroke="white" strokeWidth="1.8" strokeLinecap="round"/><line x1="15" y1="2" x2="15" y2="6" stroke="white" strokeWidth="1.8" strokeLinecap="round"/></svg>,
-    <svg key="1" width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="8" cy="7" r="3.5" stroke="white" strokeWidth="1.8"/><path d="M1 19 C1 15 4 13 8 13 C12 13 15 15 15 19" stroke="white" strokeWidth="1.8" strokeLinecap="round"/><circle cx="16" cy="7.5" r="2.8" stroke="white" strokeWidth="1.8"/><path d="M16 12.5 C18.5 13 20.5 15 20.5 19" stroke="white" strokeWidth="1.8" strokeLinecap="round"/></svg>,
-    <svg key="2" width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="2" width="16" height="18" rx="2" stroke="white" strokeWidth="1.8"/><line x1="7" y1="8" x2="15" y2="8" stroke="white" strokeWidth="1.8" strokeLinecap="round"/><line x1="7" y1="12" x2="13" y2="12" stroke="white" strokeWidth="1.8" strokeLinecap="round"/><line x1="7" y1="16" x2="11" y2="16" stroke="white" strokeWidth="1.8" strokeLinecap="round"/></svg>,
-    <svg key="3" width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="6" width="18" height="12" rx="2" stroke="white" strokeWidth="1.8"/><line x1="2" y1="10" x2="20" y2="10" stroke="white" strokeWidth="1.8"/><rect x="5" y="13" width="5" height="2" rx="1" fill="white"/></svg>,
-  ];
-
-  // Right card circle icons (white on green/orange)
-  const rightCircleIcons = [
-    <svg key="5" width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="5" y="10" width="12" height="10" rx="2" stroke="white" strokeWidth="1.8"/><path d="M8 10 L8 7 C8 4.8 14 4.8 14 7 L14 10" stroke="white" strokeWidth="1.8"/><circle cx="11" cy="15" r="1.5" fill="white"/></svg>,
-    <svg key="6" width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="18" height="13" rx="2" stroke="white" strokeWidth="1.8"/><line x1="2" y1="7" x2="20" y2="7" stroke="white" strokeWidth="1.8"/><path d="M8 21 L14 21" stroke="white" strokeWidth="1.8" strokeLinecap="round"/><line x1="11" y1="15" x2="11" y2="21" stroke="white" strokeWidth="1.8" strokeLinecap="round"/></svg>,
-    <svg key="7" width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="14" width="4" height="6" rx="1" fill="white"/><rect x="9" y="9" width="4" height="11" rx="1" fill="white" opacity="0.85"/><rect x="15" y="4" width="4" height="16" rx="1" fill="white" opacity="0.7"/></svg>,
-    <svg key="8" width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3 C7 3.5 4 7 4 11 C4 15.5 7.5 19 11 19 C14.5 19 18 16 18 11" stroke="white" strokeWidth="1.8" strokeLinecap="round"/><path d="M14 3 C15.5 4.5 16.5 6 16.5 8 C16.5 10 15 11.5 13.5 12" stroke="white" strokeWidth="1.8" strokeLinecap="round"/><path d="M11 7 L11 11 L14 11" stroke="white" strokeWidth="1.8" strokeLinecap="round"/></svg>,
-    <svg key="9" width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="8" height="8" rx="1.5" fill="white"/><rect x="12" y="2" width="8" height="8" rx="1.5" fill="white" opacity="0.75"/><rect x="2" y="12" width="8" height="8" rx="1.5" fill="white" opacity="0.75"/><rect x="12" y="12" width="8" height="8" rx="1.5" fill="white" opacity="0.5"/></svg>,
-  ];
-
-
-  // Flatten right items with their color
-  const rightItems = data.rights.flatMap(sec =>
-    sec.items.map(item => ({ ...item, col: sec.color === "green" ? GRN : ORG }))
-  );
-
-  // viewBox 1120×660. phone col=280px, gap=80px, card col=(1200-280-160)/2=380px
-  // VB scale=1120/1200=0.9333
-  // left-card right edge: 380*0.9333=355, phone-left: (380+80)*0.9333=429
-  // phone-right: (380+80+280)*0.9333=691, right-card left: (380+80+280+80)*0.9333=766
-  // Left 4 cards spread: centers at 660*(1/8,3/8,5/8,7/8) = 82,248,413,578
-  // Right 5 cards spread: centers at 660*(1/10,3/10,5/10,7/10,9/10) = 66,198,330,462,594
-  const leftY  = [82, 248, 413, 578];
-  const greenY = [66, 198];
-  const orangeY = [396, 528];
 
   return (
     <section data-section-phone="core" style={{ background: "var(--sp-dew)", padding: "94px 32px 15%", overflow: "hidden" }}>
@@ -1189,32 +1115,6 @@ function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData[
           </div>
         </div>
 
-      </div>
-    </section>
-  );
-}
-
-function WhyBestSection({ data }: { data: MenstaData["whyBest"] }) {
-  const icons = ["⚡", "🔄", "📊"];
-  return (
-    <section style={{ background: "var(--sp-cream)", padding: "80px 32px 15%" }}>
-      <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
-          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
-          {data.cards.map((card, i) => (
-            <div key={i} style={{ background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl)", padding: 32 }}>
-              <div style={{ width: 48, height: 48, background: "#f3f4f6", borderRadius: "var(--radius-xl)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, marginBottom: 20 }}>
-                {icons[i]}
-              </div>
-              <h3 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: 18, fontWeight: 600, color: "var(--sp-cocoa)", marginBottom: 10 }}>{card.title}</h3>
-              <p style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.6 }}>{card.desc}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -1339,90 +1239,6 @@ function HowItWorksSection({ data }: { data: MenstaData["howItWorks"] }) {
   );
 }
 
-function IntegrationsSection({ data, features }: { data: MenstaData["integrations"]; features: MenstaData["features"] }) {
-  return (
-    <section style={{ background: "var(--sp-cream)", padding: "80px 32px 15%" }}>
-      <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{features.eyebrow}</p>
-          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{features.heading}</h2>
-          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto 40px" }}>{features.subtext}</p>
-          <h3 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: 24, fontWeight: 600, color: "var(--sp-cocoa)", marginBottom: 10 }}>{data.heading}</h3>
-          <p style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", marginBottom: 32 }}>{data.subtext}</p>
-        </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--spacing-16)", justifyContent: "center" }}>
-          {data.logos.map(logo => (
-            <div key={logo} style={{ fontFamily: ff, fontSize: 13, fontWeight: 600, color: "#8a8580", padding: "8px 20px", border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-lg)", background: "var(--sp-dew)" }}>
-              {logo}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TestimonialsSection({ data }: { data: MenstaData["testimonials"] }) {
-  return (
-    <section style={{ background: "var(--sp-dew)", padding: "80px 32px 15%" }}>
-      <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
-          <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
-        </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
-          {data.items.map((t, i) => (
-            <div key={i} style={{ background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl)", padding: 24 }}>
-              <StarRow />
-              <p style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.7, margin: "14px 0 20px" }}>&ldquo;{t.quote}&rdquo;</p>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--sp-dew)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, color: "#8a8580", fontFamily: ff }}>
-                  {t.name[0]}
-                </div>
-                <div>
-                  <p style={{ fontFamily: ff, fontSize: 13, fontWeight: 600, color: "var(--sp-charcoal)", margin: 0 }}>{t.name}</p>
-                  <p style={{ fontFamily: ff, fontSize: 12, color: "#8a8580", margin: 0 }}>{t.role}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
-function FAQSection({ data }: { data: MenstaData["faq"] }) {
-  const [open, setOpen] = useState<number | null>(null);
-  return (
-    <section style={{ background: "var(--sp-dew)", padding: "80px 32px 15%" }}>
-      <div style={{ maxWidth: 720, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
-          <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2 }}>{data.heading}</h2>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          {data.items.map((item, i) => (
-            <div key={i} style={{ background: "var(--sp-cream)", border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-xl)", overflow: "hidden" }}>
-              <button onClick={() => setOpen(open === i ? null : i)} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", background: "transparent", border: "none", cursor: "pointer", textAlign: "left" }}>
-                <span style={{ fontFamily: ff, fontSize: 15, fontWeight: 500, color: "var(--sp-charcoal)" }}>{item.q}</span>
-                <span style={{ fontFamily: ff, fontSize: 18, color: "#8a8580", flexShrink: 0, marginLeft: 12 }}>{open === i ? "−" : "+"}</span>
-              </button>
-              {open === i && (
-                <div style={{ padding: "0 24px 20px" }}>
-                  <p style={{ fontFamily: ff, fontSize: 14, color: "#8a8580", lineHeight: 1.7, margin: 0 }}>{item.a}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 const CARD_ACCENTS = ["#a78bfa", "#2856A2", "#34d399", "#60a5fa"];
 
 function CaseStudyCard({ project, index, delay, revealed }: {
@@ -1506,7 +1322,6 @@ function CaseStudyCard({ project, index, delay, revealed }: {
 }
 
 function OtherCaseStudiesSection({ currentSlug }: { currentSlug: string }) {
-  const PRP = useContext(AccentContext);
   const [revealed, setRevealed] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -1545,7 +1360,7 @@ function OtherCaseStudiesSection({ currentSlug }: { currentSlug: string }) {
   );
 }
 
-function CTASection({ data, appName }: { data: MenstaData["cta"]; appName: string }) {
+function CTASection({ data }: { data: MenstaData["cta"] }) {
   return (
     <section style={{ background: "var(--sp-dew)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto", textAlign: "center" }}>
@@ -1719,74 +1534,6 @@ function DesignSystemSection({ data, active }: { data: NonNullable<MenstaData["d
   );
 }
 
-function DesktopMockup() {
-  const PRP = useContext(AccentContext);
-  return (
-    <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: 20 }}>
-      <div style={{ width: "88%", position: "relative" }}>
-        {/* Monitor */}
-        <div style={{ background: "#1a1b1e", borderRadius: "var(--radius-xl)", padding: "8px 8px 0", boxShadow: "0 8px 32px rgba(0,0,0,0.18)" }}>
-          {/* Menu bar */}
-          <div style={{ background: "#2a2b30", borderRadius: "6px 6px 0 0", padding: "5px 10px", display: "flex", alignItems: "center", gap: 5, marginBottom: 1 }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#ff5f56" }} />
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#ffbd2e" }} />
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#27c93f" }} />
-            <div style={{ flex: 1, display: "flex", gap: "var(--spacing-12)", marginLeft: 12 }}>
-              {["Front Office","Reservations","Housekeeping","Accounts","Reports","More ↓"].map((item, i) => (
-                <span key={i} style={{ fontSize: 7, color: i === 1 ? "white" : "rgba(255,255,255,0.5)", fontFamily: ff, fontWeight: i === 1 ? 600 : 400 }}>{item}</span>
-              ))}
-            </div>
-          </div>
-          {/* App chrome */}
-          <div style={{ background: "white", borderRadius: "0 0 4px 4px", padding: 10, minHeight: 180 }}>
-            <div style={{ fontSize: 9, fontWeight: 700, color: "#111", marginBottom: "var(--spacing-8)", fontFamily: ff }}>New Reservation</div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-              <div>
-                <div style={{ fontSize: 7, color: "#6b7280", marginBottom: 6, fontFamily: ff, fontWeight: 600 }}>Guest Information</div>
-                {[["Guest Name",""],["Mobile No.",""],["Email",""],["Address",""],["City",""],["Country",""]].map(([l], i) => (
-                  <div key={i} style={{ marginBottom: 4 }}>
-                    <div style={{ fontSize: 6.5, color: "#9ca3af", fontFamily: ff }}>{l}</div>
-                    <div style={{ height: 13, background: "#f3f4f6", borderRadius: 3, border: "1px solid #e5e7eb", marginTop: 1 }} />
-                  </div>
-                ))}
-              </div>
-              <div>
-                <div style={{ fontSize: 7, color: "#6b7280", marginBottom: 6, fontFamily: ff, fontWeight: 600 }}>Guest Allocation</div>
-                {[["Room Type",""],["No. of Rooms",""],["Check-in",""],["Check-out",""],["Rate Plan",""]].map(([l], i) => (
-                  <div key={i} style={{ marginBottom: 4 }}>
-                    <div style={{ fontSize: 6.5, color: "#9ca3af", fontFamily: ff }}>{l}</div>
-                    <div style={{ height: 13, background: "#f3f4f6", borderRadius: 3, border: "1px solid #e5e7eb", marginTop: 1 }} />
-                  </div>
-                ))}
-                <div style={{ marginTop: 8 }}>
-                  <div style={{ fontSize: 7, color: "#6b7280", marginBottom: "var(--spacing-4)", fontFamily: ff, fontWeight: 600 }}>Room Details</div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 2 }}>
-                    {["Room No.","Room Type","Price"].map((h, i) => (
-                      <div key={i} style={{ fontSize: 6, color: "white", background: "#374151", padding: "2px 4px", fontFamily: ff }}>{h}</div>
-                    ))}
-                    {["-","-","-"].map((v, i) => (
-                      <div key={i} style={{ height: 10, background: "#f9fafb", border: "1px solid #e5e7eb" }} />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div style={{ display: "flex", justifyContent: "flex-end", gap: 5, marginTop: "var(--spacing-8)", paddingTop: 6, borderTop: "1px solid #e5e7eb" }}>
-              {["Save","Cancel"].map((b, i) => (
-                <div key={i} style={{ fontSize: 7, fontFamily: ff, padding: "3px 8px", borderRadius: 3, background: i === 0 ? "#f3f4f6" : "#f3f4f6", border: "1px solid #d1d5db", color: "#374151" }}>{b}</div>
-              ))}
-              <div style={{ fontSize: 7, fontFamily: ff, padding: "3px 8px", borderRadius: 3, background: PRP, color: "white" }}>Confirm</div>
-            </div>
-          </div>
-        </div>
-        {/* Stand */}
-        <div style={{ width: "30%", height: 14, background: "#2a2b30", margin: "0 auto", borderRadius: "0 0 4px 4px" }} />
-        <div style={{ width: "45%", height: 6, background: "#1a1b1e", margin: "0 auto", borderRadius: 4 }} />
-      </div>
-    </div>
-  );
-}
-
 function ChallengesSection({ data, active }: { data: NonNullable<MenstaData["challenges"]>, active: boolean }) {
   const [revealed, setRevealed] = useState(false);
   useEffect(() => { if (active) setRevealed(true); }, [active]);
@@ -1801,12 +1548,6 @@ function ChallengesSection({ data, active }: { data: NonNullable<MenstaData["cha
     { icon: "⚡", bold: "3–4 taps", text: "to complete a task", accent: PRP },
     { icon: "📱", bold: "1 focused screen", text: "at a time", accent: null },
     { icon: "🎯", bold: "Faster & easier", text: "to learn and use", accent: null },
-  ];
-  const stats = [
-    { val: "30%", label: "fewer steps", icon: "↓" },
-    { val: "40%", label: "faster task completion", icon: "⏱" },
-    { val: "Higher", label: "adoption & satisfaction", icon: "☺" },
-    { val: "Built for", label: "real-world movement", icon: "🚶" },
   ];
 
   return (
@@ -1937,164 +1678,6 @@ function GoalSection() {
 }
 
 // ─── UX Audit Section ──────────────────────────────────────────
-const AUDIT_RED = "#EF4444";
-
-// ── Annotated AxisRooms audit phone illustration ──────────────
-// Reference canvas is 654×691 — all positions below are % of this frame so the
-// whole diagram scales cleanly at any container width (e.g. 50vw).
-const AUDIT_W = 800, AUDIT_H = 700;
-const pct = (px: number, total: number) => `${(px / total) * 100}%`;
-
-function AuditBox({ x, y, w, h, children, tone = "white" }: { x: number; y: number; w: number; h: number; children: React.ReactNode; tone?: "white" | "pink" | "pinkStrong" }) {
-  const bg = tone === "pinkStrong" ? "#fee2e2" : tone === "pink" ? "#fef2f2" : "#fff";
-  const border = tone === "white" ? "1px solid #e5e7eb" : `1px solid ${AUDIT_RED}55`;
-  return (
-    <div style={{
-      position: "absolute", left: pct(x, AUDIT_W), top: pct(y, AUDIT_H), width: pct(w, AUDIT_W), height: pct(h, AUDIT_H),
-      background: bg, border, borderRadius: "var(--radius-lg)", boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
-      display: "flex", alignItems: "center", gap: 6, padding: "0 10px", fontFamily: ff,
-    }}>
-      {children}
-    </div>
-  );
-}
-
-function AuditDiagram({ annotations }: { annotations: NonNullable<MenstaData["uxAudit"]>["annotations"] }) {
-  const iconSm: React.CSSProperties = { width: 20, height: 20, borderRadius: 5, background: "#f3f4f6", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 10 };
-  const boxLabel: React.CSSProperties = { fontSize: 11, fontWeight: 700, color: "#111" };
-
-  const line = (x1: number, y1: number, x2: number, y2: number, key: number) => {
-    const midY = (y1 + y2) / 2;
-    return (
-      <g key={key}>
-        <polyline points={`${x1},${y1} ${x1},${midY} ${x2},${midY} ${x2},${y2}`} fill="none" stroke={AUDIT_RED} strokeWidth={1.3} strokeDasharray="3 3" />
-        <circle cx={x1} cy={y1} r={2.5} fill={AUDIT_RED} />
-        <circle cx={x2} cy={y2} r={2.5} fill={AUDIT_RED} />
-      </g>
-    );
-  };
-
-  return (
-    <div style={{ position: "relative", width: "100%", aspectRatio: `${AUDIT_W} / ${AUDIT_H}`, fontFamily: ff }}>
-      {/* Connector lines */}
-      <svg viewBox={`0 0 ${AUDIT_W} ${AUDIT_H}`} style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
-        {line(380, 54, 265, 84, 1)}
-        {line(380, 54, 535, 84, 2)}
-        {line(380, 142, 265, 160, 3)}
-        {line(380, 142, 535, 160, 4)}
-        {line(178, 100, 265, 90, 5)}
-        {line(590, 262, 480, 292, 6)}
-        {line(178, 350, 270, 322, 7)}
-        {line(178, 610, 360, 618, 8)}
-      </svg>
-
-      {/* Top tree */}
-      <AuditBox x={325} y={20} w={110} h={34} tone="white"><span style={iconSm}>▦</span><span style={boxLabel}>Dashboard</span></AuditBox>
-      <AuditBox x={210} y={78} w={110} h={34} tone="white"><span style={iconSm}>📖</span><span style={boxLabel}>Bookings</span></AuditBox>
-      <AuditBox x={480} y={78} w={140} h={34} tone="white"><span style={iconSm}>⛓</span><span style={boxLabel}>Channel Manager</span></AuditBox>
-      <AuditBox x={325} y={136} w={110} h={34} tone="pinkStrong"><span style={iconSm}>▢</span><span style={{ ...boxLabel, color: AUDIT_RED }}>Inventory</span></AuditBox>
-      <AuditBox x={210} y={194} w={110} h={34} tone="pink"><span style={iconSm}>▢</span><span style={boxLabel}>Inventory</span></AuditBox>
-      <AuditBox x={480} y={194} w={110} h={34} tone="pink"><span style={iconSm}>▢</span><span style={boxLabel}>Inventory</span></AuditBox>
-
-      {/* Right nested-nav staircase */}
-      <AuditBox x={490} y={292} w={120} h={34}><span style={iconSm}>⚙</span><span style={boxLabel}>Settings</span></AuditBox>
-      <AuditBox x={510} y={344} w={120} h={34}><span style={iconSm}>📁</span><span style={boxLabel}>Operations</span></AuditBox>
-      <AuditBox x={530} y={396} w={120} h={34}><span style={iconSm}>📁</span><span style={boxLabel}>Inventory</span></AuditBox>
-      <AuditBox x={520} y={448} w={155} h={34}><span style={iconSm}>📄</span><span style={{ ...boxLabel, fontSize: 10.5 }}>Manage Inventory</span></AuditBox>
-
-      {/* Left inconsistent-grouping list */}
-      <AuditBox x={170} y={292} w={100} h={34} tone="white"><span style={iconSm}>🗓</span><span style={boxLabel}>Reservations</span></AuditBox>
-      <AuditBox x={170} y={340} w={100} h={34} tone="white"><span style={iconSm}>🏷</span><span style={boxLabel}>Rates</span></AuditBox>
-      <AuditBox x={170} y={388} w={100} h={34} tone="white"><span style={iconSm}>📊</span><span style={boxLabel}>Reports</span></AuditBox>
-      <AuditBox x={170} y={436} w={100} h={34} tone="pinkStrong"><span style={iconSm}>▢</span><span style={{ ...boxLabel, color: AUDIT_RED }}>Inventory</span></AuditBox>
-
-      {/* Phone */}
-      <div style={{ position: "absolute", left: pct(280, AUDIT_W), top: pct(250, AUDIT_H), width: pct(200, AUDIT_W) }}>
-        <AuditAnnotatedPhone />
-      </div>
-
-      {/* Bottom button variants */}
-      <div style={{ position: "absolute", left: pct(185, AUDIT_W), top: pct(614, AUDIT_H), width: pct(460, AUDIT_W), display: "flex", gap: 8 }}>
-        <div style={{ background: "#1e3a8a", color: "#fff", borderRadius: 7, padding: "8px 16px", fontFamily: ff, fontSize: 12, fontWeight: 700 }}>Update Rate</div>
-        <div style={{ background: "#fff", border: "1.5px solid #1e3a8a", color: "#1e3a8a", borderRadius: 7, padding: "8px 16px", fontFamily: ff, fontSize: 12, fontWeight: 700 }}>Update Inventory</div>
-        <div style={{ color: "#1e3a8a", borderRadius: 7, padding: "8px 16px", fontFamily: ff, fontSize: 12, fontWeight: 700 }}>Edit Rate →</div>
-      </div>
-
-      {/* Annotations */}
-      <AuditAnnotationLabel x={4} y={78} w={165} num={1} title={annotations[0]?.title} desc={annotations[0]?.desc} />
-      <AuditAnnotationLabel x={660} y={250} w={135} num={2} title={annotations[1]?.title} desc={annotations[1]?.desc} />
-      <AuditAnnotationLabel x={4} y={330} w={165} num={3} title={annotations[2]?.title} desc={annotations[2]?.desc} />
-      <AuditAnnotationLabel x={4} y={598} w={165} num={4} title={annotations[3]?.title} desc={annotations[3]?.desc} />
-    </div>
-  );
-}
-
-function AuditAnnotationLabel({ x, y, w, num, title, desc }: { x: number; y: number; w: number; num: number; title?: string; desc?: string }) {
-  return (
-    <div style={{ position: "absolute", left: pct(x, AUDIT_W), top: pct(y, AUDIT_H), width: pct(w, AUDIT_W), display: "flex", gap: 8 }}>
-      <div style={{ width: 20, height: 20, borderRadius: "50%", background: AUDIT_RED, color: "white", fontFamily: ff, fontSize: 10, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>{num}</div>
-      <div>
-        <div style={{ fontFamily: ff, fontSize: 12.5, fontWeight: 800, color: AUDIT_RED, lineHeight: 1.25, marginBottom: 3 }}>{title}</div>
-        <div style={{ fontFamily: ff, fontSize: 11, color: "#6b7280", lineHeight: 1.45 }}>{desc}</div>
-      </div>
-    </div>
-  );
-}
-
-function AuditAnnotatedPhone() {
-  const rowStyle: React.CSSProperties = { display: "flex", alignItems: "center", gap: 10, padding: "9px 12px" };
-  const iconBoxStyle: React.CSSProperties = { width: 22, height: 22, borderRadius: 6, background: "#f3f4f6", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 11 };
-  const label: React.CSSProperties = { fontFamily: ff, fontSize: 11.5, fontWeight: 600, color: "#111" };
-
-  return (
-    <div style={{ width: "100%", aspectRatio: "9 / 18.5", background: "#0a0a0a", borderRadius: 34, padding: "10px 8px", boxShadow: "0 24px 48px rgba(0,0,0,0.28)", position: "relative", fontFamily: ff, boxSizing: "border-box" as const }}>
-      {/* Dynamic island */}
-      <div style={{ position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)", width: "26%", height: "3%", background: "#0a0a0a", borderRadius: "var(--radius-2xl-2)", zIndex: 10 }} />
-      <div style={{ background: "#fff", borderRadius: 24, overflow: "hidden", height: "100%", display: "flex", flexDirection: "column" as const }}>
-        {/* Status bar */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 16px 2px", flexShrink: 0 }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: "#111" }}>9:41</span>
-          <span style={{ fontSize: 9 }}>📶 🔋</span>
-        </div>
-        {/* App header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 16px 10px", flexShrink: 0 }}>
-          <span style={{ fontSize: 16, fontWeight: 800, color: "#111" }}>AxisRooms</span>
-          <span style={{ fontSize: 14 }}>🔔</span>
-        </div>
-        {/* Search */}
-        <div style={{ margin: "0 16px 10px", background: "#f3f4f6", borderRadius: "var(--radius-lg)", padding: "7px 10px", flexShrink: 0 }}>
-          <span style={{ fontSize: 10.5, color: "#9ca3af" }}>🔍 Search anything...</span>
-        </div>
-
-        <div style={{ padding: "0 16px", display: "flex", flexDirection: "column" as const, flex: 1 }}>
-          {[
-            { icon: "▦", title: "Dashboard" },
-            { icon: "📖", title: "Bookings" },
-            { icon: "▢", title: "Inventory" },
-            { icon: "🏷", title: "Rates" },
-            { icon: "⛓", title: "Channel Manager" },
-            { icon: "📊", title: "Reports" },
-            { icon: "⚙", title: "Settings" },
-            { icon: "⋯", title: "More" },
-          ].map((r, i) => (
-            <div key={i} style={{ ...rowStyle, justifyContent: "space-between", borderBottom: i < 7 ? "1px solid #f3f4f6" : "none" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <div style={iconBoxStyle}>{r.icon}</div>
-                <span style={label}>{r.title}</span>
-              </div>
-              <span style={{ color: "#c4c9d4", fontSize: 12 }}>{i < 7 ? "›" : ""}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Home indicator */}
-        <div style={{ display: "flex", justifyContent: "center", padding: "8px 0", flexShrink: 0 }}>
-          <div style={{ width: 100, height: 4, background: "rgba(0,0,0,0.2)", borderRadius: 2 }} />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function UXAuditSection({ data }: { data: NonNullable<MenstaData["uxAudit"]> }) {
   const ACCENT = useContext(AccentContext);
@@ -2197,7 +1780,6 @@ function InformationArchitectureSection({ data }: { data: NonNullable<MenstaData
 
 // ─── Workflow Transformation Section ────────────────────────────
 function WorkflowTransformationSection({ data }: { data: NonNullable<MenstaData["workflowTransformation"]> }) {
-  const PRP = useContext(AccentContext);
   const GRN = "#10b981";
   const [revealed, setRevealed] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -2416,7 +1998,7 @@ export default function MenstaTemplate({ data, slug = "pocket-pms" }: { data: Me
         {data.challenges && <GoalSection />}
         {data.outcome && <OutcomeSection data={data.outcome} />}
         <OtherCaseStudiesSection currentSlug={slug} />
-        <CTASection data={data.cta} appName={data.appName} />
+        <CTASection data={data.cta} />
       </div>
     </ScreensContext.Provider>
     </AccentContext.Provider>

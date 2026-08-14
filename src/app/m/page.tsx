@@ -93,7 +93,7 @@ export default function MobileHome() {
           selected work
         </h2>
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          {projects.map((project, i) => (
+          {projects.map((project) => (
             <Link
               key={project.id}
               href={projectHref(project)}
