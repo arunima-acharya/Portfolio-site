@@ -50,7 +50,6 @@ const SvgStackItem = forwardRef<HTMLDivElement, { src: string; index: number; is
             display: "block",
             filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
             transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg)`,
-            transformOrigin: "top left",
           }}
         />
       </motion.div>
