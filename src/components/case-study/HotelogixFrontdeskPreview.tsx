@@ -70,7 +70,7 @@ function SectionEyebrow({ number, label, align = "center" }: { number: string; l
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: align === "left" ? "flex-start" : "center", gap: "var(--spacing-8)", marginBottom: 20 }}>
       <span style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff }}>{number}</span>
-      <span style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8a8580", fontFamily: ff }}>{label}</span>
+      <span style={{ fontSize: 16, fontWeight: 400, color: "#8a8580", fontFamily: ff }}>{label}</span>
     </div>
   );
 }
@@ -319,7 +319,7 @@ function IsoStepCard({ icon, title, number, active }: {
   return (
     <div style={{ width: 110, display: "flex", flexDirection: "column", alignItems: "center" }}>
       <span style={{
-        fontSize: 11, fontWeight: 700, fontFamily: ff, letterSpacing: "0.04em", marginBottom: "var(--spacing-8)",
+        fontSize: 11, fontWeight: 700, fontFamily: ff, marginBottom: "var(--spacing-8)",
         color: active ? "var(--sp-orange)" : "#9aa1ac", transition: "color 0.4s ease",
       }}>
         {number}
@@ -441,7 +441,7 @@ function ResearchMethodsBar() {
       maxWidth: 1160, margin: "48px auto 0", boxShadow: "var(--shadow-lg)",
     }}>
       <div style={{ flex: "0 0 200px" }}>
-        <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: "0.08em", color: "var(--sp-orange)", fontFamily: ff, marginBottom: 8 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: "var(--sp-orange)", fontFamily: ff, marginBottom: 8 }}>
           RESEARCH METHODS
         </div>
         <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.55, margin: 0 }}>
@@ -631,7 +631,7 @@ function SolutionRow({ icon, iconBg, iconColor, label, labelColor, children, las
         {icon}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: labelColor, fontFamily: ff, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.03em" }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: labelColor, fontFamily: ff, marginBottom: 5, letterSpacing: "0.03em" }}>
           {label}
         </div>
         <div style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.55 }}>{children}</div>
@@ -770,7 +770,7 @@ function DesignSystemCard({ number, title, children }: { number: string; title: 
 // mockup's tiny UI text elsewhere in this codebase — kept small so the
 // swatch/spacing rows still read as a miniature style guide rather than
 // full body copy.
-const dsLabel: React.CSSProperties = { fontSize: 9.5, fontWeight: 400, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: ff, marginBottom: 6 };
+const dsLabel: React.CSSProperties = { fontSize: 9.5, fontWeight: 400, color: "#8a8580", fontFamily: ff, marginBottom: 6 };
 
 // These hex values describe the actual color tokens designed for the real
 // Hotelogix product (the subject of this case study) — left untouched, like
@@ -1083,8 +1083,7 @@ export default function HotelogixFrontdeskPreview() {
       {/* Project Snapshot — sits right after the hero, no numbered eyebrow */}
       <section style={{ background: "var(--sp-cream)", padding: "60px 8% 90px" }}>
         <p style={{
-          fontSize: 16, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase",
-          color: "#8a8580", fontFamily: ff, textAlign: "center", marginBottom: 14,
+          fontSize: 16, fontWeight: 400, color: "#8a8580", fontFamily: ff, textAlign: "center", marginBottom: 14,
         }}>
           Project Snapshot
         </p>
@@ -1368,7 +1367,7 @@ export default function HotelogixFrontdeskPreview() {
       {/* Section 10 — Impact */}
       <section style={{ background: "var(--sp-cream)", padding: "60px 8%" }}>
         <div style={{ background: "var(--sp-dew)", border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-xl)", padding: "56px 48px 48px", maxWidth: 1120, margin: "0 auto" }}>
-          <div style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.08em", color: "var(--sp-orange)", fontFamily: ff, marginBottom: 24 }}>
+          <div style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff, marginBottom: 24 }}>
             10 — IMPACT
           </div>
           <h2 style={{

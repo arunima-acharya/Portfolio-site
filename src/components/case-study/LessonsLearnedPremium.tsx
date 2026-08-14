@@ -20,7 +20,7 @@ function SectionEyebrow({ number, label, align = "center" }: { number: string; l
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: align === "left" ? "flex-start" : "center", gap: "var(--spacing-8)", marginBottom: 20 }}>
       <span style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff }}>{number}</span>
-      <span style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8a8580", fontFamily: ff }}>{label}</span>
+      <span style={{ fontSize: 16, fontWeight: 400, color: "#8a8580", fontFamily: ff }}>{label}</span>
     </div>
   );
 }
@@ -604,7 +604,7 @@ export default function LessonsLearnedPremium({
             SectionEyebrow's own label. */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <SectionEyebrow number={sectionNumber} label="Lessons Learned" align="left" />
-          <span style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8a8580", fontFamily: ff, marginBottom: 20 }}>
+          <span style={{ fontSize: 16, fontWeight: 400, color: "#8a8580", fontFamily: ff, marginBottom: 20 }}>
             {caseStudyLabel}
           </span>
         </div>

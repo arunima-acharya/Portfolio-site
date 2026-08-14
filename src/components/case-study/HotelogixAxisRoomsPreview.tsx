@@ -184,8 +184,7 @@ export default function HotelogixAxisRoomsPreview() {
       {/* Project Snapshot — sits right after the hero, no numbered eyebrow */}
       <section style={{ background: "#f3f3f3", padding: "60px 8% 90px" }}>
         <p style={{
-          fontSize: 12, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase",
-          color: "#999", fontFamily: ff, textAlign: "center", marginBottom: 14,
+          fontSize: 12, fontWeight: 400, color: "#999", fontFamily: ff, textAlign: "center", marginBottom: 14,
         }}>
           Project Snapshot
         </p>
@@ -402,7 +401,7 @@ export default function HotelogixAxisRoomsPreview() {
       {/* Section 09 — Impact */}
       <section style={{ background: "#f3f3f3", padding: "60px 8%" }}>
         <div style={{ background: "#26B898", borderRadius: 28, padding: "56px 48px 48px", maxWidth: 1120, margin: "0 auto" }}>
-          <div style={{ fontSize: 13, fontWeight: 400, letterSpacing: "0.08em", color: "#fff", fontFamily: ff, marginBottom: 24 }}>
+          <div style={{ fontSize: 13, fontWeight: 400, color: "#fff", fontFamily: ff, marginBottom: 24 }}>
             09 — IMPACT
           </div>
           <h2 style={{
@@ -425,7 +424,7 @@ export default function HotelogixAxisRoomsPreview() {
 
       {/* Section 10 — Lessons Learned */}
       <section style={{ background: "#f3f3f3", padding: "70px 8% 100px" }}>
-        <div style={{ fontSize: 13, fontWeight: 400, letterSpacing: "0.08em", color: "#26B898", fontFamily: ff, marginBottom: "var(--spacing-32)", maxWidth: 1120, margin: "0 auto 32px" }}>
+        <div style={{ fontSize: 13, fontWeight: 400, color: "#26B898", fontFamily: ff, marginBottom: "var(--spacing-32)", maxWidth: 1120, margin: "0 auto 32px" }}>
           10 — LESSONS LEARNED
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--spacing-20)", maxWidth: 1120, margin: "0 auto" }}>

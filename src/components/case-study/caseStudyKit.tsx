@@ -66,7 +66,7 @@ export function SectionEyebrow({ number, label, align = "center" }: { number: st
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: align === "left" ? "flex-start" : "center", gap: "var(--spacing-8)", marginBottom: 20 }}>
       <span style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff }}>{number}</span>
-      <span style={{ fontSize: 12, fontWeight: 400, letterSpacing: "0.18em", textTransform: "uppercase", color: "#8a8580", fontFamily: ff }}>{label}</span>
+      <span style={{ fontSize: 12, fontWeight: 400, color: "#8a8580", fontFamily: ff }}>{label}</span>
     </div>
   );
 }
@@ -304,7 +304,7 @@ export function InsightCard({ badge, title, desc, children }: { badge?: string; 
           display: "inline-flex", alignItems: "center", gap: 5, marginBottom: "var(--spacing-16)", background: "rgba(255,111,30,0.12)",
           borderRadius: 999, padding: "5px 12px",
         }}>
-          <span style={{ fontSize: 12, fontWeight: 400, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sp-orange)", fontFamily: ff }}>{badge}</span>
+          <span style={{ fontSize: 12, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff }}>{badge}</span>
         </div>
       )}
       <div style={{ marginBottom: 18 }}>
@@ -339,7 +339,7 @@ export function ResearchMethodsBar({ methods }: { methods: Array<{ label: string
       maxWidth: 1160, margin: "40px auto 0", boxShadow: "var(--shadow-lg)",
     }}>
       <div style={{ flex: "0 0 200px" }}>
-        <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: "0.08em", color: "var(--sp-orange)", fontFamily: ff, marginBottom: 8 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: "var(--sp-orange)", fontFamily: ff, marginBottom: 8 }}>
           RESEARCH METHODS
         </div>
         <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.55, margin: 0 }}>
@@ -642,7 +642,7 @@ function SolutionRow({ icon, iconBg, iconColor, label, labelColor, children, las
         {icon}
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: labelColor, fontFamily: ff, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.03em" }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: labelColor, fontFamily: ff, marginBottom: 5, letterSpacing: "0.03em" }}>
           {label}
         </div>
         <div style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.55 }}>{children}</div>
@@ -745,7 +745,7 @@ export function DesignSystemCard({ number, title, children }: { number: string; 
 // diagram/spec annotations, not reading-content body copy — exempted from
 // the 16px minimum, matching the same exemption applied elsewhere in this
 // codebase's dashboard mockups.
-export const dsLabel: React.CSSProperties = { fontSize: 9.5, fontWeight: 400, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: ff, marginBottom: 6 };
+export const dsLabel: React.CSSProperties = { fontSize: 9.5, fontWeight: 400, color: "#8a8580", fontFamily: ff, marginBottom: 6 };
 
 export const COLOR_PRIMARY = [
   { hex: "#1C46F2", label: "Primary" },
@@ -1141,7 +1141,7 @@ function IsoStepCard({ icon, title, number, active }: {
   return (
     <div style={{ width: 110, display: "flex", flexDirection: "column", alignItems: "center" }}>
       <span style={{
-        fontSize: 11, fontWeight: 700, fontFamily: ff, letterSpacing: "0.04em", marginBottom: "var(--spacing-8)",
+        fontSize: 11, fontWeight: 700, fontFamily: ff, marginBottom: "var(--spacing-8)",
         color: active ? "var(--sp-orange)" : "#9aa1ac", transition: "color 0.4s ease",
       }}>
         {number}

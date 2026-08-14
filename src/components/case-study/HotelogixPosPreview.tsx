@@ -304,8 +304,7 @@ export default function HotelogixPosPreview() {
       {/* Project Snapshot — sits right after the hero, no numbered eyebrow */}
       <section style={{ background: "var(--sp-cream)", padding: "60px 8% 90px" }}>
         <p style={{
-          fontSize: 16, fontWeight: 400, letterSpacing: "0.14em", textTransform: "uppercase",
-          color: "#8a8580", fontFamily: ff, textAlign: "center", marginBottom: 14,
+          fontSize: 16, fontWeight: 400, color: "#8a8580", fontFamily: ff, textAlign: "center", marginBottom: 14,
         }}>
           Project Snapshot
         </p>
@@ -550,7 +549,7 @@ export default function HotelogixPosPreview() {
       {/* Section 10 — Impact */}
       <section style={{ background: "var(--sp-cream)", padding: "60px 8%" }}>
         <div style={{ background: "var(--sp-dew)", border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-xl)", padding: "56px 48px 48px", maxWidth: 1120, margin: "0 auto" }}>
-          <div style={{ fontSize: 16, fontWeight: 400, letterSpacing: "0.08em", color: "var(--sp-orange)", fontFamily: ff, marginBottom: 24 }}>
+          <div style={{ fontSize: 16, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff, marginBottom: 24 }}>
             10 — IMPACT
           </div>
           <h2 style={{

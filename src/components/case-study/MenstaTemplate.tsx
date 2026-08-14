@@ -428,7 +428,7 @@ function ProjectSnapshotSection({ data }: { data: NonNullable<MenstaData["snapsh
     <div ref={ref} style={{ background: "var(--sp-cream)", borderBottom: "1px solid rgba(23,23,23,0.08)" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: "80px 32px" }}>
         <div style={{ ...revealStyle(visible, 0), textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>
             Project Snapshot
           </p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>
@@ -496,7 +496,7 @@ function TrustedSection({ data }: { data: MenstaData["trusted"] }) {
   return (
     <section style={{ background: "var(--sp-dew)", padding: "40px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
-        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textAlign: "center", marginBottom: "var(--spacing-24)", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textAlign: "center", marginBottom: "var(--spacing-24)"  }}>
           {data.text}
         </p>
         <div style={{ display: "flex", gap: "var(--spacing-32)", flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}>
@@ -687,7 +687,7 @@ function OpportunitySection({ data }: { data: NonNullable<MenstaData["opportunit
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 50 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
           <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
         </div>
@@ -1000,7 +1000,7 @@ function ApproachSection({ data, active }: { data: NonNullable<MenstaData["appro
         {/* Right: text content */}
         <div style={revealStyle(revealed)}>
           {data.eyebrow && (
-            <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>
+            <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>
               {data.eyebrow}
             </p>
           )}
@@ -1106,7 +1106,7 @@ function CoreExperienceSection({ data, active }: { data: NonNullable<MenstaData[
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "var(--spacing-64)", marginTop: "5%" }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "var(--sp-cocoa)", marginBottom: 14 }}>
             {data.heading} {data.headingAccent}
           </h2>
@@ -1200,7 +1200,7 @@ function WhyBestSection({ data }: { data: MenstaData["whyBest"] }) {
     <section style={{ background: "var(--sp-cream)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
           <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
         </div>
@@ -1276,7 +1276,7 @@ function HowItWorksSection({ data }: { data: MenstaData["howItWorks"] }) {
     <section style={{ background: "var(--sp-dew)", padding: "80px 0 5%", position: "relative", overflow: "clip" }}>
       {/* Header */}
       <div style={{ maxWidth: MAX_W, margin: "0 auto", padding: "0 32px", textAlign: "center", marginBottom: 80 }}>
-        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
         <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
         <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
       </div>
@@ -1344,7 +1344,7 @@ function IntegrationsSection({ data, features }: { data: MenstaData["integration
     <section style={{ background: "var(--sp-cream)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{features.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{features.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{features.heading}</h2>
           <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto 40px" }}>{features.subtext}</p>
           <h3 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: 24, fontWeight: 600, color: "var(--sp-cocoa)", marginBottom: 10 }}>{data.heading}</h3>
@@ -1367,7 +1367,7 @@ function TestimonialsSection({ data }: { data: MenstaData["testimonials"] }) {
     <section style={{ background: "var(--sp-dew)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
           <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 480, margin: "0 auto" }}>{data.subtext}</p>
         </div>
@@ -1400,7 +1400,7 @@ function FAQSection({ data }: { data: MenstaData["faq"] }) {
     <section style={{ background: "var(--sp-dew)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2 }}>{data.heading}</h2>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -1467,8 +1467,7 @@ function CaseStudyCard({ project, index, delay, revealed }: {
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <span style={{
             fontFamily: ff,
-            fontSize: 10, fontWeight: 500, letterSpacing: "0.2em",
-            textTransform: "uppercase" as const, color: "rgba(0,0,0,0.18)",
+            fontSize: 10, fontWeight: 500, color: "rgba(0,0,0,0.18)",
           }}>{project.industry}</span>
         </div>
         {/* Floating info bar */}
@@ -1525,7 +1524,7 @@ function OtherCaseStudiesSection({ currentSlug }: { currentSlug: string }) {
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ marginBottom: "var(--spacing-48)", ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>More work</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>More work</p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
             <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2 }}>Other case studies</h2>
             <a href="/case-studies" style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, color: "#8a8580", textDecoration: "none", whiteSpace: "nowrap" as const, paddingBottom: 4 }}
@@ -1550,7 +1549,7 @@ function CTASection({ data, appName }: { data: MenstaData["cta"]; appName: strin
   return (
     <section style={{ background: "var(--sp-dew)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto", textAlign: "center" }}>
-        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 14 }}>{data.eyebrow}</p>
+        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 14 }}>{data.eyebrow}</p>
         <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 36 }}>{data.heading}</h2>
         <div style={{ display: "flex", gap: "var(--spacing-12)", justifyContent: "center", marginBottom: 56 }}>
           <button style={{ fontFamily: ff, fontSize: 14, fontWeight: 600, background: "var(--sp-cream)", color: "var(--sp-charcoal)", border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl-2)", padding: "13px 28px", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}>
@@ -1582,7 +1581,7 @@ function DesignSystemSection({ data, active }: { data: NonNullable<MenstaData["d
   const [revealed, setRevealed] = useState(false);
   useEffect(() => { if (active) setRevealed(true); }, [active]);
 
-  const SL = { fontSize: 10, fontWeight: 700, color: "#9ca3af", textTransform: "uppercase" as const, letterSpacing: "0.06em", marginBottom: 7 };
+  const SL = { fontSize: 10, fontWeight: 700, color: "#9ca3af", marginBottom: 7 };
 
   const leftCards = [
     {
@@ -1675,7 +1674,7 @@ function DesignSystemSection({ data, active }: { data: NonNullable<MenstaData["d
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Centered header */}
         <div style={{ textAlign: "center", marginBottom: "var(--spacing-64)", marginTop: "5%", ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "var(--sp-cocoa)", marginBottom: 14 }}>
             {data.heading}
           </h2>
@@ -1816,7 +1815,7 @@ function ChallengesSection({ data, active }: { data: NonNullable<MenstaData["cha
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 56, ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "var(--sp-cocoa)", marginBottom: 14 }}>
             {data.heading}{" "}
             <span style={{ color: PRP }}>{data.headingAccent}</span>
@@ -1917,7 +1916,7 @@ function GoalSection() {
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div ref={ref} style={{ borderRadius: "var(--radius-2xl-2)", overflow: "hidden", background: `linear-gradient(135deg, ${PRP} 0%, #4f46e5 100%)`, boxShadow: "0 8px 32px rgba(99,102,241,0.22)", ...revealStyle(revealed) }}>
           <div style={{ padding: "32px 40px 28px", borderBottom: "1px solid rgba(255,255,255,0.12)", textAlign: "center" as const }}>
-            <p style={{ fontFamily: ff, fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase" as const, letterSpacing: "0.1em", marginBottom: 10 }}>The goal</p>
+            <p style={{ fontFamily: ff, fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.6)", marginBottom: 10 }}>The goal</p>
             <p style={{ fontFamily: ff, fontSize: 20, fontWeight: 700, color: "white", lineHeight: 1.5, maxWidth: 540, margin: "0 auto" }}>Make complex operations effortless on mobile—so staff can focus on guests, not the system.</p>
           </div>
           <div style={{ display: "flex", padding: "24px 40px" }}>
@@ -2114,7 +2113,7 @@ function UXAuditSection({ data }: { data: NonNullable<MenstaData["uxAudit"]> }) 
       <div style={{ maxWidth: MAX_W, margin: "0 auto", display: "flex", flexDirection: "column" as const, alignItems: "center" }}>
         {/* TOP — copy, centered */}
         <div style={{ maxWidth: 640, textAlign: "center" as const, marginBottom: 56, ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: ff, fontSize: 12.5, fontWeight: 800, color: ACCENT, textTransform: "uppercase" as const, letterSpacing: "0.14em", marginBottom: 18 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 12.5, fontWeight: 800, color: ACCENT, marginBottom: 18 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(32px,3.6vw,48px)", fontWeight: 800, color: "var(--sp-cocoa)", lineHeight: 1.08, marginBottom: 22 }}>
             {data.heading.join(" ")}
           </h2>
@@ -2147,7 +2146,7 @@ function InformationArchitectureSection({ data }: { data: NonNullable<MenstaData
     <section ref={ref} style={{ background: "var(--sp-dew)", padding: "90px 32px" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center" as const, marginBottom: 56, ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
           <p style={{ fontFamily: ff, fontSize: 15, color: "#8a8580", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>{data.subtext}</p>
         </div>
@@ -2214,7 +2213,7 @@ function WorkflowTransformationSection({ data }: { data: NonNullable<MenstaData[
     <section ref={ref} style={{ background: "var(--sp-cream)", padding: "90px 32px" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         <div style={{ textAlign: "center" as const, marginBottom: "var(--spacing-20)", ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+          <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
           <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, color: "var(--sp-cocoa)", lineHeight: 1.2, marginBottom: 14 }}>{data.heading}</h2>
         </div>
         <div style={{ maxWidth: 640, margin: "0 auto 48px", ...revealStyle(revealed, 60) }}>
@@ -2324,7 +2323,7 @@ function OutcomeSection({ data }: { data: NonNullable<MenstaData["outcome"]> }) 
 
       {/* Header */}
       <div style={{ textAlign: "center" as const, maxWidth: MAX_W, margin: "0 auto", padding: "80px 32px 56px", ...revealStyle(revealed) }}>
-        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", textTransform: "uppercase" as const, letterSpacing: "0.08em", marginBottom: 10 }}>{data.eyebrow}</p>
+        <p style={{ fontFamily: ff, fontSize: 13, color: "#8a8580", marginBottom: 10 }}>{data.eyebrow}</p>
         <h2 style={{ fontFamily: ffHeading, textTransform: "capitalize" as const, fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 700, lineHeight: 1.2, color: "var(--sp-cocoa)", marginBottom: 14 }}>
           {data.heading}<br />
           Built for <span style={{ color: PRP }}>{data.headingAccent}</span>
