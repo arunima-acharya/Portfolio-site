@@ -18,7 +18,7 @@ const WORK_BG_SVGS = [
   "/assets/work%20bg/bg%204.svg",
 ];
 
-const SVG_TILT_DEGREES = [-2, 4, -3, 3];
+const SVG_TILT_DEGREES = [-2, 3, -4, 5];
 
 function stickyTop(index: number) {
   return 160 + index * 28;
