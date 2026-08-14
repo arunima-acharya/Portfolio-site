@@ -10,7 +10,7 @@ const MOBILE_UA_RE = /iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|IEMob
 // Only paths that actually have a built /m/* page — everything else falls
 // through to the regular (responsive) desktop site rather than 404ing.
 // Expand this list as more of the mobile tree gets built out.
-const MOBILE_PATHS = new Set(["/", "/contact"]);
+const MOBILE_PATHS = new Set(["/", "/contact", "/case-studies"]);
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

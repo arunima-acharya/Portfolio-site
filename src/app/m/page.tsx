@@ -52,7 +52,7 @@ export default function MobileHome() {
         </p>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <Link
-            href="/case-studies"
+            href="/m/case-studies"
             style={{
               display: "inline-flex", alignItems: "center", gap: 6,
               background: "var(--sp-cream)", color: "var(--sp-charcoal)",
@@ -126,7 +126,7 @@ export default function MobileHome() {
           ))}
         </div>
         <Link
-          href="/case-studies"
+          href="/m/case-studies"
           style={{
             display: "block", textAlign: "center", marginTop: 18,
             fontSize: 15, fontWeight: 500, color: "var(--sp-charcoal)",
