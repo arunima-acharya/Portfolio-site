@@ -22,10 +22,11 @@ const BOTTOM_LINKS = [
 export default function Footer() {
   const year = new Date().getFullYear();
   const pathname = usePathname();
+  if (pathname?.startsWith("/m")) return null;
   const isHome = pathname === "/";
 
-  const bg = isHome ? "#e8510a" : "#000";
-  const fg = isHome ? "#111" : "#fff";
+  const bg = isHome ? "var(--sp-orange)" : "var(--sp-charcoal)";
+  const fg = isHome ? "var(--sp-charcoal)" : "var(--sp-cream)";
   const borderColor = isHome ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.25)";
   const dividerColor = isHome ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.3)";
   const mutedColor = isHome ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.6)";
@@ -40,6 +41,7 @@ export default function Footer() {
         width: "100%",
         position: "relative",
         overflow: "hidden",
+        borderRadius: "var(--radius-footer) var(--radius-footer) 0 0",
       }}
     >
       {/* Main body */}
@@ -52,16 +54,16 @@ export default function Footer() {
         <h2
           style={{
             fontSize: "clamp(28px, 4.5vw, 62px)",
-            fontWeight: 400,
+            fontWeight: 600,
             lineHeight: 1.12,
-            letterSpacing: "-0.03em",
+            letterSpacing: "normal",
             color: fg,
-            fontFamily: "var(--font-inter), sans-serif",
+            fontFamily: "var(--font-gelica)",
             maxWidth: "16ch",
-            marginBottom: "64px",
+            marginBottom: "var(--spacing-64)",
           }}
         >
-          I design products people love. Let&apos;s work together.
+          i design products people love. let&apos;s work together.
         </h2>
 
         {/* Middle nav row */}
@@ -86,10 +88,10 @@ export default function Footer() {
                 padding: "18px 0",
                 paddingLeft: i === 0 ? "0" : "24px",
                 borderLeft: i === 0 ? "none" : `1px solid ${borderColor}`,
-                fontSize: "14px",
+                fontSize: "16px",
                 fontWeight: 400,
                 color: fg,
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-geist), sans-serif",
                 textDecoration: "none",
                 letterSpacing: "-0.01em",
                 transition: "opacity 0.15s ease",
@@ -108,27 +110,27 @@ export default function Footer() {
           style={{
             alignItems: "flex-end",
             justifyContent: "space-between",
-            paddingTop: "48px",
-            paddingBottom: "48px",
+            paddingTop: "var(--spacing-48)",
+            paddingBottom: "var(--spacing-48)",
           }}
         >
           {/* Brand name */}
           <div
             style={{
               fontSize: "clamp(22px, 3vw, 36px)",
-              fontWeight: 400,
-              letterSpacing: "-0.03em",
+              fontWeight: 500,
+              letterSpacing: "normal",
               lineHeight: 1.15,
               color: fg,
-              fontFamily: "var(--font-inter), sans-serif",
+              fontFamily: "var(--font-gelica)",
             }}
           >
-            Arunima
+            arunima
             <br />
-            Acharya
+            acharya
             <br />
             <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-              Design
+              design
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ marginBottom: "2px" }}>
                 <path d="M4 16L16 4M16 4H8M16 4V12" stroke={fg} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -166,17 +168,17 @@ export default function Footer() {
         {BOTTOM_LINKS.map((link, i) => (
           <span key={link.label} style={{ display: "flex", alignItems: "center" }}>
             {i !== 0 && (
-              <span style={{ color: dividerColor, margin: "0 14px", fontSize: "12px" }}>|</span>
+              <span style={{ color: dividerColor, margin: "0 14px", fontSize: "16px" }}>|</span>
             )}
             <Link
               href={link.href}
               target={"external" in link && link.external ? "_blank" : undefined}
               rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
               style={{
-                fontSize: "12px",
+                fontSize: "16px",
                 fontWeight: 400,
                 color: mutedColor,
-                fontFamily: "var(--font-inter), sans-serif",
+                fontFamily: "var(--font-geist), sans-serif",
                 textDecoration: "none",
                 letterSpacing: "0.01em",
                 transition: "color 0.15s ease",
@@ -190,7 +192,7 @@ export default function Footer() {
           </span>
         ))}
 
-        <span style={{ marginLeft: "auto", fontSize: "12px", color: faintColor, fontFamily: "var(--font-inter), sans-serif" }}>
+        <span style={{ marginLeft: "auto", fontSize: "16px", color: faintColor, fontFamily: "var(--font-geist), sans-serif" }}>
           © {year}
         </span>
       </div>

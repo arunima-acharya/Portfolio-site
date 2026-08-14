@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect } from "react";
 
 type Theme = "dark" | "light";
 
@@ -9,23 +9,19 @@ const ThemeContext = createContext<{ theme: Theme; setTheme: (t: Theme) => void 
   setTheme: () => {},
 });
 
+// Site is light-mode only — dark mode was removed. `setTheme` is kept as a
+// no-op (rather than deleted) so any lingering call sites don't break, and
+// any stale "dark" value from an old visitor's localStorage is overwritten
+// on load instead of being honored.
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
-
   useEffect(() => {
-    const stored = (localStorage.getItem("theme") as Theme | null) ?? "light";
-    applyTheme(stored);
+    localStorage.setItem("theme", "light");
+    document.documentElement.classList.remove("dark");
+    document.documentElement.classList.add("light");
   }, []);
 
-  function applyTheme(t: Theme) {
-    setThemeState(t);
-    localStorage.setItem("theme", t);
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(t);
-  }
-
   return (
-    <ThemeContext.Provider value={{ theme, setTheme: applyTheme }}>
+    <ThemeContext.Provider value={{ theme: "light", setTheme: () => {} }}>
       {children}
     </ThemeContext.Provider>
   );

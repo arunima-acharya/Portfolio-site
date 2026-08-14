@@ -11,14 +11,15 @@ export interface ResearchMetaEntry {
 // research detail hero so the two never drift out of sync.
 export const RESEARCH_META: Record<string, ResearchMetaEntry> = {
   "ux4g": {
-    accent: "#4a90d9",
+    accent: "#ff6f1e",
     eyebrow: "Design Systems Audit",
     readTime: "6 min read",
     light: true,
   },
   "ai-conversation-ux": {
-    accent: "#e8510a",
+    accent: "#ff6f1e",
     eyebrow: "Design Investigation #01",
     readTime: "9 min read",
+    light: true,
   },
 };

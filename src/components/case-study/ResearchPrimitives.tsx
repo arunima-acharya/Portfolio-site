@@ -45,7 +45,7 @@ export function Section({
             </span>
             <span className="h-px flex-1 max-w-[64px]" style={{ background: `linear-gradient(90deg, ${accent}66, transparent)` }} />
           </div>
-          <h2 className="text-2xl md:text-[28px] font-semibold tracking-tight" style={{ color: p.text, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}>{title}</h2>
+          <h2 className="text-2xl md:text-[28px] tracking-tight" style={{ color: p.text, fontFamily: "var(--font-gelica)", fontWeight: 600, textTransform: "lowercase" }}>{title}</h2>
         </div>
         {children}
       </div>
@@ -113,7 +113,7 @@ export function Callout({ label = "Key insight", children }: { label?: string; c
     >
       <Lightbulb size={20} className="flex-shrink-0 mt-0.5" style={{ color: accentText }} />
       <div className="space-y-1.5">
-        <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: accentText }}>{label}</p>
+        <p className="text-xs font-semibold" style={{ color: accentText }}>{label}</p>
         <p className="text-[15.5px] leading-relaxed" style={{ color: p.text }}>{children}</p>
       </div>
     </div>
@@ -137,7 +137,7 @@ export function StatRow({ items }: { items: StatItem[] }) {
           <p className="font-semibold tracking-tight" style={{ fontSize: "clamp(1.9rem, 4vw, 2.4rem)", color: accent, lineHeight: 1 }}>
             {s.value}
           </p>
-          <p className="text-[12.5px] uppercase tracking-wide leading-snug" style={{ color: p.textMuted }}>{s.label}</p>
+          <p className="text-[12.5px] leading-snug" style={{ color: p.textMuted }}>{s.label}</p>
         </div>
       ))}
     </div>
@@ -158,7 +158,7 @@ export function ImagePlaceholder({ label }: { label: string }) {
         style={{ background: `radial-gradient(ellipse 60% 60% at 50% 40%, ${accent}14 0%, transparent 70%)` }}
       />
       <ImageOff size={20} className="relative z-10" style={{ color: `${accent}99` }} />
-      <span className="relative z-10 text-xs font-mono uppercase tracking-widest text-center px-6" style={{ color: p.textFaint }}>{label}</span>
+      <span className="relative z-10 text-xs font-mono text-center px-6" style={{ color: p.textFaint }}>{label}</span>
     </div>
   );
 }
@@ -275,7 +275,7 @@ export function CompareCards({ cards, connector }: { cards: CompareCard[]; conne
       {connector && (
         <div className="flex items-center gap-3 justify-center">
           <span className="h-px flex-1" style={{ background: `linear-gradient(90deg, transparent, ${p.border})` }} />
-          <span className="text-[12px] uppercase tracking-widest whitespace-nowrap" style={{ color: p.textMuted }}>{connector}</span>
+          <span className="text-[12px] whitespace-nowrap" style={{ color: p.textMuted }}>{connector}</span>
           <span className="h-px flex-1" style={{ background: `linear-gradient(90deg, ${p.border}, transparent)` }} />
         </div>
       )}
@@ -376,7 +376,7 @@ export function FrictionGroup({ level, items }: { level: keyof typeof FRICTION_S
     <div className="space-y-5">
       <div className="flex items-center gap-2">
         <Icon size={15} style={{ color: s.text }} />
-        <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: s.text }}>{s.label}</span>
+        <span className="text-xs font-semibold" style={{ color: s.text }}>{s.label}</span>
       </div>
       <div className="space-y-4">
         {items.map((item, i) => (
@@ -395,7 +395,7 @@ export function FrictionGroup({ level, items }: { level: keyof typeof FRICTION_S
               </div>
             )}
             <div className="pt-1">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-1.5" style={{ color: p.textFaint }}>Impact</p>
+              <p className="text-xs font-semibold mb-1.5" style={{ color: p.textFaint }}>Impact</p>
               <div className="flex flex-wrap gap-2">
                 {item.impact.map((tag, k) => (
                   <span
@@ -470,11 +470,11 @@ export function MatrixTable({ rows, headings = { first: "Enhancement" } }: { row
         <table className="w-full min-w-[720px] border-collapse text-left">
           <thead>
             <tr style={{ borderBottom: `1px solid ${p.cardBorderStrong}` }}>
-              <th className="py-3 pr-4 text-xs font-semibold uppercase tracking-widest w-10" style={{ color: p.textFaint }}>#</th>
-              <th className="py-3 pr-4 text-xs font-semibold uppercase tracking-widest" style={{ color: p.textFaint }}>{headings.first ?? "Enhancement"}</th>
-              <th className="py-3 pr-4 text-xs font-semibold uppercase tracking-widest" style={{ color: p.textFaint }}>Impact</th>
-              <th className="py-3 pr-4 text-xs font-semibold uppercase tracking-widest" style={{ color: p.textFaint }}>Effort</th>
-              <th className="py-3 text-xs font-semibold uppercase tracking-widest" style={{ color: p.textFaint }}>Priority</th>
+              <th className="py-3 pr-4 text-xs font-semibold w-10" style={{ color: p.textFaint }}>#</th>
+              <th className="py-3 pr-4 text-xs font-semibold" style={{ color: p.textFaint }}>{headings.first ?? "Enhancement"}</th>
+              <th className="py-3 pr-4 text-xs font-semibold" style={{ color: p.textFaint }}>Impact</th>
+              <th className="py-3 pr-4 text-xs font-semibold" style={{ color: p.textFaint }}>Effort</th>
+              <th className="py-3 text-xs font-semibold" style={{ color: p.textFaint }}>Priority</th>
             </tr>
           </thead>
           <tbody>

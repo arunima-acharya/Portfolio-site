@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, Anton, Manrope, Kanit, Source_Serif_4, Instrument_Serif, Playfair_Display, Caveat } from "next/font/google";
+import { Inter, Inter_Tight, Anton, Manrope, Kanit, Source_Serif_4, Instrument_Serif, Playfair_Display, Caveat, Fraunces, Geist, Patrick_Hand } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -71,6 +71,31 @@ const caveat = Caveat({
   display: "swap",
 });
 
+// Superr style reference — rounded display serif (substitute for gelica) +
+// clean grotesque for secondary UI.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
+const geist = Geist({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-geist",
+  display: "swap",
+});
+
+// Closest legitimately-licensed substitute for Figma's own (non-embeddable)
+// "Figma Hand" sticky-note font — used for the testimonial-card quotes.
+const patrickHand = Patrick_Hand({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-patrick-hand",
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -139,11 +164,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${interTight.variable} ${anton.variable} ${manrope.variable} ${kanit.variable} ${sourceSerif4.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${caveat.variable} light`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${interTight.variable} ${anton.variable} ${manrope.variable} ${kanit.variable} ${sourceSerif4.variable} ${instrumentSerif.variable} ${playfairDisplay.variable} ${caveat.variable} ${fraunces.variable} ${geist.variable} ${patrickHand.variable} light`} suppressHydrationWarning>
       <head>
+        <link rel="stylesheet" href="https://use.typekit.net/cym0usy.css" />
         <script dangerouslySetInnerHTML={{ __html: `(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.classList.remove('light','dark');document.documentElement.classList.add(t);})();` }} />
       </head>
-      <body className="antialiased" style={{ color: "var(--text-primary)", fontFamily: "var(--font-manrope), sans-serif" }}>
+      <body className="antialiased" style={{ color: "var(--text-primary)", fontFamily: "var(--font-geist), sans-serif" }}>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-[9999] bg-white text-black px-4 py-2 rounded-lg text-sm font-medium"

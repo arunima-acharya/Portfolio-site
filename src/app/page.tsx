@@ -1,17 +1,10 @@
 ﻿import type { Metadata } from "next";
-import JackPortfolio from "@/components/jack";
 import FeaturedWork from "@/components/sections/FeaturedWork";
 import Services from "@/components/sections/Services";
-import Testimonials from "@/components/sections/Testimonials";
 import ToolkitTestimonialsOverlap from "@/components/sections/ToolkitTestimonialsOverlap";
-import BentoExpertise from "@/components/sections/BentoExpertise";
-import HiIntro from "@/components/sections/HiIntro";
-import HeroSectionsWrapper from "@/components/sections/HeroSectionsWrapper";
 import DesignProcess3D from "@/components/sections/DesignProcess3D";
-import ExperiencesBento from "@/components/sections/ExperiencesBento";
 import HomeClient from "./HomeClient";
 import DarkHeroStatement from "@/components/sections/DarkHeroStatement";
-import MacbookScrollDemo from "@/components/MacbookScrollDemo";
 import TypographyZoom from "@/components/sections/TypographyZoom";
 import MainframeHero from "@/components/sections/MainframeHero";
 import HeroBgSticky from "@/components/sections/HeroBgSticky";
@@ -20,8 +13,9 @@ import HeroBgSticky from "@/components/sections/HeroBgSticky";
 // 15% — Services/BentoExpertise already add their own ~20px mobile padding inside, so a fixed
 // 15% here was stacking with it and over-cramping content on phones.
 const PAD = { paddingLeft: "var(--gutter)", paddingRight: "var(--gutter)" } as const;
-const PAD_WHITE = { ...PAD, backgroundColor: "#fff" } as const;
-const PAD_SERVICES = { ...PAD, backgroundColor: "#FFF7EE" } as const;
+// No right padding — the Services section's notebook visual runs to the
+// true viewport edge on its right side, matching the reference design.
+const PAD_SERVICES = { ...PAD, paddingRight: 0, backgroundColor: "var(--sp-cream)" } as const;
 
 export const metadata: Metadata = {
   title: "Arunima Acharya — Senior Product Designer",
@@ -41,17 +35,14 @@ export default function HomePage() {
       {/* Dark statement — black background, full width */}
       <DarkHeroStatement />
 
-      {/* Selected Works */}
-      <FeaturedWork />
+      {/* Selected Works — svg scroll-stack version only (plain-card version removed) */}
+      <FeaturedWork useSvgs />
 
-      {/* Section 5 — Services (padded, bg spans full width incl. gutters) */}
+      {/* Section 5 — Services (padded, bg spans full width incl. gutters) —
+          includes the SuperrBook vector-flip notebook animation on its
+          right side */}
       <div style={PAD_SERVICES}>
         <section id="services"><Services /></section>
-      </div>
-
-      {/* Section 6 — BentoExpertise (padded, white bg spans full width incl. gutters) */}
-      <div style={PAD_WHITE}>
-        <BentoExpertise />
       </div>
 
       {/* Section 7 — DesignProcess3D (full width) */}

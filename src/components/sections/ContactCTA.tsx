@@ -30,19 +30,20 @@ export default function ContactCTA() {
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "16px",
+              gap: "var(--spacing-16)",
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              fontWeight: 700,
-              color: "#111",
-              fontFamily: "var(--font-inter), sans-serif",
-              letterSpacing: "-0.03em",
+              fontWeight: 600,
+              color: "var(--sp-cocoa)",
+              fontFamily: "var(--font-gelica)",
+              textTransform: "capitalize",
+              letterSpacing: "normal",
               lineHeight: 1.15,
               textDecoration: "none",
-              marginBottom: "24px",
+              marginBottom: "var(--spacing-24)",
               transition: "color 0.18s",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#e8510a")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#111")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--sp-orange)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--sp-cocoa)")}
           >
             Have a project in mind?
             <ArrowRight
@@ -53,10 +54,10 @@ export default function ContactCTA() {
 
           <p
             style={{
-              fontSize: "clamp(0.9rem, 1.4vw, 1rem)",
+              fontSize: "16px",
               color: "#666",
               lineHeight: 1.7,
-              fontFamily: "var(--font-inter), sans-serif",
+              fontFamily: "var(--font-geist), sans-serif",
               maxWidth: 400,
             }}
           >

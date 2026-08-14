@@ -12,7 +12,7 @@ export default function TypographyZoom() {
       style={{
         backgroundColor: "transparent",
         position:        "relative",
-        height:          "100vh",
+        minHeight:       "100vh",
         display:         "flex",
         alignItems:      "center",
         justifyContent:  "center",
@@ -37,32 +37,29 @@ export default function TypographyZoom() {
         <div
           style={{
             fontSize:   isMobile ? "1.56rem" : "clamp(1.2rem, 3.6vw, 3rem)",
-            fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
-            fontStyle:  "italic",
-            fontWeight: 540,
-            color:      "#1A2332",
+            fontFamily: "var(--font-gelica)",
+            fontWeight: 600,
+            color:      "var(--sp-cocoa)",
             lineHeight: 1,
             whiteSpace: "nowrap",
           }}
         >
-          What&apos;s on My Desk
+          what&apos;s on my desk
         </div>
         <span
           style={{
             display:       "inline-block",
-            border:        "1px solid #1A2332",
-            borderRadius:  "9999px",
+            border:        "1px solid var(--sp-charcoal)",
+            borderRadius:  "20px",
             padding:       "0.5em 1.4em",
-            fontFamily:    "var(--font-inter), sans-serif",
-            fontSize:      isMobile ? "0.65rem" : "clamp(0.5rem, 0.78vw, 0.7rem)",
+            fontFamily:    "var(--font-geist), sans-serif",
+            fontSize:      "16px",
             fontWeight:    500,
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
-            color:         "#1A2332",
+            color:         "var(--sp-charcoal)",
             whiteSpace:    "nowrap",
           }}
         >
-          Product Designer Edition
+          product designer edition
         </span>
       </div>
 
@@ -74,35 +71,34 @@ export default function TypographyZoom() {
           style={{
             position:   "absolute",
             bottom:     "3%",
-            left:       "50%",
-            transform:  "translateX(-50%)",
+            left:       0,
+            right:      0,
             zIndex:     50,
             userSelect: "none",
-            maxWidth:   "95ch",
+            width:      "100%",
+            paddingLeft: "5%",
+            paddingRight: "5%",
+            boxSizing: "border-box",
             textAlign:  "center",
           }}
         >
           <p
             style={{
               margin:        "0 0 0.4em",
-              fontFamily:    "var(--font-inter), sans-serif",
-              fontSize:      "clamp(0.6rem, 0.85vw, 0.82rem)",
+              fontFamily:    "var(--font-geist), sans-serif",
+              fontSize:      "16px",
               fontWeight:    700,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color:         "#e8510a",
+              color:         "var(--sp-orange)",
             }}
           >
-            Rearrange my desk!
+            rearrange my desk!
           </p>
           <p
             style={{
               margin:        0,
-              fontFamily:    "var(--font-inter), sans-serif",
-              fontSize:      "clamp(0.44rem, 0.62vw, 0.6rem)",
+              fontFamily:    "var(--font-geist), sans-serif",
+              fontSize:      "16px",
               fontWeight:    500,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
               lineHeight:    1.9,
               color:         "#5C5955",
             }}

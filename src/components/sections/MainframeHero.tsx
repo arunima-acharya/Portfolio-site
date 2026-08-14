@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import VariableProximity from "@/components/ui/VariableProximity";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useParallax } from "@/hooks/useParallax";
 import dynamic from "next/dynamic";
@@ -30,7 +29,7 @@ function IntroAnimatedHeading({ progress, isMobile }: { progress: MotionValue<nu
   const total = words.length;
   const windowSize = 2 / total;
   return (
-    <h2 style={{ fontSize: isMobile ? "28px" : "44px", fontWeight: 400, lineHeight: 1, letterSpacing: 0, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif", margin: "0 0 24px" }}>
+    <h2 style={{ fontSize: isMobile ? "28px" : "44px", fontWeight: 400, lineHeight: 1, letterSpacing: 0, fontFamily: "var(--font-gelica)", margin: "0 0 24px" }}>
       {words.map((word, i) => {
         const start = (i / total) * 0.75;
         const end = Math.min(start + windowSize, 0.85);
@@ -225,7 +224,7 @@ export default function MainframeHero({
               height: "100%",
               objectFit: "cover",
               objectPosition: "center",
-              borderRadius: "16px",
+              borderRadius: "var(--radius-2xl)",
               filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.28)) drop-shadow(0 8px 16px rgba(0,0,0,0.18))",
             }}
           />
@@ -260,6 +259,7 @@ export default function MainframeHero({
           maxWidth: "100%",
           display: "flex",
           flexDirection: "column",
+          order: 2,
         } : {
           position: "absolute",
           bottom: "18%",
@@ -279,15 +279,15 @@ export default function MainframeHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif",
-              fontWeight: 400,
-              fontSize: "clamp(28px, 3.4vw, 40px)",
-              color: "#111",
+              fontFamily: "var(--font-gelica)",
+              fontWeight: 600,
+              fontSize: "clamp(29px, 3.5vw, 41px)",
+              color: "var(--sp-cocoa)",
               margin: 0,
               lineHeight: 1.1,
             }}
           >
-            Hey, a quick intro?
+            hey, a quick intro?
           </motion.h2>
 
           <motion.p
@@ -295,16 +295,16 @@ export default function MainframeHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontSize: "16px",
-              color: "#666",
+              fontSize: isMobile ? "16px" : "16.5px",
+              color: "var(--sp-cocoa)",
               lineHeight: 1.7,
-              fontFamily: "var(--font-inter), sans-serif",
+              fontFamily: "var(--font-geist), sans-serif",
               margin: "20px 0 0",
               wordWrap: "break-word",
               overflowWrap: "break-word",
             }}
           >
-            Engineer turned Product Designer with 3+ years of experience designing enterprise SaaS and AI products.
+            Engineer turned Product Designer with <span style={{ color: "var(--sp-orange)", fontWeight: 600 }}>3+ years</span> of experience designing enterprise SaaS and AI products.
           </motion.p>
 
           <motion.p
@@ -312,35 +312,34 @@ export default function MainframeHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontSize: "16px",
-              color: "#666",
+              fontSize: isMobile ? "16px" : "16.5px",
+              color: "var(--sp-cocoa)",
               lineHeight: 1.7,
-              fontFamily: "var(--font-inter), sans-serif",
+              fontFamily: "var(--font-geist), sans-serif",
               margin: "16px 0 0",
               wordWrap: "break-word",
               overflowWrap: "break-word",
             }}
           >
-            I specialize in 0→1 product design, design systems, and simplifying complex workflows through research, systems thinking, and interaction design.
+            I specialize in <span style={{ color: "var(--sp-orange)", fontWeight: 600 }}>0→1</span> product design, design systems, and simplifying complex workflows through research, systems thinking, and interaction design.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}
+            style={{ display: "flex", gap: "var(--spacing-12)", marginTop: "var(--spacing-28)", flexWrap: "wrap" }}
           >
             <a
               href="/case-studies"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 6,
-                background: "#e8510a", color: "#fff", borderRadius: 9999,
-                padding: "0.7em 1.5em", fontSize: "clamp(12px, 1.05vw, 14px)", fontWeight: 600,
-                fontFamily: "var(--font-inter), sans-serif", textDecoration: "none",
-                transition: "background 0.2s, color 0.2s",
+                background: "var(--sp-cream)", color: "var(--sp-charcoal)",
+                border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl-2)",
+                padding: "0.7em 1.5em", fontSize: "clamp(12px, 1.05vw, 14px)", fontWeight: 500,
+                fontFamily: "var(--font-gelica)", textDecoration: "none",
+                boxShadow: "var(--shadow-subtle)",
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#c9450c"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "#e8510a"; }}
             >
               Case Studies
             </a>
@@ -350,14 +349,12 @@ export default function MainframeHero({
               rel="noopener noreferrer"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 6,
-                background: "#fff", color: "#111",
-                border: "1.5px solid #111", borderRadius: 9999,
-                padding: "0.7em 1.5em", fontSize: "clamp(12px, 1.05vw, 14px)", fontWeight: 600,
-                fontFamily: "var(--font-inter), sans-serif", textDecoration: "none",
-                transition: "background 0.2s, color 0.2s",
+                background: "var(--sp-cream)", color: "var(--sp-charcoal)",
+                border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl-2)",
+                padding: "0.7em 1.5em", fontSize: "clamp(12px, 1.05vw, 14px)", fontWeight: 500,
+                fontFamily: "var(--font-gelica)", textDecoration: "none",
+                boxShadow: "var(--shadow-subtle)",
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#111"; e.currentTarget.style.color = "#fff"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#111"; }}
             >
               Connect on linkedin
             </a>
@@ -380,28 +377,22 @@ export default function MainframeHero({
           <div data-cursor-drag style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "auto" }}>
             <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
           </div>
-          {/* "Drag me around!" — above the canvas so it's always visible */}
-          <div style={{
-            position: "absolute", bottom: "8%", left: "32%",
-            zIndex: 3, pointerEvents: "none",
-            transform: "rotate(-7deg)",
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
-          }}>
-            <div style={{
-              fontSize: 19.55,
-              fontFamily: "var(--font-inter), sans-serif",
-              color: "#888",
-              fontStyle: "italic",
-              whiteSpace: "nowrap",
-              letterSpacing: "-0.01em",
-            }}>Drag me around!</div>
-          </div>
         </div>
       )}
 
-      {/* Mobile — simplified card, no decorative stickers, stacked in flow */}
+      {/* Mobile — simplified card, no decorative stickers, stacked above the
+          text (order: 1) and full-bleed (100vw x 100dvh, breaking out of the
+          section's side padding via the negative-margin centering trick). */}
       {!hideText && !showIntroText && isMobile && (
-        <div style={{ position: "relative", width: "100%", height: 320, marginTop: 24, flexShrink: 0 }}>
+        <div style={{
+          position: "relative",
+          width: "100vw",
+          marginLeft: "calc(50% - 50vw)",
+          marginRight: "calc(50% - 50vw)",
+          height: "100dvh",
+          flexShrink: 0,
+          order: 1,
+        }}>
           <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
         </div>
       )}
@@ -423,23 +414,23 @@ export default function MainframeHero({
             viewport={{ once: true, margin: "-5%" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
-            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "16px" }}>
+            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-geist), sans-serif", marginBottom: "var(--spacing-16)" }}>
               <strong style={{ color: "#111", fontWeight: 600 }}>Engineer</strong> turned <strong style={{ color: "#111", fontWeight: 600 }}>Product Designer</strong> with <strong style={{ color: "#111", fontWeight: 600 }}>3+ years of experience</strong> designing and scaling <strong style={{ color: "#111", fontWeight: 600 }}>0→1 B2B SaaS and AI products</strong> across hospitality, enterprise software, and emerging technologies.
             </p>
 
-            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "16px" }}>
+            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-geist), sans-serif", marginBottom: "var(--spacing-16)" }}>
               I&apos;ve led the end-to-end design of <strong style={{ color: "#111", fontWeight: 600 }}>6+ products</strong>, partnering closely with founders, product managers, and engineers to build scalable design systems, simplify complex workflows, and create enterprise experiences used by hotel teams across thousands of properties worldwide.
             </p>
 
-            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-inter), sans-serif", marginBottom: "32px" }}>
+            <p style={{ fontSize: isMobile ? "0.875rem" : "clamp(0.9rem, 1.4vw, 1rem)", color: "#555", lineHeight: 1.7, fontFamily: "var(--font-geist), sans-serif", marginBottom: "var(--spacing-32)" }}>
               With a background in <strong style={{ color: "#111", fontWeight: 600 }}>Computer Science Engineering</strong>, I work at the intersection of <strong style={{ color: "#111", fontWeight: 600 }}>design, product, and technology</strong>. I care deeply about <strong style={{ color: "#111", fontWeight: 600 }}>product thinking, systems thinking, interaction design, accessibility, and craftsmanship</strong>, building experiences that are intuitive, scalable, and create measurable business impact.
             </p>
 
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "12px", background: "#e8e8e8", borderRadius: "9999px", padding: "8px 20px 8px 8px", marginBottom: "28px" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "var(--spacing-12)", background: "#e8e8e8", borderRadius: "9999px", padding: "8px 20px 8px 8px", marginBottom: "var(--spacing-28)" }}>
               <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "#c0c0c0", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px", fontWeight: 700, color: "#fff" }}>A</div>
               <div>
-                <p style={{ fontSize: "11px", color: "#888", fontFamily: "var(--font-inter), sans-serif", margin: 0 }}>Schedule a call with the Designer</p>
-                <p style={{ fontSize: "13px", fontWeight: 600, color: "#111", fontFamily: "var(--font-inter), sans-serif", margin: 0 }}>Arunima Acharya</p>
+                <p style={{ fontSize: "16px", color: "#888", fontFamily: "var(--font-geist), sans-serif", margin: 0 }}>Schedule a call with the Designer</p>
+                <p style={{ fontSize: "16px", fontWeight: 600, color: "#111", fontFamily: "var(--font-geist), sans-serif", margin: 0 }}>Arunima Acharya</p>
               </div>
             </div>
 

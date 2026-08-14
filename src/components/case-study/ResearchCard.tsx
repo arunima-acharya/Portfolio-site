@@ -6,6 +6,7 @@ import { ArrowUpRight, Clock } from "lucide-react";
 import { Project } from "@/types";
 import { RESEARCH_META } from "@/data/researchMeta";
 import { projectHref } from "@/data/projects";
+import { stickerTint } from "@/data/stickerPalette";
 
 interface ResearchCardProps {
   project: Project;
@@ -14,7 +15,11 @@ interface ResearchCardProps {
 }
 
 export default function ResearchCard({ project, index, featured = false }: ResearchCardProps) {
-  const meta = RESEARCH_META[project.slug] ?? { accent: "#e8510a", eyebrow: "Design Investigation", readTime: "" };
+  const rawMeta = RESEARCH_META[project.slug] ?? { accent: "#ff6f1e", eyebrow: "Design Investigation", readTime: "" };
+  // FastHTML sticker-pack rotation — each card gets its own tinted surface
+  // + matching vivid accent instead of one repeated brand color.
+  const { surface, accent: stickerAccent } = stickerTint(index);
+  const meta = { ...rawMeta, accent: stickerAccent };
   const topics = project.tags.filter((t) => t !== "Research");
 
   return (
@@ -26,15 +31,15 @@ export default function ResearchCard({ project, index, featured = false }: Resea
     >
       <Link
         href={projectHref(project)}
-        className="group relative block overflow-hidden rounded-2xl"
+        className="group relative block overflow-hidden rounded-xl"
         aria-label={`Read investigation: ${project.title}`}
-        style={{ border: "1px solid rgba(0,0,0,0.08)", background: "#ffffff" }}
+        style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)", boxShadow: "var(--shadow-lg)" }}
       >
         <div className={featured ? "md:grid md:grid-cols-[1.1fr_0.9fr]" : ""}>
           {/* Visual panel */}
           <div
             className="relative flex items-center justify-center overflow-hidden"
-            style={{ aspectRatio: featured ? undefined : "16/10", minHeight: featured ? 220 : undefined }}
+            style={{ aspectRatio: featured ? undefined : "16/10", minHeight: featured ? 220 : undefined, background: surface }}
           >
             <div
               aria-hidden="true"
@@ -55,21 +60,21 @@ export default function ResearchCard({ project, index, featured = false }: Resea
           {/* Content panel */}
           <div className={`relative flex flex-col justify-center p-7 ${featured ? "md:p-9" : ""}`}>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-semibold uppercase tracking-[0.16em]" style={{ color: meta.accent }}>
+              <span className="text-[16px] font-semibold" style={{ color: "var(--sp-orange)", fontFamily: "var(--font-geist), sans-serif" }}>
                 {meta.eyebrow}
               </span>
             </div>
 
             <h3
-              className="font-semibold text-[#111] tracking-tight leading-tight"
-              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
+              className="font-semibold leading-tight"
+              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", fontWeight: 600, textTransform: "lowercase" }}
             >
               {project.title}
             </h3>
 
             <p
               className={`mt-3 text-zinc-600 leading-relaxed ${featured ? "line-clamp-3" : "line-clamp-2"}`}
-              style={{ fontSize: featured ? "15px" : "13.5px" }}
+              style={{ fontSize: "16px", fontFamily: "var(--font-geist), sans-serif" }}
             >
               {project.valueProposition ?? project.shortDescription}
             </p>
@@ -79,7 +84,8 @@ export default function ResearchCard({ project, index, featured = false }: Resea
                 {topics.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[11px] px-2.5 py-1 rounded-full text-zinc-600 border border-black/8 bg-black/[0.03]"
+                    className="text-[16px] px-2.5 py-1 rounded-[20px] text-zinc-600 border border-black/8 bg-black/[0.03]"
+                    style={{ fontFamily: "var(--font-geist), sans-serif" }}
                   >
                     {tag}
                   </span>
@@ -89,14 +95,14 @@ export default function ResearchCard({ project, index, featured = false }: Resea
 
             <div className="flex items-center justify-between mt-7 pt-5">
               {meta.readTime && (
-                <span className="inline-flex items-center gap-1.5 text-[12.5px] text-zinc-500">
+                <span className="inline-flex items-center gap-1.5 text-[16px] text-zinc-500" style={{ fontFamily: "var(--font-geist), sans-serif" }}>
                   <Clock size={12} />
                   {meta.readTime}
                 </span>
               )}
               <span
-                className="inline-flex items-center gap-1.5 text-[13px] font-medium ml-auto transition-colors duration-200"
-                style={{ color: "#71717a" }}
+                className="inline-flex items-center gap-1.5 text-[16px] font-medium ml-auto transition-colors duration-200"
+                style={{ color: "#71717a", fontFamily: "var(--font-geist), sans-serif" }}
               >
                 <span className="group-hover:text-[#111] transition-colors duration-200">Read investigation</span>
                 <span
@@ -106,7 +112,7 @@ export default function ResearchCard({ project, index, featured = false }: Resea
                   <ArrowUpRight
                     size={14}
                     className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    style={{ color: meta.accent }}
+                    style={{ color: "var(--sp-orange)" }}
                   />
                 </span>
               </span>

@@ -5,7 +5,7 @@ import { createContext, useContext } from "react";
 /* Per-investigation accent color, threaded through the research hero, TOC,
    and every primitive (quotes, callouts, friction icons, matrix badges) so
    each piece gets its own visual identity without prop-drilling. */
-const ResearchAccentContext = createContext<string>("#e8510a");
+const ResearchAccentContext = createContext<string>("#ff6f1e");
 
 export function useResearchAccent() {
   return useContext(ResearchAccentContext);
@@ -55,19 +55,20 @@ const DARK_PALETTE: ResearchPalette = {
   dockShadow: "0 8px 32px rgba(0,0,0,0.45)",
 };
 
+// Superr style reference — cream paper canvas, charcoal ink/borders.
 const LIGHT_PALETTE: ResearchPalette = {
-  bg: "#ffffff",
-  text: "#111111",
-  textBody: "#525252",
-  textMuted: "#6b6b6b",
-  textFaint: "#707070",
-  cardBg: "rgba(0,0,0,0.025)",
-  cardBorder: "rgba(0,0,0,0.08)",
-  cardBorderStrong: "rgba(0,0,0,0.12)",
-  border: "rgba(0,0,0,0.08)",
-  hoverText: "#111111",
-  dockBg: "rgba(255,255,255,0.88)",
-  dockShadow: "0 8px 32px rgba(0,0,0,0.14)",
+  bg: "var(--color-cream-paper)",
+  text: "var(--color-charcoal)",
+  textBody: "var(--color-charcoal)",
+  textMuted: "#8a8580",
+  textFaint: "#8a8580",
+  cardBg: "var(--color-dew-drop)",
+  cardBorder: "var(--color-charcoal)",
+  cardBorderStrong: "var(--color-charcoal)",
+  border: "var(--color-charcoal)",
+  hoverText: "var(--color-charcoal)",
+  dockBg: "rgba(253,251,249,0.9)",
+  dockShadow: "var(--shadow-lg)",
 };
 
 export function useResearchPalette(): ResearchPalette {

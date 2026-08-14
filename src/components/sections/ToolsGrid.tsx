@@ -17,8 +17,6 @@ const tools = [
   { name: "Zeplin",    category: "Design Handoff",      slug: "zeplin",    bg: "#FDBD39", color: "#111" },
 ];
 
-const SHADOWED = new Set([0, 2, 4, 6, 8]);
-
 function CardInner({ tool, isMobile, nameColor, catColor }: { tool: typeof tools[0]; isMobile: boolean; nameColor: string; catColor: string }) {
   return (
     <>
@@ -57,10 +55,10 @@ function CardInner({ tool, isMobile, nameColor, catColor }: { tool: typeof tools
         />
       </div>
       <div style={{ textAlign: isMobile ? "center" : "left" }}>
-        <p style={{ margin: 0, fontSize: isMobile ? "16px" : "15px", fontWeight: 600, color: nameColor, fontFamily: "var(--font-inter), sans-serif", lineHeight: 1.3 }}>
+        <p style={{ margin: 0, fontSize: isMobile ? "16px" : "15px", fontWeight: 600, color: nameColor, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.3 }}>
           {tool.name}
         </p>
-        <p style={{ margin: "3px 0 0", fontSize: isMobile ? "12.5px" : "13px", color: catColor, fontFamily: "var(--font-inter), sans-serif", lineHeight: 1.3 }}>
+        <p style={{ margin: "3px 0 0", fontSize: isMobile ? "16px" : "16px", color: catColor, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.3 }}>
           {tool.category}
         </p>
       </div>
@@ -74,13 +72,10 @@ export default function ToolsGrid() {
   const isLight = true; // this section is always rendered in light mode, regardless of the site-wide theme toggle
   const { ref: parallaxRef, y: headingY } = useParallax(30);
 
-  const cardBg     = "#ffffff";
-  const cardBorder = isLight ? "rgba(0,0,0,0.08)"           : "rgba(255,255,255,0.07)";
-  const cardShadow = isLight ? "0 2px 12px rgba(0,0,0,0.04)": "0 2px 12px rgba(0,0,0,0.2)";
-  const hoverBorder= isLight ? "rgba(0,0,0,0.18)"           : "rgba(255,255,255,0.16)";
-  const hoverShadow= isLight ? "0 8px 32px rgba(0,0,0,0.08)": "0 8px 32px rgba(0,0,0,0.4)";
-  const nameColor  = isLight ? "#111"                        : "#f0f0f0";
-  const catColor   = isLight ? "#999"                        : "rgba(255,255,255,0.4)";
+  const cardBg     = "var(--sp-cream)";
+  const cardBorder = isLight ? "var(--sp-charcoal)" : "rgba(255,255,255,0.07)";
+  const nameColor  = isLight ? "var(--sp-charcoal)" : "#f0f0f0";
+  const catColor   = isLight ? "#8a8580"            : "rgba(255,255,255,0.4)";
 
   // 9 tools is a clean 3x3 on desktop, but an odd number leaves a lone
   // orphaned card on the last row of a 2-up mobile grid — drop the last
@@ -94,7 +89,7 @@ export default function ToolsGrid() {
       style={{
         paddingLeft: isMobile ? "20px" : "15%",
         paddingRight: isMobile ? "20px" : "15%",
-        backgroundColor: "#fff",
+        backgroundColor: "var(--sp-cream)",
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
@@ -111,15 +106,15 @@ export default function ToolsGrid() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-3 mb-14"
           >
-            <span className="text-xs font-medium text-zinc-500 uppercase tracking-widest">
-              Toolkit
+            <span className="text-[16px] font-medium" style={{ color: "rgba(23,23,23,0.45)" }}>
+              toolkit
             </span>
             <h2
               id="tools-heading"
-              className="fluid-text-2xl font-normal"
-              style={{ color: isLight ? "#111" : "#fff", lineHeight: 1, fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif" }}
+              className="fluid-text-2xl"
+              style={{ color: isLight ? "var(--sp-cocoa)" : "#fff", lineHeight: 1, fontFamily: "var(--font-gelica)", fontWeight: 600 }}
             >
-              The tools that power
+              the tools that power
               <br className="hidden sm:block" /> every project
             </h2>
           </motion.div>
@@ -134,7 +129,6 @@ export default function ToolsGrid() {
           style={{ gap: isMobile ? "10px" : "12px" }}
         >
           {visibleTools.map((tool, i) => {
-            const shadowed = SHADOWED.has(i);
             return (
             <motion.div
               key={tool.name}
@@ -149,17 +143,15 @@ export default function ToolsGrid() {
               <div
                 style={{
                   background: cardBg,
-                  borderRadius: "16px",
+                  borderRadius: "var(--radius-xl)",
                   padding: isMobile ? "20px 12px" : "20px 22px",
                   display: "flex",
                   flexDirection: isMobile ? "column" : "row",
                   alignItems: "center",
                   gap: isMobile ? "12px" : "16px",
                   cursor: "default",
-                  // Alternating cards keep the static elevation the glow used
-                  // to sit on top of, so the grid retains its rhythm.
-                  border: shadowed ? `1px solid ${cardBorder}` : undefined,
-                  boxShadow: shadowed ? hoverShadow : undefined,
+                  border: `1.5px solid ${cardBorder}`,
+                  boxShadow: "var(--shadow-lg)",
                 }}
               >
                 <CardInner tool={tool} isMobile={isMobile} nameColor={nameColor} catColor={catColor} />

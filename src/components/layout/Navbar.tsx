@@ -24,24 +24,30 @@ export default function Navbar() {
     return () => { document.body.style.overflow = prev; };
   }, [open]);
 
+  // /m/* routes are the standalone mobile experience with its own chrome —
+  // this desktop/tablet nav shouldn't render there at all. Checked after
+  // every hook above so hook call order stays stable across client-side
+  // navigations into/out of /m.
+  if (pathname?.startsWith("/m")) return null;
+
   if (isMobile) {
     return (
-      <div data-navbar style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "16px" }}>
+      <div data-navbar style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "var(--spacing-16)" }}>
         <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
           <a
             href="/"
             style={{
-              display: "inline-flex", alignItems: "center", gap: "8px",
+              display: "inline-flex", alignItems: "center", gap: "var(--spacing-8)",
               padding: "8px 14px 8px 10px", borderRadius: 9999,
-              background: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(180%)",
+              background: "rgba(253,251,249,0.7)", backdropFilter: "blur(20px) saturate(180%)",
               WebkitBackdropFilter: "blur(20px) saturate(180%)",
-              fontFamily: "var(--font-inter), sans-serif", fontSize: 14, fontWeight: 700,
-              color: "#111", textDecoration: "none", textTransform: "uppercase",
-              letterSpacing: "0.02em", whiteSpace: "nowrap",
+              fontFamily: "var(--font-geist), sans-serif", fontSize: 16, fontWeight: 700,
+              color: "var(--sp-charcoal)", textDecoration: "none",
+              whiteSpace: "nowrap",
             }}
           >
-            <Sparkle size={16} strokeWidth={2} fill="#111" style={{ flexShrink: 0 }} />
-            Arunima
+            <Sparkle size={16} strokeWidth={2} fill="var(--sp-charcoal)" style={{ flexShrink: 0 }} />
+            arunima
           </a>
 
           <button
@@ -52,7 +58,7 @@ export default function Navbar() {
             style={{
               display: "flex", alignItems: "center", justifyContent: "center",
               width: 44, height: 44, borderRadius: 9999, border: "none",
-              background: "#111", color: "#fff", flexShrink: 0,
+              background: "var(--sp-charcoal)", color: "#fff", flexShrink: 0,
             }}
           >
             {open ? <X size={20} /> : <Menu size={20} />}
@@ -67,8 +73,8 @@ export default function Navbar() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                marginTop: 12, background: "#fff", borderRadius: 20,
-                boxShadow: "0 16px 48px rgba(0,0,0,0.16)", overflow: "hidden",
+                marginTop: "var(--spacing-12)", background: "var(--sp-cream)", borderRadius: "var(--radius-2xl-2)",
+                border: "1.5px solid var(--sp-charcoal)", overflow: "hidden",
               }}
             >
               {LINKS.map(({ label, href }) => {
@@ -79,25 +85,26 @@ export default function Navbar() {
                     href={href}
                     onClick={() => setOpen(false)}
                     style={{
-                      display: "flex", alignItems: "center", gap: 8,
+                      display: "flex", alignItems: "center", gap: "var(--spacing-8)",
                       minHeight: 52, padding: "0 20px",
-                      fontFamily: "var(--font-inter), sans-serif", fontSize: 16,
-                      fontWeight: active ? 600 : 400, color: active ? "#111" : "#555",
+                      fontFamily: "var(--font-geist), sans-serif", fontSize: 16,
+                      fontWeight: active ? 600 : 400, color: active ? "var(--sp-charcoal)" : "#555",
                       textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
                     }}
                   >
-                    {active && <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#111", flexShrink: 0 }} />}
+                    {active && <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />}
                     {label}
                   </a>
                 );
               })}
               <a
                 href="/assets/Arunima_Acharya_Resume.pdf"
+                download
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
                   display: "flex", alignItems: "center", minHeight: 52, padding: "0 20px",
-                  fontFamily: "var(--font-inter), sans-serif", fontSize: 16, color: "#555",
+                  fontFamily: "var(--font-geist), sans-serif", fontSize: 16, color: "#555",
                   textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
                 }}
               >
@@ -107,14 +114,14 @@ export default function Navbar() {
                 href="/contact"
                 onClick={() => setOpen(false)}
                 style={{
-                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--spacing-8)",
                   minHeight: 52, padding: "0 20px",
-                  fontFamily: "var(--font-inter), sans-serif", fontSize: 16, fontWeight: 500,
-                  color: "#fff", background: "#111", textDecoration: "none",
+                  fontFamily: "var(--font-gelica)", fontSize: 16, fontWeight: 500,
+                  color: "var(--sp-charcoal)", background: "var(--sp-cream)", borderTop: "1.5px solid var(--sp-charcoal)", textDecoration: "none",
                 }}
               >
                 Let&apos;s chat
-                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", flexShrink: 0 }} />
+                <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0 }} />
               </a>
             </motion.div>
           )}
@@ -132,7 +139,7 @@ export default function Navbar() {
         left: 0,
         right: 0,
         zIndex: 100,
-        padding: "16px",
+        padding: "var(--spacing-16)",
         pointerEvents: "none",
       }}
     >
@@ -143,7 +150,7 @@ export default function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
-          gap: "12px",
+          gap: "var(--spacing-12)",
         }}
       >
         {/* Logo — a light frosted backdrop rather than fully transparent,
@@ -156,24 +163,22 @@ export default function Navbar() {
           style={{
             display: "inline-flex",
             alignItems: "center",
-            gap: "8px",
+            gap: "var(--spacing-8)",
             padding: "8px 14px 8px 10px",
             borderRadius: 9999,
-            background: "rgba(255,255,255,0.55)",
+            background: "rgba(253,251,249,0.7)",
             backdropFilter: "blur(20px) saturate(180%)",
             WebkitBackdropFilter: "blur(20px) saturate(180%)",
-            fontFamily: "var(--font-inter), sans-serif",
-            fontSize: 14,
+            fontFamily: "var(--font-geist), sans-serif",
+            fontSize: 16,
             fontWeight: 700,
-            color: "#111",
+            color: "var(--sp-charcoal)",
             textDecoration: "none",
-            textTransform: "uppercase",
-            letterSpacing: "0.02em",
             whiteSpace: "nowrap",
           }}
         >
-          <Sparkle size={16} strokeWidth={2} fill="#111" style={{ flexShrink: 0 }} />
-          Arunima
+          <Sparkle size={16} strokeWidth={2} fill="var(--sp-charcoal)" style={{ flexShrink: 0 }} />
+          arunima
         </a>
 
         {/* Center — plain-text links in a solid white pill; the active
@@ -185,10 +190,10 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             gap: "clamp(4px, 2vw, 8px)",
-            background: "#fff",
-            borderRadius: 9999,
+            background: "var(--sp-cream)",
+            border: "1.5px solid var(--sp-charcoal)",
+            borderRadius: "var(--radius-2xl-2)",
             padding: "10px clamp(16px, 3vw, 24px)",
-            boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
           }}
         >
           {LINKS.map(({ label, href }) => {
@@ -202,10 +207,10 @@ export default function Navbar() {
                   alignItems: "center",
                   gap: "6px",
                   padding: "0 clamp(8px, 1.5vw, 14px)",
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: 14,
+                  fontFamily: "var(--font-geist), sans-serif",
+                  fontSize: 16,
                   fontWeight: active ? 600 : 400,
-                  color: active ? "#111" : "#9a9a9a",
+                  color: active ? "var(--sp-charcoal)" : "#9a9a9a",
                   textDecoration: "none",
                   whiteSpace: "nowrap",
                   transition: "color 0.2s",
@@ -214,7 +219,7 @@ export default function Navbar() {
                 onMouseLeave={e => { if (!active) e.currentTarget.style.color = "#9a9a9a"; }}
               >
                 {active && (
-                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#111", flexShrink: 0 }} />
+                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
                 )}
                 {label}
               </a>
@@ -222,12 +227,13 @@ export default function Navbar() {
           })}
           <a
             href="/assets/Arunima_Acharya_Resume.pdf"
+            download
             target="_blank"
             rel="noopener noreferrer"
             style={{
               padding: "0 clamp(8px, 1.5vw, 14px)",
-              fontFamily: "var(--font-inter), sans-serif",
-              fontSize: 14,
+              fontFamily: "var(--font-geist), sans-serif",
+              fontSize: 16,
               color: "#9a9a9a",
               textDecoration: "none",
               whiteSpace: "nowrap",
@@ -248,22 +254,21 @@ export default function Navbar() {
             display: "inline-flex",
             alignItems: "center",
             gap: "10px",
-            background: "#111",
-            color: "#fff",
-            borderRadius: 9999,
+            background: "var(--sp-cream)",
+            color: "var(--sp-charcoal)",
+            border: "1.5px solid var(--sp-charcoal)",
+            borderRadius: "var(--radius-2xl-2)",
             padding: "10px 10px 10px 20px",
-            fontSize: 14,
-            fontFamily: "var(--font-inter), sans-serif",
+            fontSize: 16,
+            fontFamily: "var(--font-gelica)",
             fontWeight: 500,
             textDecoration: "none",
             whiteSpace: "nowrap",
-            transition: "background 0.2s",
+            boxShadow: "var(--shadow-subtle)",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "#e8510a")}
-          onMouseLeave={e => (e.currentTarget.style.background = "#111")}
         >
           Let&apos;s chat
-          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", flexShrink: 0 }} />
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0 }} />
         </a>
       </nav>
     </div>

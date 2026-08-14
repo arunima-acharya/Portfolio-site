@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { projects, projectHref } from "@/data/projects";
+import { stickerTint } from "@/data/stickerPalette";
 import type { Project } from "@/types";
 
-const FONT = "var(--font-manrope), sans-serif";
+const FONT = "var(--font-geist), sans-serif";
+const FONT_HEADING = "var(--font-gelica)";
 const MAX_W = "1200px";
-const CARD_ACCENTS = ["#a78bfa", "#2856A2", "#34d399", "#60a5fa"];
 
 const revealStyle = (visible: boolean, delay = 0): React.CSSProperties => ({
   opacity: visible ? 1 : 0,
@@ -16,7 +17,7 @@ const revealStyle = (visible: boolean, delay = 0): React.CSSProperties => ({
 });
 
 function CaseStudyCard({ project, index, delay, revealed }: { project: Project; index: number; delay: number; revealed: boolean }) {
-  const accent = CARD_ACCENTS[index % CARD_ACCENTS.length];
+  const { accent } = stickerTint(index);
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -27,50 +28,53 @@ function CaseStudyCard({ project, index, delay, revealed }: { project: Project; 
       style={{
         display: "block",
         textDecoration: "none",
-        borderRadius: 16,
+        borderRadius: "var(--radius-xl)",
         overflow: "hidden",
         position: "relative",
+        border: "1.5px solid var(--sp-charcoal)",
+        boxShadow: "var(--shadow-lg)",
         transform: hovered ? "scale(1.02)" : "scale(1)",
         transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1)",
         ...revealStyle(revealed, delay),
       }}
     >
       {/* Image area — 4:3 */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", background: "#f5f5f3", overflow: "hidden" }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "4/3", background: "var(--sp-dew)", overflow: "hidden" }}>
         {/* Blurred blob */}
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ width: 220, height: 220, borderRadius: "50%", background: accent, opacity: 0.3, filter: "blur(56px)" }} />
+          <div style={{ width: 220, height: 220, borderRadius: "50%", background: accent, opacity: 0.25, filter: "blur(56px)" }} />
         </div>
         {/* Industry label */}
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <span style={{
-            fontFamily: FONT, fontSize: 10, fontWeight: 500, letterSpacing: "0.2em",
-            textTransform: "uppercase", color: "rgba(0,0,0,0.18)",
+            fontFamily: FONT, fontSize: 16, fontWeight: 500,
+            textTransform: "lowercase", color: "rgba(23,23,23,0.16)",
           }}>{project.industry}</span>
         </div>
         {/* Floating info bar */}
         <div style={{
           position: "absolute", bottom: 10, left: 10, right: 10,
-          background: "rgba(255,255,255,0.92)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
-          borderRadius: 12, padding: "12px 14px",
+          background: "rgba(253,251,249,0.92)", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)",
+          border: "1px solid rgba(23,23,23,0.1)",
+          borderRadius: "var(--radius-xl)", padding: "12px 14px",
           display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10,
         }}>
           <div style={{ minWidth: 0 }}>
-            <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: "#111", lineHeight: 1.3, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <p style={{ fontFamily: FONT, fontSize: 16, fontWeight: 600, color: "var(--sp-charcoal)", lineHeight: 1.3, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {project.title}
             </p>
-            <p style={{ fontFamily: FONT, fontSize: 11, color: "#888", marginTop: 2 }}>
+            <p style={{ fontFamily: FONT, fontSize: 16, color: "#8a8580", marginTop: 2 }}>
               {project.category} / 2023
             </p>
           </div>
           <div style={{
-            flexShrink: 0, width: 32, height: 32, borderRadius: 8,
-            background: hovered ? "#e8510a" : "#1a1a1a",
+            flexShrink: 0, width: 32, height: 32, borderRadius: "var(--radius-lg)",
+            background: hovered ? "var(--sp-orange)" : "var(--sp-charcoal)",
             display: "flex", alignItems: "center", justifyContent: "center",
             transition: "background 0.2s", overflow: "hidden",
           }}>
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-              <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="var(--sp-cream)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </div>
@@ -95,18 +99,18 @@ export default function OtherCaseStudies({ currentSlug }: { currentSlug: string 
   if (!others.length) return null;
 
   return (
-    <section ref={ref} style={{ background: "#fff", padding: "80px 32px 15%" }}>
+    <section ref={ref} style={{ background: "var(--sp-cream)", padding: "80px 32px 15%" }}>
       <div style={{ maxWidth: MAX_W, margin: "0 auto" }}>
         {/* Header */}
-        <div style={{ marginBottom: 48, ...revealStyle(revealed) }}>
-          <p style={{ fontFamily: FONT, fontSize: 13, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>More work</p>
+        <div style={{ marginBottom: "var(--spacing-48)", ...revealStyle(revealed) }}>
+          <p style={{ fontFamily: FONT, fontSize: 16, color: "#8a8580", marginBottom: 10 }}>more work</p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
-            <h2 style={{ fontFamily: "var(--font-instrument-serif), 'Instrument Serif', serif", fontSize: "clamp(28px,3.5vw,40px)", fontWeight: 400, color: "#111", lineHeight: 1.2 }}>Other case studies</h2>
+            <h2 style={{ fontFamily: FONT_HEADING, fontWeight: 600, fontSize: "clamp(28px,3.5vw,40px)", color: "var(--sp-cocoa)", lineHeight: 1.2 }}>other case studies</h2>
             <Link
               href="/case-studies"
-              style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: "#6b7280", textDecoration: "none", whiteSpace: "nowrap", paddingBottom: 4 }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#111")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#6b7280")}
+              style={{ fontFamily: FONT, fontSize: 16, fontWeight: 600, color: "#8a8580", textDecoration: "none", whiteSpace: "nowrap", paddingBottom: 4 }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--sp-charcoal)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#8a8580")}
             >View all →</Link>
           </div>
         </div>

@@ -8,7 +8,9 @@ import TestimonialsGrid from "./TestimonialsGrid";
 // ToolsGrid stays pinned full-viewport while the extra scroll runway from
 // this container's height (200vh) plays out; TestimonialsGrid rides that
 // same scroll to slide in from the right and cover it, then both release
-// together once the container scrolls past.
+// together once the container scrolls past. Runs on mobile too — both grids
+// keep their content compact enough (1 card visible, single-column ToolsGrid)
+// to fit the pinned 100vh viewport on ordinary phone screens.
 export default function ToolkitTestimonialsOverlap() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
