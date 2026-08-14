@@ -35,11 +35,14 @@ function stickyTop(index: number) {
 // frontmost in the stack (tracked by the parent SvgStack) casts one.
 const SvgStackItem = forwardRef<
   HTMLDivElement,
-  { src: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean }
->(function SvgStackItem({ src, project, index, isTop }, ref) {
+  { src: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean; isMobile: boolean }
+>(function SvgStackItem({ src, project, index, isTop, isMobile }, ref) {
   const tags = project.tags.slice(0, 3);
   const textAlign = "left" as const;
   const rowJustify = "flex-start" as const;
+  // Mobile text is 30% smaller across the board.
+  const bodySize = isMobile ? 11 : 16;
+  const titleSize = isMobile ? "15.4px" : "clamp(22px, 2.6vw, 32px)";
 
   return (
     <motion.div
@@ -92,12 +95,12 @@ const SvgStackItem = forwardRef<
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: rowJustify, gap: "var(--spacing-8)", marginBottom: 16 }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
-            <span style={{ fontSize: 16, fontWeight: 700 }}>{project.category}</span>
+            <span style={{ fontSize: bodySize, fontWeight: 700 }}>{project.category}</span>
           </div>
 
           <h3
             style={{
-              fontSize: "clamp(22px, 2.6vw, 32px)",
+              fontSize: titleSize,
               fontWeight: 600,
               textTransform: "lowercase",
               lineHeight: 1.1,
@@ -108,7 +111,7 @@ const SvgStackItem = forwardRef<
             {project.title}
           </h3>
 
-          <p style={{ fontSize: 16, lineHeight: 1.5, marginBottom: 20, maxWidth: "60ch" }}>
+          <p style={{ fontSize: bodySize, lineHeight: 1.5, marginBottom: 20, maxWidth: "60ch" }}>
             {project.shortDescription}
           </p>
 
@@ -118,7 +121,7 @@ const SvgStackItem = forwardRef<
                 <span
                   key={tag}
                   style={{
-                    fontSize: 16,
+                    fontSize: bodySize,
                     padding: "4px 10px",
                     borderRadius: 20,
                     color: "var(--sp-charcoal)",
@@ -153,12 +156,12 @@ const SvgStackItem = forwardRef<
           }}
         >
           {project.timeline && (
-            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 16 }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: bodySize }}>
               <Calendar size={12} />
               {project.timeline}
             </span>
           )}
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 16, fontWeight: 500, marginLeft: "auto" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: bodySize, fontWeight: 500, marginLeft: "auto" }}>
             View case study
             <span
               style={{
@@ -185,8 +188,10 @@ const SvgStackItem = forwardRef<
 // that one gets a shadow instead of every item in the stack having one.
 function SvgStack({
   items,
+  isMobile,
 }: {
   items: { id: string; src: string; project: ReturnType<typeof getFeaturedProjects>[0] }[];
+  isMobile: boolean;
 }) {
   const refs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -219,6 +224,7 @@ function SvgStack({
           project={item.project}
           index={i}
           isTop={i === activeIndex}
+          isMobile={isMobile}
         />
       ))}
     </>
@@ -417,7 +423,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
       {/* Cards — one wide card per row (or, when useSvgs, the work-bg SVGs in the same scroll stack) */}
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
         {useSvgs ? (
-          <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i], project }))} />
+          <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i], project }))} isMobile={isMobile} />
         ) : (
           filtered.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
