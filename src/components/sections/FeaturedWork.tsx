@@ -143,7 +143,7 @@ const SvgStackItem = forwardRef<
             alignItems: "center",
             justifyContent: "space-between",
             width: "100%",
-            padding: "0 6%",
+            padding: "3% 6% 0",
             borderTop: "1px solid rgba(0,0,0,0.2)",
             color: "var(--sp-charcoal)",
           }}
