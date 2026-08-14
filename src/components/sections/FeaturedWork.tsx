@@ -29,38 +29,136 @@ function stickyTop(index: number) {
 // before it) but rendering the raw SVG artwork instead of a case-study card.
 // `isTop` controls the drop-shadow: only whichever item is currently the
 // frontmost in the stack (tracked by the parent SvgStack) casts one.
-const SvgStackItem = forwardRef<HTMLDivElement, { src: string; index: number; isTop: boolean }>(
-  function SvgStackItem({ src, index, isTop }, ref) {
-    return (
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-8%" }}
-        transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-        style={{ position: "sticky", top: `${stickyTop(index)}px`, zIndex: index + 1 }}
+const SvgStackItem = forwardRef<
+  HTMLDivElement,
+  { src: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean }
+>(function SvgStackItem({ src, project, index, isTop }, ref) {
+  const tags = project.tags.slice(0, 3);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-8%" }}
+      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      style={{ position: "sticky", top: `${stickyTop(index)}px`, zIndex: index + 1 }}
+    >
+      <Link
+        href={projectHref(project)}
+        aria-label={`View case study: ${project.title}`}
+        className="group"
+        style={{
+          display: "block",
+          position: "relative",
+          textDecoration: "none",
+          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg)`,
+          filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
+        }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt=""
+        <img src={src} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
+
+        {/* Same data as ProjectCard's content panel, overlaid on the SVG itself */}
+        <div
           style={{
-            width: "100%",
-            height: "auto",
-            display: "block",
-            filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
-            transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg)`,
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            padding: "9% 10%",
+            color: "var(--sp-charcoal)",
           }}
-        />
-      </motion.div>
-    );
-  }
-);
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", marginBottom: 16 }}>
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
+            <span style={{ fontSize: 16, fontWeight: 700 }}>{project.category}</span>
+          </div>
+
+          <h3
+            style={{
+              fontSize: "clamp(22px, 2.6vw, 32px)",
+              fontWeight: 600,
+              textTransform: "lowercase",
+              lineHeight: 1.1,
+              marginBottom: 14,
+              fontFamily: "var(--font-gelica)",
+            }}
+          >
+            {project.title}
+          </h3>
+
+          <p style={{ fontSize: 16, lineHeight: 1.5, marginBottom: 20, maxWidth: "60ch" }}>
+            {project.shortDescription}
+          </p>
+
+          {tags.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--spacing-8)", marginBottom: 24 }}>
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    fontSize: 16,
+                    padding: "4px 10px",
+                    borderRadius: 20,
+                    color: "var(--sp-charcoal)",
+                    border: "1px solid rgba(0,0,0,0.25)",
+                    background: "rgba(255,255,255,0.35)",
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div
+            style={{
+              marginTop: "auto",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingTop: 20,
+              borderTop: "1px solid rgba(0,0,0,0.2)",
+            }}
+          >
+            {project.timeline && (
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 16 }}>
+                <Calendar size={12} />
+                {project.timeline}
+              </span>
+            )}
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 16, fontWeight: 500, marginLeft: "auto" }}>
+              View case study
+              <span
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "rgba(255,255,255,0.35)",
+                }}
+              >
+                <ArrowUpRight size={14} />
+              </span>
+            </span>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+});
 
 // Tracks which sticky item is currently frontmost (i.e. actually "stuck" —
 // its top edge has reached its sticky offset) as the user scrolls, so only
 // that one gets a shadow instead of every item in the stack having one.
-function SvgStack({ items }: { items: { id: string; src: string }[] }) {
+function SvgStack({
+  items,
+}: {
+  items: { id: string; src: string; project: ReturnType<typeof getFeaturedProjects>[0] }[];
+}) {
   const refs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -89,6 +187,7 @@ function SvgStack({ items }: { items: { id: string; src: string }[] }) {
           key={item.id}
           ref={(el) => { refs.current[i] = el; }}
           src={item.src}
+          project={item.project}
           index={i}
           isTop={i === activeIndex}
         />
@@ -289,7 +388,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
       {/* Cards — one wide card per row (or, when useSvgs, the work-bg SVGs in the same scroll stack) */}
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
         {useSvgs ? (
-          <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i] }))} />
+          <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i], project }))} />
         ) : (
           filtered.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
