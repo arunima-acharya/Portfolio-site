@@ -4,25 +4,28 @@ import { getFeaturedProjects, projectHref } from "@/data/projects";
 
 const SERVICES = ["Product Design", "UX/UI Design", "SaaS & Enterprise", "Design Systems", "UX Research", "Design Consulting"];
 
-// Desktop shows these as illustrated sticky notes on a 3D flip-book
-// notebook. Mobile skips the notebook + decorative stickers entirely (too
-// heavy/novelty for a phone) and just lists the same content as plain
-// stacked cards, top to bottom.
+// Desktop shows these as sticky notes scattered across a 3D flip-book
+// notebook. Mobile drops the notebook/flip interaction and decorative
+// stickers entirely — just the note artwork itself, stacked top to bottom.
 const EXPERTISE = [
   {
     title: "Product Design",
+    svg: "/assets/note/note%201.svg",
     items: ["End-to-End Product Design", "Interaction Design", "Wireframing", "Prototyping", "Visual Design", "Information Architecture"],
   },
   {
     title: "Research & Testing",
+    svg: "/assets/note/note%202.svg",
     items: ["User Research", "Usability Testing", "Heuristic Evaluation", "User Personas", "Journey Mapping"],
   },
   {
     title: "Systems & Strategy",
+    svg: "/assets/note/note%203.svg",
     items: ["Design Systems (25 → 50+ components)", "Accessibility (WCAG)", "Product Strategy", "Zero-to-One Design", "Data-Informed Design"],
   },
   {
     title: "Collaboration",
+    svg: "/assets/note/note4.svg",
     items: ["Cross-Functional Collaboration", "Developer Handoff", "Agile / Scrum", "Stakeholder Management"],
   },
 ];
@@ -191,9 +194,8 @@ export default function MobileHome() {
         </div>
       </section>
 
-      {/* What I bring to the table — same content as the desktop notebook's
-          sticky notes, without the notebook/stickers: plain cards stacked
-          top to bottom. */}
+      {/* What I bring to the table — no flip-book, no stickers, just the
+          note artwork itself stacked top to bottom. */}
       <section style={{ padding: "36px 20px 8px" }}>
         <h2
           style={{
@@ -206,36 +208,45 @@ export default function MobileHome() {
         >
           what i bring to the table
         </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {EXPERTISE.map((group) => (
             <div
               key={group.title}
               style={{
-                border: "1.5px solid var(--sp-charcoal)",
+                position: "relative",
                 borderRadius: "var(--radius-cards)",
-                padding: "18px 18px 16px",
-                background: "var(--sp-cream)",
+                overflow: "hidden",
+                border: "1.5px solid var(--sp-charcoal)",
                 boxShadow: "var(--shadow-lg)",
               }}
             >
-              <h3 style={{ fontFamily: "var(--font-gelica)", fontSize: 17, fontWeight: 600, color: "var(--sp-cocoa)", margin: "0 0 10px" }}>
-                {group.title}
-              </h3>
-              <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
-                {group.items.map((item) => (
-                  <li
-                    key={item}
-                    style={{
-                      display: "flex", alignItems: "flex-start", gap: 8,
-                      fontSize: 14, color: "rgba(23,23,23,0.75)", lineHeight: 1.5,
-                      fontFamily: "var(--font-geist), sans-serif",
-                    }}
-                  >
-                    <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0, marginTop: 7 }} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={group.svg}
+                alt=""
+                aria-hidden="true"
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+              />
+              <div style={{ position: "relative", padding: "18px 18px 16px" }}>
+                <h3 style={{ fontFamily: "var(--font-gelica)", fontSize: 17, fontWeight: 600, color: "var(--sp-charcoal)", margin: "0 0 10px" }}>
+                  {group.title}
+                </h3>
+                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      style={{
+                        display: "flex", alignItems: "flex-start", gap: 8,
+                        fontSize: 14, color: "rgba(23,23,23,0.8)", lineHeight: 1.5,
+                        fontFamily: "var(--font-geist), sans-serif",
+                      }}
+                    >
+                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0, marginTop: 7 }} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
