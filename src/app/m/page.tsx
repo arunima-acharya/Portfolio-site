@@ -6,28 +6,14 @@ const SERVICES = ["Product Design", "UX/UI Design", "SaaS & Enterprise", "Design
 
 // Desktop shows these as sticky notes scattered across a 3D flip-book
 // notebook. Mobile drops the notebook/flip interaction and decorative
-// stickers entirely — just the note artwork itself, stacked top to bottom.
-const EXPERTISE = [
-  {
-    title: "Product Design",
-    svg: "/assets/note/note%201.svg",
-    items: ["End-to-End Product Design", "Interaction Design", "Wireframing", "Prototyping", "Visual Design", "Information Architecture"],
-  },
-  {
-    title: "Research & Testing",
-    svg: "/assets/note/note%202.svg",
-    items: ["User Research", "Usability Testing", "Heuristic Evaluation", "User Personas", "Journey Mapping"],
-  },
-  {
-    title: "Systems & Strategy",
-    svg: "/assets/note/note%203.svg",
-    items: ["Design Systems (25 → 50+ components)", "Accessibility (WCAG)", "Product Strategy", "Zero-to-One Design", "Data-Informed Design"],
-  },
-  {
-    title: "Collaboration",
-    svg: "/assets/note/note4.svg",
-    items: ["Cross-Functional Collaboration", "Developer Handoff", "Agile / Scrum", "Stakeholder Management"],
-  },
+// stickers entirely — the note artwork already has its own title/list
+// baked in, so this is just the raw SVGs stacked top to bottom, no card
+// chrome or text overlay (that was double-rendering the content).
+const NOTE_SVGS = [
+  "/assets/note/note%201.svg",
+  "/assets/note/note%202.svg",
+  "/assets/note/note%203.svg",
+  "/assets/note/note4.svg",
 ];
 
 export default function MobileHome() {
@@ -208,46 +194,10 @@ export default function MobileHome() {
         >
           what i bring to the table
         </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {EXPERTISE.map((group) => (
-            <div
-              key={group.title}
-              style={{
-                position: "relative",
-                borderRadius: "var(--radius-cards)",
-                overflow: "hidden",
-                border: "1.5px solid var(--sp-charcoal)",
-                boxShadow: "var(--shadow-lg)",
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={group.svg}
-                alt=""
-                aria-hidden="true"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-              />
-              <div style={{ position: "relative", padding: "18px 18px 16px" }}>
-                <h3 style={{ fontFamily: "var(--font-gelica)", fontSize: 17, fontWeight: 600, color: "var(--sp-charcoal)", margin: "0 0 10px" }}>
-                  {group.title}
-                </h3>
-                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      style={{
-                        display: "flex", alignItems: "flex-start", gap: 8,
-                        fontSize: 14, color: "rgba(23,23,23,0.8)", lineHeight: 1.5,
-                        fontFamily: "var(--font-geist), sans-serif",
-                      }}
-                    >
-                      <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0, marginTop: 7 }} />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+          {NOTE_SVGS.map((svg) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={svg} src={svg} alt="" style={{ width: "80%", height: "auto", display: "block" }} />
           ))}
         </div>
       </section>
