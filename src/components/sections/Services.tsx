@@ -14,6 +14,79 @@ const services = [
   { title: "Design Consulting" },
 ];
 
+// Mobile viewports skip the 3D flip-book notebook + decorative stickers
+// entirely (too heavy for a phone) and show the same four categories as
+// the note artwork itself, stacked top to bottom — see NotesStack below.
+const expertise = [
+  {
+    title: "Product Design",
+    svg: "/assets/note/note%201.svg",
+    items: ["End-to-End Product Design", "Interaction Design", "Wireframing", "Prototyping", "Visual Design", "Information Architecture"],
+  },
+  {
+    title: "Research & Testing",
+    svg: "/assets/note/note%202.svg",
+    items: ["User Research", "Usability Testing", "Heuristic Evaluation", "User Personas", "Journey Mapping"],
+  },
+  {
+    title: "Systems & Strategy",
+    svg: "/assets/note/note%203.svg",
+    items: ["Design Systems (25 → 50+ components)", "Accessibility (WCAG)", "Product Strategy", "Zero-to-One Design", "Data-Informed Design"],
+  },
+  {
+    title: "Collaboration",
+    svg: "/assets/note/note4.svg",
+    items: ["Cross-Functional Collaboration", "Developer Handoff", "Agile / Scrum", "Stakeholder Management"],
+  },
+];
+
+function NotesStack() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+      {expertise.map((group) => (
+        <div
+          key={group.title}
+          style={{
+            position: "relative",
+            borderRadius: "var(--radius-cards)",
+            overflow: "hidden",
+            border: "1.5px solid var(--sp-charcoal)",
+            boxShadow: "var(--shadow-lg)",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={group.svg}
+            alt=""
+            aria-hidden="true"
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+          />
+          <div style={{ position: "relative", padding: "18px 18px 16px" }}>
+            <h3 style={{ fontFamily: "var(--font-gelica)", fontSize: 17, fontWeight: 600, color: "var(--sp-charcoal)", margin: "0 0 10px" }}>
+              {group.title}
+            </h3>
+            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
+              {group.items.map((item) => (
+                <li
+                  key={item}
+                  style={{
+                    display: "flex", alignItems: "flex-start", gap: 8,
+                    fontSize: 14, color: "rgba(23,23,23,0.8)", lineHeight: 1.5,
+                    fontFamily: "var(--font-geist), sans-serif",
+                  }}
+                >
+                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0, marginTop: 7 }} />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
 function TextBlock({ isMobile }: { isMobile: boolean }) {
@@ -107,9 +180,7 @@ function MobileLayout() {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
           <TextBlock isMobile />
         </div>
-        <div style={{ width: "100%" }}>
-          <SuperrBookFlip fill />
-        </div>
+        <NotesStack />
       </div>
     </section>
   );
