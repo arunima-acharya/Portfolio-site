@@ -85,6 +85,7 @@ const SvgStackItem = forwardRef<
             flexDirection: "column",
             overflow: "hidden",
             padding: "4%",
+            paddingRight: "36px",
             color: "var(--sp-charcoal)",
             textAlign,
           }}
