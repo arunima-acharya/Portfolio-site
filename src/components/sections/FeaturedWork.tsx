@@ -208,7 +208,7 @@ export default function FeaturedWork() {
         </motion.p>
       </div>
 
-      {/* Cards — one wide card per row, each followed by its stamp-edge accent */}
+      {/* Cards — one wide card per row, each followed by its own SVG at native aspect ratio */}
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
         {filtered.map((project, i) => (
           <Fragment key={project.id}>
@@ -218,7 +218,7 @@ export default function FeaturedWork() {
               src={WORK_BG_SVGS[i]}
               alt=""
               aria-hidden="true"
-              style={{ width: "100%", height: 28, objectFit: "cover", objectPosition: "top", display: "block", borderRadius: "var(--radius-sm)" }}
+              style={{ width: "100%", height: "auto", display: "block" }}
             />
           </Fragment>
         ))}
