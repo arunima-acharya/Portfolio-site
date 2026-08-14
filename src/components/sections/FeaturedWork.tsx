@@ -18,6 +18,8 @@ const WORK_BG_SVGS = [
   "/assets/work%20bg/bg%204.svg",
 ];
 
+const SVG_TILT_DEGREES = [-6, 8, -7, 9];
+
 function stickyTop(index: number) {
   return 160 + index * 28;
 }
@@ -47,6 +49,8 @@ const SvgStackItem = forwardRef<HTMLDivElement, { src: string; index: number; is
             height: "auto",
             display: "block",
             filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
+            transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg)`,
+            transformOrigin: "top left",
           }}
         />
       </motion.div>
