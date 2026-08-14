@@ -70,18 +70,19 @@ const SvgStackItem = forwardRef<
           style={{ position: "absolute", top: "1%", left: "-1%", width: "67.8%", height: "auto", display: "block" }}
         />
 
-        {/* Same data as ProjectCard's content panel, confined to the paper's face */}
+        {/* Same data as ProjectCard's content panel — kept on the right side of
+            the bg svg so it doesn't overlap the paper on the left */}
         <div
           style={{
             position: "absolute",
-            top: "1%",
-            left: "-1%",
-            width: "67.8%",
-            height: "78.7%",
+            top: "8%",
+            left: "70%",
+            width: "26%",
+            height: "84%",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
-            padding: "8%",
+            padding: "4%",
             color: "var(--sp-charcoal)",
           }}
         >
