@@ -9,6 +9,32 @@ import { useParallax } from "@/hooks/useParallax";
 
 const CARD_HEIGHT = 400;
 
+// Same order as FEATURED_SLUGS below.
+const WORK_BG_SVGS = [
+  "/assets/work%20bg/bg%201.svg",
+  "/assets/work%20bg/bg%202.svg",
+  "/assets/work%20bg/bg3.svg",
+  "/assets/work%20bg/bg4.svg",
+];
+
+// Same sticky-stack scroll choreography as ProjectCard (position: sticky,
+// staggered top offset + zIndex so each item slides in and overlaps the one
+// before it) but rendering the raw SVG artwork instead of a case-study card.
+function SvgStackItem({ src, index }: { src: string; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-8%" }}
+      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      style={{ position: "sticky", top: `${160 + index * 28}px`, zIndex: index + 1 }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
+    </motion.div>
+  );
+}
+
 function ProjectCard({
   project,
   index,
@@ -148,7 +174,7 @@ function ProjectCard({
   );
 }
 
-export default function FeaturedWork() {
+export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean }) {
   const isMobile = useIsMobile();
   const FEATURED_SLUGS = ["hotelogix-frontdesk", "hotelogix-pos", "hotelogix-cro", "pocket-pms"];
   const filtered = getFeaturedProjects().filter((p) => FEATURED_SLUGS.includes(p.slug));
@@ -198,11 +224,15 @@ export default function FeaturedWork() {
         </motion.p>
       </div>
 
-      {/* Cards — one wide card per row */}
+      {/* Cards — one wide card per row (or, when useSvgs, the work-bg SVGs in the same scroll stack) */}
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
-        {filtered.map((project, i) => (
-          <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
-        ))}
+        {filtered.map((project, i) =>
+          useSvgs ? (
+            <SvgStackItem key={project.id} src={WORK_BG_SVGS[i]} index={i} />
+          ) : (
+            <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
+          )
+        )}
       </div>
 
       {/* View all */}

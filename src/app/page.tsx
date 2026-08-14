@@ -38,8 +38,8 @@ export default function HomePage() {
       {/* Selected Works */}
       <FeaturedWork />
 
-      {/* Selected Works (duplicate) */}
-      <FeaturedWork />
+      {/* Selected Works (duplicate) — same scroll-stack animation, work-bg SVGs instead of cards */}
+      <FeaturedWork useSvgs />
 
       {/* Section 5 — Services (padded, bg spans full width incl. gutters) —
           includes the SuperrBook vector-flip notebook animation on its
