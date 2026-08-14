@@ -1,5 +1,6 @@
 "use client";
 
+import { forwardRef, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Calendar } from "lucide-react";
@@ -17,32 +18,86 @@ const WORK_BG_SVGS = [
   "/assets/work%20bg/bg%204.svg",
 ];
 
+// A mix of left/right tilts (not all leaning the same way) — fixed rather
+// than Math.random() so server- and client-rendered markup match (a random
+// value picked separately on each would trigger a hydration mismatch).
+const SVG_TILT_DEGREES = [-6, 4, -3, 7];
+
+function stickyTop(index: number) {
+  return 160 + index * 28;
+}
+
 // Same sticky-stack scroll choreography as ProjectCard (position: sticky,
 // staggered top offset + zIndex so each item slides in and overlaps the one
 // before it) but rendering the raw SVG artwork instead of a case-study card.
-function SvgStackItem({ src, index }: { src: string; index: number }) {
+// `isTop` controls the drop-shadow: only whichever item is currently the
+// frontmost in the stack (tracked by the parent SvgStack) casts one.
+const SvgStackItem = forwardRef<HTMLDivElement, { src: string; index: number; isTop: boolean }>(
+  function SvgStackItem({ src, index, isTop }, ref) {
+    return (
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-8%" }}
+        transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+        style={{ position: "sticky", top: `${stickyTop(index)}px`, zIndex: index + 1 }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt=""
+          style={{
+            width: "100%",
+            height: "auto",
+            display: "block",
+            filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
+            transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg)`,
+            transformOrigin: "top left",
+          }}
+        />
+      </motion.div>
+    );
+  }
+);
+
+// Tracks which sticky item is currently frontmost (i.e. actually "stuck" —
+// its top edge has reached its sticky offset) as the user scrolls, so only
+// that one gets a shadow instead of every item in the stack having one.
+function SvgStack({ items }: { items: { id: string; src: string }[] }) {
+  const refs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    function update() {
+      let top = 0;
+      items.forEach((_, i) => {
+        const el = refs.current[i];
+        if (el && el.getBoundingClientRect().top <= stickyTop(i) + 1) top = i;
+      });
+      setActiveIndex(top);
+    }
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [items]);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      style={{ position: "sticky", top: `${160 + index * 28}px`, zIndex: index + 1 }}
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt=""
-        style={{
-          width: "100%",
-          height: "auto",
-          display: "block",
-          filter: "drop-shadow(0 10px 22px rgba(0,0,0,0.22))",
-          transform: "rotate(4deg)",
-          transformOrigin: "top left",
-        }}
-      />
-    </motion.div>
+    <>
+      {items.map((item, i) => (
+        <SvgStackItem
+          key={item.id}
+          ref={(el) => { refs.current[i] = el; }}
+          src={item.src}
+          index={i}
+          isTop={i === activeIndex}
+        />
+      ))}
+    </>
   );
 }
 
@@ -237,12 +292,12 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
 
       {/* Cards — one wide card per row (or, when useSvgs, the work-bg SVGs in the same scroll stack) */}
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
-        {filtered.map((project, i) =>
-          useSvgs ? (
-            <SvgStackItem key={project.id} src={WORK_BG_SVGS[i]} index={i} />
-          ) : (
+        {useSvgs ? (
+          <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i] }))} />
+        ) : (
+          filtered.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
-          )
+          ))
         )}
       </div>
 
