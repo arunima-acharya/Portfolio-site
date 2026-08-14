@@ -218,7 +218,7 @@ export default function FeaturedWork() {
               src={WORK_BG_SVGS[i]}
               alt=""
               aria-hidden="true"
-              style={{ width: "100%", height: "auto", display: "block" }}
+              style={{ width: "50%", height: "auto", display: "block", marginLeft: "auto", marginRight: "auto" }}
             />
           </Fragment>
         ))}
