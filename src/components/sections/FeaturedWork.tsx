@@ -18,11 +18,6 @@ const WORK_BG_SVGS = [
   "/assets/work%20bg/bg%204.svg",
 ];
 
-// A mix of left/right tilts (not all leaning the same way) — fixed rather
-// than Math.random() so server- and client-rendered markup match (a random
-// value picked separately on each would trigger a hydration mismatch).
-const SVG_TILT_DEGREES = [-6, 4, -3, 7];
-
 function stickyTop(index: number) {
   return 160 + index * 28;
 }
@@ -52,8 +47,6 @@ const SvgStackItem = forwardRef<HTMLDivElement, { src: string; index: number; is
             height: "auto",
             display: "block",
             filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
-            transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg)`,
-            transformOrigin: "top left",
           }}
         />
       </motion.div>
