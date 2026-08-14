@@ -35,10 +35,7 @@ export default function HomePage() {
       {/* Dark statement — black background, full width */}
       <DarkHeroStatement />
 
-      {/* Selected Works */}
-      <FeaturedWork />
-
-      {/* Selected Works (duplicate) — same scroll-stack animation, work-bg SVGs instead of cards */}
+      {/* Selected Works — svg scroll-stack version only (plain-card version removed) */}
       <FeaturedWork useSvgs />
 
       {/* Section 5 — Services (padded, bg spans full width incl. gutters) —
