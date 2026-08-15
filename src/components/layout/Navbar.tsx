@@ -87,7 +87,7 @@ export default function Navbar() {
                     style={{
                       display: "flex", alignItems: "center", gap: "var(--spacing-8)",
                       minHeight: 52, padding: "0 20px",
-                      fontFamily: "var(--font-geist), sans-serif", fontSize: 16,
+                      fontFamily: "var(--font-gelica)", fontSize: 16,
                       fontWeight: active ? 600 : 400, color: active ? "var(--sp-charcoal)" : "#555",
                       textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
                     }}
@@ -104,7 +104,7 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 style={{
                   display: "flex", alignItems: "center", minHeight: 52, padding: "0 20px",
-                  fontFamily: "var(--font-geist), sans-serif", fontSize: 16, color: "#555",
+                  fontFamily: "var(--font-gelica)", fontSize: 16, color: "#555",
                   textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
                 }}
               >
@@ -116,7 +116,7 @@ export default function Navbar() {
                 rel="noopener noreferrer"
                 style={{
                   display: "flex", alignItems: "center", minHeight: 52, padding: "0 20px",
-                  fontFamily: "var(--font-geist), sans-serif", fontSize: 16, color: "#555",
+                  fontFamily: "var(--font-gelica)", fontSize: 16, color: "#555",
                   textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
                 }}
               >
@@ -223,7 +223,7 @@ export default function Navbar() {
                   gap: "6px",
                   padding: "8px clamp(8px, 1.5vw, 14px)",
                   borderRadius: "var(--radius-2xl-2)",
-                  fontFamily: "var(--font-geist), sans-serif",
+                  fontFamily: "var(--font-gelica)",
                   fontSize: 16,
                   fontWeight: active ? 600 : 500,
                   color: active ? "var(--sp-charcoal)" : "#6b6b6b",
@@ -256,7 +256,7 @@ export default function Navbar() {
             style={{
               padding: "8px clamp(8px, 1.5vw, 14px)",
               borderRadius: "var(--radius-2xl-2)",
-              fontFamily: "var(--font-geist), sans-serif",
+              fontFamily: "var(--font-gelica)",
               fontSize: 16,
               fontWeight: 500,
               color: "#6b6b6b",
@@ -277,7 +277,7 @@ export default function Navbar() {
             style={{
               padding: "8px clamp(8px, 1.5vw, 14px)",
               borderRadius: "var(--radius-2xl-2)",
-              fontFamily: "var(--font-geist), sans-serif",
+              fontFamily: "var(--font-gelica)",
               fontSize: 16,
               fontWeight: 500,
               color: "#6b6b6b",

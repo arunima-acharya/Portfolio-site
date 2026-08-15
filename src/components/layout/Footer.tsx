@@ -38,7 +38,6 @@ export default function Footer() {
         width: "100%",
         position: "relative",
         overflow: "hidden",
-        borderRadius: "var(--radius-footer) var(--radius-footer) 0 0",
       }}
     >
       {/* Main body */}
