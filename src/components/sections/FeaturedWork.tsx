@@ -72,9 +72,15 @@ const SvgStackItem = forwardRef<
   // Scales with viewport width (via vw + clamp) instead of a fixed px size,
   // so text stays proportional to the card instead of looking tiny on wide
   // desktop monitors where the card itself (width: 100%) renders huge.
-  // Mobile keeps a flat 30%-smaller size since /m's viewport range is narrow.
+  // Mobile keeps a flat 30%-smaller size than desktop's floor.
   const bodySize = isMobile ? "11px" : "clamp(14px, 1.3vw, 22px)";
   const titleSize = isMobile ? "15.4px" : "clamp(22px, 3.2vw, 40px)";
+  // Mobile-only: card (and everything inside it — text, bg, photo all
+  // scale together as one unit via this shared transform) scaled up 30%
+  // (0.821 -> 1.0673). Desktop unchanged. Not compounded with a separate
+  // per-element scale, since that would double the effect.
+  const cardScale = isMobile ? 0.821 * 1.3 : 0.821;
+  const photoWidth = PHOTO_WIDTHS[index] ?? "56%";
 
   return (
     <motion.div
@@ -93,7 +99,7 @@ const SvgStackItem = forwardRef<
           display: "block",
           position: "relative",
           textDecoration: "none",
-          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(0.821)`,
+          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(${cardScale})`,
           filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
         }}
       >
@@ -119,7 +125,7 @@ const SvgStackItem = forwardRef<
             position: "absolute",
             top: "11%",
             left: "3%",
-            width: PHOTO_WIDTHS[index] ?? "56%",
+            width: photoWidth,
             height: "auto",
             display: "block",
             border: "7px solid #fff",
