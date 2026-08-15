@@ -176,7 +176,7 @@ const SvgStackItem = forwardRef<
             {project.shortDescription}
           </p>
 
-          {tags.length > 0 && (
+          {!isMobile && tags.length > 0 && (
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: rowJustify, gap: "var(--spacing-8)", marginBottom: 24 }}>
               {tags.map((tag) => (
                 <span
