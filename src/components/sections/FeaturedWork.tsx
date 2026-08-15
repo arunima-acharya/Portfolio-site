@@ -38,7 +38,7 @@ const PHOTO_TILT_DEGREES = [-2.5, 2, -1.5, 3];
 // -> 22.4%) relative to the other three, which stay at the shared size.
 const PHOTO_WIDTHS = ["56%", "56%", "56%", "22.4%"];
 // Mobile-only, +20% over PHOTO_WIDTHS.
-const PHOTO_WIDTHS_MOBILE = ["67.2%", "67.2%", "67.2%", "26.88%"];
+const PHOTO_WIDTHS_MOBILE = ["80.64%", "80.64%", "80.64%", "32.256%"];
 
 // One real product screenshot per featured project (same order as
 // FEATURED_SLUGS below), inset into the torn-paper face so it reads as a
