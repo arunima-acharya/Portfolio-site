@@ -20,6 +20,11 @@ const WORK_BG_SVGS = [
 
 const SVG_TILT_DEGREES = [-3, 5, -6, 7];
 
+// Small mixed-direction tilt per inset photo — fixed rather than
+// Math.random() so server/client markup match (see SVG_TILT_DEGREES note
+// history for why a live-random value would cause a hydration mismatch).
+const PHOTO_TILT_DEGREES = [-2.5, 2, -1.5, 3];
+
 // One real product screenshot per featured project (same order as
 // FEATURED_SLUGS below), inset into the torn-paper face so it reads as a
 // photograph pinned to the page rather than a blank note. Pocket PMS has no
@@ -227,7 +232,8 @@ const SvgStackItem = forwardRef<
             height: "auto",
             display: "block",
             border: "7px solid #fff",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+            transform: `rotate(${PHOTO_TILT_DEGREES[index] ?? 0}deg)`,
+            boxShadow: "0 6px 14px rgba(0,0,0,0.28)",
           }}
         />
 
