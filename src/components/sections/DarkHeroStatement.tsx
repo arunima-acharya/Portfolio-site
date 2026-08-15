@@ -302,7 +302,8 @@ export default function DarkHeroStatement() {
                 Connect on a Call
               </a>
               <a
-                href="/resume.pdf"
+                href="/assets/Arunima_Acharya_Resume.pdf"
+                download
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Download resume (opens in new tab)"
