@@ -195,7 +195,9 @@ export default function Navbar() {
 
         {/* Center — plain-text links in a solid white pill; the active
             page gets a leading dot + bold near-black text, everything
-            else stays a muted grey, matching the reference. */}
+            else stays a muted grey, matching the reference. Shadow +
+            per-link hover pill added since the flat, flush version read
+            as dull against the cream backdrop. */}
         <div
           className="navbar-links"
           style={{
@@ -205,7 +207,8 @@ export default function Navbar() {
             background: "var(--sp-cream)",
             border: "1.5px solid var(--sp-charcoal)",
             borderRadius: "var(--radius-2xl-2)",
-            padding: "10px clamp(16px, 3vw, 24px)",
+            padding: "8px clamp(14px, 3vw, 22px)",
+            boxShadow: "var(--shadow-subtle)",
           }}
         >
           {LINKS.map(({ label, href }) => {
@@ -218,20 +221,28 @@ export default function Navbar() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "6px",
-                  padding: "0 clamp(8px, 1.5vw, 14px)",
+                  padding: "8px clamp(8px, 1.5vw, 14px)",
+                  borderRadius: "var(--radius-2xl-2)",
                   fontFamily: "var(--font-geist), sans-serif",
                   fontSize: 16,
-                  fontWeight: active ? 600 : 400,
-                  color: active ? "var(--sp-charcoal)" : "#9a9a9a",
+                  fontWeight: active ? 600 : 500,
+                  color: active ? "var(--sp-charcoal)" : "#6b6b6b",
+                  background: "transparent",
                   textDecoration: "none",
                   whiteSpace: "nowrap",
-                  transition: "color 0.2s",
+                  transition: "color 0.2s, background-color 0.2s",
                 }}
-                onMouseEnter={e => { if (!active) e.currentTarget.style.color = "#555"; }}
-                onMouseLeave={e => { if (!active) e.currentTarget.style.color = "#9a9a9a"; }}
+                onMouseEnter={e => {
+                  if (!active) e.currentTarget.style.color = "var(--sp-charcoal)";
+                  e.currentTarget.style.backgroundColor = "rgba(23,23,23,0.06)";
+                }}
+                onMouseLeave={e => {
+                  if (!active) e.currentTarget.style.color = "#6b6b6b";
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
               >
                 {active && (
-                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
+                  <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--sp-orange)", flexShrink: 0 }} />
                 )}
                 {label}
               </a>
@@ -243,16 +254,19 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              padding: "0 clamp(8px, 1.5vw, 14px)",
+              padding: "8px clamp(8px, 1.5vw, 14px)",
+              borderRadius: "var(--radius-2xl-2)",
               fontFamily: "var(--font-geist), sans-serif",
               fontSize: 16,
-              color: "#9a9a9a",
+              fontWeight: 500,
+              color: "#6b6b6b",
+              background: "transparent",
               textDecoration: "none",
               whiteSpace: "nowrap",
-              transition: "color 0.2s",
+              transition: "color 0.2s, background-color 0.2s",
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#555")}
-            onMouseLeave={e => (e.currentTarget.style.color = "#9a9a9a")}
+            onMouseEnter={e => { e.currentTarget.style.color = "var(--sp-charcoal)"; e.currentTarget.style.backgroundColor = "rgba(23,23,23,0.06)"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "#6b6b6b"; e.currentTarget.style.backgroundColor = "transparent"; }}
           >
             Resume
           </a>
@@ -261,16 +275,19 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              padding: "0 clamp(8px, 1.5vw, 14px)",
+              padding: "8px clamp(8px, 1.5vw, 14px)",
+              borderRadius: "var(--radius-2xl-2)",
               fontFamily: "var(--font-geist), sans-serif",
               fontSize: 16,
-              color: "#9a9a9a",
+              fontWeight: 500,
+              color: "#6b6b6b",
+              background: "transparent",
               textDecoration: "none",
               whiteSpace: "nowrap",
-              transition: "color 0.2s",
+              transition: "color 0.2s, background-color 0.2s",
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#555")}
-            onMouseLeave={e => (e.currentTarget.style.color = "#9a9a9a")}
+            onMouseEnter={e => { e.currentTarget.style.color = "var(--sp-charcoal)"; e.currentTarget.style.backgroundColor = "rgba(23,23,23,0.06)"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "#6b6b6b"; e.currentTarget.style.backgroundColor = "transparent"; }}
           >
             LinkedIn
           </a>
