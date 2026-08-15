@@ -253,37 +253,54 @@ export default function DesignProcess3D() {
                 {/* Badge + connector column */}
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
                   <div style={{
-                    width: 46,
-                    height: 46,
+                    width: 52,
+                    height: 52,
                     borderRadius: "50%",
                     background: layer.gradient,
-                    border: "1px solid rgba(0,0,0,0.06)",
-                    boxShadow: "0 4px 14px rgba(0,0,0,0.12)",
+                    border: `2px solid ${layer.color}`,
+                    boxShadow: "0 4px 14px rgba(0,0,0,0.16)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                   }}>
-                    <span style={{ fontSize: "16px", fontWeight: 700, color: badgeTextColor, fontFamily: "var(--font-geist), sans-serif" }}>
+                    <span style={{ fontSize: "17px", fontWeight: 700, color: badgeTextColor, fontFamily: "var(--font-geist), sans-serif" }}>
                       {i + 1}
                     </span>
                   </div>
                   {!last && (
-                    <div style={{ width: 2, flex: 1, minHeight: "36px", background: "rgba(0,0,0,0.10)", marginTop: "var(--spacing-8)" }} />
+                    <div style={{ width: 2, flex: 1, minHeight: "36px", background: `linear-gradient(${layer.color}, ${LAYERS[i + 1].color})`, opacity: 0.35, marginTop: "var(--spacing-8)" }} />
                   )}
                 </div>
 
-                {/* Copy */}
-                <div style={{ paddingBottom: last ? "4px" : "36px" }}>
-                  <p style={{
-                    fontSize: "16px",
+                {/* Copy — outlined card so each step reads as a distinct
+                    unit instead of floating text, with a left accent
+                    stripe in the step's own color. */}
+                <div
+                  style={{
+                    flex: 1,
+                    marginBottom: last ? "4px" : "28px",
+                    padding: "16px 18px",
+                    borderRadius: "var(--radius-lg)",
+                    border: "1.5px solid rgba(0,0,0,0.1)",
+                    borderLeft: `4px solid ${layer.color}`,
+                    background: "rgba(0,0,0,0.02)",
+                  }}
+                >
+                  <span style={{
+                    display: "inline-flex",
+                    fontSize: "13px",
                     fontWeight: 700,
                     color: layer.color,
                     fontFamily: "var(--font-geist), sans-serif",
-                    marginBottom: "6px",
+                    letterSpacing: "0.02em",
+                    padding: "3px 10px",
+                    borderRadius: "var(--radius-2xl-2)",
+                    border: `1.5px solid ${layer.color}`,
+                    marginBottom: "10px",
                   }}>
                     Step {String(i + 1).padStart(2, "0")}
-                  </p>
+                  </span>
                   <h3 style={{
                     fontSize: "20px",
                     fontWeight: 400,
