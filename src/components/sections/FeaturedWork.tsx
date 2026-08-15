@@ -66,6 +66,9 @@ const SvgStackItem = forwardRef<
   // Mobile keeps a flat 30%-smaller size since /m's viewport range is narrow.
   const bodySize = isMobile ? "11px" : "clamp(14px, 1.3vw, 22px)";
   const titleSize = isMobile ? "15.4px" : "clamp(22px, 3.2vw, 40px)";
+  // Mobile-only: card scaled to 100% more height (2x) than the desktop
+  // scale factor. Desktop stays at 0.821, untouched.
+  const cardScale = isMobile ? 0.821 * 2 : 0.821;
 
   return (
     <motion.div
@@ -84,7 +87,7 @@ const SvgStackItem = forwardRef<
           display: "block",
           position: "relative",
           textDecoration: "none",
-          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(0.821)`,
+          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(${cardScale})`,
           filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
         }}
       >
