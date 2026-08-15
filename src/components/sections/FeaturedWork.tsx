@@ -155,10 +155,29 @@ const SvgStackItem = forwardRef<
             textAlign,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", justifyContent: rowJustify, gap: "var(--spacing-8)", marginBottom: 16 }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
-            <span style={{ fontSize: bodySize, fontWeight: 700 }}>{project.category}</span>
-          </div>
+          {isMobile ? (
+            <span
+              style={{
+                display: "inline-flex",
+                alignSelf: "flex-start",
+                alignItems: "center",
+                fontSize: bodySize,
+                fontWeight: 700,
+                padding: "4px 12px",
+                borderRadius: "var(--radius-2xl-2)",
+                border: "1.5px solid var(--sp-charcoal)",
+                background: "rgba(255,255,255,0.4)",
+                marginBottom: 14,
+              }}
+            >
+              {project.category}
+            </span>
+          ) : (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: rowJustify, gap: "var(--spacing-8)", marginBottom: 16 }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
+              <span style={{ fontSize: bodySize, fontWeight: 700 }}>{project.category}</span>
+            </div>
+          )}
 
           <h3
             style={{
@@ -172,7 +191,7 @@ const SvgStackItem = forwardRef<
             {project.title}
           </h3>
 
-          <p style={{ fontSize: bodySize, lineHeight: 1.5, marginBottom: 20, maxWidth: "60ch" }}>
+          <p style={{ fontSize: bodySize, lineHeight: 1.5, marginBottom: isMobile ? 8 : 20, maxWidth: "60ch" }}>
             {project.shortDescription}
           </p>
 
@@ -212,7 +231,7 @@ const SvgStackItem = forwardRef<
             justifyContent: "space-between",
             width: "100%",
             padding: "3% 6% 0",
-            borderTop: "1px solid rgba(0,0,0,0.2)",
+            borderTop: isMobile ? "1.5px solid rgba(0,0,0,0.3)" : "1px solid rgba(0,0,0,0.2)",
             color: "var(--sp-charcoal)",
           }}
         >
@@ -222,22 +241,55 @@ const SvgStackItem = forwardRef<
               {project.timeline}
             </span>
           )}
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: bodySize, fontWeight: 500, marginLeft: "auto" }}>
-            View case study
+          {isMobile ? (
             <span
               style={{
-                width: 28,
-                height: 28,
-                borderRadius: "50%",
-                display: "flex",
+                display: "inline-flex",
                 alignItems: "center",
-                justifyContent: "center",
-                background: "rgba(255,255,255,0.35)",
+                gap: 6,
+                fontSize: bodySize,
+                fontWeight: 600,
+                marginLeft: "auto",
+                padding: "6px 8px 6px 14px",
+                borderRadius: "var(--radius-2xl-2)",
+                border: "1.5px solid var(--sp-charcoal)",
+                background: "rgba(255,255,255,0.4)",
               }}
             >
-              <ArrowUpRight size={14} />
+              View case study
+              <span
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "var(--sp-charcoal)",
+                  flexShrink: 0,
+                }}
+              >
+                <ArrowUpRight size={13} color="#fff" />
+              </span>
             </span>
-          </span>
+          ) : (
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: bodySize, fontWeight: 500, marginLeft: "auto" }}>
+              View case study
+              <span
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "rgba(255,255,255,0.35)",
+                }}
+              >
+                <ArrowUpRight size={14} />
+              </span>
+            </span>
+          )}
         </div>
       </Link>
     </motion.div>
