@@ -162,9 +162,12 @@ const SvgStackItem = forwardRef<
   const tags = project.tags.slice(0, 3);
   const textAlign = "left" as const;
   const rowJustify = "flex-start" as const;
-  // Mobile text is 30% smaller across the board.
-  const bodySize = isMobile ? 11 : 16;
-  const titleSize = isMobile ? "15.4px" : "clamp(22px, 2.6vw, 32px)";
+  // Scales with viewport width (via vw + clamp) instead of a fixed px size,
+  // so text stays proportional to the card instead of looking tiny on wide
+  // desktop monitors where the card itself (width: 100%) renders huge.
+  // Mobile keeps a flat 30%-smaller size since /m's viewport range is narrow.
+  const bodySize = isMobile ? "11px" : "clamp(14px, 1.3vw, 22px)";
+  const titleSize = isMobile ? "15.4px" : "clamp(22px, 3.2vw, 40px)";
 
   return (
     <motion.div
