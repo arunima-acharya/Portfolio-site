@@ -212,7 +212,9 @@ const SvgStackItem = forwardRef<
         />
 
         {/* Product screenshot inset into the paper's face, so the paper
-            reads as a torn-photo border rather than a blank note. */}
+            reads as a torn-photo border rather than a blank note. Height is
+            "auto" so each photo keeps its own native aspect ratio instead of
+            being cropped to a fixed box — footprint varies photo to photo. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={photo}
@@ -222,9 +224,9 @@ const SvgStackItem = forwardRef<
             top: "6%",
             left: "3%",
             width: "60%",
-            height: "69%",
-            objectFit: "cover",
+            height: "auto",
             display: "block",
+            border: "7px solid #fff",
             boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
           }}
         />
