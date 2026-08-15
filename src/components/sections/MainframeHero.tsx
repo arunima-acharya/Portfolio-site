@@ -393,7 +393,11 @@ export default function MainframeHero({
           flexShrink: 0,
           order: 1,
         }}>
-          <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+          {/* Camera shifted up (y: 0 -> 2) so the rope's anchor point
+              (Lanyard.tsx's fixed joint at world y=4) and the card's own
+              top edge land closer to the top of this full-height canvas
+              instead of starting further down. */}
+          <Lanyard position={[0, 2, 20]} gravity={[0, -40, 0]} />
         </div>
       )}
 
