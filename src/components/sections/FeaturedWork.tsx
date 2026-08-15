@@ -37,6 +37,8 @@ const PHOTO_TILT_DEGREES = [-2.5, 2, -1.5, 3];
 // Per-photo width — pocket-pms's mockup screenshot is scaled down 60% (56%
 // -> 22.4%) relative to the other three, which stay at the shared size.
 const PHOTO_WIDTHS = ["56%", "56%", "56%", "22.4%"];
+// Mobile-only, +20% over PHOTO_WIDTHS.
+const PHOTO_WIDTHS_MOBILE = ["67.2%", "67.2%", "67.2%", "26.88%"];
 
 // One real product screenshot per featured project (same order as
 // FEATURED_SLUGS below), inset into the torn-paper face so it reads as a
@@ -72,9 +74,14 @@ const SvgStackItem = forwardRef<
   // Scales with viewport width (via vw + clamp) instead of a fixed px size,
   // so text stays proportional to the card instead of looking tiny on wide
   // desktop monitors where the card itself (width: 100%) renders huge.
-  // Mobile keeps a flat 30%-smaller size since /m's viewport range is narrow.
-  const bodySize = isMobile ? "11px" : "clamp(14px, 1.3vw, 22px)";
-  const titleSize = isMobile ? "15.4px" : "clamp(22px, 3.2vw, 40px)";
+  // Mobile: base flat size, scaled up 20% per the latest request
+  // (11px -> 13.2px, 15.4px -> 18.5px). bg svg itself is untouched.
+  const bodySize = isMobile ? "13.2px" : "clamp(14px, 1.3vw, 22px)";
+  const titleSize = isMobile ? "18.5px" : "clamp(22px, 3.2vw, 40px)";
+  // Mobile-only, +20%: paper (67.8% -> 81.4%) and photo (PHOTO_WIDTHS * 1.2).
+  // bg svg (the <img src={src}> below) is deliberately left at width: 100%.
+  const paperWidth = isMobile ? "81.4%" : "67.8%";
+  const photoWidth = (isMobile ? PHOTO_WIDTHS_MOBILE : PHOTO_WIDTHS)[index] ?? "56%";
 
   return (
     <motion.div
@@ -104,7 +111,7 @@ const SvgStackItem = forwardRef<
         <img
           src={PAPER_SVG}
           alt=""
-          style={{ position: "absolute", top: "1%", left: "-1%", width: "67.8%", height: "auto", display: "block" }}
+          style={{ position: "absolute", top: "1%", left: "-1%", width: paperWidth, height: "auto", display: "block" }}
         />
 
         {/* Product screenshot inset into the paper's face, so the paper
@@ -119,7 +126,7 @@ const SvgStackItem = forwardRef<
             position: "absolute",
             top: "11%",
             left: "3%",
-            width: PHOTO_WIDTHS[index] ?? "56%",
+            width: photoWidth,
             height: "auto",
             display: "block",
             border: "7px solid #fff",
