@@ -128,15 +128,17 @@ const SvgStackItem = forwardRef<
           }}
         />
 
-        {/* Same data as ProjectCard's content panel — kept on the right side of
-            the bg svg so it doesn't overlap the paper on the left */}
+        {/* Same data as ProjectCard's content panel. Desktop: kept on the
+            right side of the bg svg so it doesn't overlap the paper on the
+            left. Mobile: paper+photo are taller relative to card width on
+            the portrait bg, so text sits below the frame instead, full width. */}
         <div
           style={{
             position: "absolute",
-            top: "8%",
-            left: "61%",
-            width: "42.6%",
-            height: "84%",
+            top: isMobile ? "47%" : "8%",
+            left: isMobile ? "5%" : "61%",
+            width: isMobile ? "90%" : "42.6%",
+            height: isMobile ? "38%" : "84%",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
@@ -196,7 +198,7 @@ const SvgStackItem = forwardRef<
         <div
           style={{
             position: "absolute",
-            top: "85%",
+            top: isMobile ? "87%" : "85%",
             left: 0,
             display: "flex",
             alignItems: "center",
