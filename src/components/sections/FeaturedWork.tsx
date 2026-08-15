@@ -76,8 +76,8 @@ const SvgStackItem = forwardRef<
   // desktop monitors where the card itself (width: 100%) renders huge.
   // Mobile: base flat size, scaled up 20% per the latest request
   // (11px -> 13.2px, 15.4px -> 18.5px). bg svg itself is untouched.
-  const bodySize = isMobile ? "13.2px" : "clamp(14px, 1.3vw, 22px)";
-  const titleSize = isMobile ? "18.5px" : "clamp(22px, 3.2vw, 40px)";
+  const bodySize = isMobile ? "15.84px" : "clamp(14px, 1.3vw, 22px)";
+  const titleSize = isMobile ? "22.2px" : "clamp(22px, 3.2vw, 40px)";
   // Mobile-only, +20%: paper (67.8% -> 81.4%) and photo (PHOTO_WIDTHS * 1.2).
   // bg svg (the <img src={src}> below) is deliberately left at width: 100%.
   const paperWidth = isMobile ? "81.4%" : "67.8%";
