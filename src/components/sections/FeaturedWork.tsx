@@ -223,7 +223,7 @@ const SvgStackItem = forwardRef<
             position: "absolute",
             top: "6%",
             left: "3%",
-            width: "60%",
+            width: "48%",
             height: "auto",
             display: "block",
             border: "7px solid #fff",
