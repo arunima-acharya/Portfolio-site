@@ -3,7 +3,7 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ArrowUpLeft, Calendar, Heart } from "lucide-react";
+import { ArrowUpRight, Calendar } from "lucide-react";
 import { getFeaturedProjects, projectHref } from "@/data/projects";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useParallax } from "@/hooks/useParallax";
@@ -46,128 +46,6 @@ const PAPER_SVG = "/assets/work%20bg/paper%20image.svg";
 
 function stickyTop(index: number) {
   return 160 + index * 28;
-}
-
-// Hand-drawn-style decorations scattered around the SVG card stack, inline
-// SVG so no external assets are needed. Purely cosmetic (aria-hidden).
-function SquiggleUnderline({ color, width = 84 }: { color: string; width?: number }) {
-  return (
-    <svg width={width} height="10" viewBox="0 0 84 10" fill="none" style={{ display: "block" }}>
-      <path d="M2 6C11 2 20 9 29 5C38 1 47 8 56 4C65 0 74 7 82 3" stroke={color} strokeWidth="2.5" strokeLinecap="round" fill="none" />
-    </svg>
-  );
-}
-
-function Sparkle({ size = 18, color = "var(--sp-charcoal)" }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5Z" fill={color} />
-    </svg>
-  );
-}
-
-function SwirlArrow({ size = 36, color = "var(--sp-charcoal)", flip = false }: { size?: number; color?: string; flip?: boolean }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" style={{ transform: flip ? "scaleX(-1)" : undefined }}>
-      <path d="M8 14C8 8 14 4 20 6C28 9 30 18 24 24C19 29 10 28 7 22" stroke={color} strokeWidth="2" strokeLinecap="round" fill="none" />
-      <path d="M4 20L7 22.5L10 19" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-    </svg>
-  );
-}
-
-function TickMarks({ size = 22, color = "var(--sp-charcoal)" }: { size?: number; color?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path d="M4 2L2 10" stroke={color} strokeWidth="2" strokeLinecap="round" />
-      <circle cx="1.5" cy="14" r="1.4" fill={color} />
-      <path d="M11 0L9 9" stroke={color} strokeWidth="2" strokeLinecap="round" />
-      <circle cx="8.5" cy="13" r="1.4" fill={color} />
-    </svg>
-  );
-}
-
-function DashedCurve({ width = 320, color = "rgba(23,23,23,0.35)" }: { width?: number; color?: string }) {
-  return (
-    <svg width={width} height="56" viewBox="0 0 320 56" fill="none" style={{ display: "block" }}>
-      <path d="M2 8C56 52 264 52 318 8" stroke={color} strokeWidth="1.5" strokeDasharray="5 6" strokeLinecap="round" fill="none" />
-    </svg>
-  );
-}
-
-function IconCircle({ bg, size = 52, children }: { bg: string; size?: number; children: React.ReactNode }) {
-  return (
-    <div
-      style={{
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        background: bg,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        boxShadow: "var(--shadow-subtle)",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-// Loosely recreates the reference's scattered composition around the card
-// stack — approximated inline-SVG line art, not a pixel match. Desktop only;
-// there's no room for this in the gutter on narrow viewports.
-function StackDoodles() {
-  return (
-    <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
-      <div style={{ position: "absolute", left: "-9%", top: "0%", transform: "rotate(-4deg)" }}>
-        <TickMarks />
-      </div>
-      <div style={{ position: "absolute", left: "-12%", top: "8%", width: 150, transform: "rotate(-3deg)" }}>
-        <p style={{ fontFamily: "var(--font-gelica)", fontStyle: "italic", fontSize: 17, lineHeight: 1.35, color: "var(--sp-charcoal)", margin: 0 }}>
-          real problems.<br />thoughtful design.
-        </p>
-        <div style={{ marginTop: 6, marginLeft: 4 }}>
-          <SquiggleUnderline color="#6F5AFE" />
-        </div>
-      </div>
-      <div style={{ position: "absolute", left: "-7%", top: "27%" }}>
-        <SwirlArrow />
-      </div>
-
-      <div style={{ position: "absolute", left: "-6%", top: "60%" }}>
-        <IconCircle bg="#D2E82E">
-          <ArrowUpLeft size={20} color="#171717" />
-        </IconCircle>
-      </div>
-      <div style={{ position: "absolute", left: "0%", top: "77%" }}>
-        <Sparkle />
-      </div>
-
-      <div style={{ position: "absolute", right: "-6%", top: "20%" }}>
-        <IconCircle bg="#B7A7FE">
-          <Heart size={20} color="#171717" fill="#171717" />
-        </IconCircle>
-      </div>
-      <div style={{ position: "absolute", right: "-2%", top: "40%", transform: "rotate(12deg)" }}>
-        <SwirlArrow size={32} flip />
-      </div>
-      <div style={{ position: "absolute", right: "-14%", top: "58%", width: 150, textAlign: "right", transform: "rotate(3deg)" }}>
-        <p style={{ fontFamily: "var(--font-gelica)", fontStyle: "italic", fontSize: 16, lineHeight: 1.35, color: "var(--sp-charcoal)", margin: 0 }}>
-          case studies<br />coming soon!
-        </p>
-        <div style={{ marginTop: 6, marginLeft: "auto", width: 80 }}>
-          <SquiggleUnderline color="#D2E82E" width={80} />
-        </div>
-      </div>
-      <div style={{ position: "absolute", right: "-8%", top: "77%", transform: "rotate(6deg)" }}>
-        <TickMarks />
-      </div>
-
-      <div style={{ position: "absolute", left: "50%", bottom: "-3%", transform: "translateX(-50%)" }}>
-        <DashedCurve />
-      </div>
-    </div>
-  );
 }
 
 // Same sticky-stack scroll choreography as ProjectCard (position: sticky,
@@ -588,7 +466,6 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
 
       {/* Cards — one wide card per row (or, when useSvgs, the work-bg SVGs in the same scroll stack) */}
       <div style={{ position: "relative" }}>
-        {useSvgs && !isMobile && <StackDoodles />}
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
           {useSvgs ? (
             <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i], photo: PROJECT_PHOTOS[i], project }))} isMobile={isMobile} />
