@@ -20,6 +20,17 @@ const WORK_BG_SVGS = [
 
 const SVG_TILT_DEGREES = [-3, 5, -6, 7];
 
+// One real product screenshot per featured project (same order as
+// FEATURED_SLUGS below), inset into the torn-paper face so it reads as a
+// photograph pinned to the page rather than a blank note. Pocket PMS has no
+// screenshots of its own in the codebase, so it reuses a Mockup shot.
+const PROJECT_PHOTOS = [
+  "/assets/hotelogix/FRONTDESK.png",
+  "/assets/POS/Draft%20116.png",
+  "/assets/hotelogix/GROUP%20RESERVATION-LAYOUT.png",
+  "/assets/Mockup/CHECK%20IN%203.jpg",
+];
+
 // Torn-paper card face laid on top of each colored bg svg — same file for
 // all four, positioned/sized to match the reference (top-left, ~56% width).
 const PAPER_SVG = "/assets/work%20bg/paper%20image.svg";
@@ -157,8 +168,8 @@ function StackDoodles() {
 // frontmost in the stack (tracked by the parent SvgStack) casts one.
 const SvgStackItem = forwardRef<
   HTMLDivElement,
-  { src: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean; isMobile: boolean }
->(function SvgStackItem({ src, project, index, isTop, isMobile }, ref) {
+  { src: string; photo: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean; isMobile: boolean }
+>(function SvgStackItem({ src, photo, project, index, isTop, isMobile }, ref) {
   const tags = project.tags.slice(0, 3);
   const textAlign = "left" as const;
   const rowJustify = "flex-start" as const;
@@ -198,6 +209,24 @@ const SvgStackItem = forwardRef<
           src={PAPER_SVG}
           alt=""
           style={{ position: "absolute", top: "1%", left: "-1%", width: "67.8%", height: "auto", display: "block" }}
+        />
+
+        {/* Product screenshot inset into the paper's face, so the paper
+            reads as a torn-photo border rather than a blank note. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={photo}
+          alt=""
+          style={{
+            position: "absolute",
+            top: "6%",
+            left: "3%",
+            width: "60%",
+            height: "69%",
+            objectFit: "cover",
+            display: "block",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
+          }}
         />
 
         {/* Same data as ProjectCard's content panel — kept on the right side of
@@ -315,7 +344,7 @@ function SvgStack({
   items,
   isMobile,
 }: {
-  items: { id: string; src: string; project: ReturnType<typeof getFeaturedProjects>[0] }[];
+  items: { id: string; src: string; photo: string; project: ReturnType<typeof getFeaturedProjects>[0] }[];
   isMobile: boolean;
 }) {
   const refs = useRef<(HTMLDivElement | null)[]>([]);
@@ -346,6 +375,7 @@ function SvgStack({
           key={item.id}
           ref={(el) => { refs.current[i] = el; }}
           src={item.src}
+          photo={item.photo}
           project={item.project}
           index={i}
           isTop={i === activeIndex}
@@ -550,7 +580,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
         {useSvgs && !isMobile && <StackDoodles />}
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
           {useSvgs ? (
-            <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i], project }))} isMobile={isMobile} />
+            <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i], photo: PROJECT_PHOTOS[i], project }))} isMobile={isMobile} />
           ) : (
             filtered.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
