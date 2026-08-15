@@ -287,7 +287,7 @@ export default function MainframeHero({
               lineHeight: 1.1,
             }}
           >
-            hey, a quick intro?
+            Hey, a quick intro?
           </motion.h2>
 
           <motion.p

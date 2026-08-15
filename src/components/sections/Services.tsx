@@ -53,7 +53,7 @@ function TextBlock({ isMobile }: { isMobile: boolean }) {
         fontFamily: "var(--font-geist), sans-serif",
         marginBottom: isMobile ? "20px" : "28px",
       }}>
-        services
+        Services
       </span>
 
       <motion.h2
@@ -71,7 +71,7 @@ function TextBlock({ isMobile }: { isMobile: boolean }) {
           marginBottom: isMobile ? "16px" : "20px",
         }}
       >
-        designing better digital products
+        Designing better digital products
       </motion.h2>
 
       <motion.p

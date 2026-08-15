@@ -135,7 +135,7 @@ export default function MobileHome() {
             margin: "0 0 16px",
           }}
         >
-          what i bring to the table
+          What I bring to the table
         </h2>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
           {NOTE_SVGS.map((svg) => (
@@ -157,7 +157,7 @@ export default function MobileHome() {
           }}
         >
           <h2 style={{ fontFamily: "var(--font-gelica)", fontSize: 22, fontWeight: 600, color: "var(--sp-charcoal)", margin: "0 0 10px" }}>
-            let&apos;s work together
+            Let&apos;s work together
           </h2>
           <p style={{ fontSize: 15, color: "rgba(23,23,23,0.75)", margin: "0 0 20px", fontFamily: "var(--font-geist), sans-serif" }}>
             Have a project in mind? I&apos;d love to hear about it.
