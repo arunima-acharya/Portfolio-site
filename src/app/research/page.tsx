@@ -30,7 +30,7 @@ export default function ResearchPage() {
             </span>
           </div>
           <h1 className="fluid-text-3xl font-semibold leading-tight" style={{ color: isLight ? "var(--sp-cocoa)" : textDark, fontFamily: "var(--font-gelica)", fontWeight: 600 }}>
-            research
+            Research
           </h1>
           <p className="text-base max-w-lg leading-relaxed" style={{ color: textMuted }}>
             Independent investigations into design systems, interaction patterns, and emerging product

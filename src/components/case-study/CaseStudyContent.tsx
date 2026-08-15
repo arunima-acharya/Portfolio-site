@@ -33,7 +33,7 @@ function Section({
           <span className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
             {label}
           </span>
-          <h2 className="text-2xl font-semibold" style={{ color: "var(--sp-cocoa)", fontFamily: ffHeading, fontWeight: 600, textTransform: "lowercase" }}>{title}</h2>
+          <h2 className="text-2xl font-semibold" style={{ color: "var(--sp-cocoa)", fontFamily: ffHeading, fontWeight: 600 }}>{title}</h2>
         </div>
         {children}
       </div>
@@ -88,7 +88,7 @@ function RichCaseStudy({ project }: { project: Project }) {
       )}
 
       {/* ── 2. Project Snapshot ── */}
-      <Section label="At a Glance" title="Project Snapshot">
+      <Section label="At a Glance" title="Project snapshot">
         {/* Top row — 3 primary fields */}
         <div className="grid grid-cols-1 md:grid-cols-3" style={{ borderTop: "1px solid rgba(23,23,23,0.08)" }}>
           {[
@@ -143,7 +143,7 @@ function RichCaseStudy({ project }: { project: Project }) {
       </Section>
 
       {/* ── 3. The Challenge ── */}
-      <Section label="Challenge" title="The Challenge">
+      <Section label="Challenge" title="The challenge">
         {/* Two-column challenges */}
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x" style={{ borderColor: "rgba(23,23,23,0.08)" }}>
           {/* Business */}
@@ -193,13 +193,13 @@ function RichCaseStudy({ project }: { project: Project }) {
       </Section>
 
       {/* ── 4. Understanding the Problem ── */}
-      <Section label="Discovery" title="Understanding the Problem">
+      <Section label="Discovery" title="Understanding the problem">
         <div className="space-y-14">
 
           {/* Research Activities */}
           <div className="space-y-4">
             <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
-              Research Activities
+              Research activities
             </h3>
             <div className="flex flex-wrap gap-2">
               {(project.researchActivities ?? project.research.userInsights).map(
@@ -219,7 +219,7 @@ function RichCaseStudy({ project }: { project: Project }) {
           {/* Key Insights */}
           <div className="space-y-6">
             <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
-              Key Insights
+              Key insights
             </h3>
             <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
               {(project.keyInsights ?? project.research.userInsights.map((text) => ({ title: text, description: "" }))).map((insight, i) => (
@@ -262,11 +262,11 @@ function RichCaseStudy({ project }: { project: Project }) {
       </Section>
 
       {/* ── 5. Defining Success ── */}
-      <Section label="Goals" title="Defining Success">
+      <Section label="Goals" title="Defining success">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-5">
             <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
-              Business Success
+              Business success
             </h3>
             <ul className="space-y-4">
               {(project.businessSuccess ?? project.businessContext.goals).map((item, i) => (
@@ -279,7 +279,7 @@ function RichCaseStudy({ project }: { project: Project }) {
           </div>
           <div className="space-y-5">
             <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
-              User Success
+              User success
             </h3>
             <ul className="space-y-4">
               {(project.userSuccess ?? project.outcomes.learnings).map((item, i) => (
@@ -294,7 +294,7 @@ function RichCaseStudy({ project }: { project: Project }) {
       </Section>
 
       {/* ── 6. Design Principles ── */}
-      <Section label="Principles" title="Design Principles">
+      <Section label="Principles" title="Design principles">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {project.designPrinciples.map((principle, i) => (
             <div
@@ -318,7 +318,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
       {/* ── 7. How the Solution Evolved ── */}
       {project.solutionEvolution && project.solutionEvolution.length > 0 && (
-        <Section label="Process" title="How the Solution Evolved">
+        <Section label="Process" title="How the solution evolved">
           <div className="space-y-px">
             {project.solutionEvolution.map((step, i) => (
               <div
@@ -356,7 +356,7 @@ function RichCaseStudy({ project }: { project: Project }) {
       )}
 
       {/* ── 8. The Solution ── */}
-      <Section label="Solution" title="The Solution">
+      <Section label="Solution" title="The solution">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Empty first cell */}
           <div className="hidden md:block" />
@@ -372,7 +372,7 @@ function RichCaseStudy({ project }: { project: Project }) {
               style={{ backgroundColor: "var(--sp-dew)" }}
             >
               {/* Title at top */}
-              <h3 className="text-[22px] font-semibold leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ffHeading, fontWeight: 600, textTransform: "lowercase" }}>
+              <h3 className="text-[22px] font-semibold leading-snug" style={{ color: "var(--sp-charcoal)", fontFamily: ffHeading, fontWeight: 600 }}>
                 {feature.title}
               </h3>
 
@@ -406,7 +406,7 @@ function RichCaseStudy({ project }: { project: Project }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
           <div className="p-6 rounded-xl space-y-3" style={{ border: "1.5px solid var(--sp-charcoal)", background: "var(--sp-cream)" }}>
             <h3 className="text-[16px] font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
-              Business Impact
+              Business impact
             </h3>
             <p className="text-[16px] leading-relaxed" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>
               {project.outcomes.businessImpact}
@@ -430,7 +430,7 @@ function RichCaseStudy({ project }: { project: Project }) {
 
       {/* ── 10. Reflection ── */}
       {project.reflection && project.reflection.length > 0 && (
-        <Section label="Reflection" title="What This Project Taught Me">
+        <Section label="Reflection" title="What this project taught me">
           <div>
             {project.reflection.map((paragraph, i) => (
               <div key={i} className="grid grid-cols-[100px_1fr] items-center" style={{ borderTop: i === 0 ? "none" : "1px solid rgba(23,23,23,0.08)" }}>

@@ -45,7 +45,7 @@ export function Section({
             </span>
             <span className="h-px flex-1 max-w-[64px]" style={{ background: `linear-gradient(90deg, ${accent}66, transparent)` }} />
           </div>
-          <h2 className="text-2xl md:text-[28px] tracking-tight" style={{ color: p.text, fontFamily: "var(--font-gelica)", fontWeight: 600, textTransform: "lowercase" }}>{title}</h2>
+          <h2 className="text-2xl md:text-[28px] tracking-tight" style={{ color: p.text, fontFamily: "var(--font-gelica)", fontWeight: 600 }}>{title}</h2>
         </div>
         {children}
       </div>

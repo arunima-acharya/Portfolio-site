@@ -44,12 +44,12 @@ import {
 // Indexed because ScrollRevealSection keys and numbers its card trail off
 // `index`, matching the RMS treatment.
 const CHALLENGES: Array<{ index: string; title: string; desc: string }> = [
-  { index: "01", title: "Slow Order Processing", desc: "Staff spent unnecessary time navigating between ordering and billing workflows." },
-  { index: "02", title: "Limited Table Visibility", desc: "Table occupancy and service status weren't easy to monitor in real time." },
-  { index: "03", title: "Delayed Kitchen Communication", desc: "Order updates weren't efficiently communicated between service staff and kitchen teams." },
-  { index: "04", title: "Repetitive Operations", desc: "Routine actions like splitting bills, transferring tables, and modifying orders required multiple steps." },
-  { index: "05", title: "Peak Hour Bottlenecks", desc: "As customer volume increased, operational workflows became increasingly difficult to manage." },
-  { index: "06", title: "Fragmented Service Experience", desc: "Ordering, billing, and table management existed across disconnected workflows." },
+  { index: "01", title: "Slow order processing", desc: "Staff spent unnecessary time navigating between ordering and billing workflows." },
+  { index: "02", title: "Limited table visibility", desc: "Table occupancy and service status weren't easy to monitor in real time." },
+  { index: "03", title: "Delayed kitchen communication", desc: "Order updates weren't efficiently communicated between service staff and kitchen teams." },
+  { index: "04", title: "Repetitive operations", desc: "Routine actions like splitting bills, transferring tables, and modifying orders required multiple steps." },
+  { index: "05", title: "Peak hour bottlenecks", desc: "As customer volume increased, operational workflows became increasingly difficult to manage." },
+  { index: "06", title: "Fragmented service experience", desc: "Ordering, billing, and table management existed across disconnected workflows." },
 ];
 
 // One "before" screenshot per challenge/scroll step. No old-system POS
@@ -142,7 +142,7 @@ const SOLUTION_CARDS: Array<{
 }> = [
   {
     number: "01",
-    title: "Smart Table Dashboard",
+    title: "Smart table dashboard",
     challenge: "Restaurant teams struggled to monitor table occupancy and service status.",
     approach: "Designed a live table management dashboard with real-time occupancy and service indicators.",
     impact: [{ value: "Faster table turnover" }, { value: "Improved operational visibility" }],
@@ -150,7 +150,7 @@ const SOLUTION_CARDS: Array<{
   },
   {
     number: "02",
-    title: "Streamlined Order Management",
+    title: "Streamlined order management",
     challenge: "Taking and modifying orders required repetitive actions.",
     approach: "Simplified order creation, editing, and routing to reduce interaction costs.",
     impact: [{ value: "40%", caption: "faster order processing" }, { value: "Reduced service delays" }],
@@ -158,7 +158,7 @@ const SOLUTION_CARDS: Array<{
   },
   {
     number: "03",
-    title: "Kitchen Order Workflow",
+    title: "Kitchen order workflow",
     challenge: "Kitchen communication slowed during busy service hours.",
     approach: "Created a centralized order queue with clear preparation status and priority.",
     impact: [{ value: "Faster order-to-kitchen communication" }, { value: "Better kitchen coordination" }],
@@ -166,7 +166,7 @@ const SOLUTION_CARDS: Array<{
   },
   {
     number: "04",
-    title: "Flexible Billing",
+    title: "Flexible billing",
     challenge: "Split bills and payment workflows interrupted service.",
     approach: "Designed quick billing actions for transfers, split payments, and settlements.",
     impact: [{ value: "Faster checkout" }, { value: "Fewer billing errors" }],
@@ -248,7 +248,7 @@ export default function HotelogixPosPreview() {
       }}>
         <h1 style={{
           fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, textTransform: "capitalize", marginBottom: 22,
+          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, marginBottom: 22,
         }}>
           Point of Sale — Restaurant Operations
         </h1>
@@ -310,7 +310,7 @@ export default function HotelogixPosPreview() {
         </p>
         <h2 style={{
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
+          fontFamily: ffHeading, textAlign: "center", marginBottom: 14,
         }}>
           Built for restaurants that never slow down.
         </h2>
@@ -329,8 +329,8 @@ export default function HotelogixPosPreview() {
           maxWidth: 1040, margin: "40px auto 0", background: "var(--sp-cream)", borderRadius: "var(--radius-xl)",
           border: "1.5px solid var(--sp-charcoal)", boxShadow: "var(--shadow-lg)", padding: "36px 40px",
         }}>
-          <h3 style={{ fontSize: 20, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
-            What I Owned
+          <h3 style={{ fontSize: 20, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, marginBottom: 20 }}>
+            What I owned
           </h3>
           <ul style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px 32px", margin: 0, padding: 0, listStyle: "none" }}>
             {[
@@ -440,8 +440,8 @@ export default function HotelogixPosPreview() {
           <ResearchMethodsBar methods={RESEARCH_METHODS} />
 
           <div style={{ maxWidth: 1160, margin: "48px auto 0" }}>
-            <h3 style={{ fontSize: 22, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
-              What We Learned
+            <h3 style={{ fontSize: 22, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, marginBottom: 20 }}>
+              What we learned
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {LEARNED_INTERVIEWS.map((l) => <LearnedRow key={l.number} {...l} />)}
@@ -553,7 +553,7 @@ export default function HotelogixPosPreview() {
             10 — IMPACT
           </div>
           <h2 style={{
-            fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize",
+            fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading,
             lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: "var(--spacing-16)", maxWidth: 560,
           }}>
             Designed for faster restaurant operations.

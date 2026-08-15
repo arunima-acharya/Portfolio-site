@@ -135,7 +135,7 @@ export default function TestimonialsGrid() {
             y: headingY,
           }}
         >
-          what people say about
+          What people say about
           <br />
           <span style={{ fontStyle: "italic" }}>working with me</span>
         </motion.h2>

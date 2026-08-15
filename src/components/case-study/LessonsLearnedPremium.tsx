@@ -30,7 +30,7 @@ function SectionHeading({ title, subtitle, maxWidth = 640, bold = false, align =
     <>
       <h2 style={{
         fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: bold ? 700 : 600, color: "var(--sp-cocoa)",
-        fontFamily: ffHeading, textAlign: align, textTransform: "capitalize", marginBottom: 14,
+        fontFamily: ffHeading, textAlign: align, marginBottom: 14,
       }}>
         {title}
       </h2>
@@ -618,7 +618,7 @@ export default function LessonsLearnedPremium({
           <Panel style={{ padding: "var(--spacing-40)", display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,0.9fr)", gap: "var(--spacing-32)", alignItems: "center" }}>
             <div>
               <Eyebrow n="01" />
-              <h3 style={{ fontSize: 25, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 12px" }}>
+              <h3 style={{ fontSize: 25, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, lineHeight: 1.28, margin: "0 0 12px" }}>
                 {l1.title}
               </h3>
               <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.65, margin: 0 }}>
@@ -637,7 +637,7 @@ export default function LessonsLearnedPremium({
         }}>
           <div>
             <Eyebrow n="02" />
-            <h3 style={{ fontSize: 30, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.22, margin: "0 0 14px" }}>
+            <h3 style={{ fontSize: 30, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, lineHeight: 1.22, margin: "0 0 14px" }}>
               {l2.title}
             </h3>
             <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.65, margin: 0, maxWidth: 260 }}>
@@ -651,7 +651,7 @@ export default function LessonsLearnedPremium({
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--spacing-24)", marginBottom: 24 }}>
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="03" />
-            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 10px" }}>
+            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, lineHeight: 1.28, margin: "0 0 10px" }}>
               {l3.title}
             </h3>
             <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
@@ -662,7 +662,7 @@ export default function LessonsLearnedPremium({
 
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="04" />
-            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 10px" }}>
+            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, lineHeight: 1.28, margin: "0 0 10px" }}>
               {l4.title}
             </h3>
             <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>
@@ -682,7 +682,7 @@ export default function LessonsLearnedPremium({
             <Quote size={30} color={accent} fill={accent} strokeWidth={0} style={{ marginBottom: 18, opacity: 0.9 }} />
             <p style={{
               fontSize: "clamp(19px, 2.2vw, 25px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading,
-              textTransform: "capitalize", lineHeight: 1.35, margin: "0 0 14px",
+              lineHeight: 1.35, margin: "0 0 14px",
             }}>
               {quote.text}
             </p>
@@ -695,7 +695,7 @@ export default function LessonsLearnedPremium({
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--spacing-24)", marginBottom: 24 }}>
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="05" />
-            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 10px" }}>
+            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, lineHeight: 1.28, margin: "0 0 10px" }}>
               {l5.title}
             </h3>
             <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 32px" }}>
@@ -706,7 +706,7 @@ export default function LessonsLearnedPremium({
 
           <Panel style={{ padding: 36 }}>
             <Eyebrow n="06" />
-            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.28, margin: "0 0 10px" }}>
+            <h3 style={{ fontSize: 21, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, lineHeight: 1.28, margin: "0 0 10px" }}>
               {l6.title}
             </h3>
             <p style={{ fontSize: 16, color: muted, fontFamily: ff, lineHeight: 1.6, margin: "0 0 20px" }}>

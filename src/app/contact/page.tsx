@@ -55,7 +55,7 @@ export default function ContactPage() {
               fontFamily: "var(--font-gelica)",
             }}
           >
-            contact me
+            Contact me
           </h1>
           <p
             className="max-w-lg leading-relaxed"

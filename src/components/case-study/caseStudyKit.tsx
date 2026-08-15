@@ -223,7 +223,7 @@ export function SectionHeading({ title, subtitle, maxWidth = 640, bold = false, 
     <>
       <h2 style={{
         fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: bold ? 700 : 600, color: "var(--sp-cocoa)",
-        fontFamily: ffHeading, textAlign: align, textTransform: "capitalize", marginBottom: 14,
+        fontFamily: ffHeading, textAlign: align, marginBottom: 14,
       }}>
         {title}
       </h2>
@@ -251,7 +251,7 @@ export function ChallengeCard({ title, desc }: { title: string; desc: string }) 
       }}
     >
       <div style={{ marginBottom: 14 }}>
-        <span style={{ fontSize: 18, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", transition: "color 0.25s ease" }}>{title}</span>
+        <span style={{ fontSize: 18, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, transition: "color 0.25s ease" }}>{title}</span>
       </div>
       <p style={{
         fontSize: 16, color: "#8a8580",
@@ -308,7 +308,7 @@ export function InsightCard({ badge, title, desc, children }: { badge?: string; 
         </div>
       )}
       <div style={{ marginBottom: 18 }}>
-        <div style={{ fontSize: 18, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 6 }}>{title}</div>
+        <div style={{ fontSize: 18, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, marginBottom: 6 }}>{title}</div>
         <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.6, margin: 0, maxWidth: 320 }}>{desc}</p>
       </div>
       <div style={{ position: "relative" }}>{children}</div>
@@ -323,7 +323,7 @@ export function SmallInsightCard({ title, desc, children }: { title: string; des
       padding: 22, boxShadow: "var(--shadow-lg)",
     }}>
       <div style={{ marginBottom: 12 }}>
-        <span style={{ fontSize: 16, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize" }}>{title}</span>
+        <span style={{ fontSize: 16, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading }}>{title}</span>
       </div>
       <p style={{ fontSize: 16, color: "#8a8580", fontFamily: ff, lineHeight: 1.55, margin: "0 0 18px" }}>{desc}</p>
       <div style={{ position: "relative" }}>{children}</div>
@@ -614,7 +614,7 @@ export function SolutionStep({ number, title, desc, reverse, children }: { numbe
       <div style={{ flex: "0 0 40%", minWidth: 0 }}>
         <span style={{ fontSize: 36.4, fontWeight: 400, color: "var(--sp-orange)", fontFamily: ff, display: "block", marginBottom: 10 }}>{number}</span>
         <div style={{ width: 32, height: 3, background: "var(--sp-orange)", marginBottom: 16 }} />
-        <div style={{ fontSize: 30.8, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 10, lineHeight: 1.25 }}>{title}</div>
+        <div style={{ fontSize: 30.8, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, marginBottom: 10, lineHeight: 1.25 }}>{title}</div>
         <p style={{ fontSize: 19.6, color: "#8a8580", fontFamily: ff, lineHeight: 1.6, margin: 0 }}>{desc}</p>
       </div>
       <div style={{ flex: 1, minWidth: 0, borderRadius: "var(--radius-xl)", border: "1.5px solid var(--sp-charcoal)", overflow: "hidden" }}>
@@ -684,7 +684,7 @@ export function SolutionCard({ number, title, challenge, approach, impact, child
       <div style={{ flex: "0 0 44%", minWidth: 0, display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 18 }}>
           <span style={{ fontSize: 38, fontWeight: 700, color: "var(--sp-orange)", fontFamily: ff, lineHeight: 1 }}>{number}</span>
-          <h3 style={{ fontSize: 24, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.3, margin: 0 }}>{title}</h3>
+          <h3 style={{ fontSize: 24, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, lineHeight: 1.3, margin: 0 }}>{title}</h3>
         </div>
         <div style={{ width: 40, height: 2, background: "rgba(23,23,23,0.12)", marginBottom: 24 }} />
 

@@ -33,12 +33,12 @@ const SANDBOX_RIGHT_CARDS: [SandboxStatCard, SandboxStatCard] = [
 // Principles section, matching how the restaurant management (POS) template
 // presents its Challenge section.
 const CHALLENGES: Array<{ index: string; title: string; desc: string }> = [
-  { index: "01", title: "Fragmented Booking Workflow", desc: "Reservation agents switched between multiple screens to manage availability, pricing, and guest details, making group bookings slow and difficult to coordinate." },
-  { index: "02", title: "No Itinerary Booking Support", desc: "The system couldn't create or manage multi-property or multi-date itineraries, forcing teams to split a single guest journey into multiple reservations." },
-  { index: "03", title: "Limited Inventory Visibility", desc: "Room availability across properties wasn't presented in a unified view, requiring manual comparisons before confirming reservations." },
-  { index: "04", title: "Manual Room Allocation", desc: "Assigning rooms for large groups relied heavily on manual effort, increasing booking time and the risk of allocation errors." },
-  { index: "05", title: "Inefficient Group Reservations", desc: "Corporate bookings involving multiple room types, guest preferences, and booking changes required repetitive actions across disconnected workflows." },
-  { index: "06", title: "Poor Operational Scalability", desc: "As booking volumes increased, existing workflows became harder to manage, reducing productivity during peak reservation periods." },
+  { index: "01", title: "Fragmented booking workflow", desc: "Reservation agents switched between multiple screens to manage availability, pricing, and guest details, making group bookings slow and difficult to coordinate." },
+  { index: "02", title: "No itinerary booking support", desc: "The system couldn't create or manage multi-property or multi-date itineraries, forcing teams to split a single guest journey into multiple reservations." },
+  { index: "03", title: "Limited inventory visibility", desc: "Room availability across properties wasn't presented in a unified view, requiring manual comparisons before confirming reservations." },
+  { index: "04", title: "Manual room allocation", desc: "Assigning rooms for large groups relied heavily on manual effort, increasing booking time and the risk of allocation errors." },
+  { index: "05", title: "Inefficient group reservations", desc: "Corporate bookings involving multiple room types, guest preferences, and booking changes required repetitive actions across disconnected workflows." },
+  { index: "06", title: "Poor operational scalability", desc: "As booking volumes increased, existing workflows became harder to manage, reducing productivity during peak reservation periods." },
 ];
 
 // One "before" screenshot per challenge/scroll step. No legacy CRO
@@ -83,11 +83,11 @@ const LEARNED_INTERVIEWS: Array<{ number: string; role: string; icon: React.Reac
 
 // ── Section 06 — The Solution ────────────────────────────────
 const SOLUTION_STEPS: Array<{ number: string; title: string; desc: string; reverse: boolean; imageLabel: string; imageHeight: number }> = [
-  { number: "01", title: "Unified Reservation Dashboard", desc: "Centralized reservation insights, booking actions, operational metrics, and real-time inventory into a single workspace — cutting room lookup time by 35% and workflow steps by 30%.", reverse: false, imageLabel: "Unified reservation dashboard screenshot", imageHeight: 400 },
-  { number: "02", title: "Reservation Details Workspace", desc: "Consolidated guest profiles, booking timelines, payments, and operational actions into one workspace, reducing context switching and speeding up booking decisions.", reverse: true, imageLabel: "Reservation details workspace screenshot", imageHeight: 400 },
-  { number: "03", title: "Itinerary Management", desc: "Introduced itinerary management to organize multiple stays, room changes, and booking segments within a single reservation — simplifying complex itineraries and reducing manual booking effort.", reverse: false, imageLabel: "Itinerary management screenshot", imageHeight: 400 },
-  { number: "04", title: "Advanced Filters & Bulk Operations", desc: "Added advanced filters and bulk actions for high-volume operations, cutting repetitive work and improving operational efficiency.", reverse: true, imageLabel: "Advanced filters and bulk operations screenshot", imageHeight: 400 },
-  { number: "05", title: "AI-Assisted Room Allocation", desc: "An AI-assisted room recommendation system suggests optimal room assignments based on availability, occupancy, and guest preferences — for faster, more accurate allocation.", reverse: false, imageLabel: "AI-assisted room allocation screenshot", imageHeight: 400 },
+  { number: "01", title: "Unified reservation dashboard", desc: "Centralized reservation insights, booking actions, operational metrics, and real-time inventory into a single workspace — cutting room lookup time by 35% and workflow steps by 30%.", reverse: false, imageLabel: "Unified reservation dashboard screenshot", imageHeight: 400 },
+  { number: "02", title: "Reservation details workspace", desc: "Consolidated guest profiles, booking timelines, payments, and operational actions into one workspace, reducing context switching and speeding up booking decisions.", reverse: true, imageLabel: "Reservation details workspace screenshot", imageHeight: 400 },
+  { number: "03", title: "Itinerary management", desc: "Introduced itinerary management to organize multiple stays, room changes, and booking segments within a single reservation — simplifying complex itineraries and reducing manual booking effort.", reverse: false, imageLabel: "Itinerary management screenshot", imageHeight: 400 },
+  { number: "04", title: "Advanced filters & bulk operations", desc: "Added advanced filters and bulk actions for high-volume operations, cutting repetitive work and improving operational efficiency.", reverse: true, imageLabel: "Advanced filters and bulk operations screenshot", imageHeight: 400 },
+  { number: "05", title: "AI-assisted room allocation", desc: "An AI-assisted room recommendation system suggests optimal room assignments based on availability, occupancy, and guest preferences — for faster, more accurate allocation.", reverse: false, imageLabel: "AI-assisted room allocation screenshot", imageHeight: 400 },
 ];
 
 const SOLUTION_PILLS = [
@@ -161,7 +161,7 @@ export default function HotelogixCroPreview() {
       }}>
         <h1 style={{
           fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, textTransform: "capitalize", marginBottom: 22,
+          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, marginBottom: 22,
         }}>
           Central Reservation Office
         </h1>
@@ -223,7 +223,7 @@ export default function HotelogixCroPreview() {
         </p>
         <h2 style={{
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
+          fontFamily: ffHeading, textAlign: "center", marginBottom: 14,
         }}>
           Built from scratch at Hotelogix.
         </h2>
@@ -242,8 +242,8 @@ export default function HotelogixCroPreview() {
           maxWidth: 1040, margin: "40px auto 0", background: "var(--sp-cream)", borderRadius: "var(--radius-xl)",
           border: "1.5px solid var(--sp-charcoal)", boxShadow: "var(--shadow-lg)", padding: "36px 40px",
         }}>
-          <h3 style={{ fontSize: 20, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
-            My Responsibilities
+          <h3 style={{ fontSize: 20, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, marginBottom: 20 }}>
+            My responsibilities
           </h3>
           <ul style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px 32px", margin: 0, padding: 0, listStyle: "none" }}>
             {[
@@ -267,7 +267,7 @@ export default function HotelogixCroPreview() {
 
         <h2 style={{
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
+          fontFamily: ffHeading, textAlign: "center", marginBottom: 14,
         }}>
           Built for enterprise hotel operations.
         </h2>
@@ -358,8 +358,8 @@ export default function HotelogixCroPreview() {
           <ResearchMethodsBar methods={RESEARCH_METHODS} />
 
           <div style={{ maxWidth: 1160, margin: "48px auto 0" }}>
-            <h3 style={{ fontSize: 22, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
-              What We Learned
+            <h3 style={{ fontSize: 22, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, marginBottom: 20 }}>
+              What we learned
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {LEARNED_INTERVIEWS.map((l) => <LearnedRow key={l.number} {...l} />)}
@@ -466,7 +466,7 @@ export default function HotelogixCroPreview() {
           </div>
           <h2 style={{
             fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading,
-            lineHeight: 1.2, textTransform: "capitalize", marginBottom: "var(--spacing-16)", maxWidth: 560,
+            lineHeight: 1.2, marginBottom: "var(--spacing-16)", maxWidth: 560,
           }}>
             Delivering measurable improvements to enterprise reservations.
           </h2>

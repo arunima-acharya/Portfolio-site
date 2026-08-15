@@ -48,7 +48,7 @@ function CaseStudyCard({ project, index, delay, revealed }: { project: Project; 
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <span style={{
             fontFamily: FONT, fontSize: 16, fontWeight: 500,
-            textTransform: "lowercase", color: "rgba(23,23,23,0.16)",
+            color: "rgba(23,23,23,0.16)",
           }}>{project.industry}</span>
         </div>
         {/* Floating info bar */}
@@ -105,7 +105,7 @@ export default function OtherCaseStudies({ currentSlug }: { currentSlug: string 
         <div style={{ marginBottom: "var(--spacing-48)", ...revealStyle(revealed) }}>
           <p style={{ fontFamily: FONT, fontSize: 16, color: "#8a8580", marginBottom: 10 }}>more work</p>
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
-            <h2 style={{ fontFamily: FONT_HEADING, fontWeight: 600, fontSize: "clamp(28px,3.5vw,40px)", color: "var(--sp-cocoa)", lineHeight: 1.2 }}>other case studies</h2>
+            <h2 style={{ fontFamily: FONT_HEADING, fontWeight: 600, fontSize: "clamp(28px,3.5vw,40px)", color: "var(--sp-cocoa)", lineHeight: 1.2 }}>Other case studies</h2>
             <Link
               href="/case-studies"
               style={{ fontFamily: FONT, fontSize: 16, fontWeight: 600, color: "#8a8580", textDecoration: "none", whiteSpace: "nowrap", paddingBottom: 4 }}

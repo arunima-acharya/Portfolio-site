@@ -35,7 +35,6 @@ export default function ContactCTA() {
               fontWeight: 600,
               color: "var(--sp-cocoa)",
               fontFamily: "var(--font-gelica)",
-              textTransform: "capitalize",
               letterSpacing: "normal",
               lineHeight: 1.15,
               textDecoration: "none",

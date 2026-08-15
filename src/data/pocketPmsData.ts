@@ -5,7 +5,7 @@ export const pocketPmsData: MenstaData = {
 
   hero: {
     badge: "Trusted by 500+ Properties",
-    heading: "The Ultimate Property Management App",
+    heading: "The ultimate property management app",
     subtext: "Be always were to from of volunteers range times to mild, casting opposite he its nor attribute how solitary saw more on his not",
     cta1: "Download Now",
     cta2: "View Features",
@@ -73,19 +73,19 @@ export const pocketPmsData: MenstaData = {
     headingAccent: "Every operation.",
     subtitle: "Pocket PMS unifies guest experience, daily operations and business intelligence into a single mobile platform built for hotel teams.",
     left: {
-      title: "Guest Operations",
+      title: "Guest operations",
       desc: "Everything to manage guest stays and finances.",
       items: [
-        { title: "Single Reservations", desc: "Create, modify and manage individual bookings.", num: "01" },
-        { title: "Group Reservations", desc: "Handle group bookings, allocations and bulk actions.", num: "02" },
-        { title: "Consolidated Accounts", desc: "Manage guest folios, split bills and group settlements.", num: "03" },
+        { title: "Single reservations", desc: "Create, modify and manage individual bookings.", num: "01" },
+        { title: "Group reservations", desc: "Handle group bookings, allocations and bulk actions.", num: "02" },
+        { title: "Consolidated accounts", desc: "Manage guest folios, split bills and group settlements.", num: "03" },
         { title: "Accounts", desc: "Access payments, invoices and financial records anytime.", num: "04" },
       ],
     },
     rights: [
       {
         color: "green",
-        title: "Property Operations",
+        title: "Property operations",
         desc: "Run your property smoothly, every single day.",
         items: [
           { title: "Housekeeping", desc: "Update room status, assign tasks and stay in sync.", num: "05" },
@@ -94,11 +94,11 @@ export const pocketPmsData: MenstaData = {
       },
       {
         color: "orange",
-        title: "Business Operations",
+        title: "Business operations",
         desc: "Insights, controls and end-of-day processes that keep you ahead.",
         items: [
-          { title: "Management Dashboard", desc: "Monitor occupancy, revenue and daily performance.", num: "07" },
-          { title: "Night Audit", desc: "Simplify end-of-day processes and ensure accuracy.", num: "08" },
+          { title: "Management dashboard", desc: "Monitor occupancy, revenue and daily performance.", num: "07" },
+          { title: "Night audit", desc: "Simplify end-of-day processes and ensure accuracy.", num: "08" },
         ],
       },
     ],
@@ -112,7 +112,7 @@ export const pocketPmsData: MenstaData = {
 
   designSystem: {
     eyebrow: "Design System",
-    heading: "Building Better Interfaces With Design Systems",
+    heading: "Building better interfaces with design systems",
     subtext: "A scalable mobile design language built from scratch. Components, colors, typography, states, and patterns designed for consistency across all modules of Pocket PMS.",
   },
 
@@ -143,7 +143,7 @@ export const pocketPmsData: MenstaData = {
 
   howItWorks: {
     eyebrow: "About the product",
-    heading: "The Foundation",
+    heading: "The foundation",
     subtext: "Before diving into the design process, here's what Pocket PMS is, why it was built, and the impact it aims to create.",
     tabs: [
       {
@@ -166,7 +166,7 @@ export const pocketPmsData: MenstaData = {
       },
       {
         label: "Business Goal",
-        heading: "Business Goal",
+        heading: "Business goal",
         body: "The objective of Pocket PMS was to extend the Hotelogix ecosystem beyond desktop and create a seamless mobile experience for hotel operations. By improving accessibility and productivity, the product helps hotels operate more efficiently while laying the foundation for future mobile capabilities.",
         items: ["Extend the Hotelogix product ecosystem", "Increase operational efficiency and staff productivity", "Build a scalable foundation for future mobile features"],
       },
@@ -180,7 +180,7 @@ export const pocketPmsData: MenstaData = {
   },
 
   integrations: {
-    heading: "Over 50+ Integrations",
+    heading: "Over 50+ integrations",
     subtext: "Be always were to from of volunteers range times to mild, casting opposite he its nor attribute",
     logos: ["Booking.com", "Expedia", "Airbnb", "Agoda", "TripAdvisor", "Google Hotels", "Hotels.com", "MakeMyTrip", "PayPal", "Stripe", "Razorpay", "Wise"],
   },
@@ -287,7 +287,7 @@ export const pocketPmsData: MenstaData = {
 
   cta: {
     eyebrow: "Get Started",
-    heading: "Unlock Property Management Freedom",
+    heading: "Unlock property management freedom",
   },
 
   footer: {

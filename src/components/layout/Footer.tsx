@@ -63,7 +63,7 @@ export default function Footer() {
             marginBottom: "var(--spacing-64)",
           }}
         >
-          i design products people love. let&apos;s work together.
+          I design products people love. Let&apos;s work together.
         </h2>
 
         {/* Middle nav row */}

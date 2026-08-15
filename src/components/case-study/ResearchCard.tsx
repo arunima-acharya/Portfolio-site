@@ -67,7 +67,7 @@ export default function ResearchCard({ project, index, featured = false }: Resea
 
             <h3
               className="font-semibold leading-tight"
-              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", fontWeight: 600, textTransform: "lowercase" }}
+              style={{ fontSize: featured ? "clamp(1.4rem, 2.6vw, 1.9rem)" : "1.2rem", color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", fontWeight: 600 }}
             >
               {project.title}
             </h3>

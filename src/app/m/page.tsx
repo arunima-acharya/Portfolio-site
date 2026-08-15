@@ -46,7 +46,7 @@ export default function MobileHome() {
             margin: "0 0 14px",
           }}
         >
-          designing products people actually use
+          Designing products people actually use
         </h1>
         <p
           style={{
@@ -105,7 +105,7 @@ export default function MobileHome() {
             margin: "0 0 16px",
           }}
         >
-          services
+          Services
         </h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {SERVICES.map((s) => (

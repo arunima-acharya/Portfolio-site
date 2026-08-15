@@ -262,7 +262,7 @@ export default function DarkHeroStatement() {
               margin: 0,
               fontFamily: "var(--font-gelica)",
             }}>
-              building products that<br />people actually use
+              Building products that<br />people actually use
             </h2>
 
             {/* Subtitle */}
