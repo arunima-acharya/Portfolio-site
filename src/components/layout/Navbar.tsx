@@ -47,7 +47,7 @@ export default function Navbar() {
             }}
           >
             <Sparkle size={16} strokeWidth={2} fill="var(--sp-charcoal)" style={{ flexShrink: 0 }} />
-            arunima
+            Arunima Acharya
           </a>
 
           <button
@@ -190,7 +190,7 @@ export default function Navbar() {
           }}
         >
           <Sparkle size={16} strokeWidth={2} fill="var(--sp-charcoal)" style={{ flexShrink: 0 }} />
-          arunima
+          Arunima Acharya
         </a>
 
         {/* Center — plain-text links in a solid white pill; the active
