@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
   { label: "Email",    href: "mailto:arunimaacharya17@gmail.com" },
-  { label: "LinkedIn", href: "https://linkedin.com", external: true },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/arunima-acharya-bb012a21b/", external: true },
   { label: "Work",     href: "/case-studies" },
 ];
 
@@ -13,7 +13,7 @@ const BOTTOM_LINKS = [
   { label: "Product Designer",    href: "/" },
   { label: "Available for work",  href: "/contact" },
   { label: "arunimaacharya17@gmail.com", href: "mailto:arunimaacharya17@gmail.com" },
-  { label: "LinkedIn",  href: "https://linkedin.com", external: true },
+  { label: "LinkedIn",  href: "https://www.linkedin.com/in/arunima-acharya-bb012a21b/", external: true },
 ];
 
 export default function Footer() {

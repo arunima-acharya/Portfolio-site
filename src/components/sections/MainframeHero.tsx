@@ -344,7 +344,7 @@ export default function MainframeHero({
               Case Studies
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/arunima-acharya-bb012a21b/"
               target="_blank"
               rel="noopener noreferrer"
               style={{

@@ -111,6 +111,18 @@ export default function Navbar() {
                 Resume
               </a>
               <a
+                href="https://www.linkedin.com/in/arunima-acharya-bb012a21b/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex", alignItems: "center", minHeight: 52, padding: "0 20px",
+                  fontFamily: "var(--font-geist), sans-serif", fontSize: 16, color: "#555",
+                  textDecoration: "none", borderBottom: "1px solid rgba(0,0,0,0.06)",
+                }}
+              >
+                LinkedIn
+              </a>
+              <a
                 href="/contact"
                 onClick={() => setOpen(false)}
                 style={{
@@ -243,6 +255,24 @@ export default function Navbar() {
             onMouseLeave={e => (e.currentTarget.style.color = "#9a9a9a")}
           >
             Resume
+          </a>
+          <a
+            href="https://www.linkedin.com/in/arunima-acharya-bb012a21b/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: "0 clamp(8px, 1.5vw, 14px)",
+              fontFamily: "var(--font-geist), sans-serif",
+              fontSize: 16,
+              color: "#9a9a9a",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#555")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#9a9a9a")}
+          >
+            LinkedIn
           </a>
         </div>
 
