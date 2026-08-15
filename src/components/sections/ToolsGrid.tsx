@@ -107,7 +107,7 @@ export default function ToolsGrid() {
             className="space-y-3 mb-14"
           >
             <span className="text-[16px] font-medium" style={{ color: "rgba(23,23,23,0.45)" }}>
-              toolkit
+              Toolkit
             </span>
             <h2
               id="tools-heading"

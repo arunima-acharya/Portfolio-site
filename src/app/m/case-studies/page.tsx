@@ -10,7 +10,7 @@ export default function MobileCaseStudies() {
   return (
     <main style={{ padding: "28px 20px 48px" }}>
       <span style={{ fontSize: 14, fontWeight: 600, color: "var(--sp-orange)", fontFamily: "var(--font-geist), sans-serif" }}>
-        portfolio
+        Portfolio
       </span>
       <h1 style={{ fontFamily: "var(--font-gelica)", fontSize: 28, fontWeight: 600, color: "var(--sp-cocoa)", margin: "6px 0 8px" }}>
         Case studies

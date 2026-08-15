@@ -26,7 +26,7 @@ export default function ResearchPage() {
           <div className="flex items-center gap-2.5">
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--sp-orange)" }} />
             <span className="text-[16px] font-semibold" style={{ color: textMuted, fontFamily: "var(--font-geist), sans-serif" }}>
-              design investigations
+              Design investigations
             </span>
           </div>
           <h1 className="fluid-text-3xl font-semibold leading-tight" style={{ color: isLight ? "var(--sp-cocoa)" : textDark, fontFamily: "var(--font-gelica)", fontWeight: 600 }}>

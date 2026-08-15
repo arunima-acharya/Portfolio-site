@@ -493,7 +493,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
           onMouseEnter={e => { e.currentTarget.style.opacity = "0.7"; }}
           onMouseLeave={e => { e.currentTarget.style.opacity = "1"; }}
         >
-          view all ↗
+          View all ↗
         </Link>
       </div>
     </section>

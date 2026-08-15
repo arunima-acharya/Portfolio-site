@@ -282,7 +282,7 @@ export default function DesignProcess3D() {
                     fontFamily: "var(--font-geist), sans-serif",
                     marginBottom: "6px",
                   }}>
-                    step {String(i + 1).padStart(2, "0")}
+                    Step {String(i + 1).padStart(2, "0")}
                   </p>
                   <h3 style={{
                     fontSize: "20px",

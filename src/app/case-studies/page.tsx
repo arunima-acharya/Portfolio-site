@@ -70,7 +70,7 @@ export default function CaseStudiesPage() {
             className="text-[16px] font-medium"
             style={{ color: textMuted, fontFamily: "var(--font-geist), sans-serif" }}
           >
-            portfolio
+            Portfolio
           </span>
           <h1
             className="fluid-text-3xl font-semibold leading-tight"
