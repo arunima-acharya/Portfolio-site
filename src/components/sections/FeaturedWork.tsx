@@ -18,6 +18,15 @@ const WORK_BG_SVGS = [
   "/assets/work%20bg/bg/bg%204.svg",
 ];
 
+// Portrait-oriented variants (1957x2532 vs. the landscape 2785x1956 desktop
+// set), used only on mobile.
+const MOBILE_WORK_BG_SVGS = [
+  "/assets/work%20bg/bg/mobile%20bg/bg%205.svg",
+  "/assets/work%20bg/bg/mobile%20bg/bg%206.svg",
+  "/assets/work%20bg/bg/mobile%20bg/bg%207.svg",
+  "/assets/work%20bg/bg/mobile%20bg/bg%208.svg",
+];
+
 const SVG_TILT_DEGREES = [-3, 5, -6, 7];
 
 // Small mixed-direction tilt per inset photo — fixed rather than
@@ -66,9 +75,6 @@ const SvgStackItem = forwardRef<
   // Mobile keeps a flat 30%-smaller size since /m's viewport range is narrow.
   const bodySize = isMobile ? "11px" : "clamp(14px, 1.3vw, 22px)";
   const titleSize = isMobile ? "15.4px" : "clamp(22px, 3.2vw, 40px)";
-  // Mobile-only: card scaled to 100% more height (2x) than the desktop
-  // scale factor. Desktop stays at 0.821, untouched.
-  const cardScale = isMobile ? 0.821 * 2 : 0.821;
 
   return (
     <motion.div
@@ -87,7 +93,7 @@ const SvgStackItem = forwardRef<
           display: "block",
           position: "relative",
           textDecoration: "none",
-          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(${cardScale})`,
+          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(0.821)`,
           filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
         }}
       >
@@ -473,7 +479,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
       <div style={{ position: "relative", marginLeft: isMobile ? "-18px" : 0, marginRight: isMobile ? "-18px" : 0 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
           {useSvgs ? (
-            <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i], photo: PROJECT_PHOTOS[i], project }))} isMobile={isMobile} />
+            <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: (isMobile ? MOBILE_WORK_BG_SVGS : WORK_BG_SVGS)[i], photo: PROJECT_PHOTOS[i], project }))} isMobile={isMobile} />
           ) : (
             filtered.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
