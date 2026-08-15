@@ -65,8 +65,8 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
             <h1
               className="fluid-text-3xl"
               style={project.slug === "hotelogix-frontdesk"
-                ? { fontSize: "clamp(2.464rem, 6.899vw, 4.928rem)", lineHeight: 1, fontFamily: ffHeading, fontWeight: 600, color: "var(--sp-cocoa)", textTransform: "lowercase" }
-                : { lineHeight: 1, fontFamily: ffHeading, fontWeight: 600, color: "var(--sp-cocoa)", textTransform: "lowercase" }}
+                ? { fontSize: "clamp(2.464rem, 6.899vw, 4.928rem)", lineHeight: 1, fontFamily: ffHeading, fontWeight: 600, color: "var(--sp-cocoa)" }
+                : { lineHeight: 1, fontFamily: ffHeading, fontWeight: 600, color: "var(--sp-cocoa)" }}
             >
               {project.slug === "hotelogix-frontdesk" ? (
                 <>Reservation Management System</>
@@ -96,7 +96,7 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
             ].map(({ label, value }) => (
               <div key={label} className="space-y-2">
                 <p className="text-sm font-medium" style={{ color: "#8a8580", fontFamily: ff }}>
-                  {label.toLowerCase()}
+                  {label}
                 </p>
                 <p className="text-[19px] leading-relaxed whitespace-pre-line" style={{ color: "var(--sp-charcoal)", fontFamily: ff }}>{value}</p>
               </div>

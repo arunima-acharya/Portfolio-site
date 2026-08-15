@@ -28,10 +28,10 @@ export default function MobileContact() {
   return (
     <main style={{ padding: "28px 20px 48px" }}>
       <span style={{ fontSize: 14, fontWeight: 600, color: "var(--sp-orange)", fontFamily: "var(--font-geist), sans-serif" }}>
-        get in touch
+        Get in touch
       </span>
       <h1 style={{ fontFamily: "var(--font-gelica)", fontSize: 28, fontWeight: 600, color: "var(--sp-cocoa)", margin: "6px 0 12px" }}>
-        contact me
+        Contact me
       </h1>
       <p style={{ fontSize: 15, color: "rgba(23,23,23,0.6)", lineHeight: 1.6, margin: "0 0 24px", fontFamily: "var(--font-geist), sans-serif" }}>
         Have a project in mind or just want to say hi? Fill out the form below or reach out directly.

@@ -115,9 +115,9 @@ export default function ContactMePreview() {
       }}>
         <h1 style={{
           fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, textTransform: "capitalize", marginBottom: 22,
+          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, marginBottom: 22,
         }}>
-          Contact Me
+          Contact me
         </h1>
 
         <p style={{
@@ -173,7 +173,7 @@ export default function ContactMePreview() {
         </p>
         <h2 style={{
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
+          fontFamily: ffHeading, textAlign: "center", marginBottom: 14,
         }}>
           {LOREM_SHORT}
         </h2>
@@ -195,7 +195,7 @@ export default function ContactMePreview() {
 
         <h2 style={{
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
+          fontFamily: ffHeading, textAlign: "center", marginBottom: 14,
         }}>
           {LOREM_SHORT}
         </h2>
@@ -385,7 +385,7 @@ export default function ContactMePreview() {
           </div>
           <h2 style={{
             fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading,
-            lineHeight: 1.2, textTransform: "capitalize", marginBottom: "var(--spacing-16)", maxWidth: 560,
+            lineHeight: 1.2, marginBottom: "var(--spacing-16)", maxWidth: 560,
           }}>
             {LOREM_SHORT}
           </h2>

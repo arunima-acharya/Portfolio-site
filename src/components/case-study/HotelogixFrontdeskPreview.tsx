@@ -179,7 +179,7 @@ function SectionHeading({ title, subtitle, maxWidth = 640, bold = false, align =
     <>
       <h2 style={{
         fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: bold ? 700 : 600, color: "var(--sp-cocoa)",
-        fontFamily: ffHeading, textAlign: align, textTransform: "capitalize", marginBottom: 14,
+        fontFamily: ffHeading, textAlign: align, marginBottom: 14,
       }}>
         {title}
       </h2>
@@ -671,7 +671,7 @@ function SolutionCard({ number, title, challenge, approach, impact, children }: 
       <div style={{ flex: "0 0 44%", minWidth: 0, display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 18 }}>
           <span style={{ fontSize: 38, fontWeight: 700, color: "var(--sp-orange)", fontFamily: ff, lineHeight: 1 }}>{number}</span>
-          <h3 style={{ fontSize: 24, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", lineHeight: 1.3, margin: 0 }}>{title}</h3>
+          <h3 style={{ fontSize: 24, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, lineHeight: 1.3, margin: 0 }}>{title}</h3>
         </div>
         <div style={{ width: 40, height: 2, background: "rgba(23,23,23,0.12)", marginBottom: 24 }} />
 
@@ -701,7 +701,7 @@ const SOLUTION_STEPS: Array<{
 }> = [
   {
     number: "01",
-    title: "Unified Reservation Dashboard",
+    title: "Unified reservation dashboard",
     challenge: "Multiple screens slowed reservation workflows.",
     approach: "Unified search, booking details, and actions into one workspace.",
     impact: [
@@ -712,7 +712,7 @@ const SOLUTION_STEPS: Array<{
   },
   {
     number: "02",
-    title: "Smart Room Assignment",
+    title: "Smart room assignment",
     challenge: "Manual room allocation was slow and error-prone.",
     approach: "Combined room availability, occupancy, and booking details in one view.",
     impact: [
@@ -723,7 +723,7 @@ const SOLUTION_STEPS: Array<{
   },
   {
     number: "03",
-    title: "Guest Context",
+    title: "Guest context",
     challenge: "Guest history required switching between screens.",
     approach: "Embedded guest profile, history, and timelines directly in workflow.",
     impact: [
@@ -734,7 +734,7 @@ const SOLUTION_STEPS: Array<{
   },
   {
     number: "04",
-    title: "Advanced Filters & Bulk Operations",
+    title: "Advanced filters & bulk operations",
     challenge: "Managing hundreds of reservations involved repetitive work.",
     approach: "Added advanced filters and bulk actions for high-volume operations.",
     impact: [
@@ -825,12 +825,12 @@ const IMPACT_STATS = [
 ];
 
 const CHALLENGES: Array<{ index: string; title: string; desc: string }> = [
-  { index: "01", title: "Information Overload", desc: "Too much information was displayed at once, making it difficult to quickly identify what mattered." },
-  { index: "02", title: "Outdated Interface", desc: "An aging visual design with inconsistent patterns made the system feel difficult to navigate and learn." },
-  { index: "03", title: "Form-Heavy Experience", desc: "Simple reservation tasks required filling long forms with repetitive fields and unnecessary inputs." },
-  { index: "04", title: "Long & Complex Workflows", desc: "Everyday actions such as creating, editing, or checking reservations involved multiple screens and excessive clicks." },
-  { index: "05", title: "Poor Information Hierarchy", desc: "Critical booking details were buried among secondary information, increasing cognitive load." },
-  { index: "06", title: "Inefficient Operations", desc: "Hotel staff spent more time navigating the software than managing guests, reducing operational efficiency." },
+  { index: "01", title: "Information overload", desc: "Too much information was displayed at once, making it difficult to quickly identify what mattered." },
+  { index: "02", title: "Outdated interface", desc: "An aging visual design with inconsistent patterns made the system feel difficult to navigate and learn." },
+  { index: "03", title: "Form-heavy experience", desc: "Simple reservation tasks required filling long forms with repetitive fields and unnecessary inputs." },
+  { index: "04", title: "Long & complex workflows", desc: "Everyday actions such as creating, editing, or checking reservations involved multiple screens and excessive clicks." },
+  { index: "05", title: "Poor information hierarchy", desc: "Critical booking details were buried among secondary information, increasing cognitive load." },
+  { index: "06", title: "Inefficient operations", desc: "Hotel staff spent more time navigating the software than managing guests, reducing operational efficiency." },
 ];
 
 // One old-system screenshot per challenge/scroll step (image 85 repeats
@@ -1028,7 +1028,7 @@ export default function HotelogixFrontdeskPreview() {
       }}>
         <h1 style={{
           fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, textTransform: "capitalize", marginBottom: 22,
+          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, marginBottom: 22,
         }}>
           Reservation Management System
         </h1>
@@ -1089,7 +1089,7 @@ export default function HotelogixFrontdeskPreview() {
         </p>
         <h2 style={{
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
+          fontFamily: ffHeading, textAlign: "center", marginBottom: 14,
         }}>
           Built from scratch at Hotelogix.
         </h2>
@@ -1108,8 +1108,8 @@ export default function HotelogixFrontdeskPreview() {
           maxWidth: 1040, margin: "40px auto 0", background: "var(--sp-cream)", borderRadius: "var(--radius-xl)",
           border: "1.5px solid var(--sp-charcoal)", boxShadow: "var(--shadow-lg)", padding: "36px 40px",
         }}>
-          <h3 style={{ fontSize: 20, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
-            My Responsibilities
+          <h3 style={{ fontSize: 20, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, marginBottom: 20 }}>
+            My responsibilities
           </h3>
           <ul style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px 32px", margin: 0, padding: 0, listStyle: "none" }}>
             {[
@@ -1133,7 +1133,7 @@ export default function HotelogixFrontdeskPreview() {
 
         <h2 style={{
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
+          fontFamily: ffHeading, textAlign: "center", marginBottom: 14,
         }}>
           Built for hotels that never stop operating.
         </h2>
@@ -1197,8 +1197,8 @@ export default function HotelogixFrontdeskPreview() {
           <ResearchMethodsBar />
 
           <div style={{ maxWidth: 1160, margin: "48px auto 0" }}>
-            <h3 style={{ fontSize: 22, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, textTransform: "capitalize", marginBottom: 20 }}>
-              What We Learned
+            <h3 style={{ fontSize: 22, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading, marginBottom: 20 }}>
+              What we learned
             </h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {LEARNED_INTERVIEWS.map((l) => <LearnedRow key={l.number} {...l} />)}
@@ -1372,7 +1372,7 @@ export default function HotelogixFrontdeskPreview() {
           </div>
           <h2 style={{
             fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading,
-            lineHeight: 1.2, textTransform: "capitalize", marginBottom: "var(--spacing-16)", maxWidth: 560,
+            lineHeight: 1.2, marginBottom: "var(--spacing-16)", maxWidth: 560,
           }}>
             Designed for measurable operational improvement.
           </h2>

@@ -287,7 +287,7 @@ export default function MainframeHero({
               lineHeight: 1.1,
             }}
           >
-            hey, a quick intro?
+            Hey, a quick intro?
           </motion.h2>
 
           <motion.p
@@ -344,7 +344,7 @@ export default function MainframeHero({
               Case Studies
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/arunima-acharya-bb012a21b/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -393,7 +393,11 @@ export default function MainframeHero({
           flexShrink: 0,
           order: 1,
         }}>
-          <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+          {/* Camera shifted up (y: 0 -> 2) so the rope's anchor point
+              (Lanyard.tsx's fixed joint at world y=4) and the card's own
+              top edge land closer to the top of this full-height canvas
+              instead of starting further down. */}
+          <Lanyard position={[0, 2, 20]} gravity={[0, -40, 0]} />
         </div>
       )}
 

@@ -43,7 +43,7 @@ export default function ContactPage() {
             className="text-[16px] font-semibold"
             style={{ color: "var(--sp-orange)", fontFamily: "var(--font-geist), sans-serif" }}
           >
-            get in touch
+            Get in touch
           </span>
           <h1
             className="mt-2 mb-3"
@@ -55,7 +55,7 @@ export default function ContactPage() {
               fontFamily: "var(--font-gelica)",
             }}
           >
-            contact me
+            Contact me
           </h1>
           <p
             className="max-w-lg leading-relaxed"

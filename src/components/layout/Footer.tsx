@@ -5,8 +5,7 @@ import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
   { label: "Email",    href: "mailto:arunimaacharya17@gmail.com" },
-  { label: "LinkedIn", href: "https://linkedin.com", external: true },
-  { label: "Dribbble", href: "https://dribbble.com", external: true },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/arunima-acharya-bb012a21b/", external: true },
   { label: "Work",     href: "/case-studies" },
 ];
 
@@ -14,16 +13,15 @@ const BOTTOM_LINKS = [
   { label: "Product Designer",    href: "/" },
   { label: "Available for work",  href: "/contact" },
   { label: "arunimaacharya17@gmail.com", href: "mailto:arunimaacharya17@gmail.com" },
-  { label: "LinkedIn",  href: "https://linkedin.com", external: true },
-  { label: "Twitter",   href: "https://twitter.com",  external: true },
-  { label: "Dribbble",  href: "https://dribbble.com", external: true },
+  { label: "LinkedIn",  href: "https://www.linkedin.com/in/arunima-acharya-bb012a21b/", external: true },
 ];
 
 export default function Footer() {
   const year = new Date().getFullYear();
   const pathname = usePathname();
-  if (pathname?.startsWith("/m")) return null;
-  const isHome = pathname === "/";
+  const isMobileSite = pathname?.startsWith("/m") ?? false;
+  const isHome = pathname === "/" || pathname === "/m";
+  const workHref = isMobileSite ? "/m/case-studies" : "/case-studies";
 
   const bg = isHome ? "var(--sp-orange)" : "var(--sp-charcoal)";
   const fg = isHome ? "var(--sp-charcoal)" : "var(--sp-cream)";
@@ -41,7 +39,6 @@ export default function Footer() {
         width: "100%",
         position: "relative",
         overflow: "hidden",
-        borderRadius: "var(--radius-footer) var(--radius-footer) 0 0",
       }}
     >
       {/* Main body */}
@@ -63,7 +60,7 @@ export default function Footer() {
             marginBottom: "var(--spacing-64)",
           }}
         >
-          i design products people love. let&apos;s work together.
+          I design products people love. Let&apos;s work together.
         </h2>
 
         {/* Middle nav row */}
@@ -78,7 +75,7 @@ export default function Footer() {
           {NAV_LINKS.map((link, i) => (
             <Link
               key={link.label}
-              href={link.href}
+              href={link.label === "Work" ? workHref : link.href}
               target={"external" in link && link.external ? "_blank" : undefined}
               rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
               className="flex items-center basis-1/2 sm:basis-0"
@@ -171,7 +168,11 @@ export default function Footer() {
               <span style={{ color: dividerColor, margin: "0 14px", fontSize: "16px" }}>|</span>
             )}
             <Link
-              href={link.href}
+              href={
+                isMobileSite && link.label === "Product Designer" ? "/m"
+                : isMobileSite && link.label === "Available for work" ? "/m/contact"
+                : link.href
+              }
               target={"external" in link && link.external ? "_blank" : undefined}
               rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
               style={{

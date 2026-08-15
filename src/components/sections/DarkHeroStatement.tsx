@@ -262,7 +262,7 @@ export default function DarkHeroStatement() {
               margin: 0,
               fontFamily: "var(--font-gelica)",
             }}>
-              building products that<br />people actually use
+              Building products that<br />people actually use
             </h2>
 
             {/* Subtitle */}
@@ -281,7 +281,7 @@ export default function DarkHeroStatement() {
             {/* Buttons */}
             <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-12)", marginTop: "var(--spacing-4)", flexWrap: "wrap" }}>
               <a
-                href="#contact"
+                href="tel:+919479717669"
                 aria-label="Connect on a call"
                 style={{
                   display: "inline-flex",
@@ -302,7 +302,8 @@ export default function DarkHeroStatement() {
                 Connect on a Call
               </a>
               <a
-                href="/resume.pdf"
+                href="/assets/Arunima_Acharya_Resume.pdf"
+                download
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Download resume (opens in new tab)"

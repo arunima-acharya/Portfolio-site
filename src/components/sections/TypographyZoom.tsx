@@ -44,7 +44,7 @@ export default function TypographyZoom() {
             whiteSpace: "nowrap",
           }}
         >
-          what&apos;s on my desk
+          What&apos;s on my desk
         </div>
         <span
           style={{
@@ -59,7 +59,7 @@ export default function TypographyZoom() {
             whiteSpace:    "nowrap",
           }}
         >
-          product designer edition
+          Product designer edition
         </span>
       </div>
 
@@ -91,7 +91,7 @@ export default function TypographyZoom() {
               color:         "var(--sp-orange)",
             }}
           >
-            rearrange my desk!
+            Rearrange my desk!
           </p>
           <p
             style={{

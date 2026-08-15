@@ -40,12 +40,12 @@ import {
 
 // ── Section 03 — The Challenge ───────────────────────────────
 const CHALLENGES = [
-  { title: "Double-Booking Risk", desc: "Scheduling conflicts were slipping through, damaging trust in the platform with every repeat occurrence." },
-  { title: "No Shared Design Language", desc: "Inconsistent UI patterns across screens made the product feel disjointed and harder to trust." },
-  { title: "Handoff Gaps", desc: "Missing specifications meant shipped features regularly diverged from the original design intent." },
-  { title: "Slow Screen Delivery", desc: "Without a component library, every new screen was built from scratch, slowing the whole team down." },
-  { title: "Scaling Without a System", desc: "45+ screens needed consistent coverage, but there was no foundation to build from." },
-  { title: "Anxiety-Inducing Errors", desc: "In a mental health context, a scheduling error isn't just inconvenient — it undermines the therapeutic relationship." },
+  { title: "Double-booking risk", desc: "Scheduling conflicts were slipping through, damaging trust in the platform with every repeat occurrence." },
+  { title: "No shared design language", desc: "Inconsistent UI patterns across screens made the product feel disjointed and harder to trust." },
+  { title: "Handoff gaps", desc: "Missing specifications meant shipped features regularly diverged from the original design intent." },
+  { title: "Slow screen delivery", desc: "Without a component library, every new screen was built from scratch, slowing the whole team down." },
+  { title: "Scaling without a system", desc: "45+ screens needed consistent coverage, but there was no foundation to build from." },
+  { title: "Anxiety-inducing errors", desc: "In a mental health context, a scheduling error isn't just inconvenient — it undermines the therapeutic relationship." },
 ];
 
 // ── Section 04 — Research Insights ───────────────────────────
@@ -59,18 +59,18 @@ const RESEARCH_METHODS: Array<{ label: string; value: string; displayLabel?: Rea
 
 // ── Section 05 — Design Principles ───────────────────────────
 const PRINCIPLES: DesignPrinciple[] = [
-  { index: "01", title: "Calm as a Design Value", desc: "In mental health contexts, visual noise is harmful. Every design decision must ask: does this create or reduce anxiety?" },
-  { index: "02", title: "System Before Screen", desc: "A component library built upfront pays compound interest — every new screen is faster, more consistent, and cheaper to hand off." },
-  { index: "03", title: "Conflict-Detection is UX", desc: "Scheduling logic is not purely an engineering concern. The user experience of an error message is a design failure, not just a bug." },
-  { index: "04", title: "Spec for the Developer", desc: "Design handoff quality directly determines how faithfully the product gets built. Invest in documentation as much as in the design itself." },
+  { index: "01", title: "Calm as a design value", desc: "In mental health contexts, visual noise is harmful. Every design decision must ask: does this create or reduce anxiety?" },
+  { index: "02", title: "System before screen", desc: "A component library built upfront pays compound interest — every new screen is faster, more consistent, and cheaper to hand off." },
+  { index: "03", title: "Conflict-detection is UX", desc: "Scheduling logic is not purely an engineering concern. The user experience of an error message is a design failure, not just a bug." },
+  { index: "04", title: "Spec for the developer", desc: "Design handoff quality directly determines how faithfully the product gets built. Invest in documentation as much as in the design itself." },
 ];
 const PRINCIPLE_IMAGES = PRINCIPLES.map((p) => moduleThumbnail(p.title));
 
 // ── Section 06 — The Solution ────────────────────────────────
 const SOLUTION_STEPS: Array<{ number: string; title: string; desc: string; reverse: boolean; imageLabel: string }> = [
-  { number: "01", title: "Conflict-Detection Scheduling", desc: "Scheduling logic that surfaces and resolves conflicts before they can be confirmed, eliminating double-bookings entirely.", reverse: false, imageLabel: "Scheduling screenshot" },
-  { number: "02", title: "A 25-Component Design System", desc: "Every screen now draws from a shared library of patterns, giving the whole product a calmer, more consistent feel.", reverse: true, imageLabel: "Design system screenshot" },
-  { number: "03", title: "Developer-Ready Specifications", desc: "Comprehensive handoff documentation — states, interactions, and edge cases — cut iteration cycles from seven to three.", reverse: false, imageLabel: "Handoff documentation screenshot" },
+  { number: "01", title: "Conflict-detection scheduling", desc: "Scheduling logic that surfaces and resolves conflicts before they can be confirmed, eliminating double-bookings entirely.", reverse: false, imageLabel: "Scheduling screenshot" },
+  { number: "02", title: "A 25-component design system", desc: "Every screen now draws from a shared library of patterns, giving the whole product a calmer, more consistent feel.", reverse: true, imageLabel: "Design system screenshot" },
+  { number: "03", title: "Developer-ready specifications", desc: "Comprehensive handoff documentation — states, interactions, and edge cases — cut iteration cycles from seven to three.", reverse: false, imageLabel: "Handoff documentation screenshot" },
 ];
 
 const SOLUTION_PILLS = [
@@ -137,7 +137,7 @@ export default function PositivityMentalHealthPreview() {
       }}>
         <h1 style={{
           fontSize: "clamp(34px, 3.5vw, 56px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, textTransform: "capitalize", marginBottom: 22,
+          fontFamily: ffHeading, textAlign: "center", lineHeight: 1.15, marginBottom: 22,
         }}>
           Positivity — Mental Health Platform
         </h1>
@@ -198,7 +198,7 @@ export default function PositivityMentalHealthPreview() {
         </p>
         <h2 style={{
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
+          fontFamily: ffHeading, textAlign: "center", marginBottom: 14,
         }}>
           Built as a design consultant at Positivity.
         </h2>
@@ -225,7 +225,7 @@ export default function PositivityMentalHealthPreview() {
 
         <h2 style={{
           fontSize: "clamp(28px, 3.5vw, 42px)", fontWeight: 600, color: "var(--sp-cocoa)",
-          fontFamily: ffHeading, textAlign: "center", textTransform: "capitalize", marginBottom: 14,
+          fontFamily: ffHeading, textAlign: "center", marginBottom: 14,
         }}>
           Built for calm, conflict-free scheduling.
         </h2>
@@ -423,7 +423,7 @@ export default function PositivityMentalHealthPreview() {
           </div>
           <h2 style={{
             fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: ffHeading,
-            lineHeight: 1.2, textTransform: "capitalize", marginBottom: "var(--spacing-16)", maxWidth: 560,
+            lineHeight: 1.2, marginBottom: "var(--spacing-16)", maxWidth: 560,
           }}>
             Designed for calmer, more reliable operations.
           </h2>

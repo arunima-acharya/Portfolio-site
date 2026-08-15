@@ -10,10 +10,10 @@ export default function MobileCaseStudies() {
   return (
     <main style={{ padding: "28px 20px 48px" }}>
       <span style={{ fontSize: 14, fontWeight: 600, color: "var(--sp-orange)", fontFamily: "var(--font-geist), sans-serif" }}>
-        portfolio
+        Portfolio
       </span>
       <h1 style={{ fontFamily: "var(--font-gelica)", fontSize: 28, fontWeight: 600, color: "var(--sp-cocoa)", margin: "6px 0 8px" }}>
-        case studies
+        Case studies
       </h1>
       <p style={{ fontSize: 15, color: "rgba(23,23,23,0.6)", lineHeight: 1.6, margin: "0 0 8px", fontFamily: "var(--font-geist), sans-serif" }}>
         A selection of projects spanning product design, design systems, and UX research.
@@ -45,7 +45,7 @@ export default function MobileCaseStudies() {
             </div>
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 10 }}>
               <h3 style={{ fontSize: 18, fontWeight: 600, color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", lineHeight: 1.25, margin: 0 }}>
-                {project.title.toLowerCase()}
+                {project.title}
               </h3>
               <ArrowUpRight size={16} style={{ color: "var(--sp-orange)", flexShrink: 0, marginTop: 3 }} />
             </div>

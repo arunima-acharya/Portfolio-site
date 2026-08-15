@@ -92,7 +92,7 @@ export default function ResearchHero({
         >
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: accent }} />
           <span className="text-xs font-semibold" style={{ color: accentText }}>
-            {eyebrow.toLowerCase()}
+            {eyebrow}
           </span>
         </motion.div>
 
@@ -101,7 +101,7 @@ export default function ResearchHero({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
-          style={{ fontSize: "clamp(2.2rem, 5.2vw, 3.6rem)", lineHeight: 1.05, color: p.text, fontFamily: "var(--font-gelica)", fontWeight: 600, textTransform: "lowercase" }}
+          style={{ fontSize: "clamp(2.2rem, 5.2vw, 3.6rem)", lineHeight: 1.05, color: p.text, fontFamily: "var(--font-gelica)", fontWeight: 600 }}
         >
           {project.title}
         </motion.h1>
@@ -139,7 +139,7 @@ export default function ResearchHero({
         >
           {meta.map(({ label, value }) => (
             <div key={label} className="space-y-1.5">
-              <p className="text-[11px] font-semibold" style={{ color: p.textFaint }}>{label.toLowerCase()}</p>
+              <p className="text-[11px] font-semibold" style={{ color: p.textFaint }}>{label}</p>
               <p className="text-[15px] max-w-[26ch]" style={{ color: p.text }}>{value}</p>
             </div>
           ))}

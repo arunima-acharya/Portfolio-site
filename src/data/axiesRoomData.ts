@@ -60,10 +60,10 @@ export const axiesRoomData: MenstaData = {
       "The audit uncovered years of accumulated complexity caused by duplicate navigation, inconsistent information architecture, and deeply nested workflows that slowed down everyday operations.",
     ],
     annotations: [
-      { title: "Duplicate Entry Points", desc: "Inventory is accessible from multiple places, creating confusion and extra effort." },
-      { title: "Nested Navigation", desc: "Important actions are buried under 4–5 menu levels." },
-      { title: "Inconsistent Grouping", desc: "Related actions are scattered across unrelated sections instead of being grouped logically." },
-      { title: "Visual Inconsistency", desc: "Similar actions use different layouts, labels, and patterns across the app." },
+      { title: "Duplicate entry points", desc: "Inventory is accessible from multiple places, creating confusion and extra effort." },
+      { title: "Nested navigation", desc: "Important actions are buried under 4–5 menu levels." },
+      { title: "Inconsistent grouping", desc: "Related actions are scattered across unrelated sections instead of being grouped logically." },
+      { title: "Visual inconsistency", desc: "Similar actions use different layouts, labels, and patterns across the app." },
     ],
   },
 
@@ -126,19 +126,19 @@ export const axiesRoomData: MenstaData = {
     headingAccent: "Every operation.",
     subtitle: "AxisRooms unifies distribution, revenue and reservation operations into a single mobile platform built for hotel teams.",
     left: {
-      title: "Distribution Operations",
+      title: "Distribution operations",
       desc: "Everything to manage inventory and channel distribution.",
       items: [
         { title: "Inventory", desc: "Manage room inventory across all connected channels.", num: "01" },
         { title: "Channels", desc: "Control OTA connections and channel-level settings.", num: "02" },
         { title: "Availability", desc: "Keep availability synchronized in real time.", num: "03" },
-        { title: "Rate Management", desc: "Set and adjust rates across every distribution channel.", num: "04" },
+        { title: "Rate management", desc: "Set and adjust rates across every distribution channel.", num: "04" },
       ],
     },
     rights: [
       {
         color: "green",
-        title: "Revenue Operations",
+        title: "Revenue operations",
         desc: "Maximize occupancy and revenue with confidence.",
         items: [
           { title: "Pricing", desc: "Manage dynamic pricing rules and strategies.", num: "05" },
@@ -147,7 +147,7 @@ export const axiesRoomData: MenstaData = {
       },
       {
         color: "orange",
-        title: "Reservation Operations",
+        title: "Reservation operations",
         desc: "Stay on top of bookings and property performance.",
         items: [
           { title: "Reservations", desc: "View, manage and update bookings on the go.", num: "07" },
@@ -165,7 +165,7 @@ export const axiesRoomData: MenstaData = {
 
   designSystem: {
     eyebrow: "Design System",
-    heading: "Building Better Interfaces With Design Systems",
+    heading: "Building better interfaces with design systems",
     subtext: "To ensure consistency across the product, we developed a reusable mobile design language that standardized typography, spacing, color usage, interaction patterns, and reusable components. The system made future feature development faster while creating a more cohesive experience for users.",
   },
 
@@ -196,7 +196,7 @@ export const axiesRoomData: MenstaData = {
 
   howItWorks: {
     eyebrow: "Foundation",
-    heading: "The Foundation",
+    heading: "The foundation",
     subtext: "Before diving into the design process, here's what AxisRooms is, why it was redesigned, and the impact it aims to create.",
     tabs: [
       {
@@ -219,7 +219,7 @@ export const axiesRoomData: MenstaData = {
       },
       {
         label: "Business Goal",
-        heading: "Business Goal",
+        heading: "Business goal",
         body: "Modernize the mobile experience, reduce navigation complexity, increase operational efficiency, and create a scalable foundation for future features.",
         items: ["Modernize the mobile experience", "Reduce navigation complexity", "Increase operational efficiency", "Create a scalable foundation for future features"],
       },

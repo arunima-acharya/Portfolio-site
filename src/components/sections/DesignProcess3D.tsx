@@ -231,8 +231,8 @@ export default function DesignProcess3D() {
     return (
       <section style={{ minHeight: "100dvh", boxSizing: "border-box", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "96px", paddingBottom: "var(--spacing-48)", paddingLeft: "var(--spacing-20)", paddingRight: "var(--spacing-20)", backgroundColor: "var(--sp-cream)" }}>
         <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", marginBottom: "var(--spacing-20)" }}>
-          own the process.
-          <span style={{ display: "block" }}>deliver impact.</span>
+          Own the process.
+          <span style={{ display: "block" }}>Deliver impact.</span>
         </h2>
         <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, marginBottom: "var(--spacing-32)" }}>
           Every great product starts with deep research and clear thinking.
@@ -249,47 +249,74 @@ export default function DesignProcess3D() {
             // text there; the last two are saturated enough for white.
             const badgeTextColor = i < 2 ? "#5c5955" : "#fff";
             return (
-              <div key={layer.id} style={{ display: "flex", gap: "18px" }}>
-                {/* Badge + connector column */}
+              <div key={layer.id} style={{ display: "flex", gap: "18px", marginBottom: last ? 0 : "28px" }}>
+                {/* Badge + connector column — top/bottom line segments are
+                    equal flex:1 fillers so the badge sits vertically
+                    centered against the copy card's own height, instead of
+                    pinned to the top of it. */}
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
                   <div style={{
-                    width: 46,
-                    height: 46,
+                    width: 2,
+                    flex: 1,
+                    background: i === 0 ? "transparent" : `linear-gradient(${LAYERS[i - 1].color}, ${layer.color})`,
+                    opacity: 0.35,
+                  }} />
+                  <div style={{
+                    width: 52,
+                    height: 52,
                     borderRadius: "50%",
                     background: layer.gradient,
-                    border: "1px solid rgba(0,0,0,0.06)",
-                    boxShadow: "0 4px 14px rgba(0,0,0,0.12)",
+                    border: `2px solid ${layer.color}`,
+                    boxShadow: "0 4px 14px rgba(0,0,0,0.16)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                   }}>
-                    <span style={{ fontSize: "16px", fontWeight: 700, color: badgeTextColor, fontFamily: "var(--font-geist), sans-serif" }}>
+                    <span style={{ fontSize: "17px", fontWeight: 700, color: badgeTextColor, fontFamily: "var(--font-geist), sans-serif" }}>
                       {i + 1}
                     </span>
                   </div>
-                  {!last && (
-                    <div style={{ width: 2, flex: 1, minHeight: "36px", background: "rgba(0,0,0,0.10)", marginTop: "var(--spacing-8)" }} />
-                  )}
+                  <div style={{
+                    width: 2,
+                    flex: 1,
+                    background: last ? "transparent" : `linear-gradient(${layer.color}, ${LAYERS[i + 1].color})`,
+                    opacity: 0.35,
+                  }} />
                 </div>
 
-                {/* Copy */}
-                <div style={{ paddingBottom: last ? "4px" : "36px" }}>
-                  <p style={{
-                    fontSize: "16px",
+                {/* Copy — outlined card so each step reads as a distinct
+                    unit instead of floating text, with a left accent
+                    stripe in the step's own color. */}
+                <div
+                  style={{
+                    flex: 1,
+                    padding: "16px 18px",
+                    borderRadius: "var(--radius-lg)",
+                    border: "1.5px solid rgba(0,0,0,0.1)",
+                    borderLeft: `4px solid ${layer.color}`,
+                    background: "rgba(0,0,0,0.02)",
+                  }}
+                >
+                  <span style={{
+                    display: "inline-flex",
+                    fontSize: "13px",
                     fontWeight: 700,
                     color: layer.color,
                     fontFamily: "var(--font-geist), sans-serif",
-                    marginBottom: "6px",
+                    letterSpacing: "0.02em",
+                    padding: "3px 10px",
+                    borderRadius: "var(--radius-2xl-2)",
+                    border: `1.5px solid ${layer.color}`,
+                    marginBottom: "10px",
                   }}>
-                    step {String(i + 1).padStart(2, "0")}
-                  </p>
+                    Step {String(i + 1).padStart(2, "0")}
+                  </span>
                   <h3 style={{
                     fontSize: "20px",
                     fontWeight: 400,
                     color: textPrimary,
                     fontFamily: "var(--font-gelica)",
-                    textTransform: "lowercase",
                     marginBottom: "var(--spacing-8)",
                   }}>
                     {layer.title}
@@ -362,8 +389,8 @@ export default function DesignProcess3D() {
           {/* Col 1: Static heading */}
           <motion.div style={{ flex: "0 0 38%", paddingRight: "var(--spacing-48)", marginTop: `calc(-${STACK_H * 0.10}px + 20vh)`, y: headingParallaxY }}>
             <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", marginBottom: "var(--spacing-20)" }}>
-              own the process.
-              <span style={{ display: "block" }}>deliver impact.</span>
+              Own the process.
+              <span style={{ display: "block" }}>Deliver impact.</span>
             </h2>
             <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, maxWidth: "38ch", marginBottom: "var(--spacing-24)" }}>
               Every great product starts with deep research and clear thinking.
@@ -389,7 +416,7 @@ export default function DesignProcess3D() {
                   transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                   style={{ position: "absolute", top: activeIdx !== null ? visualCenterY(activeIdx) - 40 : 0, width: "100%", background: "rgba(255,255,255,0.20)", borderRadius: "var(--radius-2xl)", padding: "var(--spacing-16)", backdropFilter: "blur(8px)" }}
                 >
-                  <p style={{ fontSize: "16px", fontWeight: 600, color: activeLayer.color, fontFamily: "var(--font-geist), sans-serif", marginBottom: "10px", letterSpacing: "-0.01em", textTransform: "lowercase" }}>
+                  <p style={{ fontSize: "16px", fontWeight: 600, color: activeLayer.color, fontFamily: "var(--font-geist), sans-serif", marginBottom: "10px", letterSpacing: "-0.01em" }}>
                     {activeLayer.title}
                   </p>
                   <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.7, maxWidth: "26ch" }}>
@@ -417,7 +444,6 @@ export default function DesignProcess3D() {
                         fontWeight: 500,
                         color: layer.color,
                         letterSpacing: "-0.01em",
-                        textTransform: "lowercase",
                       }}
                     >
                       {layer.title}

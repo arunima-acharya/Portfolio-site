@@ -18,7 +18,38 @@ const WORK_BG_SVGS = [
   "/assets/work%20bg/bg/bg%204.svg",
 ];
 
+// Portrait-oriented variants (1957x2532 vs. the landscape 2785x1956 desktop
+// set), used only on mobile.
+const MOBILE_WORK_BG_SVGS = [
+  "/assets/work%20bg/bg/mobile%20bg/bg%205.svg",
+  "/assets/work%20bg/bg/mobile%20bg/bg%206.svg",
+  "/assets/work%20bg/bg/mobile%20bg/bg%207.svg",
+  "/assets/work%20bg/bg/mobile%20bg/bg%208.svg",
+];
+
 const SVG_TILT_DEGREES = [-3, 5, -6, 7];
+
+// Small mixed-direction tilt per inset photo — fixed rather than
+// Math.random() so server/client markup match (see SVG_TILT_DEGREES note
+// history for why a live-random value would cause a hydration mismatch).
+const PHOTO_TILT_DEGREES = [-2.5, 2, -1.5, 3];
+
+// Per-photo width — pocket-pms's mockup screenshot is scaled down 60% (56%
+// -> 22.4%) relative to the other three, which stay at the shared size.
+const PHOTO_WIDTHS = ["56%", "56%", "56%", "22.4%"];
+// Mobile-only, +20% over PHOTO_WIDTHS.
+const PHOTO_WIDTHS_MOBILE = ["80.64%", "80.64%", "80.64%", "32.256%"];
+
+// One real product screenshot per featured project (same order as
+// FEATURED_SLUGS below), inset into the torn-paper face so it reads as a
+// photograph pinned to the page rather than a blank note. Pocket PMS has no
+// screenshots of its own in the codebase, so it reuses a Mockup shot.
+const PROJECT_PHOTOS = [
+  "/assets/hotelogix/FRONTDESK.png",
+  "/assets/POS/Draft%20116.png",
+  "/assets/hotelogix/GROUP%20RESERVATION-LAYOUT.png",
+  "/assets/Mockup/CHECK%20IN%203.jpg",
+];
 
 // Torn-paper card face laid on top of each colored bg svg — same file for
 // all four, positioned/sized to match the reference (top-left, ~56% width).
@@ -35,14 +66,22 @@ function stickyTop(index: number) {
 // frontmost in the stack (tracked by the parent SvgStack) casts one.
 const SvgStackItem = forwardRef<
   HTMLDivElement,
-  { src: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean; isMobile: boolean }
->(function SvgStackItem({ src, project, index, isTop, isMobile }, ref) {
+  { src: string; photo: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean; isMobile: boolean }
+>(function SvgStackItem({ src, photo, project, index, isTop, isMobile }, ref) {
   const tags = project.tags.slice(0, 3);
   const textAlign = "left" as const;
   const rowJustify = "flex-start" as const;
-  // Mobile text is 30% smaller across the board.
-  const bodySize = isMobile ? 11 : 16;
-  const titleSize = isMobile ? "15.4px" : "clamp(22px, 2.6vw, 32px)";
+  // Scales with viewport width (via vw + clamp) instead of a fixed px size,
+  // so text stays proportional to the card instead of looking tiny on wide
+  // desktop monitors where the card itself (width: 100%) renders huge.
+  // Mobile: base flat size, scaled up 20% per the latest request
+  // (11px -> 13.2px, 15.4px -> 18.5px). bg svg itself is untouched.
+  const bodySize = isMobile ? "15.84px" : "clamp(14px, 1.3vw, 22px)";
+  const titleSize = isMobile ? "22.2px" : "clamp(22px, 3.2vw, 40px)";
+  // Mobile-only, +20%: paper (67.8% -> 81.4%) and photo (PHOTO_WIDTHS * 1.2).
+  // bg svg (the <img src={src}> below) is deliberately left at width: 100%.
+  const paperWidth = isMobile ? "81.4%" : "67.8%";
+  const photoWidth = (isMobile ? PHOTO_WIDTHS_MOBILE : PHOTO_WIDTHS)[index] ?? "56%";
 
   return (
     <motion.div
@@ -72,18 +111,41 @@ const SvgStackItem = forwardRef<
         <img
           src={PAPER_SVG}
           alt=""
-          style={{ position: "absolute", top: "1%", left: "-1%", width: "67.8%", height: "auto", display: "block" }}
+          style={{ position: "absolute", top: "1%", left: "-1%", width: paperWidth, height: "auto", display: "block" }}
         />
 
-        {/* Same data as ProjectCard's content panel — kept on the right side of
-            the bg svg so it doesn't overlap the paper on the left */}
+        {/* Product screenshot inset into the paper's face, so the paper
+            reads as a torn-photo border rather than a blank note. Height is
+            "auto" so each photo keeps its own native aspect ratio instead of
+            being cropped to a fixed box — footprint varies photo to photo. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={photo}
+          alt=""
+          style={{
+            position: "absolute",
+            top: isMobile ? "6%" : "11%",
+            left: "3%",
+            width: photoWidth,
+            height: "auto",
+            display: "block",
+            border: "7px solid #fff",
+            transform: `rotate(${PHOTO_TILT_DEGREES[index] ?? 0}deg)`,
+            boxShadow: "0 6px 14px rgba(0,0,0,0.28)",
+          }}
+        />
+
+        {/* Same data as ProjectCard's content panel. Desktop: kept on the
+            right side of the bg svg so it doesn't overlap the paper on the
+            left. Mobile: paper+photo are taller relative to card width on
+            the portrait bg, so text sits below the frame instead, full width. */}
         <div
           style={{
             position: "absolute",
-            top: "8%",
-            left: "61%",
-            width: "42.6%",
-            height: "84%",
+            top: isMobile ? "47%" : "8%",
+            left: isMobile ? "5%" : "61%",
+            width: isMobile ? "90%" : "42.6%",
+            height: isMobile ? "38%" : "84%",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
@@ -102,7 +164,6 @@ const SvgStackItem = forwardRef<
             style={{
               fontSize: titleSize,
               fontWeight: 600,
-              textTransform: "lowercase",
               lineHeight: 1.1,
               marginBottom: 14,
               fontFamily: "var(--font-gelica)",
@@ -115,7 +176,7 @@ const SvgStackItem = forwardRef<
             {project.shortDescription}
           </p>
 
-          {tags.length > 0 && (
+          {!isMobile && tags.length > 0 && (
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: rowJustify, gap: "var(--spacing-8)", marginBottom: 24 }}>
               {tags.map((tag) => (
                 <span
@@ -144,7 +205,7 @@ const SvgStackItem = forwardRef<
         <div
           style={{
             position: "absolute",
-            top: "85%",
+            top: isMobile ? "87%" : "85%",
             left: 0,
             display: "flex",
             alignItems: "center",
@@ -190,7 +251,7 @@ function SvgStack({
   items,
   isMobile,
 }: {
-  items: { id: string; src: string; project: ReturnType<typeof getFeaturedProjects>[0] }[];
+  items: { id: string; src: string; photo: string; project: ReturnType<typeof getFeaturedProjects>[0] }[];
   isMobile: boolean;
 }) {
   const refs = useRef<(HTMLDivElement | null)[]>([]);
@@ -221,6 +282,7 @@ function SvgStack({
           key={item.id}
           ref={(el) => { refs.current[i] = el; }}
           src={item.src}
+          photo={item.photo}
           project={item.project}
           index={i}
           isTop={i === activeIndex}
@@ -311,7 +373,7 @@ function ProjectCard({
               </span>
             </div>
 
-            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 600, textTransform: "lowercase", color: "var(--sp-cocoa)", lineHeight: 1.1, letterSpacing: "normal", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-gelica)" }}>
+            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 600, color: "var(--sp-cocoa)", lineHeight: 1.1, letterSpacing: "normal", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-gelica)" }}>
               {project.title}
             </h3>
 
@@ -405,7 +467,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
             fontFamily: "var(--font-gelica)",
           }}
         >
-          selected works
+          Selected works
         </motion.h2>
 
         <motion.p
@@ -420,15 +482,19 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
         </motion.p>
       </div>
 
-      {/* Cards — one wide card per row (or, when useSvgs, the work-bg SVGs in the same scroll stack) */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
-        {useSvgs ? (
-          <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i], project }))} isMobile={isMobile} />
-        ) : (
-          filtered.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
-          ))
-        )}
+      {/* Cards — one wide card per row (or, when useSvgs, the work-bg SVGs in the same scroll stack).
+          Negative margin cancels the section's own side padding on mobile so
+          the cards run edge-to-edge instead of sitting inset like the header text. */}
+      <div style={{ position: "relative", marginLeft: isMobile ? "-18px" : 0, marginRight: isMobile ? "-18px" : 0 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
+          {useSvgs ? (
+            <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: (isMobile ? MOBILE_WORK_BG_SVGS : WORK_BG_SVGS)[i], photo: PROJECT_PHOTOS[i], project }))} isMobile={isMobile} />
+          ) : (
+            filtered.map((project, i) => (
+              <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
+            ))
+          )}
+        </div>
       </div>
 
       {/* View all */}
@@ -447,7 +513,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
           onMouseEnter={e => { e.currentTarget.style.opacity = "0.7"; }}
           onMouseLeave={e => { e.currentTarget.style.opacity = "1"; }}
         >
-          view all ↗
+          View all ↗
         </Link>
       </div>
     </section>
