@@ -226,7 +226,7 @@ const SvgStackItem = forwardRef<
           alt=""
           style={{
             position: "absolute",
-            top: "6%",
+            top: "11%",
             left: "3%",
             width: "56%",
             height: "auto",
