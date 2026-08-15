@@ -249,9 +249,18 @@ export default function DesignProcess3D() {
             // text there; the last two are saturated enough for white.
             const badgeTextColor = i < 2 ? "#5c5955" : "#fff";
             return (
-              <div key={layer.id} style={{ display: "flex", gap: "18px" }}>
-                {/* Badge + connector column */}
+              <div key={layer.id} style={{ display: "flex", gap: "18px", marginBottom: last ? 0 : "28px" }}>
+                {/* Badge + connector column — top/bottom line segments are
+                    equal flex:1 fillers so the badge sits vertically
+                    centered against the copy card's own height, instead of
+                    pinned to the top of it. */}
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+                  <div style={{
+                    width: 2,
+                    flex: 1,
+                    background: i === 0 ? "transparent" : `linear-gradient(${LAYERS[i - 1].color}, ${layer.color})`,
+                    opacity: 0.35,
+                  }} />
                   <div style={{
                     width: 52,
                     height: 52,
@@ -268,9 +277,12 @@ export default function DesignProcess3D() {
                       {i + 1}
                     </span>
                   </div>
-                  {!last && (
-                    <div style={{ width: 2, flex: 1, minHeight: "36px", background: `linear-gradient(${layer.color}, ${LAYERS[i + 1].color})`, opacity: 0.35, marginTop: "var(--spacing-8)" }} />
-                  )}
+                  <div style={{
+                    width: 2,
+                    flex: 1,
+                    background: last ? "transparent" : `linear-gradient(${layer.color}, ${LAYERS[i + 1].color})`,
+                    opacity: 0.35,
+                  }} />
                 </div>
 
                 {/* Copy — outlined card so each step reads as a distinct
@@ -279,7 +291,6 @@ export default function DesignProcess3D() {
                 <div
                   style={{
                     flex: 1,
-                    marginBottom: last ? "4px" : "28px",
                     padding: "16px 18px",
                     borderRadius: "var(--radius-lg)",
                     border: "1.5px solid rgba(0,0,0,0.1)",
