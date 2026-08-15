@@ -19,8 +19,9 @@ const BOTTOM_LINKS = [
 export default function Footer() {
   const year = new Date().getFullYear();
   const pathname = usePathname();
-  if (pathname?.startsWith("/m")) return null;
-  const isHome = pathname === "/";
+  const isMobileSite = pathname?.startsWith("/m") ?? false;
+  const isHome = pathname === "/" || pathname === "/m";
+  const workHref = isMobileSite ? "/m/case-studies" : "/case-studies";
 
   const bg = isHome ? "var(--sp-orange)" : "var(--sp-charcoal)";
   const fg = isHome ? "var(--sp-charcoal)" : "var(--sp-cream)";
@@ -74,7 +75,7 @@ export default function Footer() {
           {NAV_LINKS.map((link, i) => (
             <Link
               key={link.label}
-              href={link.href}
+              href={link.label === "Work" ? workHref : link.href}
               target={"external" in link && link.external ? "_blank" : undefined}
               rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
               className="flex items-center basis-1/2 sm:basis-0"
@@ -167,7 +168,11 @@ export default function Footer() {
               <span style={{ color: dividerColor, margin: "0 14px", fontSize: "16px" }}>|</span>
             )}
             <Link
-              href={link.href}
+              href={
+                isMobileSite && link.label === "Product Designer" ? "/m"
+                : isMobileSite && link.label === "Available for work" ? "/m/contact"
+                : link.href
+              }
               target={"external" in link && link.external ? "_blank" : undefined}
               rel={"external" in link && link.external ? "noopener noreferrer" : undefined}
               style={{

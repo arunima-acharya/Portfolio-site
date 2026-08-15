@@ -464,8 +464,10 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
         </motion.p>
       </div>
 
-      {/* Cards — one wide card per row (or, when useSvgs, the work-bg SVGs in the same scroll stack) */}
-      <div style={{ position: "relative" }}>
+      {/* Cards — one wide card per row (or, when useSvgs, the work-bg SVGs in the same scroll stack).
+          Negative margin cancels the section's own side padding on mobile so
+          the cards run edge-to-edge instead of sitting inset like the header text. */}
+      <div style={{ position: "relative", marginLeft: isMobile ? "-18px" : 0, marginRight: isMobile ? "-18px" : 0 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
           {useSvgs ? (
             <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: WORK_BG_SVGS[i], photo: PROJECT_PHOTOS[i], project }))} isMobile={isMobile} />

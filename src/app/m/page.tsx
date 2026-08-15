@@ -1,4 +1,3 @@
-import Link from "next/link";
 import HomeClient from "@/app/HomeClient";
 import HeroBgSticky from "@/components/sections/HeroBgSticky";
 import MainframeHero from "@/components/sections/MainframeHero";
@@ -15,8 +14,9 @@ import ToolkitTestimonialsOverlap from "@/components/sections/ToolkitTestimonial
 // (confirmed: MainframeHero, TypographyZoom, DarkHeroStatement, Services,
 // DesignProcess3D, ToolsGrid, TestimonialsGrid all branch on useIsMobile()),
 // so this stays in sync with desktop automatically instead of drifting.
-// The Contact CTA band at the bottom is mobile-only — it fills the gap
-// left by Footer.tsx, which deliberately doesn't render on /m routes.
+// Footer.tsx now renders on /m routes too (see that file), so its own
+// "Let's work together" CTA covers what used to be a separate mobile-only
+// contact band here.
 export default function MobileHome() {
   return (
     <HomeClient>
@@ -34,38 +34,6 @@ export default function MobileHome() {
       <DesignProcess3D />
 
       <ToolkitTestimonialsOverlap />
-
-      {/* Contact CTA */}
-      <section style={{ padding: "40px 20px" }}>
-        <div
-          style={{
-            border: "1.5px solid var(--sp-charcoal)",
-            borderRadius: "var(--radius-xl)",
-            padding: "28px 22px",
-            background: "var(--sp-orange)",
-            textAlign: "center",
-          }}
-        >
-          <h2 style={{ fontFamily: "var(--font-gelica)", fontSize: 22, fontWeight: 600, color: "var(--sp-charcoal)", margin: "0 0 10px" }}>
-            Let&apos;s work together
-          </h2>
-          <p style={{ fontSize: 15, color: "rgba(23,23,23,0.75)", margin: "0 0 20px", fontFamily: "var(--font-geist), sans-serif" }}>
-            Have a project in mind? I&apos;d love to hear about it.
-          </p>
-          <Link
-            href="/m/contact"
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 6,
-              background: "var(--sp-cream)", color: "var(--sp-charcoal)",
-              border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl-2)",
-              padding: "12px 24px", fontSize: 15, fontWeight: 500,
-              fontFamily: "var(--font-gelica)", textDecoration: "none",
-            }}
-          >
-            Get in touch
-          </Link>
-        </div>
-      </section>
     </HomeClient>
   );
 }
