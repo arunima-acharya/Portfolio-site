@@ -281,7 +281,7 @@ export default function DarkHeroStatement() {
             {/* Buttons */}
             <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-12)", marginTop: "var(--spacing-4)", flexWrap: "wrap" }}>
               <a
-                href="#contact"
+                href="tel:+919479717669"
                 aria-label="Connect on a call"
                 style={{
                   display: "inline-flex",
