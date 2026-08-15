@@ -25,6 +25,10 @@ const SVG_TILT_DEGREES = [-3, 5, -6, 7];
 // history for why a live-random value would cause a hydration mismatch).
 const PHOTO_TILT_DEGREES = [-2.5, 2, -1.5, 3];
 
+// Per-photo width — pocket-pms's mockup screenshot is scaled down 60% (56%
+// -> 22.4%) relative to the other three, which stay at the shared size.
+const PHOTO_WIDTHS = ["56%", "56%", "56%", "22.4%"];
+
 // One real product screenshot per featured project (same order as
 // FEATURED_SLUGS below), inset into the torn-paper face so it reads as a
 // photograph pinned to the page rather than a blank note. Pocket PMS has no
@@ -228,7 +232,7 @@ const SvgStackItem = forwardRef<
             position: "absolute",
             top: "11%",
             left: "3%",
-            width: "56%",
+            width: PHOTO_WIDTHS[index] ?? "56%",
             height: "auto",
             display: "block",
             border: "7px solid #fff",
