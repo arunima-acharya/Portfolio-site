@@ -127,16 +127,30 @@ export default function DesignProcess3D() {
   const headingParallaxY = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const stackParallaxY = useTransform(scrollYProgress, [0, 1], [0, 24]);
 
-  // Drive active layer from scroll: divide progress into 5 bands (intro + 4 layers)
+  // The section opens on just the heading, centered on screen with nothing
+  // else visible; over the first INTRO_END of the scroll it crossfades into
+  // its normal left-column spot (a duplicate, centered copy fades out while
+  // drifting down-left as the real Col 1/2/3 layout fades in) before the
+  // per-layer highlight animation below takes over.
+  const INTRO_END = 0.15;
+  const introOpacity = useTransform(scrollYProgress, [0, INTRO_END], [1, 0]);
+  const introY = useTransform(scrollYProgress, [0, INTRO_END], [0, 50]);
+  const introX = useTransform(scrollYProgress, [0, INTRO_END], [0, -60]);
+  const restOpacity = useTransform(scrollYProgress, [0, INTRO_END], [0, 1]);
+
+  // Drive active layer from scroll: divide progress into 5 bands (intro + 4
+  // layers), remapped to start after INTRO_END so the highlight animation
+  // only begins once the intro crossfade has finished.
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    if (v < 0.1) setActiveIdx(null);
-    else if (v < 0.33) setActiveIdx(0);
-    else if (v < 0.55) setActiveIdx(1);
-    else if (v < 0.77) setActiveIdx(2);
+    const t = (b: number) => INTRO_END + b * (1 - INTRO_END);
+    if (v < t(0.1)) setActiveIdx(null);
+    else if (v < t(0.33)) setActiveIdx(0);
+    else if (v < t(0.55)) setActiveIdx(1);
+    else if (v < t(0.77)) setActiveIdx(2);
     else setActiveIdx(3);
   });
 
-  const opacity = 1;
+  const opacity = restOpacity;
 
   const activeLayer = activeIdx !== null ? LAYERS[activeIdx] : null;
 
@@ -273,6 +287,31 @@ export default function DesignProcess3D() {
             maskImage: "radial-gradient(circle at center, black 0%, transparent 65%)",
           }}
         />
+        {/* Intro heading — centered on screen, alone, at the very start of
+            the scroll; crossfades out (sinking down-left) as the real Col 1
+            heading below fades in in its normal spot, selling the "moves
+            down to the left" transition without measuring exact DOM
+            positions. */}
+        <motion.div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            pointerEvents: "none",
+            opacity: introOpacity,
+            y: introY,
+            x: introX,
+          }}
+        >
+          <h2 style={{ fontSize: "56px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-alekan)", textAlign: "center" }}>
+            Own the process.
+            <span style={{ display: "block" }}>Deliver impact.</span>
+          </h2>
+        </motion.div>
         {/* Erases the grid only in the 3D stack's own footprint — painted
             over the grid (same z-index, later in DOM order) but under the
             content, so grid squares stay visible everywhere else on the
