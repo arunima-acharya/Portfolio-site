@@ -168,7 +168,7 @@ export default function DesignProcess3D() {
   // slides from that centered position back to its real, natural left-column
   // spot (introOffset, measured above) while the rest of Col 1/2/3 fades in,
   // before the per-layer highlight animation below takes over.
-  const INTRO_END = 0.15;
+  const INTRO_END = 0.3;
   const introX = useTransform(scrollYProgress, [0, INTRO_END], [introOffset.dx, 0]);
   const introY = useTransform(scrollYProgress, [0, INTRO_END], [introOffset.dy, 0]);
   const restOpacity = useTransform(scrollYProgress, [0, INTRO_END], [0, 1]);
