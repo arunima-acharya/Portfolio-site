@@ -281,7 +281,7 @@ export default function MainframeHero({
             style={{
               fontFamily: "var(--font-alekan)",
               fontWeight: 600,
-              fontSize: "clamp(29px, 3.5vw, 41px)",
+              fontSize: "64px",
               color: "var(--sp-cocoa)",
               margin: 0,
               lineHeight: 1.1,
