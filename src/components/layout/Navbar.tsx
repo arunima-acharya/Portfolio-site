@@ -15,6 +15,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const isMobile = useIsMobile(860); // below this, the pill row runs out of room
   const [open, setOpen] = useState(false);
+  // Desktop nav is hidden until the top strip is hovered, then fades/slides in.
+  const [navHovered, setNavHovered] = useState(false);
 
   // Stop background scroll while the mobile menu is open.
   useEffect(() => {
@@ -145,19 +147,25 @@ export default function Navbar() {
   return (
     <div
       data-navbar
+      onMouseEnter={() => setNavHovered(true)}
+      onMouseLeave={() => setNavHovered(false)}
       style={{
         position: "fixed",
         top: 0,
         left: 0,
         right: 0,
+        height: "84px",
         zIndex: 100,
         padding: "var(--spacing-16)",
-        pointerEvents: "none",
+        pointerEvents: "auto",
       }}
     >
       <nav
         style={{
-          pointerEvents: "auto",
+          pointerEvents: navHovered ? "auto" : "none",
+          opacity: navHovered ? 1 : 0,
+          transform: navHovered ? "translateY(0)" : "translateY(-10px)",
+          transition: "opacity 0.25s ease, transform 0.25s ease",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
