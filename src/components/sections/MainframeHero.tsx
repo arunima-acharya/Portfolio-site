@@ -498,7 +498,7 @@ export default function MainframeHero({
           pointerEvents: "none",
           zIndex: 1,
         }}>
-          <div data-cursor-drag style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "auto" }}>
+          <div data-cursor-drag style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "auto" }}>
             <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
           </div>
         </div>
