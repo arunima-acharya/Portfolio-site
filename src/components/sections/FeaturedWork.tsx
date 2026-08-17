@@ -470,7 +470,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           style={{
-            fontSize: "56px",
+            fontSize: isMobile ? "36px" : "56px",
             fontWeight: 700,
             lineHeight: 1,
             letterSpacing: 0,
