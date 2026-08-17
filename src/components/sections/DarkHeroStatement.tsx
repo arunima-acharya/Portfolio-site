@@ -260,7 +260,7 @@ export default function DarkHeroStatement() {
               letterSpacing: 0,
               color: "var(--sp-cocoa)",
               margin: 0,
-              fontFamily: "var(--font-gelica)",
+              fontFamily: "var(--font-alekan)",
             }}>
               Building products that<br />people actually use
             </h2>

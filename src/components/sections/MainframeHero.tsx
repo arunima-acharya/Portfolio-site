@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { Search, Rocket, Package, MousePointer2, Asterisk, MapPin, ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useParallax } from "@/hooks/useParallax";
 import dynamic from "next/dynamic";
@@ -13,6 +14,33 @@ const LERP = 0.06;
 const MAX_OFFSET = 22;
 const FLOAT_LERP = 0.08;
 const INTRO_HEADING = "Designing instinctive user experiences for ambitious product teams.";
+
+// Same 4-color set used for the work-bg SVG cards elsewhere on the site.
+const GREETING_PILLS = [
+  { icon: Search, label: "UX Research", color: "#FE9A00" },
+  { icon: Rocket, label: "0 → 1", color: "#6F5AFE" },
+  { icon: Package, label: "Design Systems", color: "#D2E82E" },
+  { icon: MousePointer2, label: "Interaction", color: "#FF424B" },
+];
+
+// Small hand-drawn-style accents next to the greeting heading — inline SVG,
+// no external assets.
+function TickAccent({ size = 26, color = "var(--sp-orange)" }: { size?: number; color?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 26 26" fill="none">
+      <path d="M6 20L18 6" stroke={color} strokeWidth="2" strokeLinecap="round" />
+      <path d="M4 12L10 8" stroke={color} strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function SquiggleUnderline({ width = 220, color = "var(--sp-orange)" }: { width?: number; color?: string }) {
+  return (
+    <svg width={width} height="10" viewBox="0 0 220 10" fill="none" style={{ display: "block" }}>
+      <path d="M2 6C24 2 46 9 68 5C90 1 112 8 134 4C156 0 178 7 200 3C208 1.5 214 3 218 5" stroke={color} strokeWidth="2.5" strokeLinecap="round" fill="none" />
+    </svg>
+  );
+}
 
 /* ── Word-by-word scroll reveal (identical logic to HomeIntro) ─── */
 function WordSpan({ word, progress, start, end }: { word: string; progress: MotionValue<number>; start: number; end: number }) {
@@ -262,10 +290,11 @@ export default function MainframeHero({
           order: 2,
         } : {
           position: "absolute",
-          bottom: "18%",
+          top: "50%",
           right: "8%",
+          transform: "translateY(-50%)",
           zIndex: 2,
-          maxWidth: "32%",
+          maxWidth: "37%",
           display: "flex",
           flexDirection: "column",
         }}>
@@ -274,81 +303,172 @@ export default function MainframeHero({
               since a transform on an ancestor of that parent would create a
               new containing block and break its bottom/left positioning. */}
           <motion.div ref={greetingParallaxRef} style={{ y: greetingY }}>
-          <motion.h2
-            initial={{ opacity: 0, y: 18 }}
+          {/* Eyebrow */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.55, delay: 0.02, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "var(--font-gelica)",
+              display: "flex", alignItems: "center", gap: 8,
+              fontFamily: "var(--font-geist), sans-serif",
+              fontSize: isMobile ? "12px" : "13px",
               fontWeight: 600,
-              fontSize: "clamp(29px, 3.5vw, 41px)",
-              color: "var(--sp-cocoa)",
-              margin: 0,
-              lineHeight: 1.1,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              marginBottom: 14,
             }}
           >
-            Hey, a quick intro?
-          </motion.h2>
+            <span style={{ color: "var(--sp-cocoa)" }}>a quick Intro?</span>
+          </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              fontSize: isMobile ? "16px" : "16.5px",
-              color: "var(--sp-cocoa)",
-              lineHeight: 1.7,
-              fontFamily: "var(--font-geist), sans-serif",
-              margin: "20px 0 0",
-              wordWrap: "break-word",
-              overflowWrap: "break-word",
-            }}
-          >
-            Engineer turned Product Designer with <span style={{ color: "var(--sp-orange)", fontWeight: 600 }}>3+ years</span> of experience designing enterprise SaaS and AI products.
-          </motion.p>
+          {/* Heading */}
+          <div style={{ position: "relative" }}>
+            {!isMobile && (
+              <div style={{ position: "absolute", top: -4, right: -8 }}>
+                <TickAccent />
+              </div>
+            )}
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                fontFamily: "var(--font-alekan)",
+                fontWeight: 700,
+                fontSize: isMobile ? "36px" : "56px",
+                color: "var(--sp-cocoa)",
+                margin: 0,
+                lineHeight: 1.1,
+              }}
+            >
+              Hey, I&apos;m Arunima.
+            </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                fontFamily: "var(--font-alekan)",
+                fontWeight: 700,
+                fontSize: isMobile ? "36px" : "56px",
+                color: "var(--sp-orange)",
+                margin: 0,
+                lineHeight: 1.1,
+              }}
+            >
+              I turn messy workflows into simple experiences.
+            </motion.h1>
+          </div>
+          <div style={{ margin: "10px 0 0" }}>
+            <SquiggleUnderline width={isMobile ? 160 : 220} />
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              fontSize: isMobile ? "16px" : "16.5px",
-              color: "var(--sp-cocoa)",
-              lineHeight: 1.7,
-              fontFamily: "var(--font-geist), sans-serif",
-              margin: "16px 0 0",
-              wordWrap: "break-word",
-              overflowWrap: "break-word",
-            }}
-          >
-            I specialize in <span style={{ color: "var(--sp-orange)", fontWeight: 600 }}>0→1</span> product design, design systems, and simplifying complex workflows through research, systems thinking, and interaction design.
-          </motion.p>
-
+          {/* Role · years */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: "flex", gap: "var(--spacing-12)", marginTop: "var(--spacing-28)", flexWrap: "wrap" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              display: "flex", alignItems: "center", gap: 10,
+              fontFamily: "var(--font-geist), sans-serif",
+              fontSize: isMobile ? "14px" : "15px",
+              fontWeight: 500,
+              color: "var(--sp-cocoa)",
+              margin: "22px 0 0",
+            }}
+          >
+            <Asterisk size={16} style={{ color: "var(--sp-orange)", flexShrink: 0 }} />
+            <span>Product Designer</span>
+            <span style={{ color: "rgba(23,23,23,0.3)" }}>•</span>
+            <span>3+ years</span>
+          </motion.div>
+
+          {/* Summary */}
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontSize: isMobile ? "16px" : "16.5px",
+              color: "var(--sp-cocoa)",
+              lineHeight: 1.7,
+              fontFamily: "var(--font-geist), sans-serif",
+              margin: "14px 0 0",
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
+            }}
+          >
+            I design enterprise SaaS and AI products, turning complex workflows into clear, intuitive experiences.
+          </motion.p>
+
+          {/* Skill pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: "var(--spacing-32)" }}
+          >
+            {GREETING_PILLS.map(({ icon: Icon, label, color }) => (
+              <span
+                key={label}
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 7,
+                  background: "var(--sp-cream)", color: "var(--sp-charcoal)",
+                  border: `1.5px solid ${color}`, borderRadius: "4px",
+                  padding: "8px 14px", fontSize: isMobile ? "13px" : "13.5px", fontWeight: 500,
+                  fontFamily: "var(--font-geist), sans-serif",
+                }}
+              >
+                <Icon size={14} style={{ color, flexShrink: 0 }} />
+                {label}
+              </span>
+            ))}
+          </motion.div>
+
+          {/* Location */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              display: "flex", alignItems: "center", gap: 8,
+              fontFamily: "var(--font-geist), sans-serif",
+              fontSize: isMobile ? "14px" : "15px",
+              color: "var(--sp-charcoal)",
+              marginTop: "var(--spacing-20)",
+            }}
+          >
+            <MapPin size={15} style={{ flexShrink: 0 }} />
+            Currently designing @ Hotelogix
+          </motion.div>
+
+          {/* Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: "flex", gap: "var(--spacing-12)", marginTop: "var(--spacing-20)", flexWrap: "wrap" }}
           >
             <a
               href="/case-studies"
               style={{
-                display: "inline-flex", alignItems: "center", gap: 6,
-                background: "var(--sp-cream)", color: "var(--sp-charcoal)",
+                display: "inline-flex", alignItems: "center", gap: 8,
+                background: "var(--sp-charcoal)", color: "var(--sp-cream)",
                 border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl-2)",
                 padding: "0.7em 1.5em", fontSize: "clamp(12px, 1.05vw, 14px)", fontWeight: 500,
                 fontFamily: "var(--font-gelica)", textDecoration: "none",
                 boxShadow: "var(--shadow-subtle)",
               }}
             >
-              Case Studies
+              View case studies
+              <ArrowRight size={15} />
             </a>
             <a
               href="https://www.linkedin.com/in/arunima-acharya-bb012a21b/"
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                display: "inline-flex", alignItems: "center", gap: 6,
+                display: "inline-flex", alignItems: "center", gap: 8,
                 background: "var(--sp-cream)", color: "var(--sp-charcoal)",
                 border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl-2)",
                 padding: "0.7em 1.5em", fontSize: "clamp(12px, 1.05vw, 14px)", fontWeight: 500,
@@ -356,7 +476,8 @@ export default function MainframeHero({
                 boxShadow: "var(--shadow-subtle)",
               }}
             >
-              Connect on linkedin
+              Connect on LinkedIn
+              <ArrowRight size={15} />
             </a>
           </motion.div>
           </motion.div>
@@ -369,12 +490,12 @@ export default function MainframeHero({
           position: "absolute",
           top: 0,
           left: 0,
-          right: "40%",
+          right: "45%",
           height: "100%",
           pointerEvents: "none",
           zIndex: 1,
         }}>
-          <div data-cursor-drag style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "auto" }}>
+          <div data-cursor-drag style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "auto" }}>
             <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
           </div>
         </div>

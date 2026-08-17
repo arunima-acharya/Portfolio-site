@@ -3,6 +3,25 @@
 import { useIsMobile } from "@/hooks/useIsMobile";
 import DesignBoardGraphics, { DESK_LEGEND } from "./DesignBoardGraphics";
 
+// Hand-drawn circle scribbled around "desk" in the heading — a slightly
+// wobbly ellipse rather than a perfect one, inline SVG.
+function WordCircle() {
+  return (
+    <svg
+      width="100%" height="100%" viewBox="0 0 160 80" fill="none" preserveAspectRatio="none"
+      style={{ position: "absolute", inset: "-18% -10%", pointerEvents: "none" }}
+    >
+      <path
+        d="M22 40C20 18 48 6 82 5C118 4 148 16 152 38C156 62 122 76 80 76C40 76 24 62 22 40Z"
+        stroke="var(--sp-orange)"
+        strokeWidth="4"
+        fill="none"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 /* ── Main section ─────────────────────────────────────────── */
 export default function TypographyZoom() {
   const isMobile = useIsMobile();
@@ -34,17 +53,39 @@ export default function TypographyZoom() {
           textAlign:      "center",
         }}
       >
+        {!isMobile && (
+          <span
+            style={{
+              position:      "absolute",
+              top:           "-2.6rem",
+              left:          "50%",
+              transform:     "translateX(-190%) rotate(-4deg)",
+              fontFamily:    "var(--font-caveat), cursive",
+              fontSize:      "1.15rem",
+              fontWeight:    600,
+              color:         "var(--sp-orange)",
+              whiteSpace:    "nowrap",
+              pointerEvents: "none",
+            }}
+          >
+            A peek into my favorite things →
+          </span>
+        )}
         <div
           style={{
             fontSize:   isMobile ? "1.56rem" : "clamp(1.2rem, 3.6vw, 3rem)",
-            fontFamily: "var(--font-gelica)",
+            fontFamily: "var(--font-alekan)",
             fontWeight: 600,
             color:      "var(--sp-cocoa)",
             lineHeight: 1,
             whiteSpace: "nowrap",
           }}
         >
-          What&apos;s on my desk
+          What&apos;s on my{" "}
+          <span style={{ position: "relative", display: "inline-block" }}>
+            <WordCircle />
+            <span style={{ position: "relative" }}>desk</span>
+          </span>
         </div>
         <span
           style={{
@@ -82,17 +123,6 @@ export default function TypographyZoom() {
             textAlign:  "center",
           }}
         >
-          <p
-            style={{
-              margin:        "0 0 0.4em",
-              fontFamily:    "var(--font-geist), sans-serif",
-              fontSize:      "16px",
-              fontWeight:    700,
-              color:         "var(--sp-orange)",
-            }}
-          >
-            Rearrange my desk!
-          </p>
           <p
             style={{
               margin:        0,

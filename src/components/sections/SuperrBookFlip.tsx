@@ -103,7 +103,7 @@ const FRONT_SVG = `<svg viewBox="0 0 460 580" width="100%" height="100%" preserv
       <rect x="-25" y="-11" width="56" height="26" rx="2" fill="#F3EEDF" transform="translate(96 308) rotate(14)"/>
       <rect x="-25" y="-11" width="56" height="26" rx="2" fill="#F3EEDF" transform="translate(352 308) rotate(-14)"/>
     </g>
-    <text x="224" y="245" font-family="'Comic Sans MS','Segoe Print',cursive" font-size="46" font-weight="700" fill="#1E1E1E" text-anchor="middle">Arunima</text>
+    <text x="224" y="245" font-family="var(--font-caveat), cursive" font-size="52" font-weight="700" fill="#1E1E1E" text-anchor="middle">Arunima</text>
   </g>
 
   <g transform="translate(372 486)" stroke="#5A3418" stroke-opacity="0.5" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">

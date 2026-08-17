@@ -126,7 +126,7 @@ export default function TestimonialsGrid() {
         <motion.h2
           ref={headingParallaxRef}
           style={{
-            fontFamily: "var(--font-gelica)",
+            fontFamily: "var(--font-alekan)",
             fontSize: isMobile ? "32px" : "clamp(32px, 3.4vw, 44px)",
             fontWeight: 600,
             lineHeight: 1.15,

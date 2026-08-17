@@ -58,6 +58,7 @@ type Personality =
 interface RawItem {
   file: string;
   name: string; // shown in the legend under the heading
+  caption: string; // playful handwritten label shown next to the item itself
   ratio: number; // native width / height
   top: string;
   left: string;
@@ -76,18 +77,18 @@ interface RawItem {
 }
 
 const RAW_ITEMS: RawItem[] = [
-  { file: "desk (2).svg",  name: "Cat",         ratio: 736 / 736,   top: "11.9%", left: "44.4%", mobileTop: "9%",  mobileLeft: "16%", size: 235, rotate: 0,   labelPos: "bl", personality: "cat" },
-  { file: "desk (17).png", name: "Headphones",  ratio: 500 / 500,   top: "16.8%", left: "74.9%", mobileTop: "9%",  mobileLeft: "50%", size: 155, rotate: 0,   labelPos: "br", personality: "headphones" },
-  { file: "desk (11).svg", name: "Pen",         ratio: 600 / 600,   top: "22.8%", left: "87.3%", mobileTop: "9%",  mobileLeft: "84%", size: 130, rotate: -42, labelPos: "br", personality: "pen" },
-  { file: "desk (9).svg",  name: "Plant",       ratio: 736 / 736,   top: "23.6%", left: "23.2%", mobileTop: "34%", mobileLeft: "16%", size: 247, rotate: 0,   labelPos: "bl", personality: "plant" },
-  { file: "desk (16).svg", name: "Croissant",   ratio: 736 / 736,   top: "29.4%", left: "46.3%", mobileTop: "34%", mobileLeft: "50%", size: 130, rotate: -12, labelPos: "br", personality: "croissant" },
-  { file: "desk (15).svg", name: "Lamp",        ratio: 600 / 600,   top: "41.1%", left: "69.3%", mobileTop: "34%", mobileLeft: "84%", size: 257, rotate: 0,   labelPos: "bl", personality: "lamp" },
-  { file: "desk (10).svg", name: "Notebook",    ratio: 735 / 450,   top: "65%",   left: "83%",   mobileTop: "60%", mobileLeft: "16%", size: 235, rotate: 0,   labelPos: "bl", personality: "notebook" },
-  { file: "desk (12).svg", name: "Glasses",     ratio: 691 / 386,   top: "47.1%", left: "25%",   mobileTop: "60%", mobileLeft: "50%", size: 108, rotate: -4,  labelPos: "bl", personality: "glasses" },
-  { file: "desk (7).svg",  name: "Candle",      ratio: 736 / 736,   top: "65.5%", left: "38.0%", mobileTop: "60%", mobileLeft: "84%", size: 130, rotate: 0,   labelPos: "br", personality: "candle" },
-  { file: "desk (18).png", name: "Iced Coffee", ratio: 397 / 628,   top: "65.9%", left: "61.5%", mobileTop: "86%", mobileLeft: "16%", size: 150, rotate: 0,   labelPos: "br", personality: "coffee" },
-  { file: "desk (5).svg",  name: "To-Do List",  ratio: 1494 / 1999, top: "68.0%", left: "19.6%", mobileTop: "86%", mobileLeft: "50%", size: 298, rotate: -8,  labelPos: "bl", personality: "notepad" },
-  { file: "desk (19).png", name: "MacBook",     ratio: 591 / 422,   top: "78.7%", left: "49.0%", mobileTop: "86%", mobileLeft: "84%", size: 180, rotate: -6,  labelPos: "bl", personality: "macbook" },
+  { file: "desk (2).svg",  name: "Cat",         caption: "Chief Supervisor",          ratio: 415 / 330,   top: "11.9%", left: "44.4%", mobileTop: "9%",  mobileLeft: "16%", size: 235, rotate: 0,   labelPos: "bl", personality: "cat" },
+  { file: "desk (17).png", name: "Headphones",  caption: "Focus Playlist",            ratio: 500 / 500,   top: "16.8%", left: "74.9%", mobileTop: "9%",  mobileLeft: "50%", size: 155, rotate: 0,   labelPos: "br", personality: "headphones" },
+  { file: "desk (11).svg", name: "Pen",         caption: "Endless Ideas",             ratio: 600 / 600,   top: "22.8%", left: "87.3%", mobileTop: "9%",  mobileLeft: "84%", size: 130, rotate: -42, labelPos: "br", personality: "pen" },
+  { file: "desk (9).svg",  name: "Plant",       caption: "Plant mom",                 ratio: 736 / 736,   top: "23.6%", left: "23.2%", mobileTop: "34%", mobileLeft: "16%", size: 247, rotate: 0,   labelPos: "bl", personality: "plant" },
+  { file: "desk (16).svg", name: "Croissant",   caption: "Croissant fuel",            ratio: 736 / 736,   top: "29.4%", left: "46.3%", mobileTop: "34%", mobileLeft: "50%", size: 130, rotate: -12, labelPos: "br", personality: "croissant" },
+  { file: "desk (15).svg", name: "Lamp",        caption: "Late night ideation",       ratio: 600 / 600,   top: "41.1%", left: "69.3%", mobileTop: "34%", mobileLeft: "84%", size: 257, rotate: 0,   labelPos: "bl", personality: "lamp" },
+  { file: "desk (10).svg", name: "Notebook",    caption: "Brain dump zone",           ratio: 735 / 450,   top: "65%",   left: "83%",   mobileTop: "60%", mobileLeft: "16%", size: 235, rotate: 0,   labelPos: "bl", personality: "notebook" },
+  { file: "desk (12).svg", name: "Glasses",     caption: "See the details",           ratio: 691 / 386,   top: "47.1%", left: "25%",   mobileTop: "60%", mobileLeft: "50%", size: 108, rotate: -4,  labelPos: "bl", personality: "glasses" },
+  { file: "desk (7).svg",  name: "Candle",      caption: "Reset & breathe",           ratio: 736 / 736,   top: "65.5%", left: "38.0%", mobileTop: "60%", mobileLeft: "84%", size: 130, rotate: 0,   labelPos: "br", personality: "candle" },
+  { file: "desk (18).png", name: "Iced Coffee", caption: "Iced coffee > everything",  ratio: 397 / 628,   top: "65.9%", left: "61.5%", mobileTop: "86%", mobileLeft: "16%", size: 150, rotate: 0,   labelPos: "br", personality: "coffee" },
+  { file: "desk (5).svg",  name: "To-Do List",  caption: "To-do list (ever-growing)", ratio: 1494 / 1999, top: "68.0%", left: "19.6%", mobileTop: "86%", mobileLeft: "50%", size: 298, rotate: -8,  labelPos: "bl", personality: "notepad" },
+  { file: "desk (19).png", name: "MacBook",     caption: "Where ideas come to life",  ratio: 591 / 422,   top: "78.7%", left: "49.0%", mobileTop: "86%", mobileLeft: "84%", size: 180, rotate: -6,  labelPos: "bl", personality: "macbook" },
 ];
 
 const LABEL_GAP = 3;
@@ -96,9 +97,13 @@ const LABEL_GAP = 3;
 // Measured off the 736x736 source: the head sits upper-right, eyes just
 // above the white blaze. Fur directly above each eye is near-black, so a
 // dark lid sweeping down from the top edge reads as a blink.
+// Recalculated against the trimmed 415x330 asset (was measured off the
+// original untrimmed 736x736 source; the desk (2).svg crop removed 163px
+// from the left and 201px from the top, so these percentages shift
+// accordingly — see the "decrease the space around the cat" trim).
 const CAT_EYELIDS = [
-  { left: "61.2%", top: "42.9%", width: "4.8%", height: "3.4%" }, // viewer-left
-  { left: "71.0%", top: "41.8%", width: "4.8%", height: "3.4%" }, // viewer-right
+  { left: "69.3%", top: "34.8%", width: "8.5%", height: "7.6%" }, // viewer-left
+  { left: "86.6%", top: "32.3%", width: "8.5%", height: "7.6%" }, // viewer-right
 ];
 const CAT_LID_COLOR = "#241d1a";
 
@@ -109,6 +114,31 @@ const BASE_SHADOW =
   "drop-shadow(0 2px 4px rgba(0,0,0,0.10)) drop-shadow(0 10px 24px rgba(0,0,0,0.14))";
 const LIFT_SHADOW =
   "drop-shadow(0 4px 9px rgba(0,0,0,0.13)) drop-shadow(0 20px 40px rgba(0,0,0,0.20))";
+
+// Base arrow points down-right (~45°, toward the bottom-right corner of its
+// box). Since the label sits at a specific corner/side of the item (see
+// `labelStyle` below), the item itself is in the *opposite* direction from
+// the label — this map re-aims the same artwork per labelPos so it always
+// points back at the object instead of always pointing down-right.
+const ARROW_TRANSFORM: Record<LabelPos, string> = {
+  bl: "scaleY(-1)",       // label below-left of item -> item is up-right
+  br: "rotate(180deg)",   // label below-right of item -> item is up-left
+  tl: "none",             // label above-left of item -> item is down-right (base direction)
+  tr: "scaleX(-1)",       // label above-right of item -> item is down-left
+  l:  "rotate(-45deg)",   // label left of item -> item is to the right
+  r:  "rotate(135deg)",   // label right of item -> item is to the left
+};
+
+// Small hand-drawn-style arrow next to each item's caption, pointing toward
+// the object — inline SVG so no extra asset is needed.
+function LabelArrow({ pos }: { pos: LabelPos }) {
+  return (
+    <svg width="16" height="14" viewBox="0 0 16 14" fill="none" style={{ flexShrink: 0, transform: ARROW_TRANSFORM[pos] }}>
+      <path d="M2 2C6 3 11 5 14 9" stroke="var(--sp-orange)" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+      <path d="M9 9.5L14 9L12.5 4.5" stroke="var(--sp-orange)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </svg>
+  );
+}
 
 // Anchors the label just outside the image box on the requested side.
 function labelStyle(pos: LabelPos): React.CSSProperties {
@@ -485,21 +515,44 @@ function DeskItem({ item, index, containerRef, scale }: { item: Item; index: num
         )}
       </motion.div>
 
-      <span
+      <div
         style={{
           position:      "absolute",
-          fontFamily:    "var(--font-inter), sans-serif",
-          fontSize:      11,
-          fontWeight:    500,
-          letterSpacing: "0.1em",
-          color:         "#8A8783",
-          whiteSpace:    "nowrap",
+          display:       "flex",
+          flexDirection: "column",
+          gap:           2,
           pointerEvents: "none",
           ...labelStyle(item.labelPos),
         }}
       >
-        {item.label}
-      </span>
+        <span
+          style={{
+            display:       "inline-flex",
+            alignItems:    "center",
+            gap:           4,
+            fontFamily:    "var(--font-caveat), cursive",
+            fontSize:      16,
+            fontWeight:    600,
+            color:         "#2a2a28",
+            whiteSpace:    "nowrap",
+          }}
+        >
+          {item.caption}
+          <LabelArrow pos={item.labelPos} />
+        </span>
+        <span
+          style={{
+            fontFamily:    "var(--font-inter), sans-serif",
+            fontSize:      11,
+            fontWeight:    500,
+            letterSpacing: "0.1em",
+            color:         "#8A8783",
+            whiteSpace:    "nowrap",
+          }}
+        >
+          {item.label}
+        </span>
+      </div>
     </motion.div>
   );
 }
