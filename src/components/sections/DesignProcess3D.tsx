@@ -11,6 +11,21 @@ const STACK_CX   = 228;
 const STACK_H    = LAYER_GAP * 3 + LAYER_SIZE + 100;
 const STACK_SCALE = 1.08;
 
+// Individual book SVGs (public/assets/books/1.svg..4.svg), in the same
+// top-to-bottom stacking order as the folder: 1=green (Research, frontmost)
+// down to 4=pink (Execution, backmost) — matching LAYERS' index order.
+// Each keeps its own exported aspect ratio; width is sized relative to the
+// widest book (pink) so they share one common scale. Used by the "books"
+// variant, an alternate Col 3 visual to the rotated-diamond stack.
+const BOOK_MAX_WIDTH = 1525;
+const BOOK_STAGGER = 90;
+const BOOK_FILES = [
+  { src: "1.svg", width: 1375, height: 472, layerIndex: 0 },
+  { src: "2.svg", width: 1264, height: 407, layerIndex: 1 },
+  { src: "3.svg", width: 1416, height: 432, layerIndex: 2 },
+  { src: "4.svg", width: 1525, height: 563, layerIndex: 3 },
+];
+
 // The 3D stack (Col 3) is visually scaled up around its own vertical center via
 // CSS transform, which doesn't move the label column (Col 2). This re-projects
 // a label's unscaled center onto the same "scale around center" math so labels
@@ -167,7 +182,11 @@ function LayerCard({ layer, index, isActive, isAnyActive }: LayerCardProps) {
   );
 }
 
-export default function DesignProcess3D() {
+interface DesignProcess3DProps {
+  variant?: "diamonds" | "books";
+}
+
+export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3DProps) {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const outerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -454,18 +473,45 @@ export default function DesignProcess3D() {
             </AnimatePresence>
           </div>
 
-          {/* Col 3: 3D stack */}
-          <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", marginTop: "20vh" }}>
-            {LAYERS.map((layer, i) => (
-              <LayerCard
-                key={layer.id}
-                layer={layer}
-                index={i}
-                isActive={activeIdx === i}
-                isAnyActive={activeIdx !== null}
-              />
-            ))}
-          </motion.div>
+          {/* Col 3: 3D stack, or the books illustration for the "books" variant */}
+          {variant === "books" ? (
+            <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ position: "relative", width: "100%", maxWidth: 1500, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))" }}>
+                {BOOK_FILES.map((book) => (
+                  <motion.img
+                    key={book.src}
+                    src={`/assets/books/${book.src}`}
+                    alt=""
+                    animate={{
+                      opacity: activeIdx !== null ? (activeIdx === book.layerIndex ? 1 : 0.32) : 1,
+                      y: (activeIdx === book.layerIndex ? -22 : 0) + book.layerIndex * BOOK_STAGGER,
+                    }}
+                    transition={{ type: "spring", stiffness: 260, damping: 24 }}
+                    style={{
+                      position: book.layerIndex === 0 ? "relative" : "absolute",
+                      top: 0,
+                      left: "50%",
+                      x: "-50%",
+                      width: `${(book.width / BOOK_MAX_WIDTH) * 100}%`,
+                      zIndex: BOOK_FILES.length - book.layerIndex,
+                    }}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", marginTop: "20vh" }}>
+              {LAYERS.map((layer, i) => (
+                <LayerCard
+                  key={layer.id}
+                  layer={layer}
+                  index={i}
+                  isActive={activeIdx === i}
+                  isAnyActive={activeIdx !== null}
+                />
+              ))}
+            </motion.div>
+          )}
         </motion.div>
       </div>
     </div>

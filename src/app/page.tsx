@@ -46,10 +46,10 @@ export default function HomePage() {
       </div>
 
       {/* Section 7 — DesignProcess3D (full width) */}
-      <DesignProcess3D />
+      <DesignProcess3D variant="diamonds" />
 
       {/* Section 7 (duplicate) */}
-      <DesignProcess3D />
+      <DesignProcess3D variant="books" />
 
       {/* Section 8/10 — ToolsGrid pinned, TestimonialsGrid slides in from
           the right and overlaps it on scroll */}
