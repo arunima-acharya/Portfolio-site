@@ -22,7 +22,7 @@ const STACK_SCALE = 1.08;
 // the wrapper's actual rendered width — no overlap math to keep in sync.
 const BOOK_MAX_WIDTH = 1525;
 const BOOK_CONTAINER_WIDTH = 1500;
-const BOOK_GAP_PCT = 0.2; // vertical gap between books, as a % of container width
+const BOOK_GAP_PCT = 0; // vertical gap between books, as a % of container width
 const BOOK_FILES = [
   { src: "1.svg", width: 1375, height: 472, layerIndex: 0 },
   { src: "2.svg", width: 1264, height: 407, layerIndex: 1 },
