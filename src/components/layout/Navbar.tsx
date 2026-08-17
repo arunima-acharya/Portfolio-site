@@ -15,8 +15,11 @@ export default function Navbar() {
   const pathname = usePathname();
   const isMobile = useIsMobile(860); // below this, the pill row runs out of room
   const [open, setOpen] = useState(false);
-  // Desktop nav is hidden until the top strip is hovered, then fades/slides in.
+  // Desktop nav is hidden until the top strip is hovered, then fades/slides in
+  // — except while still within the hero section (top of the page), where it
+  // stays visible by default regardless of hover.
   const [navHovered, setNavHovered] = useState(false);
+  const [inHero, setInHero] = useState(true);
 
   // Stop background scroll while the mobile menu is open.
   useEffect(() => {
@@ -25,6 +28,21 @@ export default function Navbar() {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = prev; };
   }, [open]);
+
+  // "Hero section" heuristic: within one viewport height of the top, since
+  // every page's hero/intro block runs roughly full-height.
+  useEffect(() => {
+    function update() {
+      setInHero(window.scrollY < window.innerHeight);
+    }
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
   // /m/* routes are the standalone mobile experience with its own chrome —
   // this desktop/tablet nav shouldn't render there at all. Checked after
@@ -162,9 +180,9 @@ export default function Navbar() {
     >
       <nav
         style={{
-          pointerEvents: navHovered ? "auto" : "none",
-          opacity: navHovered ? 1 : 0,
-          transform: navHovered ? "translateY(0)" : "translateY(-10px)",
+          pointerEvents: navHovered || inHero ? "auto" : "none",
+          opacity: navHovered || inHero ? 1 : 0,
+          transform: navHovered || inHero ? "translateY(0)" : "translateY(-10px)",
           transition: "opacity 0.25s ease, transform 0.25s ease",
           display: "flex",
           alignItems: "center",
