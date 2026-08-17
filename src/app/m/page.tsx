@@ -33,6 +33,8 @@ export default function MobileHome() {
 
       <DesignProcess3D />
 
+      <DesignProcess3D />
+
       <ToolkitTestimonialsOverlap />
     </HomeClient>
   );

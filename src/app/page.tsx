@@ -48,6 +48,9 @@ export default function HomePage() {
       {/* Section 7 — DesignProcess3D (full width) */}
       <DesignProcess3D />
 
+      {/* Section 7 (duplicate) */}
+      <DesignProcess3D />
+
       {/* Section 8/10 — ToolsGrid pinned, TestimonialsGrid slides in from
           the right and overlaps it on scroll */}
       <ToolkitTestimonialsOverlap />
