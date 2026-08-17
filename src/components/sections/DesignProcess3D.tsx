@@ -349,7 +349,7 @@ export default function DesignProcess3D() {
           </div>
 
           {/* Col 3: books illustration (replaces the diamond-stack visual) */}
-          <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", marginTop: "20vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/assets/books.svg"
