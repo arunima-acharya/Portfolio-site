@@ -16,18 +16,23 @@ const STACK_SCALE = 1.08;
 // down to 4=pink (Execution, backmost) — matching LAYERS' index order.
 // Each keeps its own exported aspect ratio; width is sized relative to the
 // widest book (pink) so they share one common scale. Used by the "books"
-// variant, an alternate Col 3 visual to the rotated-diamond stack. Laid out
-// as a plain flex column with a gap (rather than absolute-positioned with a
-// stagger) so there's real, unambiguous space between books regardless of
-// the wrapper's actual rendered width — no overlap math to keep in sync.
+// variant, an alternate Col 3 visual to the rotated-diamond stack.
+//
+// Each book's drawn art is a tilted parallelogram inside its own (untilted,
+// rectangular) SVG viewBox, so even at marginBottom: 0 the untouched
+// corners of two stacked bounding boxes show through as visible empty
+// space — margin can't be 0 to make the books look like they're actually
+// touching. overlapPct is a *negative* margin-bottom, individually measured
+// per book pair (by rendering each SVG and finding where its visible art
+// sits at the bbox's horizontal midline) so the art itself touches, not
+// just the bounding boxes.
 const BOOK_MAX_WIDTH = 1525;
 const BOOK_CONTAINER_WIDTH = 1500;
-const BOOK_GAP_PCT = 0; // vertical gap between books, as a % of container width
 const BOOK_FILES = [
-  { src: "1.svg", width: 1375, height: 472, layerIndex: 0 },
-  { src: "2.svg", width: 1264, height: 407, layerIndex: 1 },
-  { src: "3.svg", width: 1416, height: 432, layerIndex: 2 },
-  { src: "4.svg", width: 1525, height: 563, layerIndex: 3 },
+  { src: "1.svg", width: 1375, height: 472, layerIndex: 0, overlapPct: -4.444 },
+  { src: "2.svg", width: 1264, height: 407, layerIndex: 1, overlapPct: -3.222 },
+  { src: "3.svg", width: 1416, height: 432, layerIndex: 2, overlapPct: -2.667 },
+  { src: "4.svg", width: 1525, height: 563, layerIndex: 3, overlapPct: 0 },
 ];
 
 // The 3D stack (Col 3) is visually scaled up around its own vertical center via
@@ -481,7 +486,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
           {variant === "books" ? (
             <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: BOOK_CONTAINER_WIDTH, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "scale(1.7)" }}>
-                {BOOK_FILES.map((book, i) => (
+                {BOOK_FILES.map((book) => (
                   <motion.img
                     key={book.src}
                     src={`/assets/books/${book.src}`}
@@ -493,7 +498,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
                     transition={{ type: "spring", stiffness: 260, damping: 24 }}
                     style={{
                       width: `${(book.width / BOOK_MAX_WIDTH) * 100}%`,
-                      marginBottom: i === BOOK_FILES.length - 1 ? 0 : `${BOOK_GAP_PCT}%`,
+                      marginBottom: `${book.overlapPct}%`,
                       zIndex: BOOK_FILES.length - book.layerIndex,
                     }}
                   />
