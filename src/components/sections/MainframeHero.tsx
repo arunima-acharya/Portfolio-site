@@ -317,7 +317,7 @@ export default function MainframeHero({
               marginBottom: 14,
             }}
           >
-            <span style={{ color: "var(--sp-cocoa)" }}>Hey, a quick Intro?</span>
+            <span style={{ color: "var(--sp-cocoa)" }}>a quick Intro?</span>
           </motion.div>
 
           {/* Heading */}
@@ -413,7 +413,7 @@ export default function MainframeHero({
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 7,
                   background: "var(--sp-cream)", color: "var(--sp-charcoal)",
-                  border: "1.5px solid var(--sp-charcoal)", borderRadius: "var(--radius-2xl-2)",
+                  border: "1.5px solid var(--sp-charcoal)", borderRadius: "4px",
                   padding: "8px 14px", fontSize: isMobile ? "13px" : "13.5px", fontWeight: 500,
                   fontFamily: "var(--font-geist), sans-serif",
                 }}
@@ -424,8 +424,6 @@ export default function MainframeHero({
             ))}
           </motion.div>
 
-          {/* Divider */}
-          <div style={{ borderTop: "1.5px dashed rgba(23,23,23,0.2)", margin: "var(--spacing-24) 0" }} />
 
           {/* Location */}
           <motion.div
