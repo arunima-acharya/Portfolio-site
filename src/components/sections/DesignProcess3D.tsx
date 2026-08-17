@@ -476,7 +476,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
           {/* Col 3: 3D stack, or the books illustration for the "books" variant */}
           {variant === "books" ? (
             <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ position: "relative", width: "100%", maxWidth: 1500, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))" }}>
+              <div style={{ position: "relative", width: "100%", maxWidth: 1500, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "scale(1.7)" }}>
                 {BOOK_FILES.map((book) => (
                   <motion.img
                     key={book.src}
