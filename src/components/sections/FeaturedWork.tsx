@@ -78,7 +78,7 @@ const SvgStackItem = forwardRef<
   // Mobile: base flat size, scaled up 20% per the latest request
   // (11px -> 13.2px, 15.4px -> 18.5px). bg svg itself is untouched.
   const bodySize = isMobile ? "15.84px" : "clamp(14px, 1.3vw, 22px)";
-  const titleSize = isMobile ? "22.2px" : "clamp(22px, 3.2vw, 40px)";
+  const titleSize = "56px";
   // Mobile-only, +20%: paper (67.8% -> 81.4%) and photo (PHOTO_WIDTHS * 1.2).
   // bg svg (the <img src={src}> below) is deliberately left at width: 100%.
   const paperWidth = isMobile ? "81.4%" : "67.8%";
@@ -470,7 +470,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           style={{
-            fontSize: isMobile ? "36px" : "48px",
+            fontSize: "56px",
             fontWeight: 700,
             lineHeight: 1,
             letterSpacing: 0,
@@ -486,7 +486,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="max-w-full md:max-w-[220px] text-[16px] leading-relaxed md:text-right md:pt-1"
+          className="max-w-full md:max-w-[264px] text-[16px] leading-relaxed md:text-right md:pt-1"
           style={{ color: mutedColor }}
         >
           Every project is a reflection of a commitment to quality — designed to create meaningful product experiences.
