@@ -77,7 +77,7 @@ interface RawItem {
 }
 
 const RAW_ITEMS: RawItem[] = [
-  { file: "desk (2).svg",  name: "Cat",         caption: "Chief Supervisor",          ratio: 736 / 736,   top: "11.9%", left: "44.4%", mobileTop: "9%",  mobileLeft: "16%", size: 235, rotate: 0,   labelPos: "bl", personality: "cat" },
+  { file: "desk (2).svg",  name: "Cat",         caption: "Chief Supervisor",          ratio: 415 / 330,   top: "11.9%", left: "44.4%", mobileTop: "9%",  mobileLeft: "16%", size: 235, rotate: 0,   labelPos: "bl", personality: "cat" },
   { file: "desk (17).png", name: "Headphones",  caption: "Focus Playlist",            ratio: 500 / 500,   top: "16.8%", left: "74.9%", mobileTop: "9%",  mobileLeft: "50%", size: 155, rotate: 0,   labelPos: "br", personality: "headphones" },
   { file: "desk (11).svg", name: "Pen",         caption: "Endless Ideas",             ratio: 600 / 600,   top: "22.8%", left: "87.3%", mobileTop: "9%",  mobileLeft: "84%", size: 130, rotate: -42, labelPos: "br", personality: "pen" },
   { file: "desk (9).svg",  name: "Plant",       caption: "Plant mom",                 ratio: 736 / 736,   top: "23.6%", left: "23.2%", mobileTop: "34%", mobileLeft: "16%", size: 247, rotate: 0,   labelPos: "bl", personality: "plant" },
@@ -97,9 +97,13 @@ const LABEL_GAP = 3;
 // Measured off the 736x736 source: the head sits upper-right, eyes just
 // above the white blaze. Fur directly above each eye is near-black, so a
 // dark lid sweeping down from the top edge reads as a blink.
+// Recalculated against the trimmed 415x330 asset (was measured off the
+// original untrimmed 736x736 source; the desk (2).svg crop removed 163px
+// from the left and 201px from the top, so these percentages shift
+// accordingly — see the "decrease the space around the cat" trim).
 const CAT_EYELIDS = [
-  { left: "61.2%", top: "42.9%", width: "4.8%", height: "3.4%" }, // viewer-left
-  { left: "71.0%", top: "41.8%", width: "4.8%", height: "3.4%" }, // viewer-right
+  { left: "69.3%", top: "34.8%", width: "8.5%", height: "7.6%" }, // viewer-left
+  { left: "86.6%", top: "32.3%", width: "8.5%", height: "7.6%" }, // viewer-right
 ];
 const CAT_LID_COLOR = "#241d1a";
 
