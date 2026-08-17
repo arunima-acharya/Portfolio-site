@@ -86,6 +86,27 @@ function visualCenterY(i: number) {
   return scaledCenter(i * LAYER_GAP + 48);
 }
 
+// Each book's vertical center as a fraction of the whole pile's height,
+// derived from the same per-book height + overlapPct math that lays the
+// books out in Col 3 — so Col 2's labels can track the actual book
+// positions instead of the diamond-stack's fixed LAYER_GAP spacing.
+const BOOK_CENTER_FRACS: number[] = (() => {
+  let top = 0;
+  let bottomOfLast = 0;
+  const centers: number[] = [];
+  for (const b of BOOK_FILES) {
+    const h = (BOOK_CONTAINER_WIDTH / BOOK_MAX_WIDTH) * b.height;
+    centers.push(top + h / 2);
+    bottomOfLast = top + h;
+    top = bottomOfLast + (b.overlapPct / 100) * BOOK_CONTAINER_WIDTH;
+  }
+  return centers.map((c) => c / bottomOfLast);
+})();
+
+function bookLabelCenterY(i: number) {
+  return scaledCenter(BOOK_CENTER_FRACS[i] * STACK_H);
+}
+
 interface LayerCardProps {
   layer: (typeof LAYERS)[0];
   index: number;
@@ -442,7 +463,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                  style={{ position: "absolute", top: activeIdx !== null ? visualCenterY(activeIdx) - 40 : 0, width: "100%", background: "rgba(255,255,255,0.20)", borderRadius: "var(--radius-2xl)", padding: "var(--spacing-16)", backdropFilter: "blur(8px)" }}
+                  style={{ position: "absolute", top: activeIdx !== null ? (variant === "books" ? bookLabelCenterY(activeIdx) : visualCenterY(activeIdx)) - 40 : 0, width: "100%", background: "rgba(255,255,255,0.20)", borderRadius: "var(--radius-2xl)", padding: "var(--spacing-16)", backdropFilter: "blur(8px)" }}
                 >
                   <p style={{ fontSize: "16px", fontWeight: 600, color: activeLayer.color, fontFamily: "var(--font-geist), sans-serif", marginBottom: "10px", letterSpacing: "-0.01em" }}>
                     {activeLayer.title}
@@ -466,7 +487,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
                       style={{
                         position: "absolute",
                         right: "0px",
-                        top: scaledCenter((i * LAYER_GAP + LAYER_SIZE / 2) * 0.864 + STACK_H * (1 - 0.864) / 2) - 11,
+                        top: (variant === "books" ? bookLabelCenterY(i) : scaledCenter((i * LAYER_GAP + LAYER_SIZE / 2) * 0.864 + STACK_H * (1 - 0.864) / 2)) - 11,
                         fontFamily: "var(--font-geist), sans-serif",
                         fontSize: "18px",
                         fontWeight: 500,
