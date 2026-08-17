@@ -87,6 +87,7 @@ export default function DesignProcess3D() {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const outerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const isMobile = useIsMobile();
 
@@ -95,15 +96,29 @@ export default function DesignProcess3D() {
   // than estimated, so the intro animation below can translate it from
   // "centered on screen" back to exactly where it already lives, instead of
   // crossfading between two separate copies (which double-exposed visibly).
+  //
+  // Measured *relative to the sticky pin container*, not raw viewport
+  // coordinates: this section sits far down the page, so at mount time (page
+  // load, scrolled to the top) the sticky pin hasn't engaged yet and the
+  // heading is still wherever normal document flow puts it — thousands of
+  // px below the viewport. Raw getBoundingClientRect() against the viewport
+  // would capture that pre-pin position and produce a huge, wrong offset
+  // that pushed the heading off-screen entirely. The sticky container is
+  // styled at a fixed 100vh/full-width regardless of pin state, so its own
+  // box is a stable, scroll-position-independent reference frame.
   const [introOffset, setIntroOffset] = useState({ dx: 0, dy: 0 });
   useLayoutEffect(() => {
     function measure() {
       const el = headingRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
+      const sticky = stickyRef.current;
+      if (!el || !sticky) return;
+      const elRect = el.getBoundingClientRect();
+      const stickyRect = sticky.getBoundingClientRect();
+      const relCenterX = elRect.left - stickyRect.left + elRect.width / 2;
+      const relCenterY = elRect.top - stickyRect.top + elRect.height / 2;
       setIntroOffset({
-        dx: window.innerWidth / 2 - (rect.left + rect.width / 2),
-        dy: window.innerHeight / 2 - (rect.top + rect.height / 2),
+        dx: stickyRect.width / 2 - relCenterX,
+        dy: stickyRect.height / 2 - relCenterY,
       });
     }
     measure();
@@ -287,6 +302,7 @@ export default function DesignProcess3D() {
     /* Outer scroll container — 500vh gives ~1 full scroll per layer */
     <div ref={outerRef} style={{ height: "500vh", position: "relative" }}>
       <div
+        ref={stickyRef}
         onMouseMove={handleGridMouseMove}
         onMouseLeave={handleGridMouseLeave}
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "var(--sp-cream)", display: "flex", alignItems: "center" }}
