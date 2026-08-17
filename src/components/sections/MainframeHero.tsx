@@ -279,7 +279,7 @@ export default function MainframeHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "var(--font-gelica)",
+              fontFamily: "var(--font-alekan)",
               fontWeight: 600,
               fontSize: "clamp(29px, 3.5vw, 41px)",
               color: "var(--sp-cocoa)",

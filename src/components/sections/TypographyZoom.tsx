@@ -37,7 +37,7 @@ export default function TypographyZoom() {
         <div
           style={{
             fontSize:   isMobile ? "1.56rem" : "clamp(1.2rem, 3.6vw, 3rem)",
-            fontFamily: "var(--font-gelica)",
+            fontFamily: "var(--font-alekan)",
             fontWeight: 600,
             color:      "var(--sp-cocoa)",
             lineHeight: 1,

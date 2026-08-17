@@ -64,7 +64,7 @@ function TextBlock({ isMobile }: { isMobile: boolean }) {
         style={{
           fontSize: isMobile ? "34px" : "clamp(32px, 3.6vw, 48px)",
           fontWeight: 600,
-          fontFamily: "var(--font-gelica)",
+          fontFamily: "var(--font-alekan)",
           color: "var(--sp-cocoa)",
           lineHeight: 1.1,
           letterSpacing: 0,

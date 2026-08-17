@@ -230,7 +230,7 @@ export default function DesignProcess3D() {
   if (isMobile) {
     return (
       <section style={{ minHeight: "100dvh", boxSizing: "border-box", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "96px", paddingBottom: "var(--spacing-48)", paddingLeft: "var(--spacing-20)", paddingRight: "var(--spacing-20)", backgroundColor: "var(--sp-cream)" }}>
-        <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", marginBottom: "var(--spacing-20)" }}>
+        <h2 style={{ fontSize: "34px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-alekan)", marginBottom: "var(--spacing-20)" }}>
           Own the process.
           <span style={{ display: "block" }}>Deliver impact.</span>
         </h2>
@@ -316,7 +316,7 @@ export default function DesignProcess3D() {
                     fontSize: "20px",
                     fontWeight: 400,
                     color: textPrimary,
-                    fontFamily: "var(--font-gelica)",
+                    fontFamily: "var(--font-alekan)",
                     marginBottom: "var(--spacing-8)",
                   }}>
                     {layer.title}
@@ -388,7 +388,7 @@ export default function DesignProcess3D() {
         >
           {/* Col 1: Static heading */}
           <motion.div style={{ flex: "0 0 38%", paddingRight: "var(--spacing-48)", marginTop: `calc(-${STACK_H * 0.10}px + 20vh)`, y: headingParallaxY }}>
-            <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-gelica)", marginBottom: "var(--spacing-20)" }}>
+            <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-alekan)", marginBottom: "var(--spacing-20)" }}>
               Own the process.
               <span style={{ display: "block" }}>Deliver impact.</span>
             </h2>

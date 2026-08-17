@@ -166,7 +166,7 @@ const SvgStackItem = forwardRef<
               fontWeight: 600,
               lineHeight: 1.1,
               marginBottom: 14,
-              fontFamily: "var(--font-gelica)",
+              fontFamily: "var(--font-alekan)",
             }}
           >
             {project.title}
@@ -373,7 +373,7 @@ function ProjectCard({
               </span>
             </div>
 
-            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 600, color: "var(--sp-cocoa)", lineHeight: 1.1, letterSpacing: "normal", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-gelica)" }}>
+            <h3 style={{ fontSize: isMobile ? "20px" : "clamp(22px, 2.6vw, 32px)", fontWeight: 600, color: "var(--sp-cocoa)", lineHeight: 1.1, letterSpacing: "normal", marginBottom: isMobile ? 8 : 14, fontFamily: "var(--font-alekan)" }}>
               {project.title}
             </h3>
 
@@ -464,7 +464,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
             lineHeight: 1,
             letterSpacing: 0,
             color: textColor,
-            fontFamily: "var(--font-gelica)",
+            fontFamily: "var(--font-alekan)",
           }}
         >
           Selected works
