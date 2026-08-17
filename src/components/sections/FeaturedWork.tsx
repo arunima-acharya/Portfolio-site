@@ -55,9 +55,10 @@ const PROJECT_PHOTOS = [
 // all four, positioned/sized to match the reference (top-left, ~56% width).
 const PAPER_SVG = "/assets/work%20bg/paper%20image.svg";
 
-function stickyTop(index: number) {
-  return 160 + index * 28;
-}
+// Stagger between each card's sticky position, preserving the cascading
+// "peek from behind" effect now that cards are vertically centered instead
+// of anchored near the top of the viewport.
+const STACK_STAGGER = 28;
 
 // Same sticky-stack scroll choreography as ProjectCard (position: sticky,
 // staggered top offset + zIndex so each item slides in and overlaps the one
@@ -90,7 +91,12 @@ const SvgStackItem = forwardRef<
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8%" }}
       transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      style={{ position: "sticky", top: `${stickyTop(index)}px`, zIndex: index + 1 }}
+      style={{
+        position: "sticky",
+        top: "50%",
+        transform: `translateY(calc(-50% + ${index * STACK_STAGGER}px))`,
+        zIndex: index + 1,
+      }}
     >
       <Link
         href={projectHref(project)}
@@ -151,12 +157,12 @@ const SvgStackItem = forwardRef<
             overflow: "hidden",
             padding: "4%",
             paddingRight: "5%",
-            color: "var(--sp-charcoal)",
+            color: "#fff",
             textAlign,
           }}
         >
           <div style={{ display: "flex", alignItems: "center", justifyContent: rowJustify, gap: "var(--spacing-8)", marginBottom: 16 }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sp-charcoal)", flexShrink: 0 }} />
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff", flexShrink: 0 }} />
             <span style={{ fontSize: bodySize, fontWeight: 700 }}>{project.category}</span>
           </div>
 
@@ -212,8 +218,8 @@ const SvgStackItem = forwardRef<
             justifyContent: "space-between",
             width: "100%",
             padding: "3% 6% 0",
-            borderTop: "1px solid rgba(0,0,0,0.2)",
-            color: "var(--sp-charcoal)",
+            borderTop: "1px solid rgba(255,255,255,0.35)",
+            color: "#fff",
           }}
         >
           {project.timeline && (
@@ -232,10 +238,10 @@ const SvgStackItem = forwardRef<
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: "rgba(255,255,255,0.35)",
+                background: "var(--sp-charcoal)",
               }}
             >
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={14} color="#fff" />
             </span>
           </span>
         </div>
@@ -262,7 +268,12 @@ function SvgStack({
       let top = 0;
       items.forEach((_, i) => {
         const el = refs.current[i];
-        if (el && el.getBoundingClientRect().top <= stickyTop(i) + 1) top = i;
+        if (!el) return;
+        // Matches the "top: 50%, translateY(-50% + i*stagger)" CSS: once
+        // stuck, an element's rect.top settles at viewport-center minus
+        // half its own height, plus its stagger offset.
+        const expectedStuckTop = window.innerHeight / 2 - el.offsetHeight / 2 + i * STACK_STAGGER;
+        if (el.getBoundingClientRect().top <= expectedStuckTop + 1) top = i;
       });
       setActiveIndex(top);
     }
