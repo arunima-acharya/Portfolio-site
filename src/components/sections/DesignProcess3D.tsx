@@ -29,10 +29,10 @@ const STACK_SCALE = 1.08;
 const BOOK_MAX_WIDTH = 1525;
 const BOOK_CONTAINER_WIDTH = 1500;
 const BOOK_FILES = [
-  { src: "1.svg", width: 1375, height: 472, layerIndex: 0, overlapPct: -4.444 },
-  { src: "2.svg", width: 1264, height: 407, layerIndex: 1, overlapPct: -3.222 },
-  { src: "3.svg", width: 1416, height: 432, layerIndex: 2, overlapPct: -2.667 },
-  { src: "4.svg", width: 1525, height: 563, layerIndex: 3, overlapPct: 0 },
+  { src: "1.svg", width: 1375, height: 472, layerIndex: 0, overlapPct: -10 },
+  { src: "2.svg", width: 1264, height: 407, layerIndex: 1, overlapPct: -10 },
+  { src: "3.svg", width: 1416, height: 432, layerIndex: 2, overlapPct: -10 },
+  { src: "4.svg", width: 1525, height: 563, layerIndex: 3, overlapPct: -10 },
 ];
 
 // The 3D stack (Col 3) is visually scaled up around its own vertical center via
