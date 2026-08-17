@@ -86,7 +86,6 @@ function visualCenterY(i: number) {
 export default function DesignProcess3D() {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const outerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const isMobile = useIsMobile();
@@ -125,28 +124,6 @@ export default function DesignProcess3D() {
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [isMobile]);
-
-  // Cursor-follow spotlight on the grid — mutates the mask position directly
-  // via ref instead of React state, so it tracks at pointer speed without
-  // triggering a re-render on every mousemove (same approach as the
-  // site-wide CustomCursor).
-  const handleGridMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const grid = gridRef.current;
-    if (!grid) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const mask = `radial-gradient(circle at ${x}px ${y}px, black 0%, transparent 55%)`;
-    grid.style.maskImage = mask;
-    grid.style.webkitMaskImage = mask;
-  };
-  const handleGridMouseLeave = () => {
-    const grid = gridRef.current;
-    if (!grid) return;
-    const mask = "radial-gradient(circle at center, black 0%, transparent 65%)";
-    grid.style.maskImage = mask;
-    grid.style.webkitMaskImage = mask;
-  };
 
   const { scrollYProgress } = useScroll({
     target: outerRef,
@@ -305,41 +282,8 @@ export default function DesignProcess3D() {
     <div ref={outerRef} style={{ height: "500vh", position: "relative" }}>
       <div
         ref={stickyRef}
-        onMouseMove={handleGridMouseMove}
-        onMouseLeave={handleGridMouseLeave}
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "var(--sp-cream)", display: "flex", alignItems: "center" }}
       >
-        <div
-          ref={gridRef}
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            backgroundImage:
-              "linear-gradient(rgba(232,81,10,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(232,81,10,0.35) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-            WebkitMaskImage: "radial-gradient(circle at center, black 0%, transparent 65%)",
-            maskImage: "radial-gradient(circle at center, black 0%, transparent 65%)",
-          }}
-        />
-        {/* Erases the grid only in the 3D stack's own footprint — painted
-            over the grid (same z-index, later in DOM order) but under the
-            content, so grid squares stay visible everywhere else on the
-            section, including to the right of the stack. */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            background: "var(--sp-cream)",
-            WebkitMaskImage: "radial-gradient(ellipse 15vw 42vh at 76% 50%, black 0%, black 65%, transparent 100%)",
-            maskImage: "radial-gradient(ellipse 15vw 42vh at 76% 50%, black 0%, black 65%, transparent 100%)",
-          }}
-        />
         <motion.div
           style={{
             position: "relative",
