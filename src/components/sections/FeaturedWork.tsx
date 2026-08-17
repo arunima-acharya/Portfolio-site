@@ -93,7 +93,7 @@ const SvgStackItem = forwardRef<
       transition={{ duration: 0.55, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: "sticky",
-        top: "50%",
+        top: "20%",
         transform: `translateY(calc(-50% + ${index * STACK_STAGGER}px))`,
         zIndex: index + 1,
       }}
@@ -106,7 +106,7 @@ const SvgStackItem = forwardRef<
           display: "block",
           position: "relative",
           textDecoration: "none",
-          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(0.821)`,
+          transform: `rotate(${SVG_TILT_DEGREES[index] ?? 0}deg) scale(0.9031)`,
           filter: isTop ? "drop-shadow(0 10px 22px rgba(0,0,0,0.22))" : "none",
         }}
       >
@@ -269,10 +269,10 @@ function SvgStack({
       items.forEach((_, i) => {
         const el = refs.current[i];
         if (!el) return;
-        // Matches the "top: 50%, translateY(-50% + i*stagger)" CSS: once
-        // stuck, an element's rect.top settles at viewport-center minus
-        // half its own height, plus its stagger offset.
-        const expectedStuckTop = window.innerHeight / 2 - el.offsetHeight / 2 + i * STACK_STAGGER;
+        // Matches the "top: 20%, translateY(-50% + i*stagger)" CSS: once
+        // stuck, an element's rect.top settles at 20% of viewport height
+        // minus half its own height, plus its stagger offset.
+        const expectedStuckTop = window.innerHeight * 0.2 - el.offsetHeight / 2 + i * STACK_STAGGER;
         if (el.getBoundingClientRect().top <= expectedStuckTop + 1) top = i;
       });
       setActiveIndex(top);
