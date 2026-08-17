@@ -18,7 +18,7 @@ const STACK_SCALE = 1.08;
 // widest book (pink) so they share one common scale. Used by the "books"
 // variant, an alternate Col 3 visual to the rotated-diamond stack.
 const BOOK_MAX_WIDTH = 1525;
-const BOOK_STAGGER = 90;
+const BOOK_STAGGER = 144;
 const BOOK_FILES = [
   { src: "1.svg", width: 1375, height: 472, layerIndex: 0 },
   { src: "2.svg", width: 1264, height: 407, layerIndex: 1 },
