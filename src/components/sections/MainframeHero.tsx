@@ -293,7 +293,7 @@ export default function MainframeHero({
           right: "8%",
           transform: "translateY(-50%)",
           zIndex: 2,
-          maxWidth: "32%",
+          maxWidth: "37%",
           display: "flex",
           flexDirection: "column",
         }}>
@@ -493,7 +493,7 @@ export default function MainframeHero({
           position: "absolute",
           top: 0,
           left: 0,
-          right: "40%",
+          right: "45%",
           height: "100%",
           pointerEvents: "none",
           zIndex: 1,
