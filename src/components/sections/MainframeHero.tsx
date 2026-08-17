@@ -317,9 +317,7 @@ export default function MainframeHero({
               marginBottom: 14,
             }}
           >
-            <span style={{ color: "var(--sp-orange)" }}>01</span>
-            <span style={{ color: "rgba(23,23,23,0.35)" }}>/</span>
-            <span style={{ color: "var(--sp-cocoa)" }}>Product Designer</span>
+            <span style={{ color: "var(--sp-cocoa)" }}>Hey, a quick Intro?</span>
           </motion.div>
 
           {/* Heading */}
