@@ -289,8 +289,9 @@ export default function MainframeHero({
           order: 2,
         } : {
           position: "absolute",
-          bottom: "18%",
+          top: "50%",
           right: "8%",
+          transform: "translateY(-50%)",
           zIndex: 2,
           maxWidth: "32%",
           display: "flex",
