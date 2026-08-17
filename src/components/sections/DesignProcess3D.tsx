@@ -354,7 +354,7 @@ export default function DesignProcess3D() {
             <img
               src="/assets/books.svg"
               alt=""
-              style={{ width: "100%", maxWidth: 1500, height: "auto", display: "block", filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))" }}
+              style={{ width: "100%", maxWidth: 1500, height: "auto", display: "block", filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "scale(1.8)" }}
             />
           </motion.div>
         </motion.div>
