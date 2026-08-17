@@ -111,11 +111,25 @@ const BASE_SHADOW =
 const LIFT_SHADOW =
   "drop-shadow(0 4px 9px rgba(0,0,0,0.13)) drop-shadow(0 20px 40px rgba(0,0,0,0.20))";
 
+// Base arrow points down-right (~45°, toward the bottom-right corner of its
+// box). Since the label sits at a specific corner/side of the item (see
+// `labelStyle` below), the item itself is in the *opposite* direction from
+// the label — this map re-aims the same artwork per labelPos so it always
+// points back at the object instead of always pointing down-right.
+const ARROW_TRANSFORM: Record<LabelPos, string> = {
+  bl: "scaleY(-1)",       // label below-left of item -> item is up-right
+  br: "rotate(180deg)",   // label below-right of item -> item is up-left
+  tl: "none",             // label above-left of item -> item is down-right (base direction)
+  tr: "scaleX(-1)",       // label above-right of item -> item is down-left
+  l:  "rotate(-45deg)",   // label left of item -> item is to the right
+  r:  "rotate(135deg)",   // label right of item -> item is to the left
+};
+
 // Small hand-drawn-style arrow next to each item's caption, pointing toward
 // the object — inline SVG so no extra asset is needed.
-function LabelArrow() {
+function LabelArrow({ pos }: { pos: LabelPos }) {
   return (
-    <svg width="16" height="14" viewBox="0 0 16 14" fill="none" style={{ flexShrink: 0 }}>
+    <svg width="16" height="14" viewBox="0 0 16 14" fill="none" style={{ flexShrink: 0, transform: ARROW_TRANSFORM[pos] }}>
       <path d="M2 2C6 3 11 5 14 9" stroke="var(--sp-orange)" strokeWidth="1.6" strokeLinecap="round" fill="none" />
       <path d="M9 9.5L14 9L12.5 4.5" stroke="var(--sp-orange)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
     </svg>
@@ -520,7 +534,7 @@ function DeskItem({ item, index, containerRef, scale }: { item: Item; index: num
           }}
         >
           {item.caption}
-          <LabelArrow />
+          <LabelArrow pos={item.labelPos} />
         </span>
         <span
           style={{
