@@ -15,11 +15,12 @@ const MAX_OFFSET = 22;
 const FLOAT_LERP = 0.08;
 const INTRO_HEADING = "Designing instinctive user experiences for ambitious product teams.";
 
+// Same 4-color set used for the work-bg SVG cards elsewhere on the site.
 const GREETING_PILLS = [
-  { icon: Search, label: "UX Research" },
-  { icon: Rocket, label: "0 → 1" },
-  { icon: Package, label: "Design Systems" },
-  { icon: MousePointer2, label: "Interaction" },
+  { icon: Search, label: "UX Research", color: "#FE9A00" },
+  { icon: Rocket, label: "0 → 1", color: "#6F5AFE" },
+  { icon: Package, label: "Design Systems", color: "#D2E82E" },
+  { icon: MousePointer2, label: "Interaction", color: "#FF424B" },
 ];
 
 // Small hand-drawn-style accents next to the greeting heading — inline SVG,
@@ -405,25 +406,24 @@ export default function MainframeHero({
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: "var(--spacing-20)" }}
+            style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: "var(--spacing-32)" }}
           >
-            {GREETING_PILLS.map(({ icon: Icon, label }) => (
+            {GREETING_PILLS.map(({ icon: Icon, label, color }) => (
               <span
                 key={label}
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 7,
                   background: "var(--sp-cream)", color: "var(--sp-charcoal)",
-                  border: "1.5px solid var(--sp-charcoal)", borderRadius: "4px",
+                  border: `1.5px solid ${color}`, borderRadius: "4px",
                   padding: "8px 14px", fontSize: isMobile ? "13px" : "13.5px", fontWeight: 500,
                   fontFamily: "var(--font-geist), sans-serif",
                 }}
               >
-                <Icon size={14} style={{ color: "var(--sp-orange)", flexShrink: 0 }} />
+                <Icon size={14} style={{ color, flexShrink: 0 }} />
                 {label}
               </span>
             ))}
           </motion.div>
-
 
           {/* Location */}
           <motion.div
@@ -434,7 +434,8 @@ export default function MainframeHero({
               display: "flex", alignItems: "center", gap: 8,
               fontFamily: "var(--font-geist), sans-serif",
               fontSize: isMobile ? "14px" : "15px",
-              color: "rgba(23,23,23,0.6)",
+              color: "var(--sp-charcoal)",
+              marginTop: "var(--spacing-20)",
             }}
           >
             <MapPin size={15} style={{ flexShrink: 0 }} />
