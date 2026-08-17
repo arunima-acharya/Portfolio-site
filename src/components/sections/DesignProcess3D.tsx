@@ -494,7 +494,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
                     animate={{
                       filter: activeIdx !== null && activeIdx !== book.layerIndex ? "blur(8px)" : "blur(0px)",
                       opacity: activeIdx !== null && activeIdx !== book.layerIndex ? 0.1 : 1,
-                      scale: activeIdx === book.layerIndex ? 1.4 : 1,
+                      scale: activeIdx === book.layerIndex ? 1.2 : 1,
                       y: activeIdx === book.layerIndex ? -22 : 0,
                     }}
                     transition={{ type: "spring", stiffness: 260, damping: 24 }}
