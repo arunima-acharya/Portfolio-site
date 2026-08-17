@@ -25,6 +25,15 @@ const BOOK_FILES = [
   { src: "3.svg", width: 1416, height: 432, layerIndex: 2 },
   { src: "4.svg", width: 1525, height: 563, layerIndex: 3 },
 ];
+const BOOK_CONTAINER_WIDTH = 1500;
+// Full vertical extent of the staggered pile at BOOK_CONTAINER_WIDTH, so the
+// wrapper can be given a real height (all books are absolutely positioned,
+// so they wouldn't otherwise contribute to it) and be centered as one unit.
+const BOOK_STACK_HEIGHT = Math.max(
+  ...BOOK_FILES.map(
+    (b) => b.layerIndex * BOOK_STAGGER + (BOOK_CONTAINER_WIDTH / BOOK_MAX_WIDTH) * b.height
+  )
+);
 
 // The 3D stack (Col 3) is visually scaled up around its own vertical center via
 // CSS transform, which doesn't move the label column (Col 2). This re-projects
@@ -476,7 +485,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
           {/* Col 3: 3D stack, or the books illustration for the "books" variant */}
           {variant === "books" ? (
             <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ position: "relative", width: "100%", maxWidth: 1500, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "scale(1.7)" }}>
+              <div style={{ position: "relative", width: "100%", maxWidth: BOOK_CONTAINER_WIDTH, height: `${BOOK_STACK_HEIGHT}px`, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "scale(1.7)" }}>
                 {BOOK_FILES.map((book) => (
                   <motion.img
                     key={book.src}
@@ -488,7 +497,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
                     }}
                     transition={{ type: "spring", stiffness: 260, damping: 24 }}
                     style={{
-                      position: book.layerIndex === 0 ? "relative" : "absolute",
+                      position: "absolute",
                       top: 0,
                       left: "50%",
                       x: "-50%",
