@@ -480,8 +480,8 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
           {/* Col 3: 3D stack, or the books illustration for the "books" variant */}
           {variant === "books" ? (
             <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: BOOK_CONTAINER_WIDTH, gap: `${BOOK_GAP_PCT}%`, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "scale(1.7)" }}>
-                {BOOK_FILES.map((book) => (
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: BOOK_CONTAINER_WIDTH, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "scale(1.7)" }}>
+                {BOOK_FILES.map((book, i) => (
                   <motion.img
                     key={book.src}
                     src={`/assets/books/${book.src}`}
@@ -493,6 +493,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
                     transition={{ type: "spring", stiffness: 260, damping: 24 }}
                     style={{
                       width: `${(book.width / BOOK_MAX_WIDTH) * 100}%`,
+                      marginBottom: i === BOOK_FILES.length - 1 ? 0 : `${BOOK_GAP_PCT}%`,
                       zIndex: BOOK_FILES.length - book.layerIndex,
                     }}
                   />
