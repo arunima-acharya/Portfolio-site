@@ -31,9 +31,7 @@ export default function MobileHome() {
 
       <section id="services"><Services /></section>
 
-      <DesignProcess3D variant="diamonds" />
-
-      <DesignProcess3D variant="books" />
+      <DesignProcess3D />
 
       <ToolkitTestimonialsOverlap />
     </HomeClient>

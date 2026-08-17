@@ -7,7 +7,6 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 
 const LAYER_SIZE = 264;
 const LAYER_GAP  = 114;
-const STACK_CX   = 228;
 const STACK_H    = LAYER_GAP * 3 + LAYER_SIZE + 100;
 const STACK_SCALE = 1.08;
 
@@ -15,8 +14,7 @@ const STACK_SCALE = 1.08;
 // top-to-bottom stacking order as the folder: 1=green (Research, frontmost)
 // down to 4=pink (Execution, backmost) — matching LAYERS' index order.
 // Each keeps its own exported aspect ratio; width is sized relative to the
-// widest book (pink) so they share one common scale. Used by the "books"
-// variant, an alternate Col 3 visual to the rotated-diamond stack.
+// widest book (pink) so they share one common scale.
 //
 // Each book's drawn art is a tilted parallelogram inside its own (untilted,
 // rectangular) SVG viewBox, so even at marginBottom: 0 the untouched
@@ -86,116 +84,7 @@ function visualCenterY(i: number) {
   return scaledCenter(i * LAYER_GAP + 48);
 }
 
-interface LayerCardProps {
-  layer: (typeof LAYERS)[0];
-  index: number;
-  isActive: boolean;
-  isAnyActive: boolean;
-}
-
-function LayerCard({ layer, index, isActive, isAnyActive }: LayerCardProps) {
-  const [hovered, setHovered] = useState(false);
-  const floatDelay = index * 0.6;
-  const baseY = isActive ? -58 : hovered && !isAnyActive ? -12 : 0;
-
-  return (
-    <motion.div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        position: "absolute",
-        top: index * LAYER_GAP,
-        left: STACK_CX - LAYER_SIZE / 2,
-        width: LAYER_SIZE,
-        height: LAYER_SIZE,
-        zIndex: isActive ? 10 : LAYERS.length - index,
-      }}
-      animate={{
-        y: [baseY - 8, baseY + 8, baseY - 8],
-      }}
-      transition={{
-        y: {
-          duration: 3.2,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: floatDelay,
-        },
-      }}
-    >
-      <motion.div
-        style={{
-          width: "100%",
-          height: "100%",
-          transformPerspective: 900,
-          rotateX: 68,
-          rotateZ: 45,
-          transformStyle: "preserve-3d",
-          position: "relative",
-        }}
-        animate={{
-          opacity: isAnyActive ? (isActive ? 1 : 0.16) : 1,
-        }}
-        transition={{ type: "spring", stiffness: 280, damping: 30 }}
-      >
-        {/* Back face at z=-18 */}
-        <motion.div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: "22px",
-            backgroundColor: layer.sideColor,
-            transform: "translateZ(-18px)",
-          }}
-          animate={{
-            boxShadow: isActive
-              ? `0 0 40px 12px ${layer.glow}, 0 28px 60px ${layer.glow}, 0 10px 28px rgba(0,0,0,0.35)`
-              : hovered && !isAnyActive
-              ? `0 0 28px 8px ${layer.glow}, 0 18px 36px ${layer.glow}, 0 6px 16px rgba(0,0,0,0.25)`
-              : `0 0 18px 4px ${layer.glow}, 0 10px 24px rgba(0,0,0,0.30)`,
-          }}
-          transition={{ type: "spring", stiffness: 280, damping: 30 }}
-        />
-
-        {/* Side faces */}
-        <div style={{ position: "absolute", left: 22, top: LAYER_SIZE, width: LAYER_SIZE - 44, height: 18, backgroundColor: layer.sideColor, transformOrigin: "top center", transform: "rotateX(-90deg)" }} />
-        <div style={{ position: "absolute", left: 22, top: -18, width: LAYER_SIZE - 44, height: 18, backgroundColor: layer.sideColor, transformOrigin: "bottom center", transform: "rotateX(90deg)" }} />
-        <div style={{ position: "absolute", left: 0, top: 22, width: 18, height: LAYER_SIZE - 44, backgroundColor: layer.sideColor, transformOrigin: "left center", transform: "rotateY(90deg)" }} />
-        <div style={{ position: "absolute", left: LAYER_SIZE, top: 22, width: 18, height: LAYER_SIZE - 44, backgroundColor: layer.sideColor, transformOrigin: "left center", transform: "rotateY(90deg)" }} />
-
-        {/* Top face */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: "22px",
-            background: layer.gradient,
-            overflow: "hidden",
-            boxShadow: `inset 0 0 0 1.5px rgba(255,255,255,0.25), 0 0 24px 6px ${layer.glow}`,
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              borderRadius: "22px",
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")`,
-              backgroundSize: "200px 200px",
-              opacity: 0.12,
-              mixBlendMode: "overlay",
-              pointerEvents: "none",
-            }}
-          />
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
-interface DesignProcess3DProps {
-  variant?: "diamonds" | "books";
-}
-
-export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3DProps) {
+export default function DesignProcess3D() {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const outerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -482,44 +371,30 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
             </AnimatePresence>
           </div>
 
-          {/* Col 3: 3D stack, or the books illustration for the "books" variant */}
-          {variant === "books" ? (
-            <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: BOOK_CONTAINER_WIDTH, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "translateX(-10%) scale(1.7)" }}>
-                {BOOK_FILES.map((book) => (
-                  <motion.img
-                    key={book.src}
-                    src={`/assets/books/${book.src}`}
-                    alt=""
-                    animate={{
-                      filter: activeIdx !== null && activeIdx !== book.layerIndex ? "blur(8px)" : "blur(0px)",
-                      opacity: activeIdx !== null && activeIdx !== book.layerIndex ? 0.1 : 1,
-                      scale: activeIdx === book.layerIndex ? 1.2 : 1,
-                      y: activeIdx === book.layerIndex ? -22 : 0,
-                    }}
-                    transition={{ type: "spring", stiffness: 260, damping: 24 }}
-                    style={{
-                      width: `${(book.width / BOOK_MAX_WIDTH) * 100}%`,
-                      marginBottom: `${book.overlapPct}%`,
-                      zIndex: BOOK_FILES.length - book.layerIndex,
-                    }}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", marginTop: "20vh" }}>
-              {LAYERS.map((layer, i) => (
-                <LayerCard
-                  key={layer.id}
-                  layer={layer}
-                  index={i}
-                  isActive={activeIdx === i}
-                  isAnyActive={activeIdx !== null}
+          {/* Col 3: books illustration */}
+          <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: BOOK_CONTAINER_WIDTH, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "translateX(-10%) scale(1.7)" }}>
+              {BOOK_FILES.map((book) => (
+                <motion.img
+                  key={book.src}
+                  src={`/assets/books/${book.src}`}
+                  alt=""
+                  animate={{
+                    filter: activeIdx !== null && activeIdx !== book.layerIndex ? "blur(8px)" : "blur(0px)",
+                    opacity: activeIdx !== null && activeIdx !== book.layerIndex ? 0.1 : 1,
+                    scale: activeIdx === book.layerIndex ? 1.2 : 1,
+                    y: activeIdx === book.layerIndex ? -22 : 0,
+                  }}
+                  transition={{ type: "spring", stiffness: 260, damping: 24 }}
+                  style={{
+                    width: `${(book.width / BOOK_MAX_WIDTH) * 100}%`,
+                    marginBottom: `${book.overlapPct}%`,
+                    zIndex: BOOK_FILES.length - book.layerIndex,
+                  }}
                 />
               ))}
-            </motion.div>
-          )}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </div>
