@@ -26,14 +26,21 @@ const BOOK_FILES = [
   { src: "4.svg", width: 1525, height: 563, layerIndex: 3 },
 ];
 const BOOK_CONTAINER_WIDTH = 1500;
-// Full vertical extent of the staggered pile at BOOK_CONTAINER_WIDTH, so the
-// wrapper can be given a real height (all books are absolutely positioned,
-// so they wouldn't otherwise contribute to it) and be centered as one unit.
-const BOOK_STACK_HEIGHT = Math.max(
+// Full vertical extent of the staggered pile at BOOK_CONTAINER_WIDTH — used
+// only to derive a width:height ratio (below), not as a literal pixel
+// height. The wrapper's *actual* rendered width varies with viewport (it's
+// a flex-basis column, not a fixed 1500px box), so a hardcoded pixel height
+// here would only be correct at exactly 1500px and badly mismatched
+// (over-tall, content clustered near the top) at any other width — which
+// is what was pushing the pile up and off-screen.
+const BOOK_STACK_HEIGHT_AT_CONTAINER_WIDTH = Math.max(
   ...BOOK_FILES.map(
     (b) => b.layerIndex * BOOK_STAGGER + (BOOK_CONTAINER_WIDTH / BOOK_MAX_WIDTH) * b.height
   )
 );
+// Each layer's stagger, re-expressed as a % of the stack's own height so it
+// scales with the wrapper's actual (aspect-ratio-driven) rendered size.
+const BOOK_STAGGER_PCT = (BOOK_STAGGER / BOOK_STACK_HEIGHT_AT_CONTAINER_WIDTH) * 100;
 
 // The 3D stack (Col 3) is visually scaled up around its own vertical center via
 // CSS transform, which doesn't move the label column (Col 2). This re-projects
@@ -485,7 +492,7 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
           {/* Col 3: 3D stack, or the books illustration for the "books" variant */}
           {variant === "books" ? (
             <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ position: "relative", width: "100%", maxWidth: BOOK_CONTAINER_WIDTH, height: `${BOOK_STACK_HEIGHT}px`, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "scale(1.7)" }}>
+              <div style={{ position: "relative", width: "100%", maxWidth: BOOK_CONTAINER_WIDTH, aspectRatio: `${BOOK_CONTAINER_WIDTH} / ${BOOK_STACK_HEIGHT_AT_CONTAINER_WIDTH}`, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "scale(1.7)" }}>
                 {BOOK_FILES.map((book) => (
                   <motion.img
                     key={book.src}
@@ -493,12 +500,12 @@ export default function DesignProcess3D({ variant = "diamonds" }: DesignProcess3
                     alt=""
                     animate={{
                       opacity: activeIdx !== null ? (activeIdx === book.layerIndex ? 1 : 0.32) : 1,
-                      y: (activeIdx === book.layerIndex ? -22 : 0) + book.layerIndex * BOOK_STAGGER,
+                      y: activeIdx === book.layerIndex ? -22 : 0,
                     }}
                     transition={{ type: "spring", stiffness: 260, damping: 24 }}
                     style={{
                       position: "absolute",
-                      top: 0,
+                      top: `${book.layerIndex * BOOK_STAGGER_PCT}%`,
                       left: "50%",
                       x: "-50%",
                       width: `${(book.width / BOOK_MAX_WIDTH) * 100}%`,
