@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, useTransform, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import CursorImageTrail from "@/components/ui/CursorImageTrail";
 
 const LAYER_SIZE = 264;
 const LAYER_GAP  = 114;
@@ -152,6 +153,14 @@ export default function DesignProcess3D() {
   const introY = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [introOffset.dy, 0]);
   const restOpacity = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [0, 1]);
 
+  // Gates the cursor-image-trail (below) to just the "heading alone,
+  // centered" opening beat — off as soon as the intro slide begins, so it
+  // never overlaps the labels/books/highlight animation that follows.
+  const [introActive, setIntroActive] = useState(true);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setIntroActive(v < INTRO_START);
+  });
+
   // Drive active layer from scroll: divide progress into 5 bands (intro + 4
   // layers), remapped to start after INTRO_END so the highlight animation
   // only begins once the intro crossfade has finished.
@@ -284,6 +293,7 @@ export default function DesignProcess3D() {
         ref={stickyRef}
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "var(--sp-cream)", display: "flex", alignItems: "center" }}
       >
+        <CursorImageTrail containerRef={stickyRef} active={introActive} />
         <motion.div
           style={{
             position: "relative",
