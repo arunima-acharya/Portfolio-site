@@ -56,11 +56,12 @@ export default function Footer() {
             letterSpacing: "normal",
             color: fg,
             fontFamily: "var(--font-gelica)",
-            maxWidth: "16ch",
             marginBottom: "var(--spacing-64)",
           }}
         >
-          I design products people love. Let&apos;s work together.
+          I design products people love.
+          <br />
+          Let&apos;s work together.
         </h2>
 
         {/* Middle nav row */}

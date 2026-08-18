@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, useTransform, AnimatePresence } from "framer-motion";
-import { useState } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import CursorImageTrail from "@/components/ui/CursorImageTrail";
 
 const LAYER_SIZE = 264;
 const LAYER_GAP  = 114;
@@ -84,33 +84,51 @@ function visualCenterY(i: number) {
   return scaledCenter(i * LAYER_GAP + 48);
 }
 
+function clamp01(v: number) {
+  return Math.min(1, Math.max(0, v));
+}
+
 export default function DesignProcess3D() {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const outerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const isMobile = useIsMobile();
 
-  // Cursor-follow spotlight on the grid — mutates the mask position directly
-  // via ref instead of React state, so it tracks at pointer speed without
-  // triggering a re-render on every mousemove (same approach as the
-  // site-wide CustomCursor).
-  const handleGridMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const grid = gridRef.current;
-    if (!grid) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const mask = `radial-gradient(circle at ${x}px ${y}px, black 0%, transparent 55%)`;
-    grid.style.maskImage = mask;
-    grid.style.webkitMaskImage = mask;
-  };
-  const handleGridMouseLeave = () => {
-    const grid = gridRef.current;
-    if (!grid) return;
-    const mask = "radial-gradient(circle at center, black 0%, transparent 65%)";
-    grid.style.maskImage = mask;
-    grid.style.webkitMaskImage = mask;
-  };
+  // How far the heading's natural (in-flow, left-column) position sits from
+  // dead center of the viewport — measured from the real DOM element rather
+  // than estimated, so the intro animation below can translate it from
+  // "centered on screen" back to exactly where it already lives, instead of
+  // crossfading between two separate copies (which double-exposed visibly).
+  //
+  // Measured *relative to the sticky pin container*, not raw viewport
+  // coordinates: this section sits far down the page, so at mount time (page
+  // load, scrolled to the top) the sticky pin hasn't engaged yet and the
+  // heading is still wherever normal document flow puts it — thousands of
+  // px below the viewport. Raw getBoundingClientRect() against the viewport
+  // would capture that pre-pin position and produce a huge, wrong offset
+  // that pushed the heading off-screen entirely. The sticky container is
+  // styled at a fixed 100vh/full-width regardless of pin state, so its own
+  // box is a stable, scroll-position-independent reference frame.
+  const [introOffset, setIntroOffset] = useState({ dx: 0, dy: 0 });
+  useLayoutEffect(() => {
+    function measure() {
+      const el = headingRef.current;
+      const sticky = stickyRef.current;
+      if (!el || !sticky) return;
+      const elRect = el.getBoundingClientRect();
+      const stickyRect = sticky.getBoundingClientRect();
+      const relCenterX = elRect.left - stickyRect.left + elRect.width / 2;
+      const relCenterY = elRect.top - stickyRect.top + elRect.height / 2;
+      setIntroOffset({
+        dx: stickyRect.width / 2 - relCenterX,
+        dy: stickyRect.height / 2 - relCenterY,
+      });
+    }
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [isMobile]);
 
   const { scrollYProgress } = useScroll({
     target: outerRef,
@@ -127,16 +145,61 @@ export default function DesignProcess3D() {
   const headingParallaxY = useTransform(scrollYProgress, [0, 1], [0, -40]);
   const stackParallaxY = useTransform(scrollYProgress, [0, 1], [0, 24]);
 
-  // Drive active layer from scroll: divide progress into 5 bands (intro + 4 layers)
+  // The section opens on just the heading, centered on screen with nothing
+  // else visible; between INTRO_START and INTRO_END of the scroll the
+  // heading itself slides from that centered position back to its real,
+  // natural left-column spot (introOffset, measured above) while the rest
+  // of Col 1/2/3 fades in, before the per-layer highlight animation below
+  // takes over.
+  const INTRO_START = 0.3;
+  const INTRO_END = 0.6;
+
+  // Latches open once the intro has fully played through, so idle
+  // scroll jitter back up past INTRO_START (while still inside the
+  // section) can't replay the intro in reverse and hide everything.
+  // Resets only once scroll returns to the very top of the section
+  // (v back down to 0) — i.e. the user has actually left it — so
+  // scrolling back down into the section from outside plays the intro
+  // again instead of it only ever firing once per page load.
+  const revealedRef = useRef(false);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    if (v < 0.1) setActiveIdx(null);
-    else if (v < 0.33) setActiveIdx(0);
-    else if (v < 0.55) setActiveIdx(1);
-    else if (v < 0.77) setActiveIdx(2);
+    if (v >= INTRO_END) revealedRef.current = true;
+    else if (v <= 0) revealedRef.current = false;
+  });
+
+  const introX = useTransform(scrollYProgress, (v) => {
+    if (revealedRef.current) return 0;
+    return introOffset.dx * (1 - clamp01((v - INTRO_START) / (INTRO_END - INTRO_START)));
+  });
+  const introY = useTransform(scrollYProgress, (v) => {
+    if (revealedRef.current) return 0;
+    return introOffset.dy * (1 - clamp01((v - INTRO_START) / (INTRO_END - INTRO_START)));
+  });
+  const restOpacity = useTransform(scrollYProgress, (v) => {
+    if (revealedRef.current) return 1;
+    return clamp01((v - INTRO_START) / (INTRO_END - INTRO_START));
+  });
+
+  // Gates the cursor-image-trail (below) to just the "heading alone,
+  // centered" opening beat — off as soon as the intro slide begins, so it
+  // never overlaps the labels/books/highlight animation that follows.
+  const [introActive, setIntroActive] = useState(true);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setIntroActive(v < INTRO_START);
+  });
+
+  // Drive active layer from scroll: divide progress into 5 bands (intro + 4
+  // layers), remapped to start after INTRO_END so the highlight animation
+  // only begins once the intro crossfade has finished.
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const t = (b: number) => INTRO_END + b * (1 - INTRO_END);
+    if (v < t(0.1)) setActiveIdx(null);
+    else if (v < t(0.33)) setActiveIdx(0);
+    else if (v < t(0.55)) setActiveIdx(1);
+    else if (v < t(0.77)) setActiveIdx(2);
     else setActiveIdx(3);
   });
 
-  const opacity = 1;
 
   const activeLayer = activeIdx !== null ? LAYERS[activeIdx] : null;
 
@@ -254,46 +317,14 @@ export default function DesignProcess3D() {
     /* Outer scroll container — 500vh gives ~1 full scroll per layer */
     <div ref={outerRef} style={{ height: "500vh", position: "relative" }}>
       <div
-        onMouseMove={handleGridMouseMove}
-        onMouseLeave={handleGridMouseLeave}
+        ref={stickyRef}
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "var(--sp-cream)", display: "flex", alignItems: "center" }}
       >
-        <div
-          ref={gridRef}
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            backgroundImage:
-              "linear-gradient(rgba(232,81,10,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(232,81,10,0.35) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-            WebkitMaskImage: "radial-gradient(circle at center, black 0%, transparent 65%)",
-            maskImage: "radial-gradient(circle at center, black 0%, transparent 65%)",
-          }}
-        />
-        {/* Erases the grid only in the 3D stack's own footprint — painted
-            over the grid (same z-index, later in DOM order) but under the
-            content, so grid squares stay visible everywhere else on the
-            section, including to the right of the stack. */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: "none",
-            background: "var(--sp-cream)",
-            WebkitMaskImage: "radial-gradient(ellipse 15vw 42vh at 76% 50%, black 0%, black 65%, transparent 100%)",
-            maskImage: "radial-gradient(ellipse 15vw 42vh at 76% 50%, black 0%, black 65%, transparent 100%)",
-          }}
-        />
+        <CursorImageTrail containerRef={stickyRef} active={introActive} />
         <motion.div
           style={{
             position: "relative",
             zIndex: 1,
-            opacity,
             display: "flex",
             alignItems: "center",
             gap: "0",
@@ -305,24 +336,27 @@ export default function DesignProcess3D() {
         >
           {/* Col 1: Static heading */}
           <motion.div style={{ flex: "0 0 38%", paddingRight: "var(--spacing-48)", marginTop: `calc(-${STACK_H * 0.10}px + 20vh)`, y: headingParallaxY }}>
-            <h2 style={{ fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-alekan)", marginBottom: "var(--spacing-20)" }}>
+            <motion.h2
+              ref={headingRef}
+              style={{ position: "relative", zIndex: 2, fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-alekan)", marginBottom: "var(--spacing-20)", x: introX, y: introY }}
+            >
               Own the process.
               <span style={{ display: "block" }}>Deliver impact.</span>
-            </h2>
-            <p style={{ fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, maxWidth: "38ch", marginBottom: "var(--spacing-24)" }}>
+            </motion.h2>
+            <motion.p style={{ opacity: restOpacity, fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, maxWidth: "38ch", marginBottom: "var(--spacing-24)" }}>
               Every great product starts with deep research and clear thinking.
               My design methodology is built on precision, empathy, and collaboration
               — creating experiences that users love and businesses value.
-            </p>
-            <div style={{ fontSize: "16px", fontWeight: 600, color: textPrimary, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.9, letterSpacing: "-0.01em" }}>
+            </motion.p>
+            <motion.div style={{ opacity: restOpacity, fontSize: "16px", fontWeight: 600, color: textPrimary, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.9, letterSpacing: "-0.01em" }}>
               <div>I don&apos;t just design faster.</div>
               <div>I think deeper.</div>
               <div>I ship better.</div>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Col 2: Dynamic layer content */}
-          <div style={{ flex: "0 0 17%", position: "relative", height: `${STACK_H}px`, marginTop: "20vh" }}>
+          <motion.div style={{ opacity: restOpacity, flex: "0 0 17%", position: "relative", height: `${STACK_H}px`, marginTop: "20vh" }}>
             <AnimatePresence mode="wait">
               {activeLayer ? (
                 <motion.div
@@ -354,7 +388,7 @@ export default function DesignProcess3D() {
                       key={layer.id}
                       style={{
                         position: "absolute",
-                        right: "0px",
+                        right: "4%",
                         top: scaledCenter((i * LAYER_GAP + LAYER_SIZE / 2) * 0.864 + STACK_H * (1 - 0.864) / 2) - 11 - (i > 0 ? STACK_H * 0.05 : 0),
                         fontFamily: "var(--font-geist), sans-serif",
                         fontSize: "18px",
@@ -369,10 +403,10 @@ export default function DesignProcess3D() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </motion.div>
 
           {/* Col 3: books illustration */}
-          <motion.div style={{ flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <motion.div style={{ opacity: restOpacity, flex: "0 0 42%", paddingLeft: "10%", paddingRight: "10%", position: "relative", overflow: "visible", height: `${STACK_H}px`, scale: STACK_SCALE, y: stackParallaxY, transformOrigin: "center left", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%", maxWidth: BOOK_CONTAINER_WIDTH, filter: "drop-shadow(0 24px 40px rgba(0,0,0,0.18))", transform: "translateX(-10%) scale(1.7)" }}>
               {BOOK_FILES.map((book) => (
                 <motion.img
@@ -381,7 +415,7 @@ export default function DesignProcess3D() {
                   alt=""
                   animate={{
                     filter: activeIdx !== null && activeIdx !== book.layerIndex ? "blur(8px)" : "blur(0px)",
-                    opacity: activeIdx !== null && activeIdx !== book.layerIndex ? 0.1 : 1,
+                    opacity: activeIdx !== null && activeIdx !== book.layerIndex ? 0.02 : 1,
                     scale: activeIdx === book.layerIndex ? 1.2 : 1,
                     y: activeIdx === book.layerIndex ? -22 : 0,
                   }}

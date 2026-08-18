@@ -1,7 +1,7 @@
 "use client";
 
 import { useIsMobile } from "@/hooks/useIsMobile";
-import DesignBoardGraphics, { DESK_LEGEND } from "./DesignBoardGraphics";
+import DesignBoardGraphics from "./DesignBoardGraphics";
 
 // Hand-drawn circle scribbled around "desk" in the heading — a slightly
 // wobbly ellipse rather than a perfect one, inline SVG.
@@ -104,39 +104,6 @@ export default function TypographyZoom() {
         </span>
       </div>
 
-      {/* Legend — only meaningful alongside the desk items, which are
-          desktop-only, so it follows the same condition. Pinned to the
-          bottom of the section rather than stacked under the heading. */}
-      {!isMobile && (
-        <div
-          style={{
-            position:   "absolute",
-            bottom:     "3%",
-            left:       0,
-            right:      0,
-            zIndex:     50,
-            userSelect: "none",
-            width:      "100%",
-            paddingLeft: "5%",
-            paddingRight: "5%",
-            boxSizing: "border-box",
-            textAlign:  "center",
-          }}
-        >
-          <p
-            style={{
-              margin:        0,
-              fontFamily:    "var(--font-geist), sans-serif",
-              fontSize:      "16px",
-              fontWeight:    500,
-              lineHeight:    1.9,
-              color:         "#5C5955",
-            }}
-          >
-            {DESK_LEGEND.join(" / ")}
-          </p>
-        </div>
-      )}
     </div>
   );
 }
