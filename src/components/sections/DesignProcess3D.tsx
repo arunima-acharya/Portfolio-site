@@ -32,21 +32,6 @@ const BOOK_FILES = [
   { src: "4.svg", width: 1525, height: 563, layerIndex: 3, overlapPct: -10 },
 ];
 
-// Polaroid-style moodboard cards, scattered around the centered intro
-// heading — visible only during the "heading alone, centered" opening
-// (fades out over the same INTRO_START..INTRO_END window as everything
-// else fades in). No personal/landscape photography exists in the
-// codebase yet, so ME/LANDSCAPE/CRAFT use gradient placeholders in the
-// site's own accent palette; FAVORITE BOOK reuses a real asset (the
-// green book cover) since that one's already on hand. Swap the
-// `image` values for real photos whenever they're available.
-const MOODBOARD_CARDS = [
-  { tag: "ME", image: "linear-gradient(160deg, #FEA000 0%, #FF5C02 100%)", top: "9%", left: "9%", rotate: -4 },
-  { tag: "LANDSCAPE", image: "linear-gradient(160deg, #D2E82E 0%, #8FAE1A 100%)", top: "7%", right: "10%", rotate: 3 },
-  { tag: "FAVORITE BOOK", image: "url(/assets/books/1.svg)", bottom: "10%", left: "13%", rotate: -3 },
-  { tag: "CRAFT", image: "linear-gradient(160deg, #FF424B 0%, #6F5AFE 100%)", bottom: "8%", right: "12%", rotate: 4 },
-] as const;
-
 // The 3D stack (Col 3) is visually scaled up around its own vertical center via
 // CSS transform, which doesn't move the label column (Col 2). This re-projects
 // a label's unscaled center onto the same "scale around center" math so labels
@@ -166,14 +151,6 @@ export default function DesignProcess3D() {
   const introX = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [introOffset.dx, 0]);
   const introY = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [introOffset.dy, 0]);
   const restOpacity = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [0, 1]);
-  // Stays at full opacity for the entire heading travel (0..INTRO_END) and
-  // switches off right at INTRO_END — the same point restOpacity finishes
-  // fading everything else in — instead of a soft fade over a window after
-  // it. A window left a gap where the cards were still visible once the
-  // heading/books/text already read as "arrived"; this ties the two to the
-  // same instant so the cards are gone by the time the rest of the section
-  // is showing, not lingering into it.
-  const moodboardOpacity = useTransform(scrollYProgress, [INTRO_END, INTRO_END + 0.001], [1, 0]);
 
   // Drive active layer from scroll: divide progress into 5 bands (intro + 4
   // layers), remapped to start after INTRO_END so the highlight animation
@@ -307,61 +284,6 @@ export default function DesignProcess3D() {
         ref={stickyRef}
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "var(--sp-cream)", display: "flex", alignItems: "center" }}
       >
-        {/* Moodboard — polaroid cards scattered around the centered intro
-            heading, visible only for the "heading alone" opening beat. */}
-        <motion.div aria-hidden="true" style={{ opacity: moodboardOpacity, position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
-          {MOODBOARD_CARDS.map((card) => (
-            <div
-              key={card.tag}
-              style={{
-                position: "absolute",
-                top: "top" in card ? card.top : undefined,
-                bottom: "bottom" in card ? card.bottom : undefined,
-                left: "left" in card ? card.left : undefined,
-                right: "right" in card ? card.right : undefined,
-                transform: `rotate(${card.rotate}deg)`,
-                width: 168,
-                background: "#fff",
-                borderRadius: "10px",
-                padding: "10px 10px 22px",
-                boxShadow: "0 14px 30px rgba(0,0,0,0.14)",
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: 200,
-                  borderRadius: "6px",
-                  background: card.image.startsWith("url(")
-                    ? "#f3f1ec"
-                    : card.image,
-                  backgroundImage: card.image.startsWith("url(") ? card.image : undefined,
-                  backgroundSize: "70%",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                }}
-              />
-              <span
-                style={{
-                  position: "absolute",
-                  top: -14,
-                  left: 14,
-                  background: "#fff",
-                  borderRadius: "999px",
-                  padding: "6px 14px",
-                  fontSize: "13px",
-                  fontWeight: 600,
-                  fontFamily: "var(--font-geist), sans-serif",
-                  color: "var(--sp-charcoal)",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.12)",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {card.tag}
-              </span>
-            </div>
-          ))}
-        </motion.div>
         <motion.div
           style={{
             position: "relative",
