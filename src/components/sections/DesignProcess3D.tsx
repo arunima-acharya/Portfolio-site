@@ -84,6 +84,10 @@ function visualCenterY(i: number) {
   return scaledCenter(i * LAYER_GAP + 48);
 }
 
+function clamp01(v: number) {
+  return Math.min(1, Math.max(0, v));
+}
+
 export default function DesignProcess3D() {
   const [activeIdx, setActiveIdx] = useState<number | null>(null);
   const outerRef = useRef<HTMLDivElement>(null);
@@ -149,9 +153,28 @@ export default function DesignProcess3D() {
   // takes over.
   const INTRO_START = 0.3;
   const INTRO_END = 0.6;
-  const introX = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [introOffset.dx, 0]);
-  const introY = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [introOffset.dy, 0]);
-  const restOpacity = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [0, 1]);
+
+  // Latches open once the intro has fully played through — without this,
+  // useTransform's [INTRO_START, INTRO_END] mapping is bidirectional, so
+  // scrolling back up past INTRO_START (leaving the section upward) would
+  // replay the intro in reverse and hide the heading/books/text again.
+  const revealedRef = useRef(false);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (v >= INTRO_END) revealedRef.current = true;
+  });
+
+  const introX = useTransform(scrollYProgress, (v) => {
+    if (revealedRef.current) return 0;
+    return introOffset.dx * (1 - clamp01((v - INTRO_START) / (INTRO_END - INTRO_START)));
+  });
+  const introY = useTransform(scrollYProgress, (v) => {
+    if (revealedRef.current) return 0;
+    return introOffset.dy * (1 - clamp01((v - INTRO_START) / (INTRO_END - INTRO_START)));
+  });
+  const restOpacity = useTransform(scrollYProgress, (v) => {
+    if (revealedRef.current) return 1;
+    return clamp01((v - INTRO_START) / (INTRO_END - INTRO_START));
+  });
 
   // Gates the cursor-image-trail (below) to just the "heading alone,
   // centered" opening beat — off as soon as the intro slide begins, so it
@@ -388,7 +411,7 @@ export default function DesignProcess3D() {
                   alt=""
                   animate={{
                     filter: activeIdx !== null && activeIdx !== book.layerIndex ? "blur(8px)" : "blur(0px)",
-                    opacity: activeIdx !== null && activeIdx !== book.layerIndex ? 0.1 : 1,
+                    opacity: 1,
                     scale: activeIdx === book.layerIndex ? 1.2 : 1,
                     y: activeIdx === book.layerIndex ? -22 : 0,
                   }}
