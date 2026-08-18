@@ -200,7 +200,7 @@ function DesktopLayout() {
         <motion.div
           style={{
             position: "absolute", left: bookLeft, top: "50%", x: bookX, y: "-50%", zIndex: 2,
-            width: "75.6vw",
+            width: "71.82vw",
           }}
         >
           <SuperrBookFlip fill progress={flipProgress} />
