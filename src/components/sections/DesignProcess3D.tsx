@@ -154,13 +154,17 @@ export default function DesignProcess3D() {
   const INTRO_START = 0.3;
   const INTRO_END = 0.6;
 
-  // Latches open once the intro has fully played through — without this,
-  // useTransform's [INTRO_START, INTRO_END] mapping is bidirectional, so
-  // scrolling back up past INTRO_START (leaving the section upward) would
-  // replay the intro in reverse and hide the heading/books/text again.
+  // Latches open once the intro has fully played through, so idle
+  // scroll jitter back up past INTRO_START (while still inside the
+  // section) can't replay the intro in reverse and hide everything.
+  // Resets only once scroll returns to the very top of the section
+  // (v back down to 0) — i.e. the user has actually left it — so
+  // scrolling back down into the section from outside plays the intro
+  // again instead of it only ever firing once per page load.
   const revealedRef = useRef(false);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     if (v >= INTRO_END) revealedRef.current = true;
+    else if (v <= 0) revealedRef.current = false;
   });
 
   const introX = useTransform(scrollYProgress, (v) => {
