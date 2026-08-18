@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, useTransform, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import CursorImageTrail from "@/components/ui/CursorImageTrail";
+import RandomImageAppear from "@/components/ui/RandomImageAppear";
 
 const LAYER_SIZE = 264;
 const LAYER_GAP  = 114;
@@ -180,9 +180,9 @@ export default function DesignProcess3D() {
     return clamp01((v - INTRO_START) / (INTRO_END - INTRO_START));
   });
 
-  // Gates the cursor-image-trail (below) to just the "heading alone,
-  // centered" opening beat — off as soon as the intro slide begins, so it
-  // never overlaps the labels/books/highlight animation that follows.
+  // Gates the random-image-appear effect (below) to just the "heading
+  // alone, centered" opening beat — off as soon as the intro slide begins,
+  // so it never overlaps the labels/books/highlight animation that follows.
   const [introActive, setIntroActive] = useState(true);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setIntroActive(v < INTRO_START);
@@ -320,7 +320,7 @@ export default function DesignProcess3D() {
         ref={stickyRef}
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "var(--sp-cream)", display: "flex", alignItems: "center" }}
       >
-        <CursorImageTrail containerRef={stickyRef} active={introActive} />
+        <RandomImageAppear containerRef={stickyRef} active={introActive} />
         <motion.div
           style={{
             position: "relative",
