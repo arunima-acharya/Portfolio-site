@@ -188,6 +188,11 @@ export default function DesignProcess3D() {
     setIntroActive(v < INTRO_START);
   });
 
+  // "Move your cursor around" hint under the centered heading — gone the
+  // instant scrolling starts, well before the heading itself begins its
+  // INTRO_START..INTRO_END slide.
+  const hintOpacity = useTransform(scrollYProgress, [0, 0.03], [1, 0]);
+
   // Drive active layer from scroll: divide progress into 5 bands (intro + 4
   // layers), remapped to start after INTRO_END so the highlight animation
   // only begins once the intro crossfade has finished.
@@ -336,13 +341,24 @@ export default function DesignProcess3D() {
         >
           {/* Col 1: Static heading */}
           <motion.div style={{ flex: "0 0 38%", paddingRight: "var(--spacing-48)", marginTop: `calc(-${STACK_H * 0.10}px + 20vh)`, y: headingParallaxY }}>
-            <motion.h2
-              ref={headingRef}
-              style={{ position: "relative", zIndex: 2, fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-alekan)", marginBottom: "var(--spacing-20)", x: introX, y: introY }}
-            >
-              Own the process.
-              <span style={{ display: "block" }}>Deliver impact.</span>
-            </motion.h2>
+            {/* flow-root so the h2's own marginBottom is included in this
+                wrapper's height instead of collapsing through it — needed
+                for the hint's top:100% to land at a consistent 20px gap
+                below the heading rather than colliding with it. */}
+            <div style={{ position: "relative", display: "flow-root" }}>
+              <motion.h2
+                ref={headingRef}
+                style={{ position: "relative", zIndex: 2, fontSize: "48px", lineHeight: 1, fontWeight: 600, letterSpacing: 0, color: "var(--sp-cocoa)", fontFamily: "var(--font-alekan)", marginBottom: "var(--spacing-20)", x: introX, y: introY }}
+              >
+                Own the process.
+                <span style={{ display: "block" }}>Deliver impact.</span>
+              </motion.h2>
+              {/* Absolutely positioned so it never shifts the description/
+                  tagline below it, even after it's faded out and gone. */}
+              <motion.p style={{ position: "absolute", top: "100%", left: 0, opacity: hintOpacity, x: introX, y: introY, fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", whiteSpace: "nowrap" }}>
+                Move your cursor around
+              </motion.p>
+            </div>
             <motion.p style={{ opacity: restOpacity, fontSize: "16px", color: textMuted, fontFamily: "var(--font-geist), sans-serif", lineHeight: 1.75, maxWidth: "38ch", marginBottom: "var(--spacing-24)" }}>
               Every great product starts with deep research and clear thinking.
               My design methodology is built on precision, empathy, and collaboration

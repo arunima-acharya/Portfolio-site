@@ -6,10 +6,13 @@ import { motion, AnimatePresence } from "framer-motion";
 const TRAIL_COUNT = 12;
 const TRAIL_IMAGES = Array.from({ length: TRAIL_COUNT }, (_, i) => `/assets/trail/${i + 1}.svg`);
 
-const SPAWN_INTERVAL = 1200; // ms between new cards appearing
+const MAX_CARDS = 7;
 const CARD_LIFETIME = 5000; // ms a card stays visible before it's removed
 const CARD_WIDTH = 150; // px, height follows each SVG's own aspect ratio
-const EDGE_MARGIN = 80; // px kept clear from the container's edges, so cards don't spawn clipped
+const MIN_SEPARATION = 190; // px, minimum center-to-center distance so cards don't overlap
+const EDGE_MARGIN = 60; // px kept clear from the container's edges
+const RESPAWN_DELAY: [number, number] = [200, 600]; // ms random delay before a freed slot respawns
+const PLACEMENT_ATTEMPTS = 40;
 
 type RandomCard = {
   id: number;
@@ -27,8 +30,10 @@ export default function RandomImageAppear({
   active: boolean;
 }) {
   const [cards, setCards] = useState<RandomCard[]>([]);
+  const cardsRef = useRef<RandomCard[]>([]);
   const nextIndexRef = useRef(0);
   const nextIdRef = useRef(0);
+  const timersRef = useRef<number[]>([]);
 
   // Warm the cache for all 12 (fairly heavy) SVGs up front so the first
   // spawn isn't waiting on a fresh network request.
@@ -44,34 +49,68 @@ export default function RandomImageAppear({
     const el = containerRef.current;
     if (!el) return;
 
-    const spawn = () => {
+    // Tries random spots and rejects ones too close to an already-alive
+    // card, so the up-to-7 concurrent cards never visually overlap.
+    const pickPosition = () => {
       const rect = el.getBoundingClientRect();
       const w = Math.max(rect.width - EDGE_MARGIN * 2, 100);
       const h = Math.max(rect.height - EDGE_MARGIN * 2, 100);
-      const x = EDGE_MARGIN + Math.random() * w;
-      const y = EDGE_MARGIN + Math.random() * h;
+      let fallback = { x: EDGE_MARGIN + Math.random() * w, y: EDGE_MARGIN + Math.random() * h };
+      for (let attempt = 0; attempt < PLACEMENT_ATTEMPTS; attempt++) {
+        const x = EDGE_MARGIN + Math.random() * w;
+        const y = EDGE_MARGIN + Math.random() * h;
+        const clash = cardsRef.current.some((c) => Math.hypot(c.x - x, c.y - y) < MIN_SEPARATION);
+        if (!clash) return { x, y };
+        fallback = { x, y };
+      }
+      return fallback;
+    };
 
+    const spawn = () => {
+      const { x, y } = pickPosition();
       const src = TRAIL_IMAGES[nextIndexRef.current % TRAIL_IMAGES.length];
       nextIndexRef.current += 1;
       const id = nextIdRef.current++;
       const rotate = Math.random() * 24 - 12;
+      const card: RandomCard = { id, src, x, y, rotate };
 
-      setCards((prev) => [...prev, { id, src, x, y, rotate }]);
+      setCards((prev) => {
+        const next = [...prev, card];
+        cardsRef.current = next;
+        return next;
+      });
 
-      window.setTimeout(() => {
-        setCards((prev) => prev.filter((c) => c.id !== id));
+      const removeTimer = window.setTimeout(() => {
+        setCards((prev) => {
+          const next = prev.filter((c) => c.id !== id);
+          cardsRef.current = next;
+          return next;
+        });
+        const delay = RESPAWN_DELAY[0] + Math.random() * (RESPAWN_DELAY[1] - RESPAWN_DELAY[0]);
+        timersRef.current.push(window.setTimeout(spawn, delay));
       }, CARD_LIFETIME);
+      timersRef.current.push(removeTimer);
     };
 
-    spawn();
-    const interval = window.setInterval(spawn, SPAWN_INTERVAL);
-    return () => window.clearInterval(interval);
+    // Fill all 7 slots up front, staggered slightly for a nicer entrance
+    // instead of all popping in on the same frame.
+    for (let i = 0; i < MAX_CARDS; i++) {
+      timersRef.current.push(window.setTimeout(spawn, i * 220));
+    }
+
+    return () => {
+      timersRef.current.forEach((t) => window.clearTimeout(t));
+      timersRef.current = [];
+    };
   }, [containerRef, active]);
 
   // Drop any lingering cards the instant the effect switches off, so
   // nothing carries over past the beat it's scoped to.
   useEffect(() => {
-    if (!active) setCards([]);
+    if (!active) {
+      setCards([]);
+      cardsRef.current = [];
+    }
   }, [active]);
 
   return (
