@@ -51,10 +51,6 @@ const PROJECT_PHOTOS = [
   "/assets/Mockup/CHECK%20IN%203.jpg",
 ];
 
-// Torn-paper card face laid on top of each colored bg svg — same file for
-// all four, positioned/sized to match the reference (top-left, ~56% width).
-const PAPER_SVG = "/assets/work%20bg/paper%20image.svg";
-
 // Stagger between each card's sticky position, preserving the cascading
 // "peek from behind" effect now that cards are vertically centered instead
 // of anchored near the top of the viewport.
@@ -79,9 +75,8 @@ const SvgStackItem = forwardRef<
   // (11px -> 13.2px, 15.4px -> 18.5px). bg svg itself is untouched.
   const bodySize = isMobile ? "15.84px" : "clamp(14px, 1.3vw, 22px)";
   const titleSize = "40px";
-  // Mobile-only, +20%: paper (67.8% -> 81.4%) and photo (PHOTO_WIDTHS * 1.2).
+  // Mobile-only, +20%: photo (PHOTO_WIDTHS * 1.2).
   // bg svg (the <img src={src}> below) is deliberately left at width: 100%.
-  const paperWidth = isMobile ? "81.4%" : "67.8%";
   const photoWidth = (isMobile ? PHOTO_WIDTHS_MOBILE : PHOTO_WIDTHS)[index] ?? "56%";
 
   return (
@@ -112,13 +107,6 @@ const SvgStackItem = forwardRef<
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
-
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={PAPER_SVG}
-          alt=""
-          style={{ position: "absolute", top: "1%", left: "-1%", width: paperWidth, height: "auto", display: "block" }}
-        />
 
         {/* Product screenshot inset into the paper's face, so the paper
             reads as a torn-photo border rather than a blank note. Height is
