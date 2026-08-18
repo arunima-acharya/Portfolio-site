@@ -166,7 +166,11 @@ export default function DesignProcess3D() {
   const introX = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [introOffset.dx, 0]);
   const introY = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [introOffset.dy, 0]);
   const restOpacity = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [0, 1]);
-  const moodboardOpacity = useTransform(scrollYProgress, [INTRO_START, INTRO_END], [1, 0]);
+  // Stays fully visible through the whole heading travel (0..INTRO_END, same
+  // window restOpacity uses to fade the rest in), only fading out just after
+  // — once the heading has actually arrived and the books/other text are
+  // already visible, not partway through the slide.
+  const moodboardOpacity = useTransform(scrollYProgress, [INTRO_END, INTRO_END + 0.05], [1, 0]);
 
   // Drive active layer from scroll: divide progress into 5 bands (intro + 4
   // layers), remapped to start after INTRO_END so the highlight animation
