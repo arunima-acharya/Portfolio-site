@@ -41,14 +41,23 @@ const PHOTO_WIDTHS = ["56%", "56%", "56%", "22.4%"];
 const PHOTO_WIDTHS_MOBILE = ["80.64%", "80.64%", "80.64%", "32.256%"];
 
 // One real product screenshot per featured project (same order as
-// FEATURED_SLUGS below), inset into the torn-paper face so it reads as a
-// photograph pinned to the page rather than a blank note. Pocket PMS has no
-// screenshots of its own in the codebase, so it reuses a Mockup shot.
+// FEATURED_SLUGS below), pinned to the card so it reads as a photograph
+// rather than a blank note. Pocket PMS has no screenshots of its own in the
+// codebase, so it reuses a Mockup shot.
 const PROJECT_PHOTOS = [
   "/assets/hotelogix/FRONTDESK.png",
   "/assets/POS/Draft%20116.png",
   "/assets/hotelogix/GROUP%20RESERVATION-LAYOUT.png",
   "/assets/Mockup/CHECK%20IN%203.jpg",
+];
+
+// Second screenshot per project, shown side by side with PROJECT_PHOTOS on
+// mobile only (desktop keeps the original single-photo layout).
+const PROJECT_PHOTOS_2 = [
+  "/assets/hotelogix/Quick%20Reservation.png",
+  "/assets/POS/Draft%20125.png",
+  "/assets/hotelogix/GROUP%20RESERVATION-TABLE.png",
+  "/assets/Mockup/GROUP%20RESERVATION.jpg",
 ];
 
 // Stagger between each card's sticky position, preserving the cascading
@@ -63,8 +72,8 @@ const STACK_STAGGER = 28;
 // frontmost in the stack (tracked by the parent SvgStack) casts one.
 const SvgStackItem = forwardRef<
   HTMLDivElement,
-  { src: string; photo: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean; isMobile: boolean }
->(function SvgStackItem({ src, photo, project, index, isTop, isMobile }, ref) {
+  { src: string; photo: string; photo2: string; project: ReturnType<typeof getFeaturedProjects>[0]; index: number; isTop: boolean; isMobile: boolean }
+>(function SvgStackItem({ src, photo, photo2, project, index, isTop, isMobile }, ref) {
   const tags = project.tags.slice(0, 3);
   const textAlign = "left" as const;
   const rowJustify = "flex-start" as const;
@@ -77,7 +86,14 @@ const SvgStackItem = forwardRef<
   const titleSize = "40px";
   // Mobile-only, +20%: photo (PHOTO_WIDTHS * 1.2).
   // bg svg (the <img src={src}> below) is deliberately left at width: 100%.
-  const photoWidth = (isMobile ? PHOTO_WIDTHS_MOBILE : PHOTO_WIDTHS)[index] ?? "56%";
+  // Mobile shows a second photo side by side with the first (desktop keeps
+  // the original single-photo layout), so the single-photo mobile width is
+  // split into two, minus the gap between them.
+  const PHOTO_GAP_PCT = 4;
+  const PHOTO_LEFT_PCT = 3;
+  const singleWidthPct = parseFloat((isMobile ? PHOTO_WIDTHS_MOBILE : PHOTO_WIDTHS)[index] ?? "56%");
+  const photoWidth = isMobile ? `${(singleWidthPct - PHOTO_GAP_PCT) / 2}%` : `${singleWidthPct}%`;
+  const photo2Left = `${PHOTO_LEFT_PCT + (singleWidthPct - PHOTO_GAP_PCT) / 2 + PHOTO_GAP_PCT}%`;
 
   return (
     <motion.div
@@ -108,10 +124,10 @@ const SvgStackItem = forwardRef<
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt="" style={{ width: "100%", height: "auto", display: "block" }} />
 
-        {/* Product screenshot inset into the paper's face, so the paper
-            reads as a torn-photo border rather than a blank note. Height is
-            "auto" so each photo keeps its own native aspect ratio instead of
-            being cropped to a fixed box — footprint varies photo to photo. */}
+        {/* Product screenshot(s) pinned to the card like photographs.
+            Height is "auto" so each photo keeps its own native aspect ratio
+            instead of being cropped to a fixed box — footprint varies photo
+            to photo. Mobile shows a second one side by side. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={photo}
@@ -119,7 +135,7 @@ const SvgStackItem = forwardRef<
           style={{
             position: "absolute",
             top: isMobile ? "6%" : "11%",
-            left: "3%",
+            left: `${PHOTO_LEFT_PCT}%`,
             width: photoWidth,
             height: "auto",
             display: "block",
@@ -128,6 +144,25 @@ const SvgStackItem = forwardRef<
             boxShadow: "0 6px 14px rgba(0,0,0,0.28)",
           }}
         />
+
+        {isMobile && (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={photo2}
+            alt=""
+            style={{
+              position: "absolute",
+              top: "6%",
+              left: photo2Left,
+              width: photoWidth,
+              height: "auto",
+              display: "block",
+              border: "7px solid #fff",
+              transform: `rotate(${-(PHOTO_TILT_DEGREES[index] ?? 0)}deg)`,
+              boxShadow: "0 6px 14px rgba(0,0,0,0.28)",
+            }}
+          />
+        )}
 
         {/* Same data as ProjectCard's content panel. Desktop: kept on the
             right side of the bg svg so it doesn't overlap the paper on the
@@ -245,7 +280,7 @@ function SvgStack({
   items,
   isMobile,
 }: {
-  items: { id: string; src: string; photo: string; project: ReturnType<typeof getFeaturedProjects>[0] }[];
+  items: { id: string; src: string; photo: string; photo2: string; project: ReturnType<typeof getFeaturedProjects>[0] }[];
   isMobile: boolean;
 }) {
   const refs = useRef<(HTMLDivElement | null)[]>([]);
@@ -282,6 +317,7 @@ function SvgStack({
           ref={(el) => { refs.current[i] = el; }}
           src={item.src}
           photo={item.photo}
+          photo2={item.photo2}
           project={item.project}
           index={i}
           isTop={i === activeIndex}
@@ -487,7 +523,7 @@ export default function FeaturedWork({ useSvgs = false }: { useSvgs?: boolean })
       <div style={{ position: "relative", marginLeft: isMobile ? "-18px" : 0, marginRight: isMobile ? "-18px" : 0 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)" }}>
           {useSvgs ? (
-            <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: (isMobile ? MOBILE_WORK_BG_SVGS : WORK_BG_SVGS)[i], photo: PROJECT_PHOTOS[i], project }))} isMobile={isMobile} />
+            <SvgStack items={filtered.map((project, i) => ({ id: project.id, src: (isMobile ? MOBILE_WORK_BG_SVGS : WORK_BG_SVGS)[i], photo: PROJECT_PHOTOS[i], photo2: PROJECT_PHOTOS_2[i], project }))} isMobile={isMobile} />
           ) : (
             filtered.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} isMobile={isMobile} />
