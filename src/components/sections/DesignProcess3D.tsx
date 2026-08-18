@@ -411,7 +411,7 @@ export default function DesignProcess3D() {
                   alt=""
                   animate={{
                     filter: activeIdx !== null && activeIdx !== book.layerIndex ? "blur(8px)" : "blur(0px)",
-                    opacity: 1,
+                    opacity: activeIdx !== null && activeIdx !== book.layerIndex ? 0.02 : 1,
                     scale: activeIdx === book.layerIndex ? 1.2 : 1,
                     y: activeIdx === book.layerIndex ? -22 : 0,
                   }}
