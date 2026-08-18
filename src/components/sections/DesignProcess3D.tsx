@@ -384,7 +384,7 @@ export default function DesignProcess3D() {
                       key={layer.id}
                       style={{
                         position: "absolute",
-                        right: "0px",
+                        right: "4%",
                         top: scaledCenter((i * LAYER_GAP + LAYER_SIZE / 2) * 0.864 + STACK_H * (1 - 0.864) / 2) - 11 - (i > 0 ? STACK_H * 0.05 : 0),
                         fontFamily: "var(--font-geist), sans-serif",
                         fontSize: "18px",
