@@ -190,8 +190,17 @@ export default function DesignProcess3D() {
 
   // "Move your cursor around" hint under the centered heading — gone the
   // instant scrolling starts, well before the heading itself begins its
-  // INTRO_START..INTRO_END slide.
-  const hintOpacity = useTransform(scrollYProgress, [0, 0.03], [1, 0]);
+  // INTRO_START..INTRO_END slide. Latches closed permanently once it's
+  // faded (unlike the intro reveal above, this never resets even if the
+  // user scrolls all the way back out and re-enters the section).
+  const hintFadedRef = useRef(false);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (v > 0.03) hintFadedRef.current = true;
+  });
+  const hintOpacity = useTransform(scrollYProgress, (v) => {
+    if (hintFadedRef.current) return 0;
+    return 1 - clamp01(v / 0.03);
+  });
 
   // Drive active layer from scroll: divide progress into 5 bands (intro + 4
   // layers), remapped to start after INTRO_END so the highlight animation
