@@ -285,20 +285,23 @@ const LIFECYCLE_STEPS: Array<{ icon: React.ReactNode; title: string }> = [
   { icon: <LogOut size={20} strokeWidth={1.6} />, title: "Check-out" },
 ];
 
-// Per-step position, matched to the reference layout: x as a fraction of
-// the full row width, and a vertical "level" in px (0 = highest). Traces
-// the same meander as the reference — 01 high, 02 low-right of it, 03/04
-// paired high, 05/06 paired low, 07 back up high, 08 settling low-right
-// at the end — rather than a strict alternating or gridded pattern.
+// Per-step position: x as a fraction of the full row width, and a vertical
+// "level" in px (0 = top row). A clean 4-column x 2-row serpentine — steps
+// 01-04 run left-to-right along the top row, then drop straight down into
+// 05-08 which run right-to-left along the bottom row, so every connector
+// (below) is either purely horizontal or purely vertical instead of the
+// diagonal-looking jumps a freeform meander produces.
+const LIFECYCLE_LEVEL_TOP = 0;
+const LIFECYCLE_LEVEL_BOTTOM = 200;
 const LIFECYCLE_POSITIONS: Array<{ xFrac: number; level: number }> = [
-  { xFrac: 0.08, level: 0 },   // 01
-  { xFrac: 0.18, level: 180 }, // 02
-  { xFrac: 0.33, level: 15 },  // 03
-  { xFrac: 0.49, level: 60 },  // 04
-  { xFrac: 0.49, level: 225 }, // 05
-  { xFrac: 0.66, level: 225 }, // 06
-  { xFrac: 0.76, level: 70 },  // 07
-  { xFrac: 0.90, level: 245 }, // 08
+  { xFrac: 0.09, level: LIFECYCLE_LEVEL_TOP },    // 01 Front Desk
+  { xFrac: 0.36, level: LIFECYCLE_LEVEL_TOP },    // 02 Create Booking
+  { xFrac: 0.64, level: LIFECYCLE_LEVEL_TOP },    // 03 Reservation Search
+  { xFrac: 0.91, level: LIFECYCLE_LEVEL_TOP },    // 04 Guest Details
+  { xFrac: 0.91, level: LIFECYCLE_LEVEL_BOTTOM }, // 05 Room Assignment
+  { xFrac: 0.64, level: LIFECYCLE_LEVEL_BOTTOM }, // 06 Payments
+  { xFrac: 0.36, level: LIFECYCLE_LEVEL_BOTTOM }, // 07 Check-in
+  { xFrac: 0.09, level: LIFECYCLE_LEVEL_BOTTOM }, // 08 Check-out
 ];
 
 const ISO_CUBE_WIDTH = 96;
@@ -385,6 +388,7 @@ function LifecycleOverview() {
   const top = (i: number) => LIFECYCLE_POSITIONS[i].level;
   const cubeTop = (i: number) => top(i) + numberRowHeight + 8;
   const cubeBottom = (i: number) => cubeTop(i) + ISO_CUBE_HEIGHT;
+  const cubeMidY = (i: number) => cubeTop(i) + ISO_CUBE_HEIGHT / 2;
 
   return (
     <div ref={containerRef} style={{ width: "100%" }}>
@@ -396,17 +400,31 @@ function LifecycleOverview() {
             </marker>
           </defs>
           {LIFECYCLE_STEPS.slice(0, -1).map((_, i) => {
-            const x1 = cubeCenterX(i);
-            const y1 = cubeBottom(i);
-            const x2 = cubeCenterX(i + 1);
-            const y2 = cubeTop(i + 1);
-            // L-shaped elbow (sharp right angle, not curved) — straight
-            // vertical from the source, then straight horizontal into the
-            // destination.
+            const sameRow = LIFECYCLE_POSITIONS[i].level === LIFECYCLE_POSITIONS[i + 1].level;
+            // Same row: a pure horizontal line between the two cubes' facing
+            // edges. Row change: a pure vertical line straight down between
+            // them (only happens once, 04 -> 05, since both sit in the same
+            // column). Never both in the same segment, so nothing reads as
+            // a diagonal jump or crosses another connector.
+            const d = sameRow
+              ? (() => {
+                  const y = cubeMidY(i);
+                  const goingRight = cubeCenterX(i + 1) > cubeCenterX(i);
+                  const edge = ISO_CUBE_WIDTH / 2 + 6;
+                  const x1 = cubeCenterX(i) + (goingRight ? edge : -edge);
+                  const x2 = cubeCenterX(i + 1) - (goingRight ? edge : -edge);
+                  return `M ${x1} ${y} L ${x2} ${y}`;
+                })()
+              : (() => {
+                  const x = cubeCenterX(i);
+                  const y1 = cubeBottom(i) + 6;
+                  const y2 = cubeTop(i + 1) - 6;
+                  return `M ${x} ${y1} L ${x} ${y2}`;
+                })();
             return (
               <path
                 key={i}
-                d={`M ${x1} ${y1} L ${x1} ${y2} L ${x2} ${y2}`}
+                d={d}
                 fill="none"
                 stroke="var(--sp-orange)" strokeOpacity={0.55} strokeWidth={1.5} strokeDasharray="4 4"
                 markerEnd="url(#lifecycleArrow)"
