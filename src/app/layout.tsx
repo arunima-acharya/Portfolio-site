@@ -122,7 +122,7 @@ export const metadata: Metadata = {
     template: "%s | Arunima Acharya",
   },
   description:
-    "Senior Product Designer with 6+ years crafting human-centered digital products. Specialized in product design, UX research, and design systems.",
+    "Senior Product Designer with 3+ years crafting human-centered digital products. Specialized in product design, UX research, and design systems.",
   keywords: [
     "product designer",
     "UX designer",
@@ -140,7 +140,7 @@ export const metadata: Metadata = {
     siteName: "Arunima Acharya — Product Designer",
     title: "Arunima Acharya — Senior Product Designer",
     description:
-      "Senior Product Designer with 6+ years crafting human-centered digital products.",
+      "Senior Product Designer with 3+ years crafting human-centered digital products.",
     images: [
       {
         url: "/og-image.jpg",
@@ -154,7 +154,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Arunima Acharya — Senior Product Designer",
     description:
-      "Senior Product Designer with 6+ years crafting human-centered digital products.",
+      "Senior Product Designer with 3+ years crafting human-centered digital products.",
     creator: "@arunimaacharya",
     images: ["/og-image.jpg"],
   },

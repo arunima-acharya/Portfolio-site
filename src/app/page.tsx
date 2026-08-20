@@ -20,7 +20,7 @@ const PAD_SERVICES = { ...PAD, paddingRight: 0, backgroundColor: "var(--sp-cream
 export const metadata: Metadata = {
   title: "Arunima Acharya — Senior Product Designer",
   description:
-    "Senior Product Designer specializing in human-centered interfaces that drive real business outcomes. 6+ years, 40+ products shipped.",
+    "Senior Product Designer specializing in human-centered interfaces that drive real business outcomes. 3+ years, 40+ products shipped.",
 };
 
 export default function HomePage() {
